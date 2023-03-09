@@ -1,1 +1,1 @@
-# ChatGPT-desktop
+# ChatGPT-Desktop

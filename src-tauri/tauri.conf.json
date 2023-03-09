@@ -7,7 +7,7 @@
     "withGlobalTauri": false
   },
   "package": {
-    "productName": "ChatGPT-desktop",
+    "productName": "ChatGPT-Desktop",
     "version": "0.0.0"
   },
   "tauri": {
@@ -42,7 +42,7 @@
         "label": "main",
         "fullscreen": false,
         "resizable": true,
-        "title": "ChatGPT-desktop",
+        "title": "ChatGPT-Desktop",
         "alwaysOnTop": true,
         "decorations": false,
         "transparent": true

@@ -1,5 +1,5 @@
 [package]
-name = "ChatGPT-desktop"
+name = "ChatGPT-Desktop"
 version = "0.0.0"
 description = "A Tauri App"
 authors = ["you"]
@@ -17,6 +17,11 @@ tauri = { version = "1.2", features = ["api-all", "macos-private-api", "system-t
 serde = { version = "1.0", features = ["derive"] }
 serde_json = "1.0"
 tauri-plugin-store = { git = "https://github.com/tauri-apps/plugins-workspace", branch = "dev" }
+
+[dependencies.tauri-plugin-sql]
+git = "https://github.com/tauri-apps/plugins-workspace"
+branch = "dev"
+features = ["sqlite"]
 
 [features]
 # this feature is used for production builds or when `devPath` points to the filesystem
