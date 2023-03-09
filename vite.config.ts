@@ -1,19 +1,15 @@
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import Unocss from 'unocss/vite'
-import {
-  presetAttributify,
-  presetIcons,
-  presetUno,
-  transformerDirectives
-} from 'unocss'
+import { presetUno, transformerDirectives } from 'unocss'
+import { presetDaisy } from 'unocss-preset-daisy'
 import AutoImport from 'unplugin-auto-import/vite'
 
 export default defineConfig(async () => ({
   plugins: [
     vue(),
     Unocss({
-      presets: [presetUno(), presetIcons(), presetAttributify()],
+      presets: [presetUno(), presetDaisy()],
       transformers: [transformerDirectives()]
     }),
     AutoImport({
@@ -21,7 +17,7 @@ export default defineConfig(async () => ({
       eslintrc: {
         enabled: false
       },
-      imports: ['vue', 'vue-router']
+      imports: ['vue']
     })
   ],
   resolve: {
