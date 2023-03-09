@@ -28,7 +28,7 @@
         "icons/icon.icns",
         "icons/icon.ico"
       ],
-      "identifier": "com.tauri.dev",
+      "identifier": "com.ChatGPT-Desktop",
       "targets": "all"
     },
     "security": {
@@ -41,7 +41,8 @@
       {
         "label": "main",
         "fullscreen": false,
-        "resizable": true,
+        "resizable": false,
+        "maximized": false,
         "title": "ChatGPT-Desktop",
         "alwaysOnTop": true,
         "decorations": false,
