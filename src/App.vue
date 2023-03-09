@@ -9,7 +9,8 @@ const { themeMode, themeStyle } = storeToRefs(useAppStore())
 <template>
   <Suspense>
     <div
-      class="main h-screen rounded-xl backdrop-blur"
+      class="h-screen rounded-xl"
+      style="background: inherit"
       data-tauri-drag-region
       :data-theme="themeMode"
       :class="themeStyle"
