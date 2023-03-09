@@ -3,19 +3,6 @@
 version = 3
 
 [[package]]
-name = "ChatGPT-Desktop"
-version = "0.0.0"
-dependencies = [
- "serde",
- "serde_json",
- "tauri",
- "tauri-build",
- "tauri-plugin-sql",
- "tauri-plugin-store",
- "window-vibrancy",
-]
-
-[[package]]
 name = "adler"
 version = "1.0.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -284,6 +271,18 @@ name = "cfg-if"
 version = "1.0.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "baf1de4339761588bc0619e3cbc0120ee582ebb74b53b4efbf79117bd2da40fd"
+
+[[package]]
+name = "chat_gpt"
+version = "0.0.0"
+dependencies = [
+ "serde",
+ "serde_json",
+ "tauri",
+ "tauri-build",
+ "tauri-plugin-sql",
+ "window-vibrancy",
+]
 
 [[package]]
 name = "cocoa"
@@ -3161,18 +3160,6 @@ dependencies = [
  "thiserror",
  "time",
  "tokio",
-]
-
-[[package]]
-name = "tauri-plugin-store"
-version = "0.1.0"
-source = "git+https://github.com/tauri-apps/plugins-workspace?branch=dev#70e2ad0f3b71a1d05258a153d3139694de902ea2"
-dependencies = [
- "log",
- "serde",
- "serde_json",
- "tauri",
- "thiserror",
 ]
 
 [[package]]
