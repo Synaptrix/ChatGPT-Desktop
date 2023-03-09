@@ -1,29 +1,20 @@
 <script setup lang="ts">
-import { getStore, setStore } from '@/stores'
-import { ThemeMode } from '@/types'
+import { useAppStore } from '@/stores'
+import { AppTheme } from '@/constants'
+import { storeToRefs } from 'pinia'
 
-const themeMode = ref<ThemeMode>(await getStore('theme-mode'))
-
-console.log('themeMode.value', themeMode.value)
-
-watch(
-  themeMode,
-  (newTheme) => {
-    console.log('newTheme', newTheme)
-
-    document.documentElement.setAttribute('data-theme', newTheme)
-
-    setStore('theme-mode', newTheme)
-  },
-  { immediate: true }
-)
+const { themeMode } = storeToRefs(useAppStore())
 </script>
 
 <template>
   <label class="swap swap-rotate">
     <input
       type="checkbox"
-      @click="themeMode = themeMode === 'light' ? 'dark' : 'light'"
+      :checked="themeMode === AppTheme.light"
+      @click="
+        themeMode =
+          themeMode === AppTheme.light ? AppTheme.dark : AppTheme.light
+      "
     />
 
     <svg

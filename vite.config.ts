@@ -17,7 +17,7 @@ export default defineConfig(async () => ({
       eslintrc: {
         enabled: false
       },
-      imports: ['vue']
+      imports: ['vue', 'pinia']
     })
   ],
   resolve: {

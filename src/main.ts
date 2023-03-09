@@ -5,6 +5,11 @@ import 'uno.css'
 import '@kidonng/daisyui/index.css'
 import './assets/css/global.scss'
 
+import piniaPluginPersistedstate from 'pinia-plugin-persistedstate'
+
+const pinia = createPinia()
+pinia.use(piniaPluginPersistedstate)
+
 window.onerror = (errorMessage) => {
   message((errorMessage as string).replace('Error: ', ''), {
     title: import.meta.env.VITE_APP_NAME,
@@ -14,4 +19,4 @@ window.onerror = (errorMessage) => {
   return true
 }
 
-createApp(App).mount('#app')
+createApp(App).use(pinia).mount('#app')
