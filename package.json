@@ -19,6 +19,7 @@
   },
   "dependencies": {
     "@tauri-apps/api": "^1.2.0",
+    "tauri-plugin-store-api": "https://github.com/tauri-apps/tauri-plugin-store",
     "vue": "^3.2.45"
   },
   "devDependencies": {

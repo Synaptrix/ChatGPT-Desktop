@@ -1,5 +1,9 @@
 @import './reset.scss';
 
+html {
+  background-color: transparent !important;
+}
+
 body {
   word-break: break-all;
 

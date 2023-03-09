@@ -6,6 +6,7 @@ mod tray;
 fn main() {
     tauri::Builder::default()
         .system_tray(tray::main_menu())
+        .plugin(tauri_plugin_store::Builder::default().build())
         .on_system_tray_event(tray::handler)
         .run(tauri::generate_context!())
         .expect("error while running tauri application");

@@ -43,8 +43,9 @@
         "fullscreen": false,
         "resizable": true,
         "title": "ChatGPT-desktop",
-        "width": 800,
-        "height": 600
+        "alwaysOnTop": true,
+        "decorations": false,
+        "transparent": true
       }
     ],
     "systemTray": {
