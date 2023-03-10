@@ -7,7 +7,7 @@
     "withGlobalTauri": false
   },
   "package": {
-    "productName": "ChatGPT-Desktop",
+    "productName": "ChatGPT",
     "version": "0.0.0"
   },
   "tauri": {
@@ -28,7 +28,7 @@
         "icons/icon.icns",
         "icons/icon.ico"
       ],
-      "identifier": "com.ChatGPT-Desktop",
+      "identifier": "com.ChatGPT",
       "targets": "all"
     },
     "security": {
@@ -43,7 +43,7 @@
         "fullscreen": false,
         "resizable": false,
         "maximized": false,
-        "title": "ChatGPT-Desktop",
+        "title": "ChatGPT",
         "alwaysOnTop": true,
         "decorations": false,
         "transparent": true

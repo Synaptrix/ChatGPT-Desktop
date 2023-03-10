@@ -1,0 +1,7 @@
+html {
+  --border-color: rgba(0, 0, 0, 0.1);
+}
+
+html[data-theme='dark'] {
+  --border-color: rgba(255, 255, 255, 0.2);
+}

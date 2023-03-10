@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { useThemeStore } from '@/stores'
 import { APP_THEME } from '@/constants'
-import { storeToRefs } from 'pinia'
 
 const { themeMode } = storeToRefs(useThemeStore())
 </script>
