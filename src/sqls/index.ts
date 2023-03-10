@@ -1,6 +1,7 @@
 import { configDir } from '@tauri-apps/api/path'
 import Database from 'tauri-plugin-sql-api'
 import { dialogErrorMessage } from '@/utils'
+import type { HistoryRecord } from '@/types'
 
 const dbFile = import.meta.env.DEV ? 'sql.dev.db' : 'sql.db'
 const db = await Database.load(
@@ -69,8 +70,16 @@ export const insertSQL = async (data: any[]) => {
  * @param id 更新数据的 id
  * @param title 聊天内容标题
  */
-export const updateSQL = async (id: number, title: string) => {
-  await executeSQL(`UPDATE ${tableName} SET title='${title}' WHERE id=${id};`)
+export const updateSQL = async (id: number, payload: HistoryRecord) => {
+  const updateParams: string[] = []
+
+  for (const key in payload) {
+    updateParams.push(`${key}='${payload[key as keyof typeof payload]}'`)
+  }
+
+  await executeSQL(
+    `UPDATE ${tableName} SET ${updateParams.join()} WHERE id=${id};`
+  )
 }
 
 /**
