@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { appWindow } from '@tauri-apps/api/window'
 import Theme from './components/Theme/index.vue'
 import Avatar from './components/Avatar/index.vue'
 import { useThemeStore, useUuidStore } from '@/stores'
@@ -7,15 +8,26 @@ import { initSQL } from '@/sqls'
 const { themeClass } = storeToRefs(useThemeStore())
 const { uuid } = storeToRefs(useUuidStore())
 
+const borderClass = ref('')
+
 onMounted(async () => {
   initSQL()
+
+  // 监听窗口有无获取焦点
+  appWindow.onFocusChanged(({ payload }) => {
+    if (payload) {
+      borderClass.value = 'border border-[var(--border-color)] border-solid'
+    } else {
+      borderClass.value = ''
+    }
+  })
 })
 </script>
 
 <template>
   <div
     class="app relative h-screen overflow-hidden rounded-xl"
-    :class="themeClass"
+    :class="[themeClass, borderClass]"
   >
     <Theme />
 

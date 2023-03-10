@@ -13,16 +13,24 @@ const tableName = 'history'
  * @param sql sql 语句
  */
 export const executeSQL = async (sql: string) => {
+  const sliceSQL = sql.slice(0, 6)
+
   try {
-    await db.execute(sql)
+    if (sliceSQL === 'SELECT') {
+      return await db.select(sql)
+    } else {
+      await db.execute(sql)
+    }
   } catch (error) {
     let action = '创建'
 
-    if (sql.includes('INSERT')) {
+    if (sliceSQL === 'SELECT') {
+      action = '获取'
+    } else if (sliceSQL === 'INSERT') {
       action = '添加'
-    } else if (sql.includes('UPDATE')) {
+    } else if (sliceSQL === 'UPDATE') {
       action = '更新'
-    } else if (sql.includes('DELETE')) {
+    } else if (sliceSQL === 'DELETE') {
       action = '删除'
     }
 
@@ -43,11 +51,7 @@ export const initSQL = () => {
  * 查找的 sql 语句
  */
 export const selectSQL = async () => {
-  try {
-    return await db.select(`SELECT * FROM ${tableName} ORDER BY id;`)
-  } catch (error) {
-    dialogErrorMessage('数据查找失败，请重试~')
-  }
+  return await executeSQL(`SELECT * FROM ${tableName} ORDER BY id;`)
 }
 
 /**
