@@ -1,24 +1,24 @@
 <script setup lang="ts">
-import { useAppStore } from '@/stores'
-import { AppTheme } from '@/constants'
+import { useThemeStore } from '@/stores'
+import { APP_THEME } from '@/constants'
 import { storeToRefs } from 'pinia'
 
-const { themeMode } = storeToRefs(useAppStore())
+const { themeMode } = storeToRefs(useThemeStore())
 </script>
 
 <template>
-  <label class="swap swap-rotate">
+  <label class="swap swap-rotate fixed! top-4 right-4">
     <input
       type="checkbox"
-      :checked="themeMode === AppTheme.light"
+      :checked="themeMode === APP_THEME.light"
       @click="
         themeMode =
-          themeMode === AppTheme.light ? AppTheme.dark : AppTheme.light
+          themeMode === APP_THEME.light ? APP_THEME.dark : APP_THEME.light
       "
     />
 
     <svg
-      class="swap-off h-10 w-10 fill-current"
+      class="swap-off h-8 w-8 fill-current"
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 24 24"
     >
@@ -28,7 +28,7 @@ const { themeMode } = storeToRefs(useAppStore())
     </svg>
 
     <svg
-      class="swap-on h-10 w-10 fill-current"
+      class="swap-on h-8 w-8 fill-current"
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 24 24"
     >

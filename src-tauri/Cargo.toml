@@ -16,7 +16,6 @@ tauri-build = { version = "1.2", features = [] }
 tauri = { version = "1.2", features = ["api-all", "macos-private-api", "system-tray"] }
 serde = { version = "1.0", features = ["derive"] }
 serde_json = "1.0"
-window-vibrancy = "0.3.2"
 
 
 [dependencies.tauri-plugin-sql]
