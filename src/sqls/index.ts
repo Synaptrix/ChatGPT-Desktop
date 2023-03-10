@@ -48,7 +48,7 @@ export const initSQL = () => {
   executeSQL(
     `
     CREATE TABLE IF NOT EXISTS history (id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT, data TEXT, role_id INTEGER, time TIMESTAMP DEFAULT CURRENT_TIMESTAMP);
-    CREATE TABLE IF NOT EXISTS role (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, description TEXT);
+    CREATE TABLE IF NOT EXISTS role (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, description TEXT, is_deleted INTEGER DEFAULT 0);
     CREATE TABLE IF NOT EXISTS credit (id INTEGER PRIMARY KEY AUTOINCREMENT, history_id INTEGER, token_cost INTEGER, api_key TEXT);
     `
   )
@@ -101,14 +101,16 @@ export const updateSQL = async (
   tableName: TableName,
   payload: TablePayload
 ) => {
-  const id = payload.id
+  const copyPayload = JSON.parse(JSON.stringify(payload))
 
-  delete payload.id
+  const id = copyPayload.id
+
+  delete copyPayload.id
 
   const updateParams: string[] = []
 
-  for (const key in payload) {
-    let value = payload[key as keyof typeof payload]
+  for (const key in copyPayload) {
+    let value = copyPayload[key as keyof typeof copyPayload]
 
     if (isObject(value)) {
       value = `'${JSON.stringify(value)}'`
@@ -131,8 +133,18 @@ export const updateSQL = async (
  */
 export const deleteSQL = async (tableName: TableName, id?: number) => {
   if (id) {
+    // TODO 判断id对应的条目是否存在
     await executeSQL(`DELETE FROM ${tableName} WHERE id=${id};`)
   } else {
     await executeSQL(`DELETE FROM ${tableName};`)
   }
+}
+
+/**
+ * 软删除的 sql 语句
+ * @param tableName 表名称
+ * @param id 删除数据的 id
+ */
+export const softDeleteSQL = async (tableName: TableName, id?: number) => {
+  await executeSQL(`UPDATE ${tableName} SET is_deleted=1 WHERE id=${id};`)
 }

@@ -7,6 +7,12 @@ export interface RecordData {
   content: string
 }
 
+export interface RolePayload {
+  id: number
+  name: string
+  description: string
+}
+
 export interface TablePayload {
   id?: number
   title?: string
