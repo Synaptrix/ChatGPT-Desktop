@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { useThemeStore } from '@/stores'
 import { THEME } from '@/constants'
+import { IconMoon, IconSun } from '@arco-design/web-vue/es/icon'
 
 const { themeMode } = storeToRefs(useThemeStore())
 </script>
@@ -13,8 +14,8 @@ const { themeMode } = storeToRefs(useThemeStore())
       @click="themeMode = themeMode === THEME.light ? THEME.dark : THEME.light"
     />
 
-    <i class="swap-on i-carbon-moon text-7"></i>
+    <icon-moon class="swap-on h-7 w-7" />
 
-    <i class="swap-off i-carbon-sun text-7"></i>
+    <icon-sun class="swap-off h-7 w-7" />
   </label>
 </template>

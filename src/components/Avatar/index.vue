@@ -5,7 +5,11 @@ const props = withDefaults(defineProps<{ value?: string }>(), {
   value: import.meta.env.VITE_APP_NAME
 })
 
-const avatar = multiAvatar(props.value)
+const avatar = ref('')
+
+watchEffect(() => {
+  avatar.value = multiAvatar(props.value)
+})
 </script>
 
 <template>
