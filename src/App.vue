@@ -8,7 +8,7 @@ import { initSQL } from '@/sqls'
 const { themeClass } = storeToRefs(useThemeStore())
 const { uuid } = storeToRefs(useUuidStore())
 
-const borderClass = ref('')
+const borderClass = ref('border border-[var(--border-color)] border-solid')
 
 onMounted(async () => {
   initSQL()
@@ -46,6 +46,7 @@ onMounted(async () => {
         placeholder="输入问题并回车..."
         class="input input-ghost outline-0! border-0! bg-opacity-0! w-full"
       />
+      <div class=""></div>
     </div>
   </div>
 </template>

@@ -1,4 +1,3 @@
-// @unocss-include
 export const useUuidStore = defineStore(
   'uuidStore',
   () => {
