@@ -2,9 +2,14 @@
 import Theme from './components/Theme/index.vue'
 import Avatar from './components/Avatar/index.vue'
 import { useThemeStore, useUuidStore } from '@/stores'
+import { initSQL } from '@/sqls'
 
 const { themeClass } = storeToRefs(useThemeStore())
 const { uuid } = storeToRefs(useUuidStore())
+
+onMounted(async () => {
+  initSQL()
+})
 </script>
 
 <template>
@@ -15,7 +20,7 @@ const { uuid } = storeToRefs(useUuidStore())
     <Theme />
 
     <!-- 内容区 -->
-    <div class="h-[calc(100%-49px)]" data-tauri-drag-region>
+    <div class="h-[calc(100%-48px)]" data-tauri-drag-region>
       <Avatar />
       <Avatar :value="uuid" />
     </div>
