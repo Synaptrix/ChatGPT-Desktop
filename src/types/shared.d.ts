@@ -1,6 +1,11 @@
+export interface RecordData {
+  role: string
+  content: string
+}
+
 export interface HistoryRecord {
   id?: number
   title?: string
-  data?: any[]
+  data?: RecordData[]
   time?: string
 }

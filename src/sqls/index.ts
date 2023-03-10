@@ -1,7 +1,7 @@
 import { configDir } from '@tauri-apps/api/path'
 import Database from 'tauri-plugin-sql-api'
 import { dialogErrorMessage } from '@/utils'
-import type { HistoryRecord } from '@/types'
+import type { HistoryRecord, RecordData } from '@/types'
 
 const dbFile = import.meta.env.DEV ? 'sql.dev.db' : 'sql.db'
 const db = await Database.load(
@@ -52,14 +52,16 @@ export const initSQL = () => {
  * 查找的 sql 语句
  */
 export const selectSQL = async () => {
-  return await executeSQL(`SELECT * FROM ${tableName} ORDER BY id;`)
+  return (await executeSQL(
+    `SELECT * FROM ${tableName} ORDER BY id;`
+  )) as HistoryRecord[]
 }
 
 /**
  * 添加的 sql 语句
  * @param data 聊天内容
  */
-export const insertSQL = async (data: any[]) => {
+export const insertSQL = async (data: RecordData[]) => {
   await executeSQL(
     `INSERT INTO ${tableName} (data) VALUES ('${JSON.stringify(data)}');`
   )
