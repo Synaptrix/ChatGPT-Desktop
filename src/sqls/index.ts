@@ -1,13 +1,13 @@
 import { configDir } from '@tauri-apps/api/path'
 import Database from 'tauri-plugin-sql-api'
 import { dialogErrorMessage } from '@/utils'
-import type { HistoryRecord, RecordData } from '@/types'
+import { isString, isObject } from '@/utils'
+import type { TableName, TablePayload } from '@/types'
 
 const dbFile = import.meta.env.DEV ? 'sql.dev.db' : 'sql.db'
 const db = await Database.load(
   `sqlite:${await configDir()}/${import.meta.env.VITE_APP_NAME}/${dbFile}`
 )
-const tableName = 'history'
 
 /**
  * 执行 sql 语句
@@ -23,6 +23,8 @@ export const executeSQL = async (sql: string) => {
       await db.execute(sql)
     }
   } catch (error) {
+    console.log('error', error)
+
     let action = '创建'
 
     if (sliceSQL === 'SELECT') {
@@ -44,39 +46,77 @@ export const executeSQL = async (sql: string) => {
  */
 export const initSQL = () => {
   executeSQL(
-    `CREATE TABLE IF NOT EXISTS ${tableName} (id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT, data TEXT, time TIMESTAMP DEFAULT CURRENT_TIMESTAMP);`
+    `
+    CREATE TABLE IF NOT EXISTS history (id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT, data TEXT, role_id INTEGER, time TIMESTAMP DEFAULT CURRENT_TIMESTAMP);
+    CREATE TABLE IF NOT EXISTS role (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, description TEXT);
+    CREATE TABLE IF NOT EXISTS credit (id INTEGER PRIMARY KEY AUTOINCREMENT, history_id INTEGER, token_cost INTEGER, api_key TEXT);
+    `
   )
 }
 
 /**
  * 查找的 sql 语句
+ * @param tableName 表名称
+ * @returns
  */
-export const selectSQL = async () => {
-  return (await executeSQL(
-    `SELECT * FROM ${tableName} ORDER BY id;`
-  )) as HistoryRecord[]
+export const selectSQL = async (tableName: TableName) => {
+  return (await executeSQL(`SELECT * FROM ${tableName} ORDER BY id;`)) as any[]
 }
 
 /**
  * 添加的 sql 语句
- * @param data 聊天内容
+ * @param tableName 表名称
+ * @param payload 添加的数据
  */
-export const insertSQL = async (data: RecordData[]) => {
+export const insertSQL = async (
+  tableName: TableName,
+  payload: TablePayload
+) => {
+  const insertKeys = [],
+    insertValues = []
+
+  for (const key in payload) {
+    insertKeys.push(key)
+
+    let value = payload[key as keyof typeof payload]
+
+    if (isObject(value)) {
+      value = JSON.stringify(value)
+    }
+
+    insertValues.push(isString(value) ? `'${value}'` : value)
+  }
+
   await executeSQL(
-    `INSERT INTO ${tableName} (data) VALUES ('${JSON.stringify(data)}');`
+    `INSERT INTO ${tableName} (${insertKeys.join()}) VALUES (${insertValues.join()});`
   )
 }
 
 /**
  * 更新的 sql 语句
- * @param id 更新数据的 id
- * @param title 聊天内容标题
+ * @param tableName 表名称
+ * @param payload 修改的数据
  */
-export const updateSQL = async (id: number, payload: HistoryRecord) => {
+export const updateSQL = async (
+  tableName: TableName,
+  payload: TablePayload
+) => {
+  const id = payload.id
+
+  delete payload.id
+
   const updateParams: string[] = []
 
   for (const key in payload) {
-    updateParams.push(`${key}='${payload[key as keyof typeof payload]}'`)
+    let value = payload[key as keyof typeof payload]
+
+    if (isObject(value)) {
+      value = `'${JSON.stringify(value)}'`
+    } else if (isString(value)) {
+      value = `'${value}'`
+    }
+
+    updateParams.push(`${key}=${value}`)
   }
 
   await executeSQL(
@@ -86,9 +126,10 @@ export const updateSQL = async (id: number, payload: HistoryRecord) => {
 
 /**
  * 删除的 sql 语句
+ * @param tableName 表名称
  * @param id 删除数据的 id
  */
-export const deleteSQL = async (id?: number) => {
+export const deleteSQL = async (tableName: TableName, id?: number) => {
   if (id) {
     await executeSQL(`DELETE FROM ${tableName} WHERE id=${id};`)
   } else {

@@ -4,6 +4,8 @@ import Unocss from 'unocss/vite'
 import { presetUno, presetIcons, transformerDirectives } from 'unocss'
 import { presetDaisy } from 'unocss-preset-daisy'
 import AutoImport from 'unplugin-auto-import/vite'
+import Components from 'unplugin-vue-components/vite'
+import { ArcoResolver } from 'unplugin-vue-components/resolvers'
 
 export default defineConfig(async () => ({
   plugins: [
@@ -17,7 +19,16 @@ export default defineConfig(async () => ({
       eslintrc: {
         enabled: false
       },
-      imports: ['vue', 'pinia']
+      imports: ['vue', 'pinia'],
+      resolvers: [ArcoResolver()]
+    }),
+    Components({
+      dts: './src/types/components.d.ts',
+      resolvers: [
+        ArcoResolver({
+          sideEffect: true
+        })
+      ]
     })
   ],
   resolve: {

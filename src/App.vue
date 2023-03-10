@@ -2,40 +2,40 @@
 import { appWindow } from '@tauri-apps/api/window'
 import Theme from './components/Theme/index.vue'
 import Avatar from './components/Avatar/index.vue'
-import { useThemeStore, useUuidStore } from '@/stores'
+import { useThemeStore, useUuidStore, useRecordStore } from '@/stores'
 import { initSQL } from '@/sqls'
 
 const { themeClass } = storeToRefs(useThemeStore())
 const { uuid } = storeToRefs(useUuidStore())
-
-const borderClass = ref('border border-[var(--border-color)] border-solid')
+const { recordList } = storeToRefs(useRecordStore())
 
 onMounted(async () => {
   initSQL()
 
   // 监听窗口有无获取焦点
   appWindow.onFocusChanged(({ payload }) => {
-    if (payload) {
-      borderClass.value = 'border border-[var(--border-color)] border-solid'
-    } else {
-      borderClass.value = ''
-    }
+    if (!payload) appWindow.minimize()
   })
 })
 </script>
 
 <template>
   <div
-    class="app relative h-screen overflow-hidden rounded-xl"
-    :class="[themeClass, borderClass]"
+    class="app relative h-screen overflow-hidden rounded-xl border border-solid border-[var(--border-color)]"
+    :class="themeClass"
   >
     <Theme />
 
     <!-- 内容区 -->
-    <div class="h-[calc(100%-48px)]" data-tauri-drag-region>
-      <Avatar />
-      <Avatar :value="uuid" />
-    </div>
+    <ul class="flex h-[calc(100%-48px)] flex-col gap-4 overflow-auto p-4">
+      <li
+        v-for="(item, index) of recordList"
+        :key="index"
+        data-tauri-drag-region
+      >
+        <Avatar :value="!(index % 2) ? uuid : undefined" />
+      </li>
+    </ul>
 
     <!-- 输入框 -->
     <div
@@ -44,9 +44,11 @@ onMounted(async () => {
       <input
         type="text"
         placeholder="输入问题并回车..."
-        class="input input-ghost outline-0! border-0! bg-opacity-0! w-full"
+        class="input input-ghost outline-0! border-0! bg-opacity-0! pr-13! w-full"
       />
-      <div class=""></div>
+      <i
+        class="i-carbon-recently-viewed top-50% absolute right-3 h-6 w-6 -translate-y-1/2 cursor-pointer"
+      ></i>
     </div>
   </div>
 </template>

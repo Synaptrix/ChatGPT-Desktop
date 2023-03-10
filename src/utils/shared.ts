@@ -3,3 +3,15 @@
  * @param value 数据
  */
 export const isNil = (value: any) => value == null
+
+/**
+ * 判断数据是否为字符串
+ * @param value 数据
+ */
+export const isString = (value: any) => typeof value === 'string'
+
+/**
+ * 判断数据是否为对象
+ * @param value 数据
+ */
+export const isObject = (value: any) => typeof value === 'object'
