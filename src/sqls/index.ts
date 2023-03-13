@@ -70,9 +70,16 @@ export const initSQL = async () => {
   )
 
   await insertSQL('role', {
-    name: '默认角色',
-    description: '请以 markdown 的形式返回答案！'
+    name: import.meta.env.VITE_DEFAULT_ROLE_NAME,
+    description: import.meta.env.VITE_DEFAULT_ROLE_DESCRIPTION
   })
+
+  for (const item of [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]) {
+    await insertSQL('role', {
+      name: import.meta.env.VITE_DEFAULT_ROLE_NAME + item,
+      description: import.meta.env.VITE_DEFAULT_ROLE_DESCRIPTION
+    })
+  }
 }
 
 /**
@@ -95,7 +102,7 @@ export const selectSQL = async (
   }
 
   return (await executeSQL(
-    `SELECT * FROM ${tableName} ${whereCondition} ORDER BY id ASC;`
+    `SELECT * FROM ${tableName} ${whereCondition} ORDER BY id DESC;`
   )) as TablePayload[]
 }
 

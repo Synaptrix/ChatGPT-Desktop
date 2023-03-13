@@ -1,5 +1,5 @@
 export const useFixedStore = defineStore('fixedStore', () => {
-  const isFix = ref(false)
+  const isFix = ref(true)
 
   return {
     isFix

@@ -1,53 +1,17 @@
 <script lang="ts" setup>
-import { IconEdit, IconDelete } from '@arco-design/web-vue/es/icon'
-import { useRoleStore } from '@/stores'
-
-const { currentRole, roleList } = storeToRefs(useRoleStore())
+const textAreaValue = ref('')
 </script>
 
 <template>
   <div class="app-input flex items-center gap-2 p-2">
     <!-- 角色选择 -->
-    <div class="w-10">
-      <a-popover title="请选择对话的角色" trigger="click">
-        <template #title>
-          <div class="flex items-center justify-between">
-            <span>请选择对话的角色</span>
-            <a-button type="outline">添加角色</a-button>
-          </div>
-        </template>
-
-        <Avatar class="cursor-pointer" :value="currentRole?.name" />
-
-        <template #content>
-          <a-list>
-            <a-list-item
-              v-for="item in roleList"
-              :key="item.id"
-              @click="currentRole = item"
-            >
-              <a-list-item-meta
-                :title="item.name"
-                :description="item.description"
-              >
-                <template #avatar>
-                  <Avatar class="w-10!" :value="item.name" />
-                </template>
-              </a-list-item-meta>
-              <template #actions>
-                <IconEdit />
-                <IconDelete />
-              </template>
-            </a-list-item>
-          </a-list>
-        </template>
-      </a-popover>
-    </div>
+    <RoleList />
 
     <a-textarea
       class="bordered bg-transparent!"
       placeholder="有什么问题尽管问我"
       allow-clear
+      v-model="textAreaValue"
     ></a-textarea>
   </div>
 </template>
