@@ -2,12 +2,18 @@ import { configDir } from '@tauri-apps/api/path'
 import Database from 'tauri-plugin-sql-api'
 import { dialogErrorMessage } from '@/utils'
 import { isString, isObject } from '@/utils'
-import type { TableName, TablePayload } from '@/types'
+import type { TableName, TablePayload, WherePayload } from '@/types'
 
 const dbFile = import.meta.env.DEV ? 'sql.dev.db' : 'sql.db'
 const db = await Database.load(
   `sqlite:${await configDir()}/${import.meta.env.VITE_APP_NAME}/${dbFile}`
 )
+
+/**
+ * sql 的字符串参数需要在加一个冒号
+ * @param value 参数
+ */
+const getValue = (value: any) => (isString(value) ? `'${value}'` : value)
 
 /**
  * 执行 sql 语句
@@ -25,16 +31,28 @@ export const executeSQL = async (sql: string) => {
   } catch (error) {
     console.log('error', error)
 
-    let action = '创建'
+    let action
 
-    if (sliceSQL === 'SELECT') {
-      action = '获取'
-    } else if (sliceSQL === 'INSERT') {
-      action = '添加'
-    } else if (sliceSQL === 'UPDATE') {
-      action = '更新'
-    } else if (sliceSQL === 'DELETE') {
-      action = '删除'
+    switch (sliceSQL) {
+      case 'SELECT':
+        action = '获取'
+        break
+
+      case 'INSERT':
+        action = '添加'
+        break
+
+      case 'UPDATE':
+        action = '更新'
+        break
+
+      case 'DELETE':
+        action = '删除'
+        break
+
+      default:
+        action = '创建'
+        break
     }
 
     dialogErrorMessage(`${action}数据时遇到了问题，请重试~`)
@@ -44,14 +62,19 @@ export const executeSQL = async (sql: string) => {
 /**
  * 初始化 sql 配置
  */
-export const initSQL = () => {
-  executeSQL(
+export const initSQL = async () => {
+  await executeSQL(
     `
     CREATE TABLE IF NOT EXISTS history (id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT, data TEXT, role_id INTEGER, time TIMESTAMP DEFAULT CURRENT_TIMESTAMP);
-    CREATE TABLE IF NOT EXISTS role (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, description TEXT, is_deleted INTEGER DEFAULT 0);
+    CREATE TABLE IF NOT EXISTS role (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, description TEXT, is_deleted INTEGER DEFAULT false);
     CREATE TABLE IF NOT EXISTS credit (id INTEGER PRIMARY KEY AUTOINCREMENT, history_id INTEGER, token_cost INTEGER, api_key TEXT);
     `
   )
+
+  await insertSQL('role', {
+    name: '默认角色',
+    description: '请以 markdown 的形式返回答案！'
+  })
 }
 
 /**
@@ -59,8 +82,23 @@ export const initSQL = () => {
  * @param tableName 表名称
  * @returns
  */
-export const selectSQL = async (tableName: TableName) => {
-  return (await executeSQL(`SELECT * FROM ${tableName} ORDER BY id;`)) as any[]
+export const selectSQL = async (
+  tableName: TableName,
+  wherePayload?: WherePayload[]
+) => {
+  let whereCondition = ''
+
+  if (wherePayload) {
+    const newWherePayload = wherePayload.reduce((payload, { key, value }) => {
+      return payload.concat(`${key}=${getValue(value)}`)
+    }, [] as string[])
+
+    whereCondition = `WHERE ${newWherePayload.join(' AND ')}`
+  }
+
+  return (await executeSQL(
+    `SELECT * FROM ${tableName} ${whereCondition} ORDER BY id ASC;`
+  )) as TablePayload[]
 }
 
 /**
@@ -72,6 +110,18 @@ export const insertSQL = async (
   tableName: TableName,
   payload: TablePayload
 ) => {
+  if (tableName === 'role') {
+    const findPayload = Object.keys(payload).reduce((result, key) => {
+      const newKey = key as keyof TablePayload
+
+      return result.concat({ key: newKey, value: payload[newKey] })
+    }, [] as WherePayload[])
+
+    const findRole = await selectSQL('role', findPayload)
+
+    if (findRole.length) return
+  }
+
   const insertKeys = [],
     insertValues = []
 
@@ -84,7 +134,7 @@ export const insertSQL = async (
       value = JSON.stringify(value)
     }
 
-    insertValues.push(isString(value) ? `'${value}'` : value)
+    insertValues.push(getValue(value))
   }
 
   await executeSQL(
@@ -101,28 +151,24 @@ export const updateSQL = async (
   tableName: TableName,
   payload: TablePayload
 ) => {
-  const copyPayload = JSON.parse(JSON.stringify(payload))
+  const newPayload = { ...payload }
 
-  const id = copyPayload.id
-
-  delete copyPayload.id
+  delete newPayload.id
 
   const updateParams: string[] = []
 
-  for (const key in copyPayload) {
-    let value = copyPayload[key as keyof typeof copyPayload]
+  for (const key in newPayload) {
+    let value = newPayload[key as keyof typeof newPayload]
 
     if (isObject(value)) {
-      value = `'${JSON.stringify(value)}'`
-    } else if (isString(value)) {
-      value = `'${value}'`
+      value = JSON.stringify(value)
     }
 
-    updateParams.push(`${key}=${value}`)
+    updateParams.push(`${key}=${getValue(value)}`)
   }
 
   await executeSQL(
-    `UPDATE ${tableName} SET ${updateParams.join()} WHERE id=${id};`
+    `UPDATE ${tableName} SET ${updateParams.join()} WHERE id=${payload.id};`
   )
 }
 
@@ -133,18 +179,12 @@ export const updateSQL = async (
  */
 export const deleteSQL = async (tableName: TableName, id?: number) => {
   if (id) {
-    // TODO 判断id对应的条目是否存在
+    const findItem = await selectSQL(tableName, [{ key: 'id', value: id }])
+
+    if (!findItem.length) return
+
     await executeSQL(`DELETE FROM ${tableName} WHERE id=${id};`)
   } else {
     await executeSQL(`DELETE FROM ${tableName};`)
   }
-}
-
-/**
- * 软删除的 sql 语句
- * @param tableName 表名称
- * @param id 删除数据的 id
- */
-export const softDeleteSQL = async (tableName: TableName, id?: number) => {
-  await executeSQL(`UPDATE ${tableName} SET is_deleted=1 WHERE id=${id};`)
 }

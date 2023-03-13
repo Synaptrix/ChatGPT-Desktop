@@ -1,25 +1,33 @@
-import { executeSQL } from '@/sqls'
-import type { RolePayload } from '@/types'
+import { selectSQL } from '@/sqls'
+import type { TablePayload } from '@/types'
 
 export const useRoleStore = defineStore(
   'roleStore',
   () => {
-    const role = ref<RolePayload>()
+    const currentRole = ref<TablePayload>()
+
+    const roleList = ref<TablePayload[]>()
 
     onMounted(async () => {
-      if (!role.value) return
-      // 检查当前的角色是否还存在
-      // TODO 优化SQL-WHERE条件查询
-      const sql = `SELECT * FROM role WHERE id = ${role.value?.id} AND is_deleted = 0;`
-      const res = (await executeSQL(sql)) as RolePayload[]
-      if (!res.length) {
-        role.value = undefined
+      roleList.value = await selectSQL('role')
+
+      if (currentRole.value) {
+        // 检查角色是否还存在
+        const findRole = roleList.value.find(
+          (role) => role.id === currentRole.value!.id
+        )
+
+        if (findRole) return
       }
+
+      currentRole.value = roleList.value[0]
     })
 
-    return { role }
+    return { currentRole, roleList }
   },
   {
-    persist: true
+    persist: {
+      paths: ['currentRole']
+    }
   }
 )

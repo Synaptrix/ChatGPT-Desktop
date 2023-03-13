@@ -7,14 +7,29 @@ export const useThemeStore = defineStore(
     const themeMode = ref(THEME.light)
 
     const themeClass = computed(() =>
-      themeMode.value === THEME.light ? 'bg-white/70' : 'bg-black/70'
+      themeMode.value === THEME.light ? 'bg-white/60' : 'bg-black/60'
     )
 
-    watch(themeMode, (newTheme) => {
-      document.documentElement.setAttribute('data-theme', newTheme)
-    })
+    const toggleTheme = () => {
+      themeMode.value =
+        themeMode.value === THEME.light ? THEME.dark : THEME.light
+    }
 
-    return { themeMode, themeClass }
+    watch(
+      themeMode,
+      (newTheme) => {
+        document.body.setAttribute('arco-theme', newTheme)
+      },
+      {
+        immediate: true
+      }
+    )
+
+    return {
+      themeMode,
+      themeClass,
+      toggleTheme
+    }
   },
   {
     persist: true

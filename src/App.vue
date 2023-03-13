@@ -1,21 +1,25 @@
 <script setup lang="ts">
 import { appWindow } from '@tauri-apps/api/window'
-import Theme from './components/Theme/index.vue'
-import Avatar from './components/Avatar/index.vue'
-import Input from './components/Input/index.vue'
-import { useThemeStore, useUuidStore, useRecordStore } from '@/stores'
 import { initSQL } from '@/sqls'
+import { useThemeStore, useUuidStore, useRecordStore } from '@/stores'
+
+initSQL()
 
 const { themeClass } = storeToRefs(useThemeStore())
 const { uuid } = storeToRefs(useUuidStore())
 const { recordList } = storeToRefs(useRecordStore())
 
-onMounted(async () => {
-  initSQL()
+const borderClass = ref('bordered')
 
+onMounted(async () => {
   // 监听窗口有无获取焦点
   appWindow.onFocusChanged(({ payload }) => {
-    // if (!payload) appWindow.minimize()
+    if (!payload) {
+      // appWindow.hide()
+      borderClass.value = 'bordered-transparent'
+    } else {
+      borderClass.value = 'bordered'
+    }
   })
 })
 </script>
@@ -23,18 +27,21 @@ onMounted(async () => {
 <template>
   <Suspense>
     <div
-      class="app relative h-screen overflow-hidden rounded-xl border border-solid border-[var(--border-color)]"
-      :class="themeClass"
+      class="app relative flex h-screen flex-col overflow-hidden rounded-xl"
+      :class="[themeClass, borderClass]"
     >
-      <Theme />
+      <div class="fixed top-4 right-4">
+        <!-- 主题切换 -->
+        <Theme />
+      </div>
 
       <!-- 内容区 -->
-      <ul
-        class="flex h-[calc(100%-48px)] flex-col gap-4 overflow-auto p-4"
-        data-tauri-drag-region
-      >
-        <li v-for="(item, index) of recordList" :key="index">
+      <ul class="flex-1 cursor-move overflow-auto p-4" data-tauri-drag-region>
+        <!-- <li v-for="(item, index) of recordList.slice(1)" :key="index">
           <Avatar :value="!(index % 2) ? uuid : undefined" />
+        </li> -->
+        <li class="cursor-auto" v-for="item in 100" :key="item">
+          {{ item }}
         </li>
       </ul>
 
@@ -48,8 +55,7 @@ onMounted(async () => {
 .app {
   &::before,
   &::after {
-    background: inherit;
-    @apply -z-1 absolute top-0 right-0 bottom-0 left-0 blur-xl content-none;
+    @apply -z-1 absolute top-0 right-0 bottom-0 left-0 bg-inherit blur-xl content-none;
   }
 }
 </style>

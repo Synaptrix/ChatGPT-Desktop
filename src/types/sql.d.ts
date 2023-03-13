@@ -7,20 +7,19 @@ export interface RecordData {
   content: string
 }
 
-export interface RolePayload {
-  id: number
-  name: string
-  description: string
-}
-
 export interface TablePayload {
   id?: number
   title?: string
   data?: RecordData[]
-  time?: Date | number
   name?: string
   description?: string
   history_id?: id
   token_cost?: id
   api_key?: id
+  is_deleted?: boolean
+}
+
+export interface WherePayload {
+  key: keyof TablePayload
+  value: any
 }

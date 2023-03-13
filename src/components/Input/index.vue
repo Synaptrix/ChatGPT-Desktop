@@ -1,26 +1,63 @@
 <script lang="ts" setup>
-import { IconHistory } from '@arco-design/web-vue/es/icon'
+import { IconEdit, IconDelete } from '@arco-design/web-vue/es/icon'
+import { useRoleStore } from '@/stores'
+
+const { currentRole, roleList } = storeToRefs(useRoleStore())
 </script>
 
 <template>
-  <div
-    class="border-t-solid fixed bottom-0 w-full border border-[var(--border-color)]"
-  >
-    <a-input
-      class="input input-ghost bg-opacity-0! border-0! outline-0! pr-13! w-full"
-      placeholder="选择角色, 输入问题, 开始探索..."
+  <div class="app-input flex items-center gap-2 p-2">
+    <!-- 角色选择 -->
+    <div class="w-10">
+      <a-popover title="请选择对话的角色" trigger="click">
+        <Avatar :value="currentRole?.name" />
+
+        <template #content>
+          <a-list>
+            <a-list-item
+              v-for="item in roleList"
+              :key="item.id"
+              @click="currentRole = item"
+            >
+              <a-list-item-meta
+                :title="item.name"
+                :description="item.description"
+              >
+                <template #avatar>
+                  <Avatar class="w-10!" :value="item.name" />
+                </template>
+              </a-list-item-meta>
+              <template #actions>
+                <IconEdit />
+                <IconDelete />
+              </template>
+            </a-list-item>
+          </a-list>
+        </template>
+      </a-popover>
+    </div>
+
+    <a-textarea
+      class="bordered bg-transparent!"
+      placeholder="有什么问题尽管问我"
       allow-clear
-    >
-      <template #prefix>
-        <RoleList />
-      </template>
-      <template #suffix>
-        <icon-history
-          class="top-50% absolute right-3 h-7 w-7 -translate-y-1/2 cursor-pointer"
-        />
-      </template>
-    </a-input>
+    ></a-textarea>
   </div>
 </template>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.app-input {
+  .arco-textarea-wrapper {
+    height: 32px;
+
+    transition: all 0.3s;
+
+    border-radius: 32px;
+    &.arco-textarea-focus {
+      height: 96px;
+
+      border-radius: 0;
+    }
+  }
+}
+</style>

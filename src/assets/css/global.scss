@@ -1,12 +1,39 @@
 @import './reset.scss';
-@import './theme.scss';
 
 html {
   background-color: transparent !important;
 }
 
 body {
+  overflow: hidden;
+
   word-break: break-all;
 
+  color: var(--color-text-1);
+
   font: 14px/1 sans-serif;
+}
+
+.bordered {
+  border: 1px solid var(--color-neutral-3) !important;
+}
+
+.bordered-transparent {
+  border: 1px solid transparent !important;
+}
+
+.bordered-top {
+  border-top: 1px solid var(--color-neutral-3);
+}
+
+.bordered-right {
+  border-right: 1px solid var(--color-neutral-3);
+}
+
+.bordered-bottom {
+  border-bottom: 1px solid var(--color-neutral-3);
+}
+
+.bordered-left {
+  border-left: 1px solid var(--color-neutral-3);
 }
