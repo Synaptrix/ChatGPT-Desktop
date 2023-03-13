@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { appWindow } from '@tauri-apps/api/window'
+import { register } from '@tauri-apps/api/globalShortcut'
 import { IconHistory } from '@arco-design/web-vue/es/icon'
 import { initSQL } from '@/sqls'
 import {
@@ -25,11 +26,15 @@ onMounted(async () => {
       if (isFix.value) {
         borderClass.value = 'bordered-transparent'
       } else {
-        // appWindow.hide()
+        appWindow.hide()
       }
     } else {
       borderClass.value = 'bordered'
     }
+  })
+  // 快捷键开启窗口
+  register('Alt+X', () => {
+    appWindow.setFocus()
   })
 })
 </script>
