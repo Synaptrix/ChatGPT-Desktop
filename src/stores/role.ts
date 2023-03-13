@@ -1,4 +1,4 @@
-import { selectSQL } from '@/sqls'
+import { selectSQL, insertSQL, updateSQL, deleteSQL } from '@/sqls'
 import type { TablePayload } from '@/types'
 
 export const useRoleStore = defineStore(
@@ -8,7 +8,7 @@ export const useRoleStore = defineStore(
 
     const roleList = ref<TablePayload[]>()
 
-    onMounted(async () => {
+    const getRoleList = async () => {
       roleList.value = await selectSQL('role')
 
       if (currentRole.value) {
@@ -21,9 +21,29 @@ export const useRoleStore = defineStore(
       }
 
       currentRole.value = roleList.value[0]
-    })
+    }
 
-    return { currentRole, roleList }
+    const addRole = async (payload: TablePayload) => {
+      await insertSQL('role', payload)
+
+      getRoleList()
+    }
+
+    const updateRole = async (payload: TablePayload) => {
+      await updateSQL('role', payload)
+
+      getRoleList()
+    }
+
+    const deleteRole = async (id: number) => {
+      await deleteSQL('role', id)
+
+      getRoleList()
+    }
+
+    onMounted(getRoleList)
+
+    return { currentRole, roleList, addRole, updateRole, deleteRole }
   },
   {
     persist: {

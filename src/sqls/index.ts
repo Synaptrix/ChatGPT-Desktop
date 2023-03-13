@@ -1,6 +1,6 @@
 import { configDir } from '@tauri-apps/api/path'
 import Database from 'tauri-plugin-sql-api'
-import { dialogErrorMessage } from '@/utils'
+import { dialogErrorMessage, deleteConfirm } from '@/utils'
 import { isString, isObject } from '@/utils'
 import type { TableName, TablePayload, WherePayload } from '@/types'
 
@@ -176,6 +176,10 @@ export const updateSQL = async (
  * @param id 删除数据的 id
  */
 export const deleteSQL = async (tableName: TableName, id?: number) => {
+  const isDelete = await deleteConfirm()
+
+  if (!isDelete) return
+
   if (id) {
     const findItem = await selectSQL(tableName, [{ key: 'id', value: id }])
 
