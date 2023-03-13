@@ -14,7 +14,7 @@ export const useRoleStore = defineStore(
       if (currentRole.value) {
         // 检查角色是否还存在
         const findRole = roleList.value.find(
-          (role) => role.id === currentRole.value!.id
+          (role) => role.id === currentRole.value?.id
         )
 
         if (findRole) return

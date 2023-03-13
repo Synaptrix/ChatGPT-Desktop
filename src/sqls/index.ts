@@ -29,8 +29,6 @@ export const executeSQL = async (sql: string) => {
       await db.execute(sql)
     }
   } catch (error) {
-    console.log('error', error)
-
     let action
 
     switch (sliceSQL) {

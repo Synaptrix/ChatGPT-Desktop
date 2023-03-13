@@ -1,0 +1,18 @@
+<script setup lang="ts">
+import { useFixedStore } from '@/stores'
+import { IconPushpin } from '@arco-design/web-vue/es/icon'
+
+const { isFix } = storeToRefs(useFixedStore())
+</script>
+
+<template>
+  <div class="swap swap-rotate" @click="isFix = !isFix">
+    <input type="checkbox" v-model="isFix" />
+
+    <IconPushpin class="swap-on text-[rgb(var(--arcoblue-6))]" />
+
+    <div class="swap-off">
+      <IconPushpin class="-rotate-45" />
+    </div>
+  </div>
+</template>

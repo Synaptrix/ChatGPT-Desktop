@@ -14,8 +14,8 @@ const checked = computed(() => themeMode.value === THEME.light)
   <div class="swap swap-rotate" @click="toggleTheme">
     <input type="checkbox" v-model="checked" />
 
-    <icon-moon class="swap-on text-7" />
+    <IconMoon class="swap-on" />
 
-    <icon-sun class="swap-off text-7" />
+    <IconSun class="swap-off" />
   </div>
 </template>
