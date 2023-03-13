@@ -2,6 +2,7 @@ import { configDir } from '@tauri-apps/api/path'
 import Database from 'tauri-plugin-sql-api'
 import { dialogErrorMessage, deleteConfirm } from '@/utils'
 import { isString, isObject } from '@/utils'
+import { DEFAULT_ROLE } from '@/constants'
 import type { TableName, TablePayload, WherePayload } from '@/types'
 
 const dbFile = import.meta.env.DEV ? 'sql.dev.db' : 'sql.db'
@@ -70,14 +71,14 @@ export const initSQL = async () => {
   )
 
   await insertSQL('role', {
-    name: import.meta.env.VITE_DEFAULT_ROLE_NAME,
-    description: import.meta.env.VITE_DEFAULT_ROLE_DESCRIPTION
+    name: DEFAULT_ROLE.name,
+    description: DEFAULT_ROLE.description
   })
 
   for (const item of [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]) {
     await insertSQL('role', {
-      name: import.meta.env.VITE_DEFAULT_ROLE_NAME + item,
-      description: import.meta.env.VITE_DEFAULT_ROLE_DESCRIPTION
+      name: DEFAULT_ROLE.name + item,
+      description: DEFAULT_ROLE.description
     })
   }
 }

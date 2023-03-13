@@ -1,10 +1,8 @@
 <script lang="ts" setup>
 import { IconEdit, IconDelete, IconCheck } from '@arco-design/web-vue/es/icon'
 import { useRoleStore } from '@/stores'
+import { DEFAULT_ROLE } from '@/constants'
 import type { TablePayload } from '@/types'
-
-const defaultRoleName = import.meta.env.VITE_DEFAULT_ROLE_NAME
-const defaultRoleDescription = import.meta.env.VITE_DEFAULT_ROLE_DESCRIPTION
 
 const roleStore = useRoleStore()
 const { addRole, updateRole, deleteRole } = roleStore
@@ -14,7 +12,6 @@ const isEdit = ref(false)
 const editItem = ref<TablePayload>({})
 
 const handleEdit = (data: TablePayload) => {
-  // 修改完后没有确认修改而是直接修改另外一个
   handleUpdate()
 
   isEdit.value = true
@@ -50,7 +47,7 @@ watch(currentRole, handleUpdate)
     <template #content>
       <ul class="role-list">
         <li
-          class="bordered-bottom flex cursor-pointer items-center gap-4 p-4 text-[var(--color-text-1)]"
+          class="bordered-top flex cursor-pointer items-center gap-4 p-4 text-[var(--color-text-1)]"
           :style="{
             background:
               currentRole?.id === item.id
@@ -67,6 +64,7 @@ watch(currentRole, handleUpdate)
             <div class="flex flex-1 flex-col gap-2">
               <a-input
                 v-model="editItem.name"
+                allow-clear
                 v-if="isEdit && editItem.id === item.id"
                 @click="(e: any) => e.stopPropagation()"
               />
@@ -76,6 +74,7 @@ watch(currentRole, handleUpdate)
 
               <a-textarea
                 v-model="editItem.description"
+                allow-clear
                 v-if="isEdit && editItem.id === item.id"
                 @click="(e: any) => e.stopPropagation()"
               ></a-textarea>
@@ -88,8 +87,8 @@ watch(currentRole, handleUpdate)
           <div
             class="text-4 flex gap-2"
             v-if="
-              item.name !== defaultRoleName ||
-              item.description !== defaultRoleDescription
+              item.name !== DEFAULT_ROLE.name ||
+              item.description !== DEFAULT_ROLE.description
             "
             @click="(e) => e.stopPropagation()"
           >
@@ -111,19 +110,14 @@ watch(currentRole, handleUpdate)
 <style lang="scss">
 .role-popover {
   .arco-trigger-content {
-    @apply flex max-h-[calc(100vh-54px)] flex-col px-0 py-4;
+    @apply flex max-h-[calc(100vh-56px)] flex-col rounded-t-xl px-0 py-4;
 
     .arco-popover-title {
-      @apply p-b-4;
+      @apply p-4 pt-0;
     }
 
     .arco-popover-content {
       @apply mt-0 flex-1 overflow-auto;
-    }
-  }
-  .role-list {
-    li:last-child {
-      border-bottom: 0;
     }
   }
 }

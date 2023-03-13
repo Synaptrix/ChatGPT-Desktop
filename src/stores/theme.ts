@@ -7,7 +7,7 @@ export const useThemeStore = defineStore(
     const themeMode = ref(THEME.light)
 
     const themeClass = computed(() =>
-      themeMode.value === THEME.light ? 'bg-white/60' : 'bg-black/60'
+      themeMode.value === THEME.light ? 'bg-white/70' : 'bg-black/70'
     )
 
     const toggleTheme = () => {
