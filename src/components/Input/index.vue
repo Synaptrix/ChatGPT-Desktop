@@ -10,7 +10,14 @@ const { currentRole, roleList } = storeToRefs(useRoleStore())
     <!-- 角色选择 -->
     <div class="w-10">
       <a-popover title="请选择对话的角色" trigger="click">
-        <Avatar :value="currentRole?.name" />
+        <template #title>
+          <div class="flex items-center justify-between">
+            <span>请选择对话的角色</span>
+            <a-button type="outline">添加角色</a-button>
+          </div>
+        </template>
+
+        <Avatar class="cursor-pointer" :value="currentRole?.name" />
 
         <template #content>
           <a-list>
