@@ -7,6 +7,14 @@ const onKeydown = (event: KeyboardEvent) => {
   if (keyName === 'enter') {
     if (!event.shiftKey && !event.ctrlKey && !event.altKey) {
       event.preventDefault()
+
+      const value = textAreaValue.value.trim()
+      if (!value) return
+
+      // TODO: 请求接口
+
+      event.target?.blur()
+      textAreaValue.value = ''
     }
   }
 }

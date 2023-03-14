@@ -120,7 +120,7 @@ watch(currentRole, handleUpdate)
     }
 
     .arco-popover-content {
-      @apply mt-0 flex-1 overflow-auto;
+      @apply flex-1 overflow-auto;
     }
   }
 }

@@ -10,6 +10,7 @@ import {
   useFixedStore
 } from '@/stores'
 
+// TODO: 首次加载有问题，获取不到初始化的角色列表
 initSQL()
 
 const { themeClass } = storeToRefs(useThemeStore())
@@ -33,7 +34,7 @@ onMounted(async () => {
   })
 })
 </script>
-
+<!-- TODO:颜色与 ui 的调整 -->
 <template>
   <div
     class="frosted flex h-screen cursor-move flex-col overflow-hidden rounded-xl p-2"
@@ -50,6 +51,7 @@ onMounted(async () => {
       <!-- <div v-for="(item, index) of recordList.slice(1)" :key="index">
           <Avatar :value="!(index % 2) ? uuid : undefined" />
         </div> -->
+      <!-- TODO: 角色如何与历史对话绑定 -->
       <template v-if="currentRecord">
         <div class="py-2" v-for="item in 100" :key="item">
           {{ item }}
@@ -61,6 +63,8 @@ onMounted(async () => {
         class="text-5 flex h-full flex-col items-center justify-center gap-4"
         v-else
       >
+        <!-- TODO: 丰富此处信息 -->
+        <span>⌥ + x 唤醒窗口</span>
         <span>↩ 发送消息</span>
         <span>⇧ + ↩︎ 或者 ⌃ + ↩︎ 或者 ⌥ + ↩︎ 换行</span>
       </div>
@@ -72,7 +76,7 @@ onMounted(async () => {
           正在与 <span class="mark">{{ currentRole?.name }}</span> 对话
         </div>
 
-        <!-- TODO: 没有必要全部拆分，待功能完善将不必要的拆分直接挪到这边 -->
+        <!-- TODO: 没有必要全部拆分，待功能完善将不必要的拆分直接挪到这边或者移步到一个组件即可 -->
         <Increase />
 
         <ReAnswer />
