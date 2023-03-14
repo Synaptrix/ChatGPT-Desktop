@@ -2,6 +2,8 @@
 
 html {
   background-color: transparent !important;
+
+  font-size: 14px;
 }
 
 body {
@@ -11,7 +13,7 @@ body {
 
   color: var(--color-text-1);
 
-  font: 14px/1 sans-serif;
+  font: 1rem/1 sans-serif;
 }
 
 .bordered {
@@ -64,6 +66,6 @@ body {
 }
 
 .mark {
-  color: rgba(var(--primary-6));
+  color: rgb(var(--arcoblue-6));
   background-color: transparent;
 }

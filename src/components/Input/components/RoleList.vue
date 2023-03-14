@@ -44,7 +44,7 @@ watch(currentRole, handleUpdate)
     </template>
 
     <a-tooltip content="对话角色" position="tl">
-      <Avatar class="w-10! cursor-pointer" :value="currentRole?.name" />
+      <Avatar class="w-12! cursor-pointer" :value="currentRole?.name" />
     </a-tooltip>
 
     <template #content>
@@ -88,7 +88,7 @@ watch(currentRole, handleUpdate)
           </div>
 
           <div
-            class="text-4 flex gap-2"
+            class="text-5 flex gap-2"
             v-if="
               item.name !== DEFAULT_ROLE.name ||
               item.description !== DEFAULT_ROLE.description

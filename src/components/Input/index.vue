@@ -1,5 +1,15 @@
 <script lang="ts" setup>
 const textAreaValue = ref('')
+
+const onKeydown = (event: KeyboardEvent) => {
+  const keyName = event.key.toLowerCase()
+
+  if (keyName === 'enter') {
+    if (!event.shiftKey && !event.ctrlKey && !event.altKey) {
+      event.preventDefault()
+    }
+  }
+}
 </script>
 
 <template>
@@ -11,6 +21,7 @@ const textAreaValue = ref('')
       placeholder="有什么问题尽管问我"
       allow-clear
       v-model="textAreaValue"
+      @keydown="onKeydown"
     ></a-textarea>
   </div>
 </template>

@@ -3,11 +3,9 @@ import { IconSettings } from '@arco-design/web-vue/es/icon'
 </script>
 
 <template>
-  <div class="">
-    <a-tooltip content="设置" position="tr">
-      <IconSettings />
-    </a-tooltip>
-  </div>
+  <a-tooltip content="设置" position="tr">
+    <IconSettings />
+  </a-tooltip>
 </template>
 
 <style scoped lang="scss"></style>

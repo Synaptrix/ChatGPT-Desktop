@@ -37,6 +37,7 @@ export const useRecordStore = defineStore('recordStore', () => {
     getRecord()
   }
 
+  // TODO：删除这块有 bug，在新对话时考虑禁用或者其它方法
   const deleteRecord = async (id?: number) => {
     await deleteSQL('history', id)
 

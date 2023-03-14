@@ -14,7 +14,7 @@ initSQL()
 
 const { themeClass } = storeToRefs(useThemeStore())
 const { uuid } = storeToRefs(useUuidStore())
-const { recordList } = storeToRefs(useRecordStore())
+const { currentRecord, recordList } = storeToRefs(useRecordStore())
 const { currentRole } = storeToRefs(useRoleStore())
 const { isFix } = storeToRefs(useFixedStore())
 
@@ -40,39 +40,48 @@ onMounted(async () => {
     :class="[themeClass, windowFocused ? 'bordered' : 'bordered-transparent']"
     data-tauri-drag-region
   >
-    <div class="text-6 fixed top-2 right-2 flex gap-2">
+    <div class="text-7 fixed top-2 right-2 flex gap-2">
       <Theme />
 
       <Fixed />
     </div>
 
-    <ul class="flex-1 cursor-default overflow-auto">
-      <!-- <li v-for="(item, index) of recordList.slice(1)" :key="index">
+    <div class="flex-1 cursor-default overflow-auto">
+      <!-- <div v-for="(item, index) of recordList.slice(1)" :key="index">
           <Avatar :value="!(index % 2) ? uuid : undefined" />
-        </li> -->
-      <li class="py-2" v-for="item in 100" :key="item">
-        {{ item }}
-      </li>
-    </ul>
+        </div> -->
+      <template v-if="currentRecord">
+        <div class="py-2" v-for="item in 100" :key="item">
+          {{ item }}
+        </div>
+      </template>
+
+      <!-- 无对话内容 -->
+      <div
+        class="text-5 flex h-full flex-col items-center justify-center gap-4"
+        v-else
+      >
+        <span>↩ 发送消息</span>
+        <span>⇧ + ↩︎ 或者 ⌃ + ↩︎ 或者 ⌥ + ↩︎ 换行</span>
+      </div>
+    </div>
 
     <div class="flex cursor-default flex-col gap-2 pt-2">
-      <div class="flex justify-between">
-        <div class="flex-1 text-right">
+      <div class="text-6 relative flex justify-end gap-4">
+        <div class="text-4 left-50% top-50% -translate-1/2 absolute">
           正在与 <span class="mark">{{ currentRole?.name }}</span> 对话
         </div>
 
-        <!-- TODO: 没有必要全部拆分，后期功能完善将不必要的拆分直接挪到这边 -->
-        <div class="text-5 flex flex-1 justify-end gap-4">
-          <Increase />
+        <!-- TODO: 没有必要全部拆分，待功能完善将不必要的拆分直接挪到这边 -->
+        <Increase />
 
-          <ReAnswer />
+        <ReAnswer />
 
-          <Delete />
+        <Delete />
 
-          <History />
+        <History />
 
-          <Settings />
-        </div>
+        <Settings />
       </div>
 
       <Input />
