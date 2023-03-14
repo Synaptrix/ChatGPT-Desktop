@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { IconEdit, IconDelete, IconCheck } from '@arco-design/web-vue/es/icon'
+import { IconEdit, IconCheck, IconClose } from '@arco-design/web-vue/es/icon'
 import { useRoleStore } from '@/stores'
 import { DEFAULT_ROLE } from '@/constants'
 import type { TablePayload } from '@/types'
@@ -28,22 +28,25 @@ const handleUpdate = () => {
 watch(currentRole, handleUpdate)
 </script>
 <!-- TODO:优化代码和 css 样式 -->
+<!-- TODO:输入内容的非空判断 -->
+<!-- TODO:修改当前选中的，有 bug -->
 <template>
   <a-popover
     title="请选择对话的角色"
     trigger="click"
     class="role-popover w-full"
   >
-    <!-- 弹框标题 -->
     <template #title>
       <div class="flex items-center justify-between">
         <span>请选择对话的角色</span>
         <a-button type="outline">添加角色</a-button>
       </div>
     </template>
-    <!-- 触发器为头像 -->
-    <Avatar class="w-10! cursor-pointer" :value="currentRole?.name" />
-    <!-- 弹框内容 -->
+
+    <a-tooltip content="对话角色" position="tl">
+      <Avatar class="w-10! cursor-pointer" :value="currentRole?.name" />
+    </a-tooltip>
+
     <template #content>
       <ul class="role-list">
         <li
@@ -99,7 +102,7 @@ watch(currentRole, handleUpdate)
 
             <IconEdit @click="handleEdit(item)" v-else />
 
-            <IconDelete @click="deleteRole(item.id!)" />
+            <IconClose @click="deleteRole(item.id!)" />
           </div>
         </li>
       </ul>

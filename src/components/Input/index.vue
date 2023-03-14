@@ -3,8 +3,7 @@ const textAreaValue = ref('')
 </script>
 
 <template>
-  <div class="app-input flex items-center gap-2 p-2">
-    <!-- 角色选择 -->
+  <div class="app-input flex items-center gap-2">
     <RoleList />
 
     <a-textarea

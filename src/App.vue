@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { appWindow } from '@tauri-apps/api/window'
 import { register } from '@tauri-apps/api/globalShortcut'
-import { IconHistory } from '@arco-design/web-vue/es/icon'
 import { initSQL } from '@/sqls'
 import {
   useThemeStore,
@@ -17,20 +16,14 @@ const { uuid } = storeToRefs(useUuidStore())
 const { recordList } = storeToRefs(useRecordStore())
 const { isFix } = storeToRefs(useFixedStore())
 
-const borderClass = ref('bordered')
+const windowFocused = ref(true)
 
 onMounted(async () => {
   // 监听窗口有无获取焦点
   appWindow.onFocusChanged(({ payload }) => {
-    if (!payload) {
-      if (isFix.value) {
-        borderClass.value = 'bordered-transparent'
-      } else {
-        appWindow.hide()
-      }
-    } else {
-      borderClass.value = 'bordered'
-    }
+    if (!isFix.value) appWindow.hide()
+
+    windowFocused.value = payload
   })
   // 快捷键开启窗口
   register('Alt+X', () => {
@@ -41,38 +34,37 @@ onMounted(async () => {
 
 <template>
   <div
-    class="app relative flex h-screen flex-col overflow-hidden rounded-xl"
-    :class="[themeClass, borderClass]"
+    class="frosted flex h-screen cursor-move flex-col overflow-hidden rounded-xl p-2"
+    :class="[themeClass, windowFocused ? 'bordered' : 'bordered-transparent']"
+    data-tauri-drag-region
   >
-    <div class="text-6 fixed top-4 right-4 flex flex-col gap-4">
-      <!-- 历史记录 -->
-      <IconHistory />
-      <!-- 主题切换 -->
+    <div class="text-6 fixed top-2 right-2 flex gap-2">
       <Theme />
-      <!-- 窗口固定 -->
+
       <Fixed />
     </div>
 
-    <!-- 内容区 -->
-    <ul class="flex-1 cursor-move overflow-auto p-4" data-tauri-drag-region>
+    <ul class="flex-1 cursor-default overflow-auto">
       <!-- <li v-for="(item, index) of recordList.slice(1)" :key="index">
           <Avatar :value="!(index % 2) ? uuid : undefined" />
         </li> -->
-      <li class="cursor-auto py-2" v-for="item in 100" :key="item">
+      <li class="py-2" v-for="item in 100" :key="item">
         {{ item }}
       </li>
     </ul>
 
-    <!-- 输入框 -->
-    <Input />
+    <div class="flex cursor-default flex-col gap-2 pt-2">
+      <div class="text-5 flex w-full justify-end gap-4">
+        <Refresh />
+
+        <Delete />
+
+        <History />
+
+        <Settings />
+      </div>
+
+      <Input />
+    </div>
   </div>
 </template>
-
-<style scoped lang="scss">
-.app {
-  &::before,
-  &::after {
-    @apply -z-1 absolute top-0 right-0 bottom-0 left-0 bg-inherit blur-xl content-none;
-  }
-}
-</style>
