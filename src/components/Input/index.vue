@@ -23,9 +23,14 @@ const textAreaValue = ref('')
     transition: all 0.3s;
 
     border-radius: 32px;
+
+    &:hover {
+      border-color: var(--color-neutral-4);
+    }
     &.arco-textarea-focus {
       height: 96px;
 
+      border-color: rgb(var(--arcoblue-6));
       border-radius: 0;
     }
   }

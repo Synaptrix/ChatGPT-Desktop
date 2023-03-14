@@ -6,11 +6,15 @@ export const useRecordStore = defineStore('recordStore', () => {
 
   const recordList = ref<TablePayload[]>([])
 
+  const createNewRecord = () => {
+    currentRecord.value = undefined
+  }
+
   const getRecord = async () => {
     recordList.value = await selectSQL('history')
 
     if (currentRecord.value) {
-      // 检查聊天内容是否还存在于数据库
+      // 检查聊天记录是否还存在于数据库
       const findRecord = recordList.value.find(
         (record) => record.id === currentRecord.value?.id
       )
@@ -41,5 +45,12 @@ export const useRecordStore = defineStore('recordStore', () => {
 
   onMounted(getRecord)
 
-  return { currentRecord, recordList, addRecord, updateRecord, deleteRecord }
+  return {
+    currentRecord,
+    recordList,
+    createNewRecord,
+    addRecord,
+    updateRecord,
+    deleteRecord
+  }
 })

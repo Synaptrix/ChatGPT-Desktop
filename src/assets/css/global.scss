@@ -15,7 +15,7 @@ body {
 }
 
 .bordered {
-  border: 1px solid var(--color-neutral-3);
+  border: 1px solid var(--color-border);
 }
 
 .bordered-transparent {
@@ -23,19 +23,19 @@ body {
 }
 
 .bordered-top {
-  border-top: 1px solid var(--color-neutral-3);
+  border-top: 1px solid var(--color-border);
 }
 
 .bordered-right {
-  border-right: 1px solid var(--color-neutral-3);
+  border-right: 1px solid var(--color-border);
 }
 
 .bordered-bottom {
-  border-bottom: 1px solid var(--color-neutral-3);
+  border-bottom: 1px solid var(--color-border);
 }
 
 .bordered-left {
-  border-left: 1px solid var(--color-neutral-3);
+  border-left: 1px solid var(--color-border);
 }
 
 .frosted {
@@ -61,4 +61,9 @@ body {
 
 .arco-icon {
   cursor: pointer;
+}
+
+.mark {
+  color: rgba(var(--primary-6));
+  background-color: transparent;
 }

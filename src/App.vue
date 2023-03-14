@@ -6,6 +6,7 @@ import {
   useThemeStore,
   useUuidStore,
   useRecordStore,
+  useRoleStore,
   useFixedStore
 } from '@/stores'
 
@@ -14,6 +15,7 @@ initSQL()
 const { themeClass } = storeToRefs(useThemeStore())
 const { uuid } = storeToRefs(useUuidStore())
 const { recordList } = storeToRefs(useRecordStore())
+const { currentRole } = storeToRefs(useRoleStore())
 const { isFix } = storeToRefs(useFixedStore())
 
 const windowFocused = ref(true)
@@ -54,14 +56,23 @@ onMounted(async () => {
     </ul>
 
     <div class="flex cursor-default flex-col gap-2 pt-2">
-      <div class="text-5 flex w-full justify-end gap-4">
-        <Refresh />
+      <div class="flex justify-between">
+        <div class="flex-1 text-right">
+          正在与 <span class="mark">{{ currentRole?.name }}</span> 对话
+        </div>
 
-        <Delete />
+        <!-- TODO: 没有必要全部拆分，后期功能完善将不必要的拆分直接挪到这边 -->
+        <div class="text-5 flex flex-1 justify-end gap-4">
+          <Increase />
 
-        <History />
+          <ReAnswer />
 
-        <Settings />
+          <Delete />
+
+          <History />
+
+          <Settings />
+        </div>
       </div>
 
       <Input />
