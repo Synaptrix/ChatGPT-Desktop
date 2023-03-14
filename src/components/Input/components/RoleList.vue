@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { IconEdit, IconCheck, IconClose } from '@arco-design/web-vue/es/icon'
+import { IconEdit, IconCheck, IconDelete } from '@arco-design/web-vue/es/icon'
 import { useRoleStore } from '@/stores'
 import { DEFAULT_ROLE } from '@/constants'
 import type { TablePayload } from '@/types'
@@ -102,7 +102,8 @@ watch(currentRole, handleUpdate)
 
             <IconEdit @click="handleEdit(item)" v-else />
 
-            <IconClose @click="deleteRole(item.id!)" />
+            <!-- TODO:编辑的时候变成 x -->
+            <IconDelete @click="deleteRole(item.id!)" />
           </div>
         </li>
       </ul>

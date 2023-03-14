@@ -1,4 +1,5 @@
 import { selectSQL, insertSQL, updateSQL, deleteSQL } from '@/sqls'
+import { initSQL } from '@/sqls'
 import type { TablePayload } from '@/types'
 
 export const useRoleStore = defineStore(
@@ -9,6 +10,8 @@ export const useRoleStore = defineStore(
     const roleList = ref<TablePayload[]>()
 
     const getRoleList = async () => {
+      await initSQL()
+
       roleList.value = await selectSQL('role')
 
       if (currentRole.value) {

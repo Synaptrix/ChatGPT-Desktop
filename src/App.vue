@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { appWindow } from '@tauri-apps/api/window'
 import { register } from '@tauri-apps/api/globalShortcut'
-import { initSQL } from '@/sqls'
 import {
   useThemeStore,
   useUuidStore,
@@ -11,11 +10,10 @@ import {
 } from '@/stores'
 
 // TODO: 首次加载有问题，获取不到初始化的角色列表
-initSQL()
 
 const { themeClass } = storeToRefs(useThemeStore())
 const { uuid } = storeToRefs(useUuidStore())
-const { currentRecord, recordList } = storeToRefs(useRecordStore())
+const { currentRecord } = storeToRefs(useRecordStore())
 const { currentRole } = storeToRefs(useRoleStore())
 const { isFix } = storeToRefs(useFixedStore())
 
@@ -24,7 +22,7 @@ const windowFocused = ref(true)
 onMounted(async () => {
   // 监听窗口有无获取焦点
   appWindow.onFocusChanged(({ payload }) => {
-    if (!isFix.value) appWindow.hide()
+    if (!payload && !isFix.value) appWindow.hide()
 
     windowFocused.value = payload
   })
@@ -48,13 +46,20 @@ onMounted(async () => {
     </div>
 
     <div class="flex-1 cursor-default overflow-auto">
-      <!-- <div v-for="(item, index) of recordList.slice(1)" :key="index">
-          <Avatar :value="!(index % 2) ? uuid : undefined" />
-        </div> -->
       <!-- TODO: 角色如何与历史对话绑定 -->
       <template v-if="currentRecord">
-        <div class="py-2" v-for="item in 100" :key="item">
-          {{ item }}
+        <div
+          class="flex items-start p-2"
+          v-for="(item, index) of currentRecord.data?.slice(1)"
+          :key="index"
+        >
+          <Avatar
+            class="w-14!"
+            :value="!(index % 2) ? uuid : currentRole?.name"
+          />
+          <div>
+            {{ item.content }}
+          </div>
         </div>
       </template>
 
@@ -64,9 +69,15 @@ onMounted(async () => {
         v-else
       >
         <!-- TODO: 丰富此处信息 -->
-        <span>⌥ + x 唤醒窗口</span>
-        <span>↩ 发送消息</span>
-        <span>⇧ + ↩︎ 或者 ⌃ + ↩︎ 或者 ⌥ + ↩︎ 换行</span>
+        <span>
+          <a-typography-text code>Alt</a-typography-text> +
+          <a-typography-text code>X</a-typography-text> 唤醒窗口
+        </span>
+        <span
+          ><a-typography-text code>Shift</a-typography-text> +
+          <a-typography-text code>Enter</a-typography-text> 发送消息
+        </span>
+        <span><a-typography-text code>Enter</a-typography-text> 换行</span>
       </div>
     </div>
 

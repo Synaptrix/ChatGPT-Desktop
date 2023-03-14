@@ -1,23 +1,39 @@
 <script lang="ts" setup>
+import { useRecordStore } from '@/stores'
+import { appWindow } from '@tauri-apps/api/window'
+
+const recordStore = useRecordStore()
+const { getAiMessage } = recordStore
+const { isThinking } = storeToRefs(recordStore)
+
+const textAreaElement = ref<HTMLTextAreaElement | null>(null)
+
 const textAreaValue = ref('')
 
 const onKeydown = (event: KeyboardEvent) => {
   const keyName = event.key.toLowerCase()
 
   if (keyName === 'enter') {
-    if (!event.shiftKey && !event.ctrlKey && !event.altKey) {
+    if (event.shiftKey) {
       event.preventDefault()
 
       const value = textAreaValue.value.trim()
+
       if (!value) return
 
-      // TODO: 请求接口
+      getAiMessage(value)
 
-      event.target?.blur()
+      textAreaElement.value?.blur()
       textAreaValue.value = ''
     }
   }
 }
+
+onMounted(() => {
+  appWindow.onFocusChanged(() => {
+    textAreaElement.value?.focus()
+  })
+})
 </script>
 
 <template>
@@ -25,10 +41,11 @@ const onKeydown = (event: KeyboardEvent) => {
     <RoleList />
 
     <a-textarea
+      ref="textAreaElement"
       class="bordered bg-transparent!"
-      placeholder="有什么问题尽管问我"
-      allow-clear
+      :placeholder="isThinking ? 'AI 正在思考...' : '有什么问题尽管问我'"
       v-model="textAreaValue"
+      :disabled="isThinking"
       @keydown="onKeydown"
     ></a-textarea>
   </div>

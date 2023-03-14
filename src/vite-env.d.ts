@@ -4,6 +4,7 @@
 interface ImportMetaEnv {
   readonly VITE_APP_NAME: string
   readonly VITE_OPEN_AI_URL: string
+  readonly VITE_OPEN_AI_API_KEY: string
 }
 
 // eslint-disable-next-line no-unused-vars

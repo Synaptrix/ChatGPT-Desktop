@@ -20,6 +20,13 @@
       },
       "globalShortcut": {
         "all": true
+      },
+      "http": {
+        "request": true,
+        "scope": [
+          "https://**",
+          "http://**"
+        ]
       }
     },
     "bundle": {

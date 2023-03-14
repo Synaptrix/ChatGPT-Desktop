@@ -3,7 +3,7 @@ import { IconRefresh } from '@arco-design/web-vue/es/icon'
 import { useRecordStore } from '@/stores'
 
 const recordStore = useRecordStore()
-const { updateRecord } = recordStore
+const { getAiMessage } = recordStore
 const { currentRecord } = storeToRefs(recordStore)
 
 const handleClick = () => {
@@ -12,9 +12,11 @@ const handleClick = () => {
   const newRecord = { ...currentRecord.value }
   newRecord.data?.pop()
 
+  console.log('newRecord', newRecord)
+
   currentRecord.value = newRecord
 
-  updateRecord(newRecord)
+  getAiMessage()
 }
 </script>
 

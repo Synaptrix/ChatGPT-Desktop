@@ -1,13 +1,53 @@
 import { selectSQL, insertSQL, updateSQL, deleteSQL } from '@/sqls'
-import type { TablePayload } from '@/types'
+import { getOpenAIResultApi } from '@/api'
+import { useRoleStore } from '.'
+import type { TablePayload, RecordData } from '@/types'
 
 export const useRecordStore = defineStore('recordStore', () => {
   const currentRecord = ref<TablePayload>()
+
+  const isThinking = ref(false)
 
   const recordList = ref<TablePayload[]>([])
 
   const createNewRecord = () => {
     currentRecord.value = undefined
+  }
+
+  const getAiMessage = async (value?: string) => {
+    isThinking.value = true
+
+    if (!currentRecord.value) {
+      const newRecord: TablePayload = {
+        title: value,
+        data: []
+      }
+
+      const { currentRole } = useRoleStore()
+
+      newRecord.data?.push(
+        {
+          role: 'system',
+          content: currentRole?.description || ''
+        },
+        {
+          role: 'user',
+          content: value
+        }
+      )
+
+      currentRecord.value = newRecord
+    } else if (!value) {
+      value = currentRecord.value.data?.at(-1)?.content
+    }
+
+    const result = await getOpenAIResultApi()
+
+    isThinking.value = false
+
+    if (!result) return
+
+    currentRecord.value.data?.push(result?.message)
   }
 
   const getRecord = async () => {
@@ -48,8 +88,10 @@ export const useRecordStore = defineStore('recordStore', () => {
 
   return {
     currentRecord,
+    isThinking,
     recordList,
     createNewRecord,
+    getAiMessage,
     addRecord,
     updateRecord,
     deleteRecord
