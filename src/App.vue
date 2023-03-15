@@ -1,13 +1,13 @@
 <script setup lang="ts">
 import { appWindow } from '@tauri-apps/api/window'
 import { initSQL } from '@/sqls'
-import { useSettingsStore, useRecordStore, useRoleStore } from '@/stores'
+import { useSettingsStore, useSessionStore, useRoleStore } from '@/stores'
 
 // TODO: 首次加载有问题，获取不到初始化的角色列表
 initSQL()
 
 const { themeClass, isFix, shortcutKey } = storeToRefs(useSettingsStore())
-const { currentRecord } = storeToRefs(useRecordStore())
+const { currentSession } = storeToRefs(useSessionStore())
 const { currentRole } = storeToRefs(useRoleStore())
 
 const windowFocused = ref(true)
@@ -35,10 +35,10 @@ onMounted(async () => {
     </div>
 
     <div class="flex-1 cursor-default overflow-auto">
-      <template v-if="currentRecord">
+      <template v-if="currentSession">
         123132
         <!-- <div
-          class="flex items-start p-2"
+          class="flex p-2 items-start"
           v-for="(item, index) of currentRecord.data?.slice(1)"
           :key="index"
         >
@@ -75,16 +75,14 @@ onMounted(async () => {
 
     <div class="flex cursor-default flex-col gap-2 pt-2">
       <div class="text-6 relative flex justify-end gap-4">
-        <div class="text-4 left-50% top-50% -translate-1/2 absolute">
+        <div class="top-50% left-50% text-4 -translate-1/2 absolute">
           正在与 <span class="mark">{{ currentRole?.name }}</span> 对话
         </div>
 
-        <!-- <Function /> -->
-
-        <!-- <Settings />  -->
+        <Function />
       </div>
 
-      <!-- <Input /> -->
+      <Input />
     </div>
   </div>
 </template>

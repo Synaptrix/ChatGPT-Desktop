@@ -1,5 +1,4 @@
 import { selectSQL, insertSQL, updateSQL, deleteSQL } from '@/sqls'
-
 import type { RolePayload } from '@/types'
 
 export const useRoleStore = defineStore(
@@ -8,9 +7,16 @@ export const useRoleStore = defineStore(
     const currentRole = ref<RolePayload>()
 
     const roleList = ref<RolePayload[]>([])
+    const filterList = ref<RolePayload[]>([])
+
+    const isShow = ref(false)
+    const isAddNew = ref(false)
 
     const getRoleList = async () => {
       const result = await selectSQL('role')
+
+      isAddNew.value = false
+      defaultRole.value.length = 0
 
       roleList.value = result.map((item) => ({ ...item, isEdit: false }))
 
@@ -26,14 +32,28 @@ export const useRoleStore = defineStore(
       currentRole.value = roleList.value[0]
     }
 
+    const getFilterRoleList = (value: string) => {
+      if (value.trim().length && value.startsWith('/')) {
+        filterList.value = roleList.value.filter((item: any) => {
+          return item.name.includes(value.slice(1))
+        })
+
+        isShow.value = filterList.value.length > 0
+        return
+      }
+      isShow.value = false
+      filterList.value.length = 0
+    }
+
     const addRole = async (payload: RolePayload) => {
-      await insertSQL('role', payload)
+      await insertSQL('role', payload as any)
 
       getRoleList()
     }
 
     const updateRole = async (payload: RolePayload) => {
-      await updateSQL('role', payload)
+      const { name, description, id } = payload
+      await updateSQL('role', { name, description, id } as any)
 
       getRoleList()
     }
@@ -44,9 +64,38 @@ export const useRoleStore = defineStore(
       getRoleList()
     }
 
+    const defaultRole = ref<RolePayload[]>([])
+
+    const showList = computed(() => {
+      if (isAddNew.value) {
+        defaultRole.value.push({
+          id: 99999,
+          name: '',
+          description: '',
+          isEdit: true,
+          is_default: false
+        })
+        return defaultRole.value
+      }
+      const res =
+        filterList.value.length > 0 ? filterList.value : roleList.value
+      res.forEach((item) => (item.isEdit = false))
+      return res
+    })
+
     onMounted(getRoleList)
 
-    return { currentRole, roleList, addRole, updateRole, deleteRole }
+    return {
+      isShow,
+      isAddNew,
+      getFilterRoleList,
+      getRoleList,
+      showList,
+      currentRole,
+      addRole,
+      updateRole,
+      deleteRole
+    }
   },
   {
     persist: {

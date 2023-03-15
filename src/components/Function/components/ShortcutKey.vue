@@ -1,14 +1,16 @@
 <script setup lang="ts">
 import { Icon } from '@arco-design/web-vue'
 import { IconCloseCircleFill } from '@arco-design/web-vue/es/icon'
-import { useShortcutKeyStore } from '@/stores'
+import { useSettingsStore } from '@/stores'
 import { hotkeys, isHotKey, getKeyIcon, getKeySymbol } from '@/utils'
 
 const IconFont = Icon.addFromIconFontCn({
   src: import.meta.env.VITE_ICON_FONT_URL
 })
 
-const { shortcutKey, setupComplete } = storeToRefs(useShortcutKeyStore())
+const { shortcutKey, isBinding: setupComplete } = storeToRefs(
+  useSettingsStore()
+)
 
 const lastShortcutKey = computed(() => shortcutKey.value.at(-1) || '')
 

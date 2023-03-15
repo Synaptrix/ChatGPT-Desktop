@@ -30,6 +30,7 @@ export const executeSQL = async (sql: string) => {
       await db.execute(sql)
     }
   } catch (error) {
+    console.log('error', error)
     let action
 
     switch (sliceSQL) {
@@ -64,25 +65,25 @@ export const executeSQL = async (sql: string) => {
 export const initSQL = async () => {
   await executeSQL(
     `
-    CREATE TABLE IF NOT EXISTS session (id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT, role_id INTEGER)
+    CREATE TABLE IF NOT EXISTS session (id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT, role_id INTEGER);
     CREATE TABLE IF NOT EXISTS session_data (id INTEGER PRIMARY KEY AUTOINCREMENT, session_id INTEGER, message TEXT, time TIMESTAMP DEFAULT CURRENT_TIMESTAMP);
     CREATE TABLE IF NOT EXISTS role (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, description TEXT, is_default INTEGER DEFAULT false);
     CREATE TABLE IF NOT EXISTS credit (id INTEGER PRIMARY KEY AUTOINCREMENT, history_id INTEGER, token_cost INTEGER, api_key TEXT);
     `
   )
 
-  await insertSQL('role', {
-    name: DEFAULT_ROLE.name,
-    description: DEFAULT_ROLE.description,
-    is_default: false
-  })
+  // await insertSQL('role', {
+  //   name: DEFAULT_ROLE.name,
+  //   description: DEFAULT_ROLE.description,
+  //   is_default: false
+  // })
 
-  for (const item of [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]) {
-    await insertSQL('role', {
-      name: DEFAULT_ROLE.name + item,
-      description: DEFAULT_ROLE.description
-    })
-  }
+  // for (const item of [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]) {
+  //   await insertSQL('role', {
+  //     name: DEFAULT_ROLE.name + item,
+  //     description: DEFAULT_ROLE.description
+  //   })
+  // }
 }
 
 /**

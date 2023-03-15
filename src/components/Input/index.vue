@@ -1,9 +1,13 @@
 <script lang="ts" setup>
-import { useRecordStore } from '@/stores'
+import { useSessionStore, useRoleStore } from '@/stores'
 
-const recordStore = useRecordStore()
+const recordStore = useSessionStore()
 const { getAiMessage } = recordStore
 const { isThinking } = storeToRefs(recordStore)
+
+const roleStore = useRoleStore()
+const { getFilterRoleList } = roleStore
+const { currentRole } = storeToRefs(roleStore)
 
 const textAreaElement = ref<HTMLTextAreaElement | null>(null)
 
@@ -26,6 +30,15 @@ const onKeydown = (event: KeyboardEvent) => {
   }
 }
 
+watch(textAreaValue, (value) => {
+  getFilterRoleList(value)
+})
+
+watch(currentRole, () => {
+  textAreaValue.value = ''
+  textAreaElement.value?.focus()
+})
+
 onMounted(() => {
   // appWindow.onFocusChanged(() => {
   //   textAreaElement.value?.focus()
@@ -44,6 +57,8 @@ onMounted(() => {
       v-model="textAreaValue"
       :disabled="isThinking"
       @keydown="onKeydown"
+      auto-size
+      clearable
     ></a-textarea>
   </div>
 </template>
@@ -51,7 +66,7 @@ onMounted(() => {
 <style lang="scss" scoped>
 .app-input {
   .arco-textarea-wrapper {
-    height: 32px;
+    // height: 32px;
 
     transition: all 0.3s;
 
@@ -61,7 +76,8 @@ onMounted(() => {
       border-color: var(--color-neutral-4);
     }
     &.arco-textarea-focus {
-      height: 96px;
+      max-height: 96px;
+      overflow-y: scroll;
 
       border-color: rgb(var(--arcoblue-6));
       border-radius: 0;

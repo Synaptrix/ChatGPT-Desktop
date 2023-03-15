@@ -6,12 +6,12 @@ import {
   IconHistory,
   IconSettings
 } from '@arco-design/web-vue/es/icon'
-import { useRecordStore } from '@/stores'
+import { useSessionStore } from '@/stores'
 import { getArrayLength } from '@/utils'
 
-const recordStore = useRecordStore()
+const recordStore = useSessionStore()
 const { createNewRecord, getAiMessage, deleteRecord } = recordStore
-const { currentRecord, isThinking } = storeToRefs(recordStore)
+const { currentSession, isThinking } = storeToRefs(recordStore)
 
 const modalVisible = ref(false)
 const setModalVisible = () => {
@@ -23,20 +23,20 @@ const functions = computed(() => [
   {
     content: '新建对话',
     icon: IconPlusCircle,
-    disabled: !!currentRecord,
+    disabled: !!currentSession,
     handleClick: createNewRecord
   },
   {
     content: '重新回答',
     icon: IconRefresh,
     disabled:
-      isThinking.value || !(getArrayLength(currentRecord.value?.data) > 2),
+      isThinking.value || !(getArrayLength(currentSession.value?.data) > 2),
     handleClick: () => getAiMessage()
   },
   {
     content: '清空对话',
     icon: IconDelete,
-    disabled: !!currentRecord,
+    disabled: !!currentSession,
     handleClick: () => deleteRecord()
   },
   {

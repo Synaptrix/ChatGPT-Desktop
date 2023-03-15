@@ -2,7 +2,7 @@ import { fetch, Body } from '@tauri-apps/api/http'
 import { dialogErrorMessage } from '@/utils'
 import type { FetchOptions } from '@tauri-apps/api/http'
 import type { RecordData } from '@/types'
-import { useSettingsStore, useRecordStore } from '@/stores'
+import { useSettingsStore, useSessionStore } from '@/stores'
 
 /**
  * 请求总入口
@@ -43,7 +43,7 @@ export const request = async (url: string, options?: FetchOptions) => {
  */
 export const getOpenAIResultApi = async () => {
   const { apiKey } = useSettingsStore()
-  const { currentRecord } = useRecordStore()
+  const { currentRecord } = useSessionStore()
 
   return await request(import.meta.env.VITE_OPEN_AI_URL, {
     method: 'POST',

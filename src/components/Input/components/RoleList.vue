@@ -1,31 +1,44 @@
 <script lang="ts" setup>
-import { IconEdit, IconCheck, IconDelete } from '@arco-design/web-vue/es/icon'
+import {
+  IconEdit,
+  IconCheck,
+  IconDelete,
+  IconClose
+} from '@arco-design/web-vue/es/icon'
 import { useRoleStore } from '@/stores'
-import { DEFAULT_ROLE } from '@/constants'
-import type { TablePayload } from '@/types'
+import type { RolePayload } from '@/types'
 
 const roleStore = useRoleStore()
-const { addRole, updateRole, deleteRole } = roleStore
-const { currentRole, roleList } = storeToRefs(roleStore)
+const { updateRole, deleteRole, addRole, getRoleList } = roleStore
+const { currentRole, showList, isShow, isAddNew } = storeToRefs(roleStore)
 
-const isEdit = ref(false)
-const editItem = ref<TablePayload>({})
-
-const handleEdit = (data: TablePayload) => {
-  handleUpdate()
-
-  isEdit.value = true
-  editItem.value = data
+const handleUpdate = (item: RolePayload) => {
+  if (isAddNew.value) {
+    const { name, description } = item
+    addRole({ name, description })
+  } else {
+    if (!item.id) return
+    item.isEdit = false
+    updateRole(item)
+  }
 }
 
-const handleUpdate = () => {
-  if (!editItem.value.id) return
-
-  isEdit.value = false
-  updateRole(editItem.value)
+const handleSelect = (role: RolePayload) => {
+  isShow.value = false
+  currentRole.value = role
 }
 
-watch(currentRole, handleUpdate)
+const handleAdd = () => {
+  isAddNew.value = true
+  // TODO 这里需要优化，自动聚焦到输入框
+}
+
+const handleHide = () => {
+  // 判断是否有正在编辑的角色
+  const isEdit = showList.value.some((item) => item.isEdit)
+  if (isEdit) return
+  isShow.value = false
+}
 </script>
 <!-- TODO:优化代码和 css 样式 -->
 <!-- TODO:输入内容的非空判断 -->
@@ -33,13 +46,17 @@ watch(currentRole, handleUpdate)
 <template>
   <a-popover
     title="请选择对话的角色"
-    trigger="click"
+    :popup-visible="isShow"
     class="role-popover w-full"
+    @click="isShow = true"
+    @popup-visible-change="handleHide"
   >
     <template #title>
       <div class="flex items-center justify-between">
-        <span>请选择对话的角色</span>
-        <a-button type="outline">添加角色</a-button>
+        <span>{{ isAddNew ? '请填写信息' : '请选择对话的角色' }}</span>
+        <a-button type="outline" @click="handleAdd" v-if="!isAddNew"
+          >添加角色</a-button
+        >
       </div>
     </template>
 
@@ -50,36 +67,36 @@ watch(currentRole, handleUpdate)
     <template #content>
       <ul class="role-list">
         <li
-          class="bordered-top flex cursor-pointer items-center gap-4 p-4 text-[var(--color-text-1)]"
-          :style="{
-            background:
-              currentRole?.id === item.id
-                ? 'rgb(var(--blue-6), 0.2)'
-                : 'transparent'
+          class="flex cursor-pointer items-center gap-4 rounded-t bg-transparent p-4 text-[var(--color-text-1)] hover:bg-red-100"
+          :class="{
+            'bg-blue-200!': currentRole?.id === item.id
           }"
-          v-for="item in roleList"
+          v-for="item in showList"
           :key="item.id"
-          @click="currentRole = item"
+          @click="item.isEdit ? '' : handleSelect(item)"
         >
           <div class="flex flex-1 items-center gap-4">
             <Avatar class="w-10!" :value="item.name" />
 
             <div class="flex flex-1 flex-col gap-2">
               <a-input
-                v-model="editItem.name"
+                v-model="item.name"
+                placeholder="请输入角色名称"
                 allow-clear
-                v-if="isEdit && editItem.id === item.id"
-                @click="(e: any) => e.stopPropagation()"
+                v-if="item.isEdit"
+                @click.stop
               />
               <span v-else>
                 {{ item.name }}
               </span>
 
               <a-textarea
-                v-model="editItem.description"
+                v-model="item.description"
+                placeholder="请输入角色描述"
+                auto-size
                 allow-clear
-                v-if="isEdit && editItem.id === item.id"
-                @click="(e: any) => e.stopPropagation()"
+                v-if="item.isEdit"
+                @click.stop
               ></a-textarea>
               <span v-else>
                 {{ item.description }}
@@ -87,23 +104,16 @@ watch(currentRole, handleUpdate)
             </div>
           </div>
 
-          <div
-            class="text-5 flex gap-2"
-            v-if="
-              item.name !== DEFAULT_ROLE.name ||
-              item.description !== DEFAULT_ROLE.description
-            "
-            @click="(e) => e.stopPropagation()"
-          >
-            <IconCheck
-              @click="handleUpdate"
-              v-if="isEdit && editItem.id === item.id"
-            />
-
-            <IconEdit @click="handleEdit(item)" v-else />
-
-            <!-- TODO:编辑的时候变成 x -->
-            <IconDelete @click="deleteRole(item.id!)" />
+          <!-- TODO 这里我在在表里新增一个字is_default，更方便处理 -->
+          <div v-if="!item.is_default" @click.stop>
+            <div v-if="!item.isEdit" class="text-5 flex gap-5">
+              <IconEdit @click="item.isEdit = true" />
+              <IconDelete @click="deleteRole(item.id!)" />
+            </div>
+            <div v-else class="text-5 flex gap-5">
+              <IconCheck @click="handleUpdate(item)" />
+              <IconClose @click="getRoleList" />
+            </div>
           </div>
         </li>
       </ul>
@@ -114,7 +124,7 @@ watch(currentRole, handleUpdate)
 <style lang="scss">
 .role-popover {
   .arco-trigger-content {
-    @apply flex max-h-[calc(100vh-56px)] flex-col rounded-t-xl px-0 py-4;
+    @apply flex max-h-[calc(100vh-56px)] flex-col rounded-t-xl py-4 px-0;
 
     .arco-popover-title {
       @apply p-4 pt-0;

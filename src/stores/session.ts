@@ -31,7 +31,7 @@ export const useSessionStore = defineStore('sessionStore', () => {
         data: []
       }
 
-      addSession()
+      // addSession()
 
       // const newSessionList: SessionPayload[] = [
       //   {
@@ -47,13 +47,11 @@ export const useSessionStore = defineStore('sessionStore', () => {
       //     role_id: currentRole.id
       //   }
       // ]
-
-      addSession(newSession)
     } else if (!value) {
-      const newRecord = { ...currentRecord.value }
+      const newRecord = { ...currentSession.value }
       newRecord.data?.pop()
 
-      currentRecord.value = newRecord
+      // currentSession.value = newRecord
     }
 
     const result = await getOpenAIResultApi()
@@ -62,7 +60,7 @@ export const useSessionStore = defineStore('sessionStore', () => {
 
     if (!result) return
 
-    currentRecord.value?.data?.push(result?.message)
+    // currentRecord.value?.data?.push(result?.message)
 
     updateRecord()
   }
@@ -74,22 +72,22 @@ export const useSessionStore = defineStore('sessionStore', () => {
   }
 
   const addSession = async (payload: SessionPayload) => {
-    await insertSQL('session', payload)
+    await insertSQL('session', payload as any)
 
     getRecord()
   }
 
   const updateRecord = async () => {
-    await updateSQL('history', currentRecord.value!)
+    await updateSQL('session', currentSession.value as any)
 
     getRecord()
   }
 
   const deleteRecord = async (deleteAll = false) => {
     if (deleteAll) {
-      await deleteSQL('history')
+      // await deleteSQL('session')
     } else {
-      await deleteSQL('history', currentRecord.value?.id)
+      // await deleteSQL('session', currentRecord.value?.id)
     }
 
     getRecord()
@@ -98,12 +96,12 @@ export const useSessionStore = defineStore('sessionStore', () => {
   onMounted(getRecord)
 
   return {
-    currentRecord,
+    currentSession,
     isThinking,
-    recordList,
+    sessionList,
     createNewRecord,
     getAiMessage,
-    addRecord,
+    addSession,
     updateRecord,
     deleteRecord
   }

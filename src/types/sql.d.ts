@@ -6,6 +6,14 @@ export interface RecordData {
   role: Role
   content: string
 }
+export interface RolePayload {
+  id?: number
+  name?: string
+  description?: string
+  is_default?: boolean
+  is_deleted?: boolean
+  isEdit?: boolean
+}
 
 export interface SessionData {
   id?: number

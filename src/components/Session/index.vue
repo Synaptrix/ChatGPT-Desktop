@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { useSettingsStore, useRecordStore, useRoleStore } from '@/stores'
+import { useSettingsStore, useSessionStore, useRoleStore } from '@/stores'
 
 const { uuid } = storeToRefs(useSettingsStore())
-const { currentRecord } = storeToRefs(useRecordStore())
+const { currentRecord } = storeToRefs(useSessionStore())
 const { currentRole } = storeToRefs(useRoleStore())
 </script>
 

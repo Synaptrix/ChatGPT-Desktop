@@ -5,7 +5,7 @@ const props = withDefaults(defineProps<{ value?: string }>(), {
   value: import.meta.env.VITE_APP_NAME
 })
 
-const avatar = computed(() => multiAvatar(props.value))
+const avatar = computed(() => multiAvatar(props.value || '默认头像'))
 </script>
 
 <template>
