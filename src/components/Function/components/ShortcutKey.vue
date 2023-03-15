@@ -24,7 +24,6 @@ const handleKeydown = (event: KeyboardEvent) => {
   // 双击热键或同时按住两个相同的热键
   if (shortcutKey.value.includes(key) && isHotKey(key)) {
     shortcutKey.value.push(key)
-
     setupComplete.value = true
   } else {
     // 追加热键
@@ -36,7 +35,11 @@ const handleKeydown = (event: KeyboardEvent) => {
         shortcutKey.value.unshift(key)
       }
     } else {
-      shortcutKey.value.push(getKeySymbol(code) || code)
+      const codeName = getKeySymbol(code) || code
+
+      if (shortcutKey.value.includes(codeName)) return
+
+      shortcutKey.value.push(codeName)
     }
 
     // 至少存在一个热键，并且保证有一个除热键之外的键
@@ -54,7 +57,7 @@ const handleKeyup = (event: KeyboardEvent) => {
       if (setupComplete.value) return
 
       shortcutKey.value = []
-    }, 150)
+    }, 300)
   } else {
     shortcutKey.value = []
   }
@@ -65,7 +68,7 @@ const handleClear = () => {
   setupComplete.value = false
 }
 </script>
-<!-- TODO:热键绑定高度会有跳动，更换整体图标 -->
+<!-- TODO:热键绑定高度会有跳动，更换整体图标，优化代码逻辑 -->
 <template>
   <div class="flex items-center gap-2">
     <span>唤醒窗口：</span>
