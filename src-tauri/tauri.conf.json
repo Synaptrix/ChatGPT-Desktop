@@ -54,7 +54,7 @@
         "resizable": false,
         "maximized": false,
         "title": "ChatGPT",
-        "alwaysOnTop": true,
+        "alwaysOnTop": false,
         "decorations": false,
         "transparent": true
       }

@@ -1,45 +1,54 @@
 import { selectSQL, insertSQL, updateSQL, deleteSQL } from '@/sqls'
 import { getOpenAIResultApi } from '@/api'
 import { useRoleStore } from '.'
-import type { TablePayload, RecordData } from '@/types'
+import type { SessionPayload } from '@/types'
 
-export const useRecordStore = defineStore('recordStore', () => {
-  const currentRecord = ref<TablePayload>()
+export const useSessionStore = defineStore('sessionStore', () => {
+  const currentSession = ref<SessionPayload>()
+
+  const sessionList = ref<SessionPayload[]>([])
 
   const isThinking = ref(false)
 
-  const recordList = ref<TablePayload[]>([])
-
   const createNewRecord = () => {
-    currentRecord.value = undefined
+    currentSession.value = undefined
   }
 
   const getAiMessage = async (value?: string) => {
     isThinking.value = true
 
-    // TODO: 新建的记录的 sql 参数包含角色，后期考虑如何加
-    if (!currentRecord.value && value) {
+    if (!currentSession.value && value) {
       const { currentRole } = useRoleStore()
 
-      const newRecord: TablePayload = {
+      if (!currentRole?.id) return
+
+      const id = crypto.randomUUID()
+
+      currentSession.value = {
+        id,
         title: value,
+        role_id: currentRole?.id,
         data: []
       }
 
-      newRecord.data?.push(
-        {
-          role: 'system',
-          content: currentRole?.description || ''
-        },
-        {
-          role: 'user',
-          content: value
-        }
-      )
+      addSession()
 
-      currentRecord.value = newRecord
+      // const newSessionList: SessionPayload[] = [
+      //   {
+      //     session_id: uuid,
+      //     title: value,
+      //     data: { role: 'system', content: currentRole.description },
+      //     role_id: currentRole.id
+      //   },
+      //   {
+      //     session_id: uuid,
+      //     title: value,
+      //     data: { role: 'user', content: value },
+      //     role_id: currentRole.id
+      //   }
+      // ]
 
-      addRecord()
+      addSession(newSession)
     } else if (!value) {
       const newRecord = { ...currentRecord.value }
       newRecord.data?.pop()
@@ -59,22 +68,13 @@ export const useRecordStore = defineStore('recordStore', () => {
   }
 
   const getRecord = async () => {
-    recordList.value = await selectSQL('history')
+    sessionList.value = await selectSQL('session')
 
-    if (currentRecord.value) {
-      // 检查聊天记录是否还存在于数据库
-      const findRecord = recordList.value.find(
-        (record) => record.id === currentRecord.value?.id
-      )
-
-      if (findRecord) return
-
-      currentRecord.value = undefined
-    }
+    currentSession.value = sessionList.value[0]
   }
 
-  const addRecord = async () => {
-    await insertSQL('history', currentRecord.value!)
+  const addSession = async (payload: SessionPayload) => {
+    await insertSQL('session', payload)
 
     getRecord()
   }

@@ -1,6 +1,5 @@
 <script lang="ts" setup>
 import { useRecordStore } from '@/stores'
-import { appWindow } from '@tauri-apps/api/window'
 
 const recordStore = useRecordStore()
 const { getAiMessage } = recordStore

@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import { useThemeStore } from '@/stores'
+import { useSettingsStore } from '@/stores'
 import { THEME } from '@/constants'
 import { IconMoon, IconSun } from '@arco-design/web-vue/es/icon'
 
-const themeStore = useThemeStore()
-const { toggleTheme } = themeStore
-const { themeMode } = storeToRefs(themeStore)
+const settingStore = useSettingsStore()
+const { toggleTheme } = settingStore
+const { themeMode } = storeToRefs(settingStore)
 
 const checked = computed(() => themeMode.value === THEME.light)
 </script>

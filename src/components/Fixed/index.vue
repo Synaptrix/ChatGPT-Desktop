@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { useFixedStore } from '@/stores'
+import { useSettingsStore } from '@/stores'
 import { IconPushpin } from '@arco-design/web-vue/es/icon'
 
-const { isFix } = storeToRefs(useFixedStore())
+const { isFix } = storeToRefs(useSettingsStore())
 </script>
 
 <template>

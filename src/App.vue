@@ -1,24 +1,14 @@
 <script setup lang="ts">
 import { appWindow } from '@tauri-apps/api/window'
 import { initSQL } from '@/sqls'
-import {
-  useThemeStore,
-  useUuidStore,
-  useRecordStore,
-  useRoleStore,
-  useFixedStore,
-  useShortcutKeyStore
-} from '@/stores'
+import { useSettingsStore, useRecordStore, useRoleStore } from '@/stores'
 
 // TODO: 首次加载有问题，获取不到初始化的角色列表
 initSQL()
 
-const { themeClass } = storeToRefs(useThemeStore())
-const { uuid } = storeToRefs(useUuidStore())
+const { themeClass, isFix, shortcutKey } = storeToRefs(useSettingsStore())
 const { currentRecord } = storeToRefs(useRecordStore())
 const { currentRole } = storeToRefs(useRoleStore())
-const { isFix } = storeToRefs(useFixedStore())
-const { finalShortcutKeys } = storeToRefs(useShortcutKeyStore())
 
 const windowFocused = ref(true)
 
@@ -45,9 +35,9 @@ onMounted(async () => {
     </div>
 
     <div class="flex-1 cursor-default overflow-auto">
-      <!-- TODO: 角色如何与历史对话绑定 -->
       <template v-if="currentRecord">
-        <div
+        123132
+        <!-- <div
           class="flex items-start p-2"
           v-for="(item, index) of currentRecord.data?.slice(1)"
           :key="index"
@@ -59,7 +49,7 @@ onMounted(async () => {
           <div>
             {{ item.content }}
           </div>
-        </div>
+        </div> -->
       </template>
 
       <!-- 无对话内容 -->
@@ -69,9 +59,9 @@ onMounted(async () => {
       >
         <!-- TODO: 丰富此处信息 -->
         <span>
-          <template v-for="(item, index) of finalShortcutKeys" :key="index">
+          <template v-for="(item, index) of shortcutKey" :key="index">
             <a-typography-text code>{{ item }}</a-typography-text>
-            <template v-if="index < finalShortcutKeys.length - 1"> + </template>
+            <template v-if="index < shortcutKey.length - 1"> + </template>
           </template>
           唤醒窗口
         </span>
@@ -89,12 +79,12 @@ onMounted(async () => {
           正在与 <span class="mark">{{ currentRole?.name }}</span> 对话
         </div>
 
-        <Function />
+        <!-- <Function /> -->
 
         <!-- <Settings />  -->
       </div>
 
-      <Input />
+      <!-- <Input /> -->
     </div>
   </div>
 </template>

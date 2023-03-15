@@ -56,10 +56,10 @@ const handleKeyup = (event: KeyboardEvent) => {
     setTimeout(() => {
       if (setupComplete.value) return
 
-      shortcutKey.value = []
+      handleClear()
     }, 300)
   } else {
-    shortcutKey.value = []
+    handleClear()
   }
 }
 
