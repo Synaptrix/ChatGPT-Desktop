@@ -14,7 +14,7 @@ const onKeydown = (event: KeyboardEvent) => {
   const keyName = event.key.toLowerCase()
 
   if (keyName === 'enter') {
-    if (event.shiftKey) {
+    if (!event.shiftKey && event.which !== 229 && !event.isComposing) {
       event.preventDefault()
 
       const value = textAreaValue.value.trim()

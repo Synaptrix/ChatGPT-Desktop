@@ -75,9 +75,9 @@ onMounted(async () => {
         </span>
         <span
           ><a-typography-text code>Shift</a-typography-text> +
-          <a-typography-text code>Enter</a-typography-text> 发送消息
+          <a-typography-text code>Enter</a-typography-text> 换行
         </span>
-        <span><a-typography-text code>Enter</a-typography-text> 换行</span>
+        <span><a-typography-text code>Enter</a-typography-text> 发送消息</span>
       </div>
     </div>
 
