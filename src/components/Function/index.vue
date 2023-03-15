@@ -3,7 +3,8 @@ import {
   IconPlusCircle,
   IconRefresh,
   IconDelete,
-  IconHistory
+  IconHistory,
+  IconSettings
 } from '@arco-design/web-vue/es/icon'
 import { useRecordStore } from '@/stores'
 import { getArrayLength } from '@/utils'
@@ -12,6 +13,12 @@ const recordStore = useRecordStore()
 const { createNewRecord, getAiMessage, deleteRecord } = recordStore
 const { currentRecord, isThinking } = storeToRefs(recordStore)
 
+const modalVisible = ref(false)
+const setModalVisible = () => {
+  modalVisible.value = !modalVisible.value
+}
+
+// TODO: 在获取数据时删除的处理，在获取数据时切换历史记录的处理
 const functions = computed(() => [
   {
     content: '新建对话',
@@ -35,10 +42,14 @@ const functions = computed(() => [
   {
     content: '历史记录',
     icon: IconHistory,
-    disabled: false,
     handleClick: () => {
       // empty
     }
+  },
+  {
+    content: '设置',
+    icon: IconSettings,
+    handleClick: setModalVisible
   }
 ])
 </script>
@@ -49,6 +60,7 @@ const functions = computed(() => [
       v-for="(item, index) in functions"
       :content="item.content"
       :key="index"
+      :position="index === getArrayLength(functions) - 1 ? 'tr' : 'top'"
     >
       <a-button type="text" :disabled="item.disabled" @click="item.handleClick">
         <template #icon>
@@ -60,6 +72,8 @@ const functions = computed(() => [
       </a-button>
     </a-tooltip>
   </div>
+
+  <SettingsModal :visible="modalVisible" :set-visible="setModalVisible" />
 </template>
 
 <style scoped lang="scss">

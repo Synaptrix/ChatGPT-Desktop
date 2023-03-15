@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { appWindow } from '@tauri-apps/api/window'
 import { register } from '@tauri-apps/api/globalShortcut'
+import { initSQL } from '@/sqls'
 import {
   useThemeStore,
   useUuidStore,
@@ -10,6 +11,7 @@ import {
 } from '@/stores'
 
 // TODO: 首次加载有问题，获取不到初始化的角色列表
+initSQL()
 
 const { themeClass } = storeToRefs(useThemeStore())
 const { uuid } = storeToRefs(useUuidStore())
