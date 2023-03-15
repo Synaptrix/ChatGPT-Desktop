@@ -1,13 +1,13 @@
 <script setup lang="ts">
 import { appWindow } from '@tauri-apps/api/window'
-import { register } from '@tauri-apps/api/globalShortcut'
 import { initSQL } from '@/sqls'
 import {
   useThemeStore,
   useUuidStore,
   useRecordStore,
   useRoleStore,
-  useFixedStore
+  useFixedStore,
+  useShortcutKeyStore
 } from '@/stores'
 
 // TODO: 首次加载有问题，获取不到初始化的角色列表
@@ -18,6 +18,7 @@ const { uuid } = storeToRefs(useUuidStore())
 const { currentRecord } = storeToRefs(useRecordStore())
 const { currentRole } = storeToRefs(useRoleStore())
 const { isFix } = storeToRefs(useFixedStore())
+const { finalShortcutKeys } = storeToRefs(useShortcutKeyStore())
 
 const windowFocused = ref(true)
 
@@ -27,10 +28,6 @@ onMounted(async () => {
     if (!payload && !isFix.value) appWindow.hide()
 
     windowFocused.value = payload
-  })
-  // 快捷键开启窗口
-  register('Alt+X', () => {
-    appWindow.setFocus()
   })
 })
 </script>
@@ -72,8 +69,11 @@ onMounted(async () => {
       >
         <!-- TODO: 丰富此处信息 -->
         <span>
-          <a-typography-text code>Alt</a-typography-text> +
-          <a-typography-text code>X</a-typography-text> 唤醒窗口
+          <template v-for="(item, index) of finalShortcutKeys" :key="index">
+            <a-typography-text code>{{ item }}</a-typography-text>
+            <template v-if="index < finalShortcutKeys.length - 1"> + </template>
+          </template>
+          唤醒窗口
         </span>
         <span
           ><a-typography-text code>Shift</a-typography-text> +

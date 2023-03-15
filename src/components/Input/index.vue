@@ -11,9 +11,7 @@ const textAreaElement = ref<HTMLTextAreaElement | null>(null)
 const textAreaValue = ref('')
 
 const onKeydown = (event: KeyboardEvent) => {
-  const keyName = event.key.toLowerCase()
-
-  if (keyName === 'enter') {
+  if (event.key === 'Enter') {
     if (!event.shiftKey && event.which !== 229 && !event.isComposing) {
       event.preventDefault()
 
@@ -30,9 +28,9 @@ const onKeydown = (event: KeyboardEvent) => {
 }
 
 onMounted(() => {
-  appWindow.onFocusChanged(() => {
-    textAreaElement.value?.focus()
-  })
+  // appWindow.onFocusChanged(() => {
+  //   textAreaElement.value?.focus()
+  // })
 })
 </script>
 
