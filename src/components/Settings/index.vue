@@ -5,7 +5,11 @@ import { IconSettings } from '@arco-design/web-vue/es/icon'
 <template>
   <a-popover trigger="click" position="tr" content-class="p-4 leading-none">
     <a-tooltip content="设置" position="tr">
-      <IconSettings />
+      <a-button type="text">
+        <template #icon>
+          <IconSettings />
+        </template>
+      </a-button>
     </a-tooltip>
 
     <template #content>

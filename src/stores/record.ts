@@ -17,13 +17,14 @@ export const useRecordStore = defineStore('recordStore', () => {
   const getAiMessage = async (value?: string) => {
     isThinking.value = true
 
-    if (!currentRecord.value) {
+    // TODO: 新建的记录的 sql 参数包含角色，后期考虑如何加
+    if (!currentRecord.value && value) {
+      const { currentRole } = useRoleStore()
+
       const newRecord: TablePayload = {
         title: value,
         data: []
       }
-
-      const { currentRole } = useRoleStore()
 
       newRecord.data?.push(
         {
@@ -37,8 +38,13 @@ export const useRecordStore = defineStore('recordStore', () => {
       )
 
       currentRecord.value = newRecord
+
+      addRecord()
     } else if (!value) {
-      value = currentRecord.value.data?.at(-1)?.content
+      const newRecord = { ...currentRecord.value }
+      newRecord.data?.pop()
+
+      currentRecord.value = newRecord
     }
 
     const result = await getOpenAIResultApi()
@@ -47,7 +53,9 @@ export const useRecordStore = defineStore('recordStore', () => {
 
     if (!result) return
 
-    currentRecord.value.data?.push(result?.message)
+    currentRecord.value?.data?.push(result?.message)
+
+    updateRecord()
   }
 
   const getRecord = async () => {
@@ -65,21 +73,24 @@ export const useRecordStore = defineStore('recordStore', () => {
     }
   }
 
-  const addRecord = async (payload: TablePayload) => {
-    await insertSQL('history', payload)
+  const addRecord = async () => {
+    await insertSQL('history', currentRecord.value!)
 
     getRecord()
   }
 
-  const updateRecord = async (payload: TablePayload) => {
-    await updateSQL('history', payload)
+  const updateRecord = async () => {
+    await updateSQL('history', currentRecord.value!)
 
     getRecord()
   }
 
-  // TODO：删除这块有 bug，在新对话时考虑禁用或者其它方法
-  const deleteRecord = async (id?: number) => {
-    await deleteSQL('history', id)
+  const deleteRecord = async (deleteAll = false) => {
+    if (deleteAll) {
+      await deleteSQL('history')
+    } else {
+      await deleteSQL('history', currentRecord.value?.id)
+    }
 
     getRecord()
   }

@@ -87,16 +87,9 @@ onMounted(async () => {
           正在与 <span class="mark">{{ currentRole?.name }}</span> 对话
         </div>
 
-        <!-- TODO: 没有必要全部拆分，待功能完善将不必要的拆分直接挪到这边或者移步到一个组件即可 -->
-        <Increase />
+        <Function />
 
-        <ReAnswer />
-
-        <Delete />
-
-        <History />
-
-        <Settings />
+        <!-- <Settings />  -->
       </div>
 
       <Input />
