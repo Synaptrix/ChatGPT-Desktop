@@ -36,8 +36,6 @@ const handleAdd = () => {
 }
 
 const handleHide = (value: boolean) => {
-  console.log('value', value)
-
   // 判断是否有正在编辑的角色
   const isEdit = showList.value.some((item) => item.isEdit)
   if (isEdit) return

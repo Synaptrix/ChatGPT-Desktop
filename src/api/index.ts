@@ -2,7 +2,11 @@ import { fetch, Body } from '@tauri-apps/api/http'
 import { dialogErrorMessage } from '@/utils'
 import type { FetchOptions } from '@tauri-apps/api/http'
 import type { RecordData } from '@/types'
-import { useSettingsStore } from '@/stores'
+import { useSessionStore, useSettingsStore } from '@/stores'
+import {
+  fetchEventSource,
+  type EventSourceMessage
+} from '@microsoft/fetch-event-source'
 
 /**
  * 请求总入口
@@ -52,10 +56,57 @@ export const getOpenAIResultApi = async (messages: RecordData[]) => {
     body: Body.json({
       model: 'gpt-3.5-turbo-0301',
       messages,
-      stream: true
+      temperature: 0.6,
+      stream: false
     }),
     headers: {
       Authorization: `Bearer ${apiKey || import.meta.env.VITE_OPEN_AI_API_KEY}`
+    }
+  })
+}
+
+/**
+ * 获取 openai 对话消息(流)
+ * @param messages 消息列表
+ */
+export const getOpenAIResultStream = async (messages: RecordData[]) => {
+  if (!messages.length) return
+
+  const { apiKey } = useSettingsStore()
+  const { addSessionData } = useSessionStore()
+  const { streamReply } = storeToRefs(useSessionStore())
+  streamReply.value = ''
+
+  await fetchEventSource(import.meta.env.VITE_OPEN_AI_URL, {
+    method: 'POST',
+    body: JSON.stringify({
+      model: 'gpt-3.5-turbo-0301',
+      messages,
+      temperature: 0.6,
+      stream: true
+    }),
+    headers: {
+      Authorization: `Bearer ${apiKey || import.meta.env.VITE_OPEN_AI_API_KEY}`,
+      'Content-Type': 'application/json',
+      Accept: 'application/json'
+    },
+    onmessage(msg: EventSourceMessage) {
+      if (msg.data !== '[DONE]') {
+        const { choices } = JSON.parse(msg.data)
+
+        if (!choices[0].delta.content) return
+        streamReply.value += choices[0].delta.content
+      }
+    },
+    onclose() {
+      const res: RecordData = {
+        role: 'assistant',
+        content: streamReply.value
+      }
+      addSessionData(false, '', res)
+    },
+    onerror(err: any) {
+      throw new Error('流输出出错:', err)
     }
   })
 }

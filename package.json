@@ -18,6 +18,7 @@
     ]
   },
   "dependencies": {
+    "@microsoft/fetch-event-source": "^2.0.1",
     "@multiavatar/multiavatar": "^1.0.7",
     "@tauri-apps/api": "^1.2.0",
     "pinia": "^2.0.33",

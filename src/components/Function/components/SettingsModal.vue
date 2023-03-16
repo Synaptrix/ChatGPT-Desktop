@@ -4,7 +4,7 @@ import ShortcutKey from './ShortcutKey.vue'
 
 defineProps<{ visible: boolean; setVisible: () => void }>()
 
-const { apiKey, autoStart } = storeToRefs(useSettingsStore())
+const { apiKey, autoStart, isMemory } = storeToRefs(useSettingsStore())
 </script>
 
 <template>
@@ -29,7 +29,7 @@ const { apiKey, autoStart } = storeToRefs(useSettingsStore())
       <ShortcutKey />
 
       <div class="flex items-end gap-2">
-        <a-checkbox>记忆对话</a-checkbox>
+        <a-checkbox v-model="isMemory">记忆对话</a-checkbox>
         <span class="text-3 text-[var(--color-text-3)]">
           开启连续对话，将加倍消耗 Token
         </span>

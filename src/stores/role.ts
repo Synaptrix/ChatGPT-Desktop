@@ -23,8 +23,6 @@ export const useRoleStore = defineStore(
       defaultRole.value = []
 
       roleList.value = result.map((item) => ({ ...item, isEdit: false }))
-
-      changeCurrentRole()
     }
 
     const getFilterRoleList = (value: string) => {
@@ -40,14 +38,13 @@ export const useRoleStore = defineStore(
       filterList.value.length = 0
     }
 
-    const changeCurrentRole = () => {
+    const changeCurrentRole = async () => {
       const { currentSession } = useSessionStore()
-      const findRole = roleList.value.find(
-        (role) => role.id === currentSession?.role_id
-      )
-      console.log('currentSession', currentSession, findRole)
 
-      currentRole.value = findRole ?? roleList.value[0]
+      const sql = `SELECT * FROM role WHERE id = ${currentSession?.role_id};`
+      const findRole = (await executeSQL(sql)) as RolePayload[]
+
+      currentRole.value = findRole[0] ?? roleList.value[0]
     }
 
     const addRole = async (payload: RolePayload) => {

@@ -21,7 +21,7 @@ export interface SessionData {
   is_ask: boolean
   is_memory: boolean
   message_type?: 'text' | 'image' | 'voice'
-  messages: RecordData[]
+  message: RecordData
   time?: string
 }
 

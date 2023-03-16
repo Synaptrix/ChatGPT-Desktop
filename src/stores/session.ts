@@ -1,6 +1,7 @@
 import { executeSQL } from '@/sqls'
 import type { SessionPayload, SessionData, RecordData } from '@/types'
 import { useRoleStore } from './role'
+import { useSettingsStore } from './settings'
 
 // TODO: 无记忆对话和有记忆对话
 // 用来管理当前会话的状态
@@ -15,6 +16,8 @@ export const useSessionStore = defineStore(
     const sessionList = ref<SessionPayload[]>([])
     // 请求发送状态
     const isThinking = ref(false)
+    // 流式回复
+    const streamReply = ref('')
 
     const getSessionList = async () => {
       const sql =
@@ -57,26 +60,30 @@ export const useSessionStore = defineStore(
       return result.length > 0
     }
 
-    const { changeCurrentRole, currentRole } = useRoleStore()
-
     // TODO: 是否为记忆对话
     // TODO: messageType从 types 中取到
     const addSessionData = async (
       isAsk: boolean,
       messageType: string,
-      data: RecordData[]
+      data: RecordData
     ) => {
       if (!currentSession.value) return
       // 检查会话是否已经存在
       const isExist = await checkSessionExist()
 
+      const { currentRole } = useRoleStore()
+
       if (!isExist) {
-        const sql = `INSERT INTO session (id, title, role_id) VALUES ('${currentSession.value.id}', '${data[1].content}', '${currentRole?.id}');`
+        const sql = `INSERT INTO session (id, title, role_id) VALUES ('${currentSession.value.id}', '${data.content}', '${currentRole?.id}');`
         executeSQL(sql)
       }
 
-      const sql = `INSERT INTO session_data (session_id, is_ask, messages) VALUES (
-        '${currentSession.value.id}','${isAsk}', '${JSON.stringify(data)}');`
+      const { isMemory } = useSettingsStore()
+
+      const sql = `INSERT INTO session_data (session_id, is_ask, is_memory, message) VALUES (
+        '${currentSession.value.id}', ${isAsk}, ${isMemory}, '${JSON.stringify(
+        data
+      )}');`
 
       executeSQL(sql)
       getSessionData()
@@ -88,6 +95,9 @@ export const useSessionStore = defineStore(
       else {
         currentSession.value = session
       }
+
+      const { changeCurrentRole } = useRoleStore()
+
       changeCurrentRole()
       getSessionData()
     }
@@ -98,6 +108,7 @@ export const useSessionStore = defineStore(
       currentSession,
       sessionDataList,
       isThinking,
+      streamReply,
       sessionList,
       addSessionData,
       switchSession,

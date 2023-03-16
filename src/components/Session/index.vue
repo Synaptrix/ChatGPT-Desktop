@@ -2,7 +2,9 @@
 import { useSettingsStore, useSessionStore, useRoleStore } from '@/stores'
 
 const { uuid } = storeToRefs(useSettingsStore())
-const { currentSession, sessionDataList } = storeToRefs(useSessionStore())
+const { currentSession, sessionDataList, streamReply } = storeToRefs(
+  useSessionStore()
+)
 const { currentRole } = storeToRefs(useRoleStore())
 </script>
 
@@ -18,8 +20,12 @@ const { currentRole } = storeToRefs(useRoleStore())
       >
         <Avatar class="w-14!" :value="item.is_ask ? uuid : currentRole?.name" />
         <div>
-          {{ item.messages }}
+          {{ item.message }}
         </div>
+      </div>
+      <div>
+        <p>正在回答</p>
+        <p>{{ streamReply }}</p>
       </div>
     </template>
 
