@@ -1,59 +1,48 @@
 <script setup lang="ts">
-import { Icon } from '@arco-design/web-vue'
 import { useSettingsStore } from '@/stores'
-import { hotkeys, isHotKey, getKeyIcon, getKeySymbol } from '@/utils'
+import { hotkeys, isHotKey, isSpecialKey, getKeySymbol } from '@/utils'
 
-const IconFont = Icon.addFromIconFontCn({
-  src: import.meta.env.VITE_ICON_FONT_URL
-})
-
-const { shortcutKey, isBinding } = storeToRefs(useSettingsStore())
+const { shortcutKeys, isBinding } = storeToRefs(useSettingsStore())
 
 // 获取最后一位快捷键
-const lastShortcutKey = computed(() => shortcutKey.value.at(-1) || '')
+const lastShortcutKey = computed(() => shortcutKeys.value.at(-1) || '')
 
 // 绑定快捷键的元素
 const bindingElement = ref<HTMLElement | null>(null)
-
-// 获取焦点事件
-const handleFocus = () => {
-  shortcutKey.value = []
-  isBinding.value = true
-}
 
 // 键盘按下事件
 const handleKeydown = (event: KeyboardEvent) => {
   // key 只用在四个热键，code 用于其他的键
   const { key, code } = event
+  const keyName = key === 'Meta' ? 'Command' : key
+  const codeName = isSpecialKey(code) ? code : getKeySymbol(code)!
 
   // 不管大写锁定键
-  if (code === 'CapsLock') return
+  if (codeName === 'CapsLock') return
 
   // 双击热键或同时按住两个相同的热键
-  if (shortcutKey.value.includes(key) && isHotKey(key)) {
-    shortcutKey.value.push(key)
+  if (shortcutKeys.value.includes(keyName) && isHotKey(keyName)) {
+    shortcutKeys.value.push(keyName)
 
     bindingElement.value?.blur()
   } else {
     // 追加热键
-    if (isHotKey(key)) {
+    if (isHotKey(keyName)) {
       // 如果最后一位是热键，就继续追加，反之添加到最前面
       if (isHotKey(lastShortcutKey.value)) {
-        shortcutKey.value.push(key)
+        shortcutKeys.value.push(keyName)
       } else {
-        shortcutKey.value.unshift(key)
+        shortcutKeys.value.unshift(keyName)
       }
     } else {
-      const codeName = getKeySymbol(code) || code
+      if (shortcutKeys.value.includes(codeName)) return
 
-      if (shortcutKey.value.includes(codeName)) return
-
-      shortcutKey.value.push(codeName)
+      shortcutKeys.value.push(codeName)
     }
 
     // 至少存在一个热键，并且保证有一个除热键之外的键
-    const leastOne = shortcutKey.value.some((item) => isHotKey(item))
-    const noEvery = shortcutKey.value.every((item) => isHotKey(item))
+    const leastOne = shortcutKeys.value.some((item) => isHotKey(item))
+    const noEvery = shortcutKeys.value.every((item) => isHotKey(item))
     if (leastOne && !noEvery) {
       bindingElement.value?.blur()
     }
@@ -68,14 +57,13 @@ const handleKeyup = (event: KeyboardEvent) => {
     setTimeout(() => {
       if (!isBinding.value) return
 
-      shortcutKey.value = []
+      shortcutKeys.value = []
     }, 300)
   } else {
-    shortcutKey.value = []
+    shortcutKeys.value = []
   }
 }
 </script>
-<!-- TODO:热键绑定高度会有跳动，更换整体图标 -->
 <!-- TODO: 失去焦点应该先判断有没有自定义过，没有就行把之前的再显示回来，而不是直接置为默认 -->
 <template>
   <div class="flex items-center gap-2">
@@ -83,36 +71,38 @@ const handleKeyup = (event: KeyboardEvent) => {
     <div
       ref="bindingElement"
       tabindex="0"
-      class="text-5 flex flex-1 cursor-pointer items-center justify-between rounded border border-solid border-[var(--color-fill-2)] bg-[var(--color-fill-2)] p-2 outline-none transition"
+      class="flex flex-1 cursor-pointer items-center justify-between rounded border border-solid border-[var(--color-fill-2)] bg-[var(--color-fill-2)] p-2 outline-none transition"
       :class="[isBinding ? 'border-[rgb(var(--primary-5))]!' : '']"
-      @focus="handleFocus"
+      @focus="isBinding = true"
       @blur="isBinding = false"
       @keydown="handleKeydown"
       @keyup="handleKeyup"
     >
-      <div class="flex items-center gap-2 text-[var(--color-text-4)]">
+      <div
+        class="text-6 flex items-center gap-2 font-bold leading-none text-[var(--color-text-4)]"
+      >
         <!-- 热键 -->
-        <IconFont
-          v-for="item in hotkeys"
-          :type="item.icon"
-          :class="[
-            shortcutKey.includes(item.code) && 'text-[rgb(var(--primary-5))]'
-          ]"
-          :key="item.code"
-        />
-
         <span
-          class="pl-2 leading-none text-[rgb(var(--primary-5))]"
-          v-if="!isBinding"
+          v-for="(item, index) of hotkeys"
+          :class="[
+            shortcutKeys.includes(item.key) && 'text-[rgb(var(--primary-5))]'
+          ]"
+          :key="index"
         >
+          {{ item.symbol }}
+        </span>
+
+        <span class="pl-2 text-[rgb(var(--primary-5))]" v-if="!isBinding">
           <!-- 双🐔键 -->
-          <template v-if="shortcutKey[0] === shortcutKey[1]">
+          <template v-if="shortcutKeys[0] === shortcutKeys[1]">
             double tap
           </template>
-          <!-- 特殊有图标的键 -->
-          <template v-else-if="getKeyIcon(lastShortcutKey)">
-            <IconFont :type="getKeyIcon(lastShortcutKey)" />
+
+          <!-- 特殊键 -->
+          <template v-else-if="isSpecialKey(lastShortcutKey)">
+            {{ getKeySymbol(lastShortcutKey) }}
           </template>
+
           <!-- 普通键 -->
           <template v-else>
             {{ lastShortcutKey }}

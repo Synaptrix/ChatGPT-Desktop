@@ -1,52 +1,58 @@
-// 热键列表
+// 热键
 export const hotkeys = [
   {
-    code: 'Shift'
+    key: 'Shift',
+    symbol: '⇧'
   },
   {
-    code: 'Alt'
+    key: 'Alt',
+    symbol: '⌥'
   },
   {
-    code: 'Control'
+    key: 'Control',
+    symbol: '⌃'
   },
   {
-    code: 'Meta'
+    key: 'Command',
+    symbol: '⌘'
   }
-].map(({ code }) => ({
-  code,
-  icon: `icon-${code.toLowerCase()}`
-}))
+]
 
-// 有图标的按键
-export const hasIconKeys = [
+// 特殊按键
+export const specialKeys = [
   {
-    code: 'Escape'
+    code: 'Escape',
+    symbol: '⎋'
   },
   {
-    code: 'Tab'
+    code: 'Tab',
+    symbol: '⇥'
   },
   {
-    code: 'Backspace'
+    code: 'Backspace',
+    symbol: '⌫'
   },
   {
-    code: 'Enter'
+    code: 'Enter',
+    symbol: '↩︎'
   },
   {
-    code: 'ArrowUp'
+    code: 'ArrowUp',
+    symbol: '⇡'
   },
   {
-    code: 'ArrowRight'
+    code: 'ArrowRight',
+    symbol: '⇢'
   },
   {
-    code: 'ArrowDown'
+    code: 'ArrowDown',
+    symbol: '⇣'
   },
   {
-    code: 'ArrowLeft'
+    code: 'ArrowLeft',
+    symbol: '⇠'
   }
-].map(({ code }) => ({
-  code,
-  icon: `icon-${code.toLowerCase()}`
-}))
+]
 
 // 普通按键
 export const generalKeys = [
@@ -266,15 +272,15 @@ export const generalKeys = [
  * @param key 按键 key 值
  */
 export const isHotKey = (key: string) => {
-  return !!hotkeys.find((item) => item.code === key)
+  return hotkeys.some((item) => item.key === key)
 }
 
 /**
- * 获取按键 icon
+ * 判断是否为特殊键
  * @param key 按键 code 值
  */
-export const getKeyIcon = (code: string) => {
-  return hasIconKeys.find((item) => item.code === code)?.icon
+export const isSpecialKey = (code: string) => {
+  return specialKeys.some((item) => item.code === code)
 }
 
 /**
@@ -282,5 +288,7 @@ export const getKeyIcon = (code: string) => {
  * @param key 按键 code 值
  */
 export const getKeySymbol = (code: string) => {
-  return generalKeys.find((item) => item.code === code)?.symbol
+  const keys = [...specialKeys, ...generalKeys]
+
+  return keys.find((item) => item.code === code)?.symbol
 }

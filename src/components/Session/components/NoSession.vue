@@ -1,16 +1,16 @@
 <script setup lang="ts">
 import { useSettingsStore } from '@/stores'
 
-const { shortcutKey } = storeToRefs(useSettingsStore())
+const { shortcutKeys } = storeToRefs(useSettingsStore())
 </script>
 
 <template>
   <div class="text-5 flex h-full flex-col items-center justify-center gap-4">
     <!-- 唤醒窗口 -->
     <span>
-      <template v-for="(item, index) of shortcutKey" :key="index">
+      <template v-for="(item, index) of shortcutKeys" :key="index">
         <a-typography-text code>{{ item }}</a-typography-text>
-        <template v-if="index < shortcutKey.length - 1"> + </template>
+        <template v-if="index < shortcutKeys.length - 1"> + </template>
       </template>
       唤醒窗口
     </span>

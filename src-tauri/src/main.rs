@@ -14,7 +14,7 @@ fn main() {
         .plugin(tauri_plugin_sql::Builder::default().build())
         .plugin(tauri_plugin_autostart::init(
             MacosLauncher::LaunchAgent,
-            Some(vec!["--flag1", "--flag2"]), /* arbitrary number of args to pass to your app */
+            Some(vec!["--flag1", "--flag2"]),
         ))
         .on_system_tray_event(tray::handler)
         .run(tauri::generate_context!())

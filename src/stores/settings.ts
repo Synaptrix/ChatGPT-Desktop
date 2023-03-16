@@ -23,7 +23,7 @@ export const useSettingsStore = defineStore(
     const apiKey = ref('')
 
     // 全局快捷键
-    const shortcutKey = ref<string[]>([])
+    const shortcutKeys = ref<string[]>([])
     const isBinding = ref(false)
 
     // 开机自启动
@@ -39,7 +39,7 @@ export const useSettingsStore = defineStore(
     const registerKey = async () => {
       await unregisterAll()
 
-      register(shortcutKey.value.join('+'), () => {
+      register(shortcutKeys.value.join('+'), () => {
         appWindow.setFocus()
       })
     }
@@ -56,18 +56,19 @@ export const useSettingsStore = defineStore(
       uuid.value = crypto.randomUUID()
     })
 
-    // 监听快捷键更换
+    // 监听快捷键
     watchEffect(() => {
-      if (isBinding.value || shortcutKey.value.length) return
+      if (isBinding.value) {
+        shortcutKeys.value = []
 
-      shortcutKey.value = DEFAULT_SHORTCUT_KEY
-    })
+        unregisterAll()
+      } else {
+        if (!shortcutKeys.value.length) {
+          shortcutKeys.value = DEFAULT_SHORTCUT_KEY
+        }
 
-    // 注册全局快捷键
-    watchEffect(() => {
-      if (isBinding.value) return
-
-      registerKey()
+        registerKey()
+      }
     })
 
     // 监听开机自启动
@@ -85,7 +86,7 @@ export const useSettingsStore = defineStore(
       uuid,
       isFix,
       apiKey,
-      shortcutKey,
+      shortcutKeys,
       isBinding,
       autoStart,
       toggleTheme
@@ -93,7 +94,7 @@ export const useSettingsStore = defineStore(
   },
   {
     persist: {
-      paths: ['themeMode', 'uuid', 'apiKey', 'shortcutKey', 'autoStart']
+      paths: ['themeMode', 'uuid', 'apiKey', 'shortcutKeys', 'autoStart']
     }
   }
 )

@@ -1,11 +1,11 @@
 <script setup lang="ts">
 import multiAvatar from '@multiavatar/multiavatar'
 
-const props = withDefaults(defineProps<{ value?: string }>(), {
-  value: import.meta.env.VITE_APP_NAME
-})
+const props = defineProps<{ value: string }>()
 
-const avatar = computed(() => multiAvatar(props.value || '默认头像'))
+const avatar = computed(() =>
+  multiAvatar(props.value || import.meta.env.VITE_APP_NAME)
+)
 </script>
 
 <template>
