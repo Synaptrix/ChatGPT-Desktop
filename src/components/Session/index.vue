@@ -12,10 +12,13 @@ const { currentRole } = storeToRefs(useRoleStore())
       <h3>当前session{{ currentSession?.id }}{{ currentSession?.title }}</h3>
       <div
         class="flex items-start p-2"
-        v-for="(item, index) in sessionDataList"
+        v-for="item in sessionDataList"
         :key="item.time"
       >
-        <Avatar class="w-14!" :value="index % 2 ? uuid : currentRole?.name" />
+        <Avatar
+          class="w-14!"
+          :value="item.type === 'answer' ? uuid : currentRole?.name"
+        />
         <div>
           {{ item.messages }}
         </div>

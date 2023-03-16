@@ -40,7 +40,10 @@ export const useSessionStore = defineStore(
 
     const { changeCurrentRole, currentRole } = useRoleStore()
 
-    const addSessionData = async (data: RecordData[]) => {
+    const addSessionData = async (
+      type: 'ask' | 'answer',
+      data: RecordData[]
+    ) => {
       if (!currentSession.value) return
       // 检查会话是否已经存在
       const isExist = await checkSessionExist()
@@ -50,8 +53,8 @@ export const useSessionStore = defineStore(
         executeSQL(sql)
       }
 
-      const sql = `INSERT INTO session_data (session_id, messages) VALUES (
-        '${currentSession.value.id}', '${JSON.stringify(data)}');`
+      const sql = `INSERT INTO session_data (session_id,type, messages) VALUES (
+        '${currentSession.value.id}','${type}', '${JSON.stringify(data)}');`
 
       executeSQL(sql)
       getSessionData()

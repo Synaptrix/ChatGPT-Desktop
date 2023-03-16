@@ -7,6 +7,7 @@ import {
   IconSettings
 } from '@arco-design/web-vue/es/icon'
 import { useSessionStore } from '@/stores'
+import { getAiMessage } from '@/utils'
 
 const { currentSession, isThinking, sessionDataList } = storeToRefs(
   useSessionStore()
@@ -28,8 +29,8 @@ const functions = computed(() => [
   {
     content: '重新回答',
     icon: IconRefresh,
-    disabled: isThinking.value || !(sessionDataList.value.length > 2)
-    // handleClick: () => getAiMessage()
+    disabled: isThinking.value || !sessionDataList.value.length,
+    handleClick: () => getAiMessage()
   },
   {
     content: '清空对话',

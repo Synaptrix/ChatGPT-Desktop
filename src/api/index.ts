@@ -32,8 +32,9 @@ export const request = async (url: string, options?: FetchOptions) => {
       usage,
       message: choices[0].message
     }
-  } catch ({ message }: any) {
-    dialogErrorMessage('请求出错：' + message)
+  } catch (error: any) {
+    console.log('error', error)
+    dialogErrorMessage('请求出错：' + error.message)
   }
 }
 
@@ -49,8 +50,9 @@ export const getOpenAIResultApi = async (messages: RecordData[]) => {
   return await request(import.meta.env.VITE_OPEN_AI_URL, {
     method: 'POST',
     body: Body.json({
-      model: 'gpt-3.5-turbo',
-      messages
+      model: 'gpt-3.5-turbo-0301',
+      messages,
+      stream: false
     }),
     headers: {
       Authorization: `Bearer ${apiKey || import.meta.env.VITE_OPEN_AI_API_KEY}`

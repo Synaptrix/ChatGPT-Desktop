@@ -1,34 +1,55 @@
 import { getOpenAIResultApi } from '@/api'
+import { executeSQL } from '@/sqls'
 import { useSessionStore, useRoleStore } from '@/stores'
 import { RecordData } from '@/types'
 
 export const getAiMessage = async (value?: string) => {
   const { currentRole } = useRoleStore()
   if (!currentRole) return
-  if (!value) return
+
+  let messages: RecordData[]
+
+  // 再次生成上一次问题
+  if (!value) {
+    const { sessionDataList } = useSessionStore()
+    const lastQuestion = sessionDataList
+      .filter((item) => item.type === 'ask')
+      .at(-1)
+
+    if (!lastQuestion) return
+
+    // 为了保证统一，这之后的内容全部删掉
+    const deleteSql = `DELETE FROM session_data WHERE session_id = '${lastQuestion?.session_id}' AND id >= ${lastQuestion?.id};`
+
+    await executeSQL(deleteSql)
+
+    messages = JSON.parse(lastQuestion?.messages as any) || []
+  } else {
+    // TODO 这里可以优化，如何携带上一次的对话内容
+    messages = [
+      {
+        role: 'system',
+        content: currentRole.description
+      },
+      {
+        role: 'user',
+        content: value
+      }
+    ]
+  }
 
   const { isThinking } = storeToRefs(useSessionStore())
   const { addSessionData } = useSessionStore()
 
   isThinking.value = true
 
-  const messages: RecordData[] = [
-    {
-      role: 'system',
-      content: currentRole.description
-    },
-    {
-      role: 'user',
-      content: value
-    }
-  ]
-
-  addSessionData(messages)
+  addSessionData('ask', messages)
   const result = await getOpenAIResultApi(messages)
 
   isThinking.value = false
 
   if (!result) return
 
-  addSessionData(result.message)
+  // TODO 处理流式输出的结果
+  addSessionData('answer', result.message)
 }

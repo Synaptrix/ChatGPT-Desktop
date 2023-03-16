@@ -18,7 +18,8 @@ export interface RolePayload {
 export interface SessionData {
   id?: number
   session_id: string
-  messages: RecordData
+  type: 'ask' | 'answer'
+  messages: RecordData[]
   time?: string
 }
 
