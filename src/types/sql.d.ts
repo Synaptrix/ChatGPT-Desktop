@@ -27,6 +27,7 @@ export interface SessionPayload {
   id: string
   title: string
   role_id: number
+  name?: string
 }
 
 export interface RolePayload {

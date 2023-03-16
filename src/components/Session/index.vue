@@ -7,7 +7,7 @@ const { currentRole } = storeToRefs(useRoleStore())
 </script>
 
 <template>
-  <div class="flex-1 cursor-default overflow-auto">
+  <div id="node" class="flex-1 cursor-default overflow-auto">
     <template v-if="sessionDataList.length">
       <h3>当前session{{ currentSession?.id }}{{ currentSession?.title }}</h3>
       <div

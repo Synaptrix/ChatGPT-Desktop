@@ -10,9 +10,8 @@ import { useSessionStore } from '@/stores'
 import { getAiMessage } from '@/utils'
 
 const sessionStore = useSessionStore()
-const { switchSession } = sessionStore
-const { currentSession, isThinking, sessionDataList, showHistory } =
-  storeToRefs(sessionStore)
+const { switchSession, deleteSession } = sessionStore
+const { isThinking, sessionDataList, showHistory } = storeToRefs(sessionStore)
 
 const modalVisible = ref(false)
 const setModalVisible = () => {
@@ -35,13 +34,13 @@ const functions = computed(() => [
   {
     content: '清空对话',
     icon: IconDelete,
-    disabled: !!currentSession
-    // handleClick: () => deleteRecord()
+    disabled: isThinking.value || !sessionDataList.value.length,
+    handleClick: () => deleteSession()
   },
   {
     content: '历史记录',
     icon: IconHistory,
-    handleClick: () => (showHistory.value = !showHistory.value)
+    handleClick: () => (showHistory.value = true)
   },
   {
     content: '设置',

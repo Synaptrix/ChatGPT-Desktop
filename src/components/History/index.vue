@@ -1,18 +1,54 @@
 <script lang="ts" setup>
 import { useSessionStore } from '@/stores'
+import { IconDelete } from '@arco-design/web-vue/es/icon'
 
 const sessionStore = useSessionStore()
-const { sessionList } = storeToRefs(sessionStore)
-const { switchSession } = sessionStore
+const { sessionList, showHistory, currentSession } = storeToRefs(sessionStore)
+const { switchSession, getSessionList, deleteSession } = sessionStore
 </script>
 
 <template>
-  <div v-for="item in sessionList" :key="item.id" class="bg-green">
-    <div>
-      {{ item.id }}
+  <a-drawer
+    :visible="showHistory"
+    placement="left"
+    :footer="false"
+    :closable="false"
+    @cancel="showHistory = false"
+    @open="getSessionList"
+    unmountOnClose
+  >
+    <template #title> 会话历史 </template>
+    <div class="flex flex-col gap-3">
+      <a-card
+        hoverable
+        v-for="item in sessionList"
+        :body-style="{
+          padding: '5px'
+        }"
+        :key="item.id"
+        :class="{ 'bg-red-200': item.id === currentSession?.id }"
+        class="relative"
+      >
+        <div class="flex items-center justify-between gap-4">
+          <Avatar :value="item.name" class="!w-10" />
+          <div class="flex flex-1 flex-col justify-between">
+            <span>{{ item.title }}</span>
+            <span
+              >与{{ item.name }}
+              <a-link @click="switchSession(item)" class="text-sm"
+                >继续对话</a-link
+              >
+            </span>
+          </div>
+        </div>
+
+        <IconDelete
+          @click="deleteSession(item)"
+          class="hover:bg-red-4 absolute top-1 right-1 hover:cursor-pointer"
+        />
+      </a-card>
     </div>
-    <a-button @click="switchSession(item)">切换</a-button>
-  </div>
+  </a-drawer>
 </template>
 
 <style lang="scss" scoped></style>

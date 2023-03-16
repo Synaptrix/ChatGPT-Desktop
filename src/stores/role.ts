@@ -1,5 +1,6 @@
-import { selectSQL, insertSQL, updateSQL, deleteSQL } from '@/sqls'
-import type { RolePayload } from '@/types'
+import { selectSQL, insertSQL, updateSQL, deleteSQL, executeSQL } from '@/sqls'
+import type { RolePayload, SessionPayload } from '@/types'
+import { useSessionStore } from '.'
 
 export const useRoleStore = defineStore(
   'roleStore',
@@ -21,16 +22,7 @@ export const useRoleStore = defineStore(
 
       roleList.value = result.map((item) => ({ ...item, isEdit: false }))
 
-      if (currentRole.value) {
-        // 检查角色是否还存在
-        const findRole = roleList.value.find(
-          (role) => role.id === currentRole.value?.id
-        )
-
-        if (findRole) return
-      }
-
-      currentRole.value = roleList.value[0]
+      changeCurrentRole()
     }
 
     const getFilterRoleList = (value: string) => {
@@ -46,10 +38,14 @@ export const useRoleStore = defineStore(
       filterList.value.length = 0
     }
 
-    const changeCurrentRole = (id: number) => {
-      const findRole = roleList.value.find((role) => role.id === id)
-      if (!findRole) return
-      currentRole.value = findRole
+    const changeCurrentRole = () => {
+      const { currentSession } = useSessionStore()
+      const findRole = roleList.value.find(
+        (role) => role.id === currentSession?.role_id
+      )
+      console.log('currentSession', currentSession, findRole)
+
+      currentRole.value = findRole ?? roleList.value[0]
     }
 
     const addRole = async (payload: RolePayload) => {
@@ -66,6 +62,11 @@ export const useRoleStore = defineStore(
     }
 
     const deleteRole = async (id: number) => {
+      // 删除角色前判读该角色下是否有会话
+      const sql = `SELECT * FROM session WHERE role_id = ${id};`
+      const result = (await executeSQL(sql)) as SessionPayload[]
+      if (result.length) return
+
       await deleteSQL('role', id)
 
       getRoleList()

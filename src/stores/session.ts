@@ -17,12 +17,9 @@ export const useSessionStore = defineStore(
     // 是否显示历史
     const showHistory = ref(false)
 
-    watch(showHistory, (val) => {
-      if (val) getSessionList()
-    })
-
     const getSessionList = async () => {
-      const sql = 'SELECT * FROM session;'
+      const sql =
+        'SELECT session.*,role.name FROM session LEFT JOIN role ON role.id=session.role_id;'
       sessionList.value = (await executeSQL(sql)) as SessionPayload[]
     }
 
@@ -32,6 +29,18 @@ export const useSessionStore = defineStore(
         title: '',
         role_id: 0
       }
+    }
+
+    const deleteSession = async (session = currentSession.value) => {
+      if (!session) return
+      if (!session.id) return
+
+      const sql1 = `DELETE FROM session_data WHERE session_id = '${session.id}';`
+      const sql2 = `DELETE FROM session WHERE id = '${session.id}';`
+
+      const sqlQueue = [executeSQL(sql1), executeSQL(sql2)]
+      await Promise.all(sqlQueue)
+      switchSession(currentSession.value)
     }
 
     const getSessionData = async () => {
@@ -76,12 +85,13 @@ export const useSessionStore = defineStore(
       if (!session) createNewSession()
       else {
         currentSession.value = session
-        changeCurrentRole(session.role_id)
       }
+      changeCurrentRole()
       getSessionData()
+      showHistory.value = false
     }
 
-    onMounted(() => switchSession())
+    onMounted(() => switchSession(currentSession.value))
 
     return {
       currentSession,
@@ -90,7 +100,9 @@ export const useSessionStore = defineStore(
       sessionList,
       showHistory,
       addSessionData,
-      switchSession
+      switchSession,
+      getSessionList,
+      deleteSession
     }
   },
   {
