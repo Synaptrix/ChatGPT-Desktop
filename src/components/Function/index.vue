@@ -7,7 +7,6 @@ import {
   IconSettings
 } from '@arco-design/web-vue/es/icon'
 import { useSessionStore } from '@/stores'
-import { getArrayLength } from '@/utils'
 
 const { currentSession, isThinking, sessionDataList } = storeToRefs(
   useSessionStore()
@@ -59,7 +58,7 @@ const functions = computed(() => [
       v-for="(item, index) in functions"
       :content="item.content"
       :key="index"
-      :position="index === getArrayLength(functions) - 1 ? 'tr' : 'top'"
+      :position="index === functions.length - 1 ? 'tr' : 'top'"
     >
       <a-button type="text" :disabled="item.disabled" @click="item.handleClick">
         <template #icon>

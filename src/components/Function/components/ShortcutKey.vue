@@ -8,15 +8,19 @@ const IconFont = Icon.addFromIconFontCn({
 })
 
 const { shortcutKey, isBinding } = storeToRefs(useSettingsStore())
+
 // 获取最后一位快捷键
 const lastShortcutKey = computed(() => shortcutKey.value.at(-1) || '')
+
 // 绑定快捷键的元素
 const bindingElement = ref<HTMLElement | null>(null)
+
 // 获取焦点事件
 const handleFocus = () => {
   shortcutKey.value = []
   isBinding.value = true
 }
+
 // 键盘按下事件
 const handleKeydown = (event: KeyboardEvent) => {
   // key 只用在四个热键，code 用于其他的键
@@ -55,6 +59,7 @@ const handleKeydown = (event: KeyboardEvent) => {
     }
   }
 }
+
 // 键盘弹起事件
 const handleKeyup = (event: KeyboardEvent) => {
   if (!isBinding.value) return
@@ -71,6 +76,7 @@ const handleKeyup = (event: KeyboardEvent) => {
 }
 </script>
 <!-- TODO:热键绑定高度会有跳动，更换整体图标 -->
+<!-- TODO: 失去焦点应该先判断有没有自定义过，没有就行把之前的再显示回来，而不是直接置为默认 -->
 <template>
   <div class="flex items-center gap-2">
     <span>唤醒窗口：</span>

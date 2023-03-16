@@ -66,8 +66,6 @@ onMounted(() => {
 <style lang="scss" scoped>
 .app-input {
   .arco-textarea-wrapper {
-    // height: 32px;
-
     transition: all 0.3s;
 
     border-radius: 32px;
@@ -77,7 +75,6 @@ onMounted(() => {
     }
     &.arco-textarea-focus {
       max-height: 96px;
-      overflow-y: scroll;
 
       border-color: rgb(var(--arcoblue-6));
       border-radius: 0;

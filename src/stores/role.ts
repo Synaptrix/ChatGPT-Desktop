@@ -4,14 +4,15 @@ import type { RolePayload } from '@/types'
 export const useRoleStore = defineStore(
   'roleStore',
   () => {
+    // 当前选中的角色
     const currentRole = ref<RolePayload>()
-
+    // 角色列表
     const roleList = ref<RolePayload[]>([])
     const filterList = ref<RolePayload[]>([])
 
     const isShow = ref(false)
     const isAddNew = ref(false)
-
+    // 获取角色列表
     const getRoleList = async () => {
       const result = await selectSQL('role')
 

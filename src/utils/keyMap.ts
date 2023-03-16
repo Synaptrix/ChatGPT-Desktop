@@ -1,3 +1,4 @@
+// 热键列表
 export const hotkeys = [
   {
     code: 'Shift'
@@ -16,6 +17,7 @@ export const hotkeys = [
   icon: `icon-${code.toLowerCase()}`
 }))
 
+// 有图标的按键
 export const hasIconKeys = [
   {
     code: 'Escape'
@@ -46,6 +48,7 @@ export const hasIconKeys = [
   icon: `icon-${code.toLowerCase()}`
 }))
 
+// 普通按键
 export const generalKeys = [
   // 1st row
   {
@@ -258,13 +261,26 @@ export const generalKeys = [
     : code.toUpperCase()
 }))
 
-const keys = [...hotkeys, ...hasIconKeys, ...generalKeys]
+/**
+ * 判断是否为热键
+ * @param key 按键 key 值
+ */
+export const isHotKey = (key: string) => {
+  return !!hotkeys.find((item) => item.code === key)
+}
 
-export const isHotKey = (key: string) =>
-  !!hotkeys.find((item) => item.code === key)
+/**
+ * 获取按键 icon
+ * @param key 按键 code 值
+ */
+export const getKeyIcon = (code: string) => {
+  return hasIconKeys.find((item) => item.code === code)?.icon
+}
 
-export const getKeyIcon = (code: string) =>
-  hasIconKeys.find((item) => item.code === code)?.icon || ''
-
-export const getKeySymbol = (code: string) =>
-  generalKeys.find((item) => item.code === code)?.symbol || ''
+/**
+ * 获取按键符号
+ * @param key 按键 code 值
+ */
+export const getKeySymbol = (code: string) => {
+  return generalKeys.find((item) => item.code === code)?.symbol
+}

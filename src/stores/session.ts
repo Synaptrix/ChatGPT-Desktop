@@ -6,11 +6,13 @@ import { useRoleStore } from './role'
 export const useSessionStore = defineStore(
   'sessionStore',
   () => {
+    // 当前会话
     const currentSession = ref<SessionPayload>()
-
-    // 会话数据列表
+    // 当前会话数据列表
     const sessionDataList = ref<SessionData[]>([])
-
+    // 所有会话列表
+    const sessionList = ref<SessionPayload[]>([])
+    // 请求发送状态
     const isThinking = ref(false)
 
     const newSession = () => {

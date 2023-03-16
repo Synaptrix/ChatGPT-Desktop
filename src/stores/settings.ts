@@ -1,5 +1,6 @@
 import { register, unregisterAll } from '@tauri-apps/api/globalShortcut'
 import { appWindow } from '@tauri-apps/api/window'
+import { enable, disable } from 'tauri-plugin-autostart-api'
 import { THEME, DEFAULT_SHORTCUT_KEY } from '@/constants'
 
 // @unocss-include
@@ -24,6 +25,9 @@ export const useSettingsStore = defineStore(
     // 全局快捷键
     const shortcutKey = ref<string[]>([])
     const isBinding = ref(false)
+
+    // 开机自启动
+    const autoStart = ref(false)
 
     // 切换主题
     const toggleTheme = () => {
@@ -66,6 +70,15 @@ export const useSettingsStore = defineStore(
       registerKey()
     })
 
+    // 监听开机自启动
+    watchEffect(() => {
+      if (autoStart.value) {
+        enable()
+      } else {
+        disable()
+      }
+    })
+
     return {
       themeMode,
       themeClass,
@@ -74,12 +87,13 @@ export const useSettingsStore = defineStore(
       apiKey,
       shortcutKey,
       isBinding,
+      autoStart,
       toggleTheme
     }
   },
   {
     persist: {
-      paths: ['themeMode', 'uuid', 'apiKey', 'shortcutKey']
+      paths: ['themeMode', 'uuid', 'apiKey', 'shortcutKey', 'autoStart']
     }
   }
 )

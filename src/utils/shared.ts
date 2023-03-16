@@ -15,9 +15,3 @@ export const isString = (value: any) => typeof value === 'string'
  * @param value 数据
  */
 export const isObject = (value: any) => typeof value === 'object'
-
-/**
- * 获取数组长度
- * @param value 数据
- */
-export const getArrayLength = (value?: any[]) => value?.length ?? 0

@@ -14,6 +14,7 @@ tauri-build = { version = "1.2", features = [] }
 
 [dependencies]
 tauri = { version = "1.2", features = ["api-all", "macos-private-api", "system-tray"] }
+tauri-plugin-autostart = { git = "https://github.com/tauri-apps/plugins-workspace", branch = "dev" }
 serde = { version = "1.0", features = ["derive"] }
 serde_json = "1.0"
 

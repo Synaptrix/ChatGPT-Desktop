@@ -1,7 +1,7 @@
 import { configDir } from '@tauri-apps/api/path'
 import Database from 'tauri-plugin-sql-api'
-import { dialogErrorMessage, deleteConfirm } from '@/utils'
-import { isString, isObject } from '@/utils'
+import { dialogErrorMessage, deleteConfirm, isString, isObject } from '@/utils'
+import { DEFAULT_ROLE } from '@/constants'
 import type { TableName, TablePayload, WherePayload } from '@/types'
 
 const dbFile = import.meta.env.DEV ? 'sql.dev.db' : 'sql.db'
@@ -71,18 +71,18 @@ export const initSQL = async () => {
     `
   )
 
-  // await insertSQL('role', {
-  //   name: DEFAULT_ROLE.name,
-  //   description: DEFAULT_ROLE.description,
-  //   is_default: false
-  // })
+  await insertSQL('role', {
+    name: DEFAULT_ROLE.name,
+    description: DEFAULT_ROLE.description,
+    is_default: true
+  })
 
-  // for (const item of [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]) {
-  //   await insertSQL('role', {
-  //     name: DEFAULT_ROLE.name + item,
-  //     description: DEFAULT_ROLE.description
-  //   })
-  // }
+  for (const item of [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]) {
+    await insertSQL('role', {
+      name: DEFAULT_ROLE.name + item,
+      description: DEFAULT_ROLE.description
+    })
+  }
 }
 
 /**
@@ -186,12 +186,13 @@ export const updateSQL = async (
  * @param id 删除数据的 id
  */
 export const deleteSQL = async (tableName: TableName, id?: number) => {
-  // TODO: 改为 arco 弹框
+  // TODO: 改为 arco 气泡确认框
   const isDelete = await deleteConfirm()
 
   if (!isDelete) return
 
   if (id) {
+    // 查找要删除的项是否还在数据库
     const findItem = await selectSQL(tableName, [{ key: 'id', value: id }])
 
     if (!findItem.length) return
