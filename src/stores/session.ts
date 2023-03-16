@@ -14,8 +14,19 @@ export const useSessionStore = defineStore(
     const sessionList = ref<SessionPayload[]>([])
     // 请求发送状态
     const isThinking = ref(false)
+    // 是否显示历史
+    const showHistory = ref(false)
 
-    const newSession = () => {
+    watch(showHistory, (val) => {
+      if (val) getSessionList()
+    })
+
+    const getSessionList = async () => {
+      const sql = 'SELECT * FROM session;'
+      sessionList.value = (await executeSQL(sql)) as SessionPayload[]
+    }
+
+    const createNewSession = () => {
       currentSession.value = {
         id: crypto.randomUUID(),
         title: '',
@@ -60,18 +71,26 @@ export const useSessionStore = defineStore(
       getSessionData()
     }
 
-    onMounted(() => {
-      if (!currentSession.value) newSession()
-      else changeCurrentRole(currentSession.value.role_id)
-
+    // 新建或切换会话
+    const switchSession = (session?: SessionPayload) => {
+      if (!session) createNewSession()
+      else {
+        currentSession.value = session
+        changeCurrentRole(session.role_id)
+      }
       getSessionData()
-    })
+    }
+
+    onMounted(() => switchSession())
 
     return {
       currentSession,
       sessionDataList,
       isThinking,
-      addSessionData
+      sessionList,
+      showHistory,
+      addSessionData,
+      switchSession
     }
   },
   {

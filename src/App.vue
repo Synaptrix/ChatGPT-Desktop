@@ -1,13 +1,14 @@
 <script setup lang="ts">
 import { appWindow } from '@tauri-apps/api/window'
 import { initSQL } from '@/sqls'
-import { useSettingsStore, useRoleStore } from '@/stores'
+import { useSettingsStore, useRoleStore, useSessionStore } from '@/stores'
 
 // TODO: 首次加载有问题，获取不到初始化的角色列表
 initSQL()
 
 const { themeClass, isFix } = storeToRefs(useSettingsStore())
 const { currentRole } = storeToRefs(useRoleStore())
+const { showHistory } = storeToRefs(useSessionStore())
 
 // 窗口获取焦点状态
 const windowFocused = ref(true)
@@ -37,6 +38,9 @@ onMounted(async () => {
 
     <!-- 会话信息 -->
     <Session />
+
+    <!-- 历史会话 -->
+    <History v-if="showHistory" />
 
     <div class="flex cursor-default flex-col gap-2 pt-2">
       <div class="text-6 relative flex justify-end gap-4">

@@ -5,12 +5,14 @@ import {
   IconDelete,
   IconClose
 } from '@arco-design/web-vue/es/icon'
-import { useRoleStore } from '@/stores'
+import { useRoleStore, useSessionStore } from '@/stores'
 import type { RolePayload } from '@/types'
 
 const roleStore = useRoleStore()
 const { updateRole, deleteRole, addRole, getRoleList } = roleStore
 const { currentRole, showList, isShow, isAddNew } = storeToRefs(roleStore)
+
+const { sessionDataList } = storeToRefs(useSessionStore())
 
 const handleUpdate = (item: RolePayload) => {
   if (isAddNew.value) {
@@ -46,7 +48,7 @@ const handleHide = () => {
 <template>
   <a-popover
     title="请选择对话的角色"
-    :popup-visible="isShow"
+    :popup-visible="sessionDataList.length ? false : isShow"
     class="role-popover w-full"
     @click="isShow = true"
     @popup-visible-change="handleHide"
