@@ -64,7 +64,7 @@ const handleKeyup = (event: KeyboardEvent) => {
   }
 }
 </script>
-<!-- TODO: 失去焦点应该先判断有没有自定义过，没有就行把之前的再显示回来，而不是直接置为默认 -->
+
 <template>
   <div class="flex items-center gap-2">
     <span>唤醒窗口：</span>
