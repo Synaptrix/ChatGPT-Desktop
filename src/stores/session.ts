@@ -1,108 +1,77 @@
-import { selectSQL, insertSQL, updateSQL, deleteSQL } from '@/sqls'
-import { getOpenAIResultApi } from '@/api'
-import { useRoleStore } from '.'
-import type { SessionPayload } from '@/types'
+import { executeSQL } from '@/sqls'
+import type { SessionPayload, SessionData, RecordData } from '@/types'
+import { useRoleStore } from './role'
 
-export const useSessionStore = defineStore('sessionStore', () => {
-  const currentSession = ref<SessionPayload>()
+// 用来管理当前会话的状态
+export const useSessionStore = defineStore(
+  'sessionStore',
+  () => {
+    const currentSession = ref<SessionPayload>()
 
-  const sessionList = ref<SessionPayload[]>([])
+    // 会话数据列表
+    const sessionDataList = ref<SessionData[]>([])
 
-  const isThinking = ref(false)
+    const isThinking = ref(false)
 
-  const createNewRecord = () => {
-    currentSession.value = undefined
-  }
-
-  const getAiMessage = async (value?: string) => {
-    isThinking.value = true
-
-    if (!currentSession.value && value) {
-      const { currentRole } = useRoleStore()
-
-      if (!currentRole?.id) return
-
-      const id = crypto.randomUUID()
-
+    const newSession = () => {
       currentSession.value = {
-        id,
-        title: value,
-        role_id: currentRole?.id,
-        data: []
+        id: crypto.randomUUID(),
+        title: '',
+        role_id: 0
+      }
+    }
+
+    const getSessionData = async () => {
+      if (!currentSession.value) return
+
+      const sql = `SELECT * FROM session_data WHERE session_id = '${currentSession.value.id}';`
+      sessionDataList.value = (await executeSQL(sql)) as SessionData[]
+    }
+
+    const checkSessionExist = async () => {
+      if (!currentSession.value) return
+
+      const sql = `SELECT * FROM session WHERE id = '${currentSession.value.id}';`
+      const result = (await executeSQL(sql)) as SessionPayload[]
+      return result.length > 0
+    }
+
+    const { changeCurrentRole, currentRole } = useRoleStore()
+
+    const addSessionData = async (data: RecordData[]) => {
+      if (!currentSession.value) return
+      // 检查会话是否已经存在
+      const isExist = await checkSessionExist()
+
+      if (!isExist) {
+        const sql = `INSERT INTO session (id, title, role_id) VALUES ('${currentSession.value.id}', '${data[1].content}', '${currentRole?.id}');`
+        executeSQL(sql)
       }
 
-      // addSession()
+      const sql = `INSERT INTO session_data (session_id, messages) VALUES (
+        '${currentSession.value.id}', '${JSON.stringify(data)}');`
 
-      // const newSessionList: SessionPayload[] = [
-      //   {
-      //     session_id: uuid,
-      //     title: value,
-      //     data: { role: 'system', content: currentRole.description },
-      //     role_id: currentRole.id
-      //   },
-      //   {
-      //     session_id: uuid,
-      //     title: value,
-      //     data: { role: 'user', content: value },
-      //     role_id: currentRole.id
-      //   }
-      // ]
-    } else if (!value) {
-      const newRecord = { ...currentSession.value }
-      newRecord.data?.pop()
-
-      // currentSession.value = newRecord
+      executeSQL(sql)
+      getSessionData()
     }
 
-    const result = await getOpenAIResultApi()
+    onMounted(() => {
+      if (!currentSession.value) newSession()
+      else changeCurrentRole(currentSession.value.role_id)
 
-    isThinking.value = false
+      getSessionData()
+    })
 
-    if (!result) return
-
-    // currentRecord.value?.data?.push(result?.message)
-
-    updateRecord()
-  }
-
-  const getRecord = async () => {
-    sessionList.value = await selectSQL('session')
-
-    currentSession.value = sessionList.value[0]
-  }
-
-  const addSession = async (payload: SessionPayload) => {
-    await insertSQL('session', payload as any)
-
-    getRecord()
-  }
-
-  const updateRecord = async () => {
-    await updateSQL('session', currentSession.value as any)
-
-    getRecord()
-  }
-
-  const deleteRecord = async (deleteAll = false) => {
-    if (deleteAll) {
-      // await deleteSQL('session')
-    } else {
-      // await deleteSQL('session', currentRecord.value?.id)
+    return {
+      currentSession,
+      sessionDataList,
+      isThinking,
+      addSessionData
     }
-
-    getRecord()
+  },
+  {
+    persist: {
+      paths: ['currentSession']
+    }
   }
-
-  onMounted(getRecord)
-
-  return {
-    currentSession,
-    isThinking,
-    sessionList,
-    createNewRecord,
-    getAiMessage,
-    addSession,
-    updateRecord,
-    deleteRecord
-  }
-})
+)

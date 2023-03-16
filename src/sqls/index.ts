@@ -2,7 +2,6 @@ import { configDir } from '@tauri-apps/api/path'
 import Database from 'tauri-plugin-sql-api'
 import { dialogErrorMessage, deleteConfirm } from '@/utils'
 import { isString, isObject } from '@/utils'
-import { DEFAULT_ROLE } from '@/constants'
 import type { TableName, TablePayload, WherePayload } from '@/types'
 
 const dbFile = import.meta.env.DEV ? 'sql.dev.db' : 'sql.db'
@@ -65,8 +64,8 @@ export const executeSQL = async (sql: string) => {
 export const initSQL = async () => {
   await executeSQL(
     `
-    CREATE TABLE IF NOT EXISTS session (id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT, role_id INTEGER);
-    CREATE TABLE IF NOT EXISTS session_data (id INTEGER PRIMARY KEY AUTOINCREMENT, session_id INTEGER, message TEXT, time TIMESTAMP DEFAULT CURRENT_TIMESTAMP);
+    CREATE TABLE IF NOT EXISTS session (id TEXT, title TEXT, role_id INTEGER);
+    CREATE TABLE IF NOT EXISTS session_data (id INTEGER PRIMARY KEY AUTOINCREMENT, session_id TEXT, messages TEXT, time TIMESTAMP DEFAULT CURRENT_TIMESTAMP);
     CREATE TABLE IF NOT EXISTS role (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, description TEXT, is_default INTEGER DEFAULT false);
     CREATE TABLE IF NOT EXISTS credit (id INTEGER PRIMARY KEY AUTOINCREMENT, history_id INTEGER, token_cost INTEGER, api_key TEXT);
     `

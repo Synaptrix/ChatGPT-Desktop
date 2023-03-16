@@ -45,6 +45,12 @@ export const useRoleStore = defineStore(
       filterList.value.length = 0
     }
 
+    const changeCurrentRole = (id: number) => {
+      const findRole = roleList.value.find((role) => role.id === id)
+      if (!findRole) return
+      currentRole.value = findRole
+    }
+
     const addRole = async (payload: RolePayload) => {
       await insertSQL('role', payload as any)
 
@@ -94,7 +100,8 @@ export const useRoleStore = defineStore(
       currentRole,
       addRole,
       updateRole,
-      deleteRole
+      deleteRole,
+      changeCurrentRole
     }
   },
   {

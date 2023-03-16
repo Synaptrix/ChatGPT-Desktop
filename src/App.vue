@@ -6,8 +6,8 @@ import { useSettingsStore, useSessionStore, useRoleStore } from '@/stores'
 // TODO: 首次加载有问题，获取不到初始化的角色列表
 initSQL()
 
-const { themeClass, isFix, shortcutKey } = storeToRefs(useSettingsStore())
-const { currentSession } = storeToRefs(useSessionStore())
+const { themeClass, isFix, shortcutKey, uuid } = storeToRefs(useSettingsStore())
+const { sessionDataList, currentSession } = storeToRefs(useSessionStore())
 const { currentRole } = storeToRefs(useRoleStore())
 
 const windowFocused = ref(true)
@@ -35,21 +35,18 @@ onMounted(async () => {
     </div>
 
     <div class="flex-1 cursor-default overflow-auto">
-      <template v-if="currentSession">
-        123132
-        <!-- <div
-          class="flex p-2 items-start"
-          v-for="(item, index) of currentRecord.data?.slice(1)"
-          :key="index"
+      <template v-if="sessionDataList.length">
+        <h3>当前session{{ currentSession?.id }}{{ currentSession?.title }}</h3>
+        <div
+          class="flex items-start p-2"
+          v-for="(item, index) in sessionDataList"
+          :key="item.time"
         >
-          <Avatar
-            class="w-14!"
-            :value="!(index % 2) ? uuid : currentRole?.name"
-          />
+          <Avatar class="w-14!" :value="index % 2 ? uuid : currentRole?.name" />
           <div>
-            {{ item.content }}
+            {{ item.messages }}
           </div>
-        </div> -->
+        </div>
       </template>
 
       <!-- 无对话内容 -->

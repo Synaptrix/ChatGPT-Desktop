@@ -1,8 +1,8 @@
 <script lang="ts" setup>
 import { useSessionStore, useRoleStore } from '@/stores'
+import { getAiMessage } from '@/utils'
 
 const recordStore = useSessionStore()
-const { getAiMessage } = recordStore
 const { isThinking } = storeToRefs(recordStore)
 
 const roleStore = useRoleStore()

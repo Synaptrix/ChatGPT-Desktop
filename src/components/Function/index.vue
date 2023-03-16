@@ -9,9 +9,9 @@ import {
 import { useSessionStore } from '@/stores'
 import { getArrayLength } from '@/utils'
 
-const recordStore = useSessionStore()
-const { createNewRecord, getAiMessage, deleteRecord } = recordStore
-const { currentSession, isThinking } = storeToRefs(recordStore)
+const { currentSession, isThinking, sessionDataList } = storeToRefs(
+  useSessionStore()
+)
 
 const modalVisible = ref(false)
 const setModalVisible = () => {
@@ -23,21 +23,20 @@ const functions = computed(() => [
   {
     content: '新建对话',
     icon: IconPlusCircle,
-    disabled: !!currentSession,
-    handleClick: createNewRecord
+    disabled: !!currentSession
+    // handleClick: createNewRecord
   },
   {
     content: '重新回答',
     icon: IconRefresh,
-    disabled:
-      isThinking.value || !(getArrayLength(currentSession.value?.data) > 2),
-    handleClick: () => getAiMessage()
+    disabled: isThinking.value || !(sessionDataList.value.length > 2)
+    // handleClick: () => getAiMessage()
   },
   {
     content: '清空对话',
     icon: IconDelete,
-    disabled: !!currentSession,
-    handleClick: () => deleteRecord()
+    disabled: !!currentSession
+    // handleClick: () => deleteRecord()
   },
   {
     content: '历史记录',

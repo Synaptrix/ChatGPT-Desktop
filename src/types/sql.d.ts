@@ -8,8 +8,8 @@ export interface RecordData {
 }
 export interface RolePayload {
   id?: number
-  name?: string
-  description?: string
+  name: string
+  description: string
   is_default?: boolean
   is_deleted?: boolean
   isEdit?: boolean
@@ -18,14 +18,13 @@ export interface RolePayload {
 export interface SessionData {
   id?: number
   session_id: string
-  value: RecordData
+  messages: RecordData
   time?: string
 }
 
 export interface SessionPayload {
   id: string
   title: string
-  data: SessionData[]
   role_id: number
 }
 

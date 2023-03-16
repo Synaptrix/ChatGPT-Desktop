@@ -1,6 +1,7 @@
 <script setup lang="ts">
+import { useSettingsStore } from '@/stores'
 import ShortcutKey from './ShortcutKey.vue'
-
+const { apiKey } = storeToRefs(useSettingsStore())
 defineProps<{ visible: boolean; setVisible: () => void }>()
 </script>
 
@@ -25,7 +26,12 @@ defineProps<{ visible: boolean; setVisible: () => void }>()
 
       <ShortcutKey />
 
-      <a-input-password class="w-full" placeholder="API Key" allow-clear />
+      <a-input-password
+        v-model="apiKey"
+        class="w-full"
+        placeholder="API Key"
+        allow-clear
+      />
     </div>
   </a-modal>
 </template>

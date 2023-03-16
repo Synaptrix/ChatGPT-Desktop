@@ -79,7 +79,7 @@ export const useSettingsStore = defineStore(
   },
   {
     persist: {
-      // paths: ['themeMode', 'uuid', 'apiKey', 'shortcutKey']
+      paths: ['themeMode', 'uuid', 'apiKey', 'shortcutKey']
     }
   }
 )
