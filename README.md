@@ -1,6 +1,6 @@
 # ChatGPT-Desktop
 
-## 基于 tauri + vue3 + unocss + arco 开发的跨平台桌面应用
+## 基于 tauri + vue3 开发的跨平台桌面应用
 
 ## 项目正在开发中，欢迎提交 Pull Request
 

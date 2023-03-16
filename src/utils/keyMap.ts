@@ -38,19 +38,19 @@ export const specialKeys = [
   },
   {
     code: 'ArrowUp',
-    symbol: '⇡'
+    symbol: '↑'
   },
   {
     code: 'ArrowRight',
-    symbol: '⇢'
+    symbol: '→'
   },
   {
     code: 'ArrowDown',
-    symbol: '⇣'
+    symbol: '↓'
   },
   {
     code: 'ArrowLeft',
-    symbol: '⇠'
+    symbol: '←'
   }
 ]
 
