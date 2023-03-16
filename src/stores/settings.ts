@@ -23,6 +23,7 @@ export const useSettingsStore = defineStore(
     const apiKey = ref('')
 
     // 全局快捷键
+    const prevShortcutKeys = ref<string[]>([])
     const shortcutKeys = ref<string[]>([])
     const isBinding = ref(false)
 
@@ -56,17 +57,23 @@ export const useSettingsStore = defineStore(
       uuid.value = crypto.randomUUID()
     })
 
-    // 监听快捷键
+    // 监听快捷键更换
+    watchEffect(() => {
+      if (isBinding.value || shortcutKeys.value.length) return
+
+      shortcutKeys.value = prevShortcutKeys.value.length
+        ? prevShortcutKeys.value
+        : DEFAULT_SHORTCUT_KEY
+    })
+
+    // 监听快捷键绑定状态
     watchEffect(() => {
       if (isBinding.value) {
+        prevShortcutKeys.value = shortcutKeys.value
         shortcutKeys.value = []
 
         unregisterAll()
       } else {
-        if (!shortcutKeys.value.length) {
-          shortcutKeys.value = DEFAULT_SHORTCUT_KEY
-        }
-
         registerKey()
       }
     })
