@@ -52,14 +52,14 @@ export const useSettingsStore = defineStore(
       uuid.value = crypto.randomUUID()
     })
 
-    // 监听快捷键
+    // 监听快捷键更换
     watchEffect(() => {
-      if (shortcutKey.value.length) return
+      if (isBinding.value || shortcutKey.value.length) return
 
       shortcutKey.value = DEFAULT_SHORTCUT_KEY
     })
 
-    // 监听快捷键绑定状态
+    // 注册全局快捷键
     watchEffect(() => {
       if (isBinding.value) return
 
