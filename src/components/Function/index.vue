@@ -11,11 +11,18 @@ import { getAiMessage } from '@/utils'
 
 const sessionStore = useSessionStore()
 const { switchSession, deleteSession } = sessionStore
-const { isThinking, sessionDataList, showHistory } = storeToRefs(sessionStore)
+const { isThinking, sessionDataList } = storeToRefs(sessionStore)
 
+// 控制设置弹框
 const modalVisible = ref(false)
 const setModalVisible = () => {
   modalVisible.value = !modalVisible.value
+}
+
+// 控制历史列表抽屉
+const drawerVisible = ref(false)
+const setDrawerVisible = () => {
+  drawerVisible.value = !drawerVisible.value
 }
 
 // TODO: 在获取数据时删除的处理，在获取数据时切换历史记录的处理
@@ -23,6 +30,7 @@ const functions = computed(() => [
   {
     content: '新建对话',
     icon: IconPlusCircle,
+    disabled: isThinking.value || !sessionDataList.value.length,
     handleClick: () => switchSession()
   },
   {
@@ -40,7 +48,7 @@ const functions = computed(() => [
   {
     content: '历史记录',
     icon: IconHistory,
-    handleClick: () => (showHistory.value = true)
+    handleClick: setDrawerVisible
   },
   {
     content: '设置',
@@ -50,6 +58,7 @@ const functions = computed(() => [
 ])
 </script>
 
+<!-- TODO:把聊天对象移过来 -->
 <template>
   <div class="function flex gap-2">
     <a-tooltip
@@ -69,7 +78,11 @@ const functions = computed(() => [
     </a-tooltip>
   </div>
 
+  <!-- 设置弹框 -->
   <SettingsModal :visible="modalVisible" :set-visible="setModalVisible" />
+
+  <!-- 历史会话抽屉 -->
+  <HistoryDrawer :visible="drawerVisible" :set-visible="setDrawerVisible" />
 </template>
 
 <style scoped lang="scss">

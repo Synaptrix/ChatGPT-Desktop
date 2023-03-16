@@ -1,6 +1,6 @@
 import { selectSQL, insertSQL, updateSQL, deleteSQL, executeSQL } from '@/sqls'
-import type { RolePayload, SessionPayload } from '@/types'
 import { useSessionStore } from '.'
+import type { RolePayload, SessionPayload } from '@/types'
 
 export const useRoleStore = defineStore(
   'roleStore',
@@ -9,16 +9,18 @@ export const useRoleStore = defineStore(
     const currentRole = ref<RolePayload>()
     // 角色列表
     const roleList = ref<RolePayload[]>([])
+    // 检索出来的角色列表
     const filterList = ref<RolePayload[]>([])
 
     const isShow = ref(false)
     const isAddNew = ref(false)
+
     // 获取角色列表
     const getRoleList = async () => {
       const result = await selectSQL('role')
 
       isAddNew.value = false
-      defaultRole.value.length = 0
+      defaultRole.value = []
 
       roleList.value = result.map((item) => ({ ...item, isEdit: false }))
 

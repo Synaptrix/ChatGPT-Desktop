@@ -30,6 +30,9 @@ export const useSettingsStore = defineStore(
     // 开机自启动
     const autoStart = ref(false)
 
+    // 记忆对话
+    const isMemory = ref(false)
+
     // 切换主题
     const toggleTheme = () => {
       themeMode.value =
@@ -96,12 +99,20 @@ export const useSettingsStore = defineStore(
       shortcutKeys,
       isBinding,
       autoStart,
+      isMemory,
       toggleTheme
     }
   },
   {
     persist: {
-      paths: ['themeMode', 'uuid', 'apiKey', 'shortcutKeys', 'autoStart']
+      paths: [
+        'themeMode',
+        'uuid',
+        'apiKey',
+        'shortcutKeys',
+        'autoStart',
+        'isMemory'
+      ]
     }
   }
 )

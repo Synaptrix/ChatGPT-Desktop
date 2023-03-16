@@ -2,6 +2,7 @@ import { executeSQL } from '@/sqls'
 import type { SessionPayload, SessionData, RecordData } from '@/types'
 import { useRoleStore } from './role'
 
+// TODO: 无记忆对话和有记忆对话
 // 用来管理当前会话的状态
 export const useSessionStore = defineStore(
   'sessionStore',
@@ -14,8 +15,6 @@ export const useSessionStore = defineStore(
     const sessionList = ref<SessionPayload[]>([])
     // 请求发送状态
     const isThinking = ref(false)
-    // 是否显示历史
-    const showHistory = ref(false)
 
     const getSessionList = async () => {
       const sql =
@@ -60,8 +59,11 @@ export const useSessionStore = defineStore(
 
     const { changeCurrentRole, currentRole } = useRoleStore()
 
+    // TODO: 是否为记忆对话
+    // TODO: messageType从 types 中取到
     const addSessionData = async (
-      type: 'ask' | 'answer',
+      isAsk: boolean,
+      messageType: string,
       data: RecordData[]
     ) => {
       if (!currentSession.value) return
@@ -73,8 +75,8 @@ export const useSessionStore = defineStore(
         executeSQL(sql)
       }
 
-      const sql = `INSERT INTO session_data (session_id,type, messages) VALUES (
-        '${currentSession.value.id}','${type}', '${JSON.stringify(data)}');`
+      const sql = `INSERT INTO session_data (session_id, is_ask, messages) VALUES (
+        '${currentSession.value.id}','${isAsk}', '${JSON.stringify(data)}');`
 
       executeSQL(sql)
       getSessionData()
@@ -88,7 +90,6 @@ export const useSessionStore = defineStore(
       }
       changeCurrentRole()
       getSessionData()
-      showHistory.value = false
     }
 
     onMounted(() => switchSession(currentSession.value))
@@ -98,7 +99,6 @@ export const useSessionStore = defineStore(
       sessionDataList,
       isThinking,
       sessionList,
-      showHistory,
       addSessionData,
       switchSession,
       getSessionList,

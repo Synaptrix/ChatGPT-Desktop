@@ -52,7 +52,7 @@ export const getOpenAIResultApi = async (messages: RecordData[]) => {
     body: Body.json({
       model: 'gpt-3.5-turbo-0301',
       messages,
-      stream: false
+      stream: true
     }),
     headers: {
       Authorization: `Bearer ${apiKey || import.meta.env.VITE_OPEN_AI_API_KEY}`

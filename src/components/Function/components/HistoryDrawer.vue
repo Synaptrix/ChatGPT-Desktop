@@ -2,19 +2,21 @@
 import { useSessionStore } from '@/stores'
 import { IconDelete } from '@arco-design/web-vue/es/icon'
 
+defineProps<{ visible: boolean; setVisible: () => void }>()
+
 const sessionStore = useSessionStore()
-const { sessionList, showHistory, currentSession } = storeToRefs(sessionStore)
+const { sessionList, currentSession } = storeToRefs(sessionStore)
 const { switchSession, getSessionList, deleteSession } = sessionStore
 </script>
 
 <template>
   <a-drawer
-    :visible="showHistory"
+    :visible="visible"
     placement="left"
     :footer="false"
     :closable="false"
-    @cancel="showHistory = false"
-    @open="getSessionList"
+    @cancel="setVisible"
+    @before-open="getSessionList"
     unmountOnClose
   >
     <template #title> 会话历史 </template>

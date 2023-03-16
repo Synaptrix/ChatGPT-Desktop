@@ -7,7 +7,8 @@ const { currentRole } = storeToRefs(useRoleStore())
 </script>
 
 <template>
-  <div id="node" class="flex-1 cursor-default overflow-auto">
+  <!-- TODO: 复制，一键发送，导出图片-->
+  <div class="flex-1 cursor-default overflow-auto">
     <template v-if="sessionDataList.length">
       <h3>当前session{{ currentSession?.id }}{{ currentSession?.title }}</h3>
       <div
@@ -15,10 +16,7 @@ const { currentRole } = storeToRefs(useRoleStore())
         v-for="item in sessionDataList"
         :key="item.time"
       >
-        <Avatar
-          class="w-14!"
-          :value="item.type === 'answer' ? uuid : currentRole?.name"
-        />
+        <Avatar class="w-14!" :value="item.is_ask ? uuid : currentRole?.name" />
         <div>
           {{ item.messages }}
         </div>

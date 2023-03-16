@@ -35,11 +35,14 @@ const handleAdd = () => {
   // TODO 这里需要优化，自动聚焦到输入框
 }
 
-const handleHide = () => {
+const handleHide = (value: boolean) => {
+  console.log('value', value)
+
   // 判断是否有正在编辑的角色
   const isEdit = showList.value.some((item) => item.isEdit)
   if (isEdit) return
-  isShow.value = false
+
+  isShow.value = value
 }
 </script>
 <!-- TODO:优化代码和 css 样式 -->
@@ -48,9 +51,10 @@ const handleHide = () => {
 <template>
   <a-popover
     title="请选择对话的角色"
-    :popup-visible="sessionDataList.length ? false : isShow"
     class="role-popover w-full"
-    @click="isShow = true"
+    trigger="click"
+    :popup-visible="isShow && !sessionDataList.length"
+    @click="isShow = !isShow"
     @popup-visible-change="handleHide"
   >
     <template #title>

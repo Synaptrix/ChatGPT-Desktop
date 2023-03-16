@@ -12,9 +12,7 @@ export const getAiMessage = async (value?: string) => {
   // 再次生成上一次问题
   if (!value) {
     const { sessionDataList } = useSessionStore()
-    const lastQuestion = sessionDataList
-      .filter((item) => item.type === 'ask')
-      .at(-1)
+    const lastQuestion = sessionDataList.filter((item) => item.is_ask).at(-1)
 
     if (!lastQuestion) return
 
@@ -43,13 +41,15 @@ export const getAiMessage = async (value?: string) => {
 
   isThinking.value = true
 
-  addSessionData('ask', messages)
+  addSessionData(true, '', messages)
   const result = await getOpenAIResultApi(messages)
 
   isThinking.value = false
 
+  console.log('result', result)
+
   if (!result) return
 
   // TODO 处理流式输出的结果
-  addSessionData('answer', result.message)
+  addSessionData(false, '', result.message)
 }

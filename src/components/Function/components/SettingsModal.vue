@@ -19,7 +19,7 @@ const { apiKey, autoStart } = storeToRefs(useSettingsStore())
     }"
     @ok="setVisible"
   >
-    <div class="flex flex-col gap-8">
+    <div class="flex flex-col gap-6">
       <div class="flex gap-2">
         <a-checkbox v-model="autoStart">开机自启动</a-checkbox>
         <a-checkbox>隐藏菜单栏图标</a-checkbox>
@@ -27,6 +27,13 @@ const { apiKey, autoStart } = storeToRefs(useSettingsStore())
 
       <!-- 热键绑定 -->
       <ShortcutKey />
+
+      <div class="flex items-end gap-2">
+        <a-checkbox>记忆对话</a-checkbox>
+        <span class="text-3 text-[var(--color-text-3)]">
+          开启连续对话，将加倍消耗 Token
+        </span>
+      </div>
 
       <a-input-password
         v-model="apiKey"
