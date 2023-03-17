@@ -1,5 +1,13 @@
 <script setup lang="ts">
+import { marked } from 'marked'
 import { useSettingsStore, useSessionStore, useRoleStore } from '@/stores'
+
+marked.setOptions({
+  renderer: new marked.Renderer(), // 这是必填项
+  gfm: true, // 启动类似于Github样式的Markdown语法
+  pedantic: false, // 只解析符合Markdwon定义的，不修正Markdown的错误
+  sanitize: false // 原始输出，忽略HTML标签（关闭后，可直接渲染HTML标签）
+})
 
 const { uuid } = storeToRefs(useSettingsStore())
 const { currentSession, sessionDataList, streamReply } = storeToRefs(
@@ -14,17 +22,18 @@ const { currentRole } = storeToRefs(useRoleStore())
     <template v-if="sessionDataList.length">
       <h3>当前session{{ currentSession?.id }}{{ currentSession?.title }}</h3>
       <div
-        class="flex items-start p-2"
+        class="flex items-start gap-4 p-2"
         v-for="item in sessionDataList"
         :key="item.time"
       >
-        <Avatar class="w-14!" :value="item.is_ask ? uuid : currentRole?.name" />
-        <div>
-          {{ item.message }}
-        </div>
+        <Avatar class="w-12!" :value="item.is_ask ? uuid : currentRole?.name" />
+        <div
+          v-highlight
+          class="flex flex-1 flex-col gap-3.5 py-[11.5px] leading-6"
+          v-html="marked(JSON.parse(item.message as any).content)"
+        ></div>
       </div>
       <div>
-        <p>正在回答</p>
         <p>{{ streamReply }}</p>
       </div>
     </template>
