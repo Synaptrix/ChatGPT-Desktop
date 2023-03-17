@@ -15,12 +15,14 @@ export interface RolePayload {
   isEdit?: boolean
 }
 
+export type MessageType = 'text' | 'image' | 'voice'
+
 export interface SessionData {
   id?: number
   session_id: string
   is_ask: boolean
   is_memory: boolean
-  message_type?: 'text' | 'image' | 'voice'
+  message_type: MessageType
   message: RecordData
   time?: string
 }
@@ -46,14 +48,18 @@ export interface CreditPayload {
   api_key: string
 }
 
-type MergedInterface = SessionData &
+export type TablePayload =
+  | SessionData
+  | SessionPayload
+  | RolePayload
+  | CreditPayload
+
+type MergedTablePayload = SessionData &
   SessionPayload &
   RolePayload &
   CreditPayload
 
-export type TablePayload = Partial<MergedInterface>
-
 export interface WherePayload {
-  key: keyof TablePayload
+  key: keyof Partial<MergedTablePayload>
   value: any
 }

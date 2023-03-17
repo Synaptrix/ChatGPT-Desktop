@@ -3,8 +3,6 @@ import { appWindow } from '@tauri-apps/api/window'
 import { initSQL } from '@/sqls'
 import { useSettingsStore } from '@/stores'
 
-initSQL()
-
 const { themeClass, isFix } = storeToRefs(useSettingsStore())
 
 const isLoading = ref(true)
