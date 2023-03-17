@@ -105,8 +105,8 @@ export const getOpenAIResultStream = async (messages: RecordData[]) => {
       }
       addSessionData(false, '', res)
     },
-    onerror(err: any) {
-      throw new Error('流输出出错:', err)
+    onerror({ message }: any) {
+      throw new Error(`流输出出错：${message}`)
     }
   })
 }

@@ -33,6 +33,8 @@ export const useRoleStore = defineStore(
           item.name.includes(value.slice(1))
         )
 
+        console.log('filterRoleList.value ', filterRoleList.value)
+
         popoverVisible.value = !!filterRoleList.value.length
 
         return
@@ -84,12 +86,12 @@ export const useRoleStore = defineStore(
     }
 
     // 更改当前的角色
-    const changeCurrentRole = () => {
+    const changeCurrentRole = async () => {
       const { currentSession } = useSessionStore()
 
-      currentRole.value = roleList.value.find(
-        (item) => item.id === currentSession?.role_id
-      )
+      currentRole.value = (
+        await selectSQL('role', [{ key: 'id', value: currentSession?.role_id }])
+      )[0]
     }
 
     onMounted(getRoleList)

@@ -11,7 +11,8 @@ import type { RolePayload } from '@/types'
 
 const roleStore = useRoleStore()
 const { getRoleList, updateRole, deleteRole, addRole } = roleStore
-const { currentRole, roleList, popoverVisible } = storeToRefs(roleStore)
+const { currentRole, roleList, filterRoleList, popoverVisible } =
+  storeToRefs(roleStore)
 
 const { sessionDataList } = storeToRefs(useSessionStore())
 
@@ -30,6 +31,8 @@ const handleAdd = () => {
 }
 
 const handleClick = () => {
+  getRoleList()
+
   if (sessionDataList.value.length) {
     Message.info({ content: '每个会话只能选择一个对话角色' })
 
@@ -128,7 +131,7 @@ const handleClose = () => {
     <template #content>
       <ul>
         <li
-          v-for="item in roleList"
+          v-for="item in filterRoleList.length ? filterRoleList : roleList"
           class="flex cursor-pointer items-center gap-4 bg-transparent p-4 text-[var(--color-text-1)] transition hover:bg-[var(--color-fill-2)]"
           :class="{
             'bg-[rgb(var(--blue-6))]!': currentRole?.id === item.id,

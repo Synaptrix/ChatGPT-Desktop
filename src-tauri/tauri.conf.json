@@ -8,7 +8,7 @@
   },
   "package": {
     "productName": "ChatGPT",
-    "version": "0.0.0"
+    "version": "../package.json"
   },
   "tauri": {
     "macOSPrivateApi": true,
@@ -38,8 +38,29 @@
         "icons/icon.icns",
         "icons/icon.ico"
       ],
+      "targets": [
+        "deb",
+        "msi",
+        "dmg"
+      ],
       "identifier": "com.ChatGPT",
-      "targets": "all"
+      "macOS": {
+        "entitlements": null,
+        "exceptionDomain": "api.openai.com",
+        "frameworks": [],
+        "providerShortName": null,
+        "signingIdentity": null
+      },
+      "windows": {
+        "certificateThumbprint": null,
+        "digestAlgorithm": "sha256",
+        "timestampUrl": "",
+        "wix": {
+          "language": "zh-CN"
+        }
+      },
+      "shortDescription": "ChatGPT-Desktop",
+      "longDescription": "ChatGPT 跨平台客户端，快捷键快速唤醒窗口，问答快人一步！"
     },
     "security": {
       "csp": null

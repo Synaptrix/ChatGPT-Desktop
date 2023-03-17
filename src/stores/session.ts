@@ -1,4 +1,4 @@
-import { executeSQL } from '@/sqls'
+import { executeSQL, selectSQL } from '@/sqls'
 import type { SessionPayload, SessionData, RecordData } from '@/types'
 import { useRoleStore } from './role'
 import { useSettingsStore } from './settings'
@@ -25,11 +25,15 @@ export const useSessionStore = defineStore(
       sessionList.value = (await executeSQL(sql)) as SessionPayload[]
     }
 
-    const createNewSession = () => {
+    const createNewSession = async () => {
+      const defaultRole = (
+        await selectSQL('role', [{ key: 'is_default', value: true }])
+      )[0]
+
       currentSession.value = {
         id: crypto.randomUUID(),
         title: '',
-        role_id: 0
+        role_id: defaultRole.id
       }
     }
 

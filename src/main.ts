@@ -13,7 +13,7 @@ const app = createApp(App)
 app.directive('highlight', {
   mounted(el) {
     const blocks = el.querySelectorAll('pre code')
-    blocks.forEach((block: any) => {
+    blocks.forEach((block: HTMLElement) => {
       hljs.highlightBlock(block)
     })
   }

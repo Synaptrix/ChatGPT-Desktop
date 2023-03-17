@@ -1,10 +1,10 @@
 [package]
 name = "chat_gpt"
-version = "0.0.0"
-description = "ChatGPT"
-authors = ["you"]
-license = ""
-repository = ""
+version = "0.0.1"
+description = "ChatGPT-Desktop"
+authors = ["orangelckc", "bilibili-ayang"]
+license = "MIT"
+repository = "https://github.com/bilibili-ayang/ChatGPT-Desktop"
 edition = "2021"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
