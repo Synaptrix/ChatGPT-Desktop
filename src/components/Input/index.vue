@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import { appWindow } from '@tauri-apps/api/window'
+import { Message } from '@arco-design/web-vue'
 import { useSessionStore, useRoleStore } from '@/stores'
 import { getAiMessage } from '@/utils'
 
@@ -8,7 +9,7 @@ const { isThinking } = storeToRefs(recordStore)
 
 const roleStore = useRoleStore()
 const { getFilterRoleList } = roleStore
-const { currentRole, popoverVisible } = storeToRefs(roleStore)
+const { currentRole, isEdit } = storeToRefs(roleStore)
 
 const textAreaElement = ref<HTMLTextAreaElement | null>(null)
 
@@ -16,6 +17,12 @@ const textAreaValue = ref('')
 
 const onKeydown = (event: KeyboardEvent) => {
   if (event.key === 'Enter') {
+    if (isEdit.value) {
+      Message.info('请先完成角色的编辑')
+
+      return
+    }
+
     if (!event.shiftKey && event.which !== 229 && !event.isComposing) {
       event.preventDefault()
 
@@ -30,10 +37,6 @@ const onKeydown = (event: KeyboardEvent) => {
     }
   }
 }
-
-watch(textAreaValue, (value) => {
-  getFilterRoleList(value)
-})
 
 watch(currentRole, () => {
   textAreaValue.value = ''
@@ -56,9 +59,10 @@ onMounted(() => {
       class="bordered bg-transparent!"
       :placeholder="isThinking ? 'AI 正在思考...' : '有什么问题尽管问我'"
       v-model="textAreaValue"
-      :disabled="popoverVisible || isThinking"
+      :disabled="isThinking"
       auto-size
       clearable
+      @input="getFilterRoleList"
       @keydown="onKeydown"
     ></a-textarea>
   </div>

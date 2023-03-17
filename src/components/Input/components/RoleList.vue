@@ -99,6 +99,7 @@ const handleClose = () => {
 </script>
 
 <!-- TODO: 优化代码 -->
+<!-- 修改和添加后期可优化为modal，会省去很多代码和 bug -->
 <template>
   <a-popover
     title="请选择对话的角色"
