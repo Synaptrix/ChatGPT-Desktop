@@ -53,7 +53,7 @@ export const executeSQL = async (sql: string) => {
         break
     }
 
-    dialogErrorMessage(`${action}数据时遇到了问题，请重试~`)
+    dialogErrorMessage(`${action}数据时遇到了问题，请重试！`)
   }
 }
 
@@ -64,7 +64,7 @@ export const initSQL = async () => {
   await executeSQL(
     `
     CREATE TABLE IF NOT EXISTS session (id TEXT, title TEXT, role_id INTEGER);
-    CREATE TABLE IF NOT EXISTS session_data (id INTEGER PRIMARY KEY AUTOINCREMENT, session_id TEXT, is_ask INTEGER, is_memory INTEGER, message TEXT, message_type TEXT DEFAULT 'text', time TIMESTAMP DEFAULT CURRENT_TIMESTAMP);
+    CREATE TABLE IF NOT EXISTS session_data (id INTEGER PRIMARY KEY AUTOINCREMENT, session_id TEXT, message TEXT, is_ask INTEGER, is_memory INTEGER, message_type TEXT, time TIMESTAMP DEFAULT CURRENT_TIMESTAMP);
     CREATE TABLE IF NOT EXISTS role (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, description TEXT, is_default INTEGER DEFAULT false);
     CREATE TABLE IF NOT EXISTS credit (id INTEGER PRIMARY KEY AUTOINCREMENT, history_id INTEGER, token_cost INTEGER, api_key TEXT);
     `

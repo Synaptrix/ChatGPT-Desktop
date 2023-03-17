@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+import { appWindow } from '@tauri-apps/api/window'
 import { useSessionStore, useRoleStore } from '@/stores'
 import { getAiMessage } from '@/utils'
 
@@ -7,7 +8,7 @@ const { isThinking } = storeToRefs(recordStore)
 
 const roleStore = useRoleStore()
 const { getFilterRoleList } = roleStore
-const { currentRole } = storeToRefs(roleStore)
+const { currentRole, popoverVisible } = storeToRefs(roleStore)
 
 const textAreaElement = ref<HTMLTextAreaElement | null>(null)
 
@@ -40,9 +41,9 @@ watch(currentRole, () => {
 })
 
 onMounted(() => {
-  // appWindow.onFocusChanged(() => {
-  //   textAreaElement.value?.focus()
-  // })
+  appWindow.onFocusChanged(() => {
+    textAreaElement.value?.focus()
+  })
 })
 </script>
 
@@ -55,10 +56,10 @@ onMounted(() => {
       class="bordered bg-transparent!"
       :placeholder="isThinking ? 'AI 正在思考...' : '有什么问题尽管问我'"
       v-model="textAreaValue"
-      :disabled="isThinking"
-      @keydown="onKeydown"
+      :disabled="popoverVisible || isThinking"
       auto-size
       clearable
+      @keydown="onKeydown"
     ></a-textarea>
   </div>
 </template>

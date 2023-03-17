@@ -1,7 +1,9 @@
 import { selectSQL, insertSQL, updateSQL, deleteSQL, executeSQL } from '@/sqls'
 import { useSessionStore } from '.'
-import type { RolePayload, SessionPayload } from '@/types'
+import { Message } from '@arco-design/web-vue'
+import type { RolePayload } from '@/types'
 
+// BUG: useRoleStore 使用地方过多，在获取到角色列表然后如果没有当前角色赋值为第 0 个时出问题了，即便存储了 currentRole，但也是获取到 undefined
 export const useRoleStore = defineStore(
   'roleStore',
   () => {
@@ -10,95 +12,79 @@ export const useRoleStore = defineStore(
     // 角色列表
     const roleList = ref<RolePayload[]>([])
     // 检索出来的角色列表
-    const filterList = ref<RolePayload[]>([])
-
-    const isShow = ref(false)
-    const isAddNew = ref(false)
+    const filterRoleList = ref<RolePayload[]>([])
+    // 显示角色列表弹框
+    const popoverVisible = ref(false)
 
     // 获取角色列表
     const getRoleList = async () => {
       const result = await selectSQL('role')
 
-      isAddNew.value = false
-      defaultRole.value = []
-
       roleList.value = result.map((item) => ({ ...item, isEdit: false }))
     }
 
+    // 检索角色列表
     const getFilterRoleList = (value: string) => {
-      if (value.trim().length && value.startsWith('/')) {
-        filterList.value = roleList.value.filter((item: any) => {
-          return item.name.includes(value.slice(1))
-        })
+      if (value.startsWith('/')) {
+        filterRoleList.value = roleList.value.filter(
+          (item) => item.name === value.slice(1)
+        )
 
-        isShow.value = filterList.value.length > 0
-        return
+        popoverVisible.value = !!filterRoleList.value.length
       }
-      isShow.value = false
-      filterList.value.length = 0
     }
 
-    const changeCurrentRole = async () => {
-      const { currentSession } = useSessionStore()
-
-      const sql = `SELECT * FROM role WHERE id = ${currentSession?.role_id};`
-      const findRole = (await executeSQL(sql)) as RolePayload[]
-
-      currentRole.value = findRole[0] ?? roleList.value[0]
-    }
-
+    // 添加角色
     const addRole = async (payload: RolePayload) => {
-      await insertSQL('role', payload as any)
+      await insertSQL('role', payload)
 
       getRoleList()
     }
 
+    // 更新角色信息
     const updateRole = async (payload: RolePayload) => {
-      const { name, description, id } = payload
-      await updateSQL('role', { name, description, id } as any)
+      await updateSQL('role', payload)
 
       getRoleList()
     }
 
+    // 删除角色
     const deleteRole = async (id: number) => {
       // 删除角色前判读该角色下是否有会话
-      const sql = `SELECT * FROM session WHERE role_id = ${id};`
-      const result = (await executeSQL(sql)) as SessionPayload[]
-      if (result.length) return
+      const sessionLength = (
+        await selectSQL('session', [{ key: 'role_id', value: id }])
+      ).length
+
+      if (sessionLength) {
+        Message.error(
+          `抱歉，当前角色有 ${sessionLength} 条历史会话，无法直接删除！`
+        )
+
+        return
+      }
 
       await deleteSQL('role', id)
 
       getRoleList()
     }
 
-    const defaultRole = ref<RolePayload[]>([])
+    // 更改当前的角色
+    const changeCurrentRole = () => {
+      const { currentSession } = useSessionStore()
 
-    const showList = computed(() => {
-      if (isAddNew.value) {
-        defaultRole.value.push({
-          id: 99999,
-          name: '',
-          description: '',
-          isEdit: true,
-          is_default: false
-        })
-        return defaultRole.value
-      }
-      const res =
-        filterList.value.length > 0 ? filterList.value : roleList.value
-      res.forEach((item) => (item.isEdit = false))
-      return res
-    })
+      currentRole.value = roleList.value.find(
+        (item) => item.id === currentSession?.role_id
+      )
+    }
 
     onMounted(getRoleList)
 
     return {
-      isShow,
-      isAddNew,
-      getFilterRoleList,
-      getRoleList,
-      showList,
       currentRole,
+      roleList,
+      popoverVisible,
+      getRoleList,
+      getFilterRoleList,
       addRole,
       updateRole,
       deleteRole,
