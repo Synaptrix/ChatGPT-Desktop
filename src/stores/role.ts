@@ -15,6 +15,8 @@ export const useRoleStore = defineStore(
     const filterRoleList = ref<RolePayload[]>([])
     // 显示角色列表弹框
     const popoverVisible = ref(false)
+    // 是否有角色正在编辑
+    const isEdit = computed(() => roleList.value.some((item) => item.isEdit))
 
     // 获取角色列表
     const getRoleList = async () => {
@@ -24,14 +26,27 @@ export const useRoleStore = defineStore(
     }
 
     // 检索角色列表
+    // BUG：检索出来后点击了编辑后的一系列问题
     const getFilterRoleList = (value: string) => {
       if (value.startsWith('/')) {
-        filterRoleList.value = roleList.value.filter(
-          (item) => item.name === value.slice(1)
+        filterRoleList.value = roleList.value.filter((item) =>
+          item.name.includes(value.slice(1))
         )
 
         popoverVisible.value = !!filterRoleList.value.length
+
+        return
       }
+
+      if (isEdit.value) {
+        Message.info('请先完成角色的编辑')
+
+        return
+      }
+
+      filterRoleList.value = []
+
+      popoverVisible.value = false
     }
 
     // 添加角色
@@ -82,7 +97,9 @@ export const useRoleStore = defineStore(
     return {
       currentRole,
       roleList,
+      filterRoleList,
       popoverVisible,
+      isEdit,
       getRoleList,
       getFilterRoleList,
       addRole,

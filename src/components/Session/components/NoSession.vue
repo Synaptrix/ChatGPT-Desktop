@@ -21,5 +21,9 @@ const { shortcutKeys } = storeToRefs(useSettingsStore())
     </span>
     <!-- 发送消息 -->
     <span><a-typography-text code>Enter</a-typography-text> 发送消息</span>
+
+    <span>
+      开头输入 <a-typography-text code>/</a-typography-text> 搜索角色列表
+    </span>
   </div>
 </template>
