@@ -75,13 +75,6 @@ export const initSQL = async () => {
     description: DEFAULT_ROLE.description,
     is_default: true
   })
-
-  for (const item of [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]) {
-    await insertSQL('role', {
-      name: DEFAULT_ROLE.name + item,
-      description: DEFAULT_ROLE.description
-    })
-  }
 }
 
 /**

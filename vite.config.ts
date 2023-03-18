@@ -6,6 +6,7 @@ import { presetDaisy } from 'unocss-preset-daisy'
 import AutoImport from 'unplugin-auto-import/vite'
 import Components from 'unplugin-vue-components/vite'
 import { ArcoResolver } from 'unplugin-vue-components/resolvers'
+import { visualizer } from 'rollup-plugin-visualizer'
 
 export default defineConfig(async () => ({
   plugins: [
@@ -29,7 +30,8 @@ export default defineConfig(async () => ({
           sideEffect: true
         })
       ]
-    })
+    }),
+    visualizer()
   ],
   resolve: {
     alias: {

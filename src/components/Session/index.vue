@@ -20,7 +20,7 @@ const { currentRole } = storeToRefs(useRoleStore())
   <!-- TODO: 复制，一键发送，导出图片-->
   <div class="flex-1 cursor-default overflow-auto">
     <template v-if="sessionDataList.length">
-      <h3>当前session{{ currentSession?.id }}{{ currentSession?.title }}</h3>
+      <!-- <h3>当前session{{ currentSession?.id }}{{ currentSession?.title }}</h3> -->
       <div
         class="flex items-start gap-4 p-2"
         v-for="item in sessionDataList"
