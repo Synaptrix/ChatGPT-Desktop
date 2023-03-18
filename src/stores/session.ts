@@ -104,6 +104,7 @@ export const useSessionStore = defineStore(
 
       changeCurrentRole()
       getSessionData()
+      getSessionList()
     }
 
     onMounted(() => switchSession(currentSession.value))

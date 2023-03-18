@@ -52,7 +52,6 @@ const handleClick = (item: SessionPayload) => {
             <span> 与 {{ item.name }} 的聊天 </span>
           </div>
         </div>
-        <!-- TODO:删除后刷新列表 -->
         <IconDelete
           class="text-5 opacity-0 group-hover:opacity-100"
           @click="deleteSession(item)"
