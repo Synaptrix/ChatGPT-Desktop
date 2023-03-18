@@ -1,4 +1,4 @@
-import { executeSQL, selectSQL } from '@/sqls'
+import { deleteSQL, executeSQL, selectSQL } from '@/sqls'
 import type { SessionPayload, SessionData, RecordData } from '@/types'
 import { useRoleStore } from './role'
 import { useSettingsStore } from './settings'
