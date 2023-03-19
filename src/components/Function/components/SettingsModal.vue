@@ -13,11 +13,11 @@ const { apiKey, autoStart, isMemory } = storeToRefs(useSettingsStore())
     simple
     hide-cancel
     :visible="visible"
-    :mask-closable="false"
     :mask-style="{
       borderRadius: '0.75rem'
     }"
     @ok="setVisible"
+    @cancel="setVisible"
   >
     <div class="flex flex-col gap-6">
       <div class="flex gap-2">

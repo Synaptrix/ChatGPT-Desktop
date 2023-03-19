@@ -80,9 +80,9 @@
         "resizable": false,
         "maximized": false,
         "title": "ChatGPT",
-        "alwaysOnTop": false,
         "decorations": false,
-        "transparent": true
+        "transparent": true,
+        "center": true
       }
     ],
     "systemTray": {
