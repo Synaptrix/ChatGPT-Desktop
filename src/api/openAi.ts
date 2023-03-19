@@ -113,7 +113,7 @@ export const getAiMessage = async (value?: string) => {
         const arr = []
         while (count < memoryList.length) {
           if (!memoryList[count].is_memory) break
-          arr.push(memoryList[count++].message)
+          arr.push(JSON.parse(memoryList[count++].message as any))
         }
         messages.push(...arr.reverse())
       }

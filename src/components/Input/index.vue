@@ -43,6 +43,14 @@ watch(currentRole, () => {
   textAreaElement.value?.focus()
 })
 
+watch(isThinking, (newValue) => {
+  if (newValue) return
+
+  setTimeout(() => {
+    textAreaElement.value?.focus()
+  }, 10)
+})
+
 onMounted(() => {
   appWindow.onFocusChanged(() => {
     textAreaElement.value?.focus()

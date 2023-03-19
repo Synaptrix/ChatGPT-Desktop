@@ -43,7 +43,7 @@
         "msi",
         "dmg"
       ],
-      "identifier": "com.ChatGPT",
+      "identifier": "com.ChatGPT-Desktop",
       "macOS": {
         "entitlements": null,
         "exceptionDomain": "api.openai.com",

@@ -3,18 +3,15 @@
 
 use tauri_plugin_autostart::MacosLauncher;
 
-mod folder;
 mod tray;
 
 fn main() {
-    folder::create_folder();
-
     tauri::Builder::default()
-        // .setup(|app| {
-        //     // Make the docker NOT to have an active app when started
-        //     app.set_activation_policy(tauri::ActivationPolicy::Accessory);
-        //     Ok(())
-        // })
+        .setup(|app| {
+            // Make the docker NOT to have an active app when started
+            app.set_activation_policy(tauri::ActivationPolicy::Accessory);
+            Ok(())
+        })
         .system_tray(tray::main_menu())
         .plugin(tauri_plugin_sql::Builder::default().build())
         .plugin(tauri_plugin_autostart::init(

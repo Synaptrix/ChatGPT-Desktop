@@ -17,7 +17,7 @@ export const useSettingsStore = defineStore(
     const uuid = ref('')
 
     // 是否固定窗口
-    const isFix = ref(true)
+    const isFix = ref(import.meta.env.DEV)
 
     // openAI api key
     const apiKey = ref('')

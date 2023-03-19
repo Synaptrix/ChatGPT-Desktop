@@ -21,6 +21,10 @@ onMounted(async () => {
 
     windowFocused.value = payload
   })
+
+  if (import.meta.env.PROD) {
+    appWindow.setAlwaysOnTop(true)
+  }
 })
 </script>
 
