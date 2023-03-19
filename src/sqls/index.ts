@@ -13,7 +13,8 @@ const db = await Database.load(
  * sql 的字符串参数需要在加一个冒号
  * @param value 参数
  */
-const getValue = (value: any) => (isString(value) ? `'${value}'` : value)
+const getValue = (value: any) =>
+  isString(value) ? `'${value.replaceAll("'", '&#39;')}'` : value
 
 /**
  * 执行 sql 语句
@@ -96,9 +97,19 @@ export const selectSQL = async (
     whereCondition = `WHERE ${newWherePayload.join(' AND ')}`
   }
 
-  return (await executeSQL(
+  const list = (await executeSQL(
     `SELECT * FROM ${tableName} ${whereCondition} ORDER BY id DESC;`
   )) as any[]
+
+  for (const item of list) {
+    for (const key in item) {
+      if (isString(item[key])) {
+        item[key] = item[key].replaceAll('&#39;', "'")
+      }
+    }
+  }
+
+  return list
 }
 
 /**

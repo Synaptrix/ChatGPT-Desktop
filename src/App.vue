@@ -39,7 +39,7 @@ onMounted(async () => {
     </div>
 
     <template v-else>
-      <div class="text-7 fixed top-2 right-2 flex gap-2">
+      <div class="text-7 z-999 fixed top-2 right-2 flex gap-2">
         <!-- 主题切换 -->
         <Theme />
         <!-- 固定窗口 -->

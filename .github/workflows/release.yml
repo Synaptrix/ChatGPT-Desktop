@@ -27,7 +27,7 @@ jobs:
 
       - name: Generate changelog
         id: create_release
-        run: npx changelogithub --draft --name ChatGPT-Desktop${{ steps.vars.outputs.tag }}
+        run: npx changelogithub --draft --name ChatGPT-Desktop-${{ steps.vars.outputs.tag }}
         env:
           GITHUB_TOKEN: ${{ secrets.RELEASE_TOKEN }}
 

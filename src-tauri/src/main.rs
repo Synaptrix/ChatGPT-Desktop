@@ -8,7 +8,7 @@ mod tray;
 fn main() {
     tauri::Builder::default()
         .setup(|app| {
-            // Make the docker NOT to have an active app when started
+            #[cfg(target_os = "macos")]
             app.set_activation_policy(tauri::ActivationPolicy::Accessory);
             Ok(())
         })
