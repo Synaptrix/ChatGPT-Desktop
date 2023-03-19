@@ -17,7 +17,10 @@ export const useSettingsStore = defineStore(
     const uuid = ref('')
 
     // 是否固定窗口
-    const isFix = ref(import.meta.env.DEV)
+    const isFix = ref(true)
+
+    // 窗口获取焦点状态
+    const windowFocused = ref(true)
 
     // openAI api key
     const apiKey = ref('')
@@ -44,8 +47,15 @@ export const useSettingsStore = defineStore(
       await unregisterAll()
 
       register(shortcutKeys.value.join('+'), () => {
-        appWindow.show()
-        appWindow.setFocus()
+        // 如果窗口已经显示，就隐藏
+        if (!windowFocused.value) {
+          // 窗口打开时居中
+          appWindow.center()
+          appWindow.show()
+          appWindow.setFocus()
+        } else {
+          appWindow.hide()
+        }
       })
     }
 
@@ -96,6 +106,7 @@ export const useSettingsStore = defineStore(
       themeClass,
       uuid,
       isFix,
+      windowFocused,
       apiKey,
       shortcutKeys,
       isBinding,

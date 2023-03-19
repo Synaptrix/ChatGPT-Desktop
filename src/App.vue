@@ -3,12 +3,9 @@ import { appWindow } from '@tauri-apps/api/window'
 import { initSQL } from '@/sqls'
 import { useSettingsStore } from '@/stores'
 
-const { themeClass, isFix } = storeToRefs(useSettingsStore())
+const { themeClass, isFix, windowFocused } = storeToRefs(useSettingsStore())
 
 const isLoading = ref(true)
-
-// 窗口获取焦点状态
-const windowFocused = ref(true)
 
 onMounted(async () => {
   await initSQL()
@@ -17,22 +14,18 @@ onMounted(async () => {
 
   // 监听窗口有无获取焦点
   appWindow.onFocusChanged(({ payload }) => {
-    if (!payload && !isFix.value) appWindow.hide()
-
     windowFocused.value = payload
+    setTimeout(() => {
+      if (!windowFocused.value && !isFix.value) appWindow.hide()
+    }, 100)
   })
-
-  if (import.meta.env.PROD) {
-    appWindow.setAlwaysOnTop(true)
-  }
 })
 </script>
 
 <template>
   <div
-    class="frosted flex h-screen cursor-move flex-col overflow-hidden rounded-xl p-2"
+    class="frosted flex h-screen flex-col overflow-hidden rounded-xl p-2"
     :class="[themeClass, windowFocused ? 'bordered' : 'bordered-transparent']"
-    data-tauri-drag-region
   >
     <div class="flex h-full items-center justify-center" v-if="isLoading">
       <a-spin :size="50" :loading="true" />
