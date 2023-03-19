@@ -7,9 +7,9 @@ mod tray;
 
 fn main() {
     tauri::Builder::default()
-        .setup(|app| {
+        .setup(|_app| {
             #[cfg(target_os = "macos")]
-            app.set_activation_policy(tauri::ActivationPolicy::Accessory);
+            _app.set_activation_policy(tauri::ActivationPolicy::Accessory);
             Ok(())
         })
         .system_tray(tray::main_menu())

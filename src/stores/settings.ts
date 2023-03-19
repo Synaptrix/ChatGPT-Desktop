@@ -44,6 +44,7 @@ export const useSettingsStore = defineStore(
       await unregisterAll()
 
       register(shortcutKeys.value.join('+'), () => {
+        appWindow.show()
         appWindow.setFocus()
       })
     }
