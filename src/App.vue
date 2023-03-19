@@ -3,12 +3,9 @@ import { appWindow } from '@tauri-apps/api/window'
 import { initSQL } from '@/sqls'
 import { useSettingsStore } from '@/stores'
 
-const { themeClass, isFix } = storeToRefs(useSettingsStore())
+const { themeClass, isFix, windowFocused } = storeToRefs(useSettingsStore())
 
 const isLoading = ref(true)
-
-// 窗口获取焦点状态
-const windowFocused = ref(true)
 
 onMounted(async () => {
   await initSQL()
