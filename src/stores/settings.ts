@@ -49,6 +49,8 @@ export const useSettingsStore = defineStore(
       register(shortcutKeys.value.join('+'), () => {
         // 如果窗口已经显示，就隐藏
         if (!windowFocused.value) {
+          // 窗口打开时居中
+          appWindow.center()
           appWindow.show()
           appWindow.setFocus()
         } else {
