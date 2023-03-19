@@ -10,9 +10,7 @@ marked.setOptions({
 })
 
 const { uuid } = storeToRefs(useSettingsStore())
-const { currentSession, sessionDataList, streamReply } = storeToRefs(
-  useSessionStore()
-)
+const { currentSession, sessionDataList } = storeToRefs(useSessionStore())
 const { currentRole } = storeToRefs(useRoleStore())
 </script>
 
@@ -30,11 +28,8 @@ const { currentRole } = storeToRefs(useRoleStore())
         <div
           v-highlight
           class="flex flex-1 flex-col gap-3.5 py-[11.5px] leading-6"
-          v-html="marked(JSON.parse(item.message as any).content)"
+          v-html="marked(item.message.content)"
         ></div>
-      </div>
-      <div>
-        <p>{{ streamReply }}</p>
       </div>
     </template>
 

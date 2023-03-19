@@ -9,3 +9,5 @@ export enum DEFAULT_ROLE {
 }
 
 export const DEFAULT_SHORTCUT_KEY = ['Alt', 'X']
+
+export const OPEN_AI_MODEL = 'gpt-3.5-turbo-0301'

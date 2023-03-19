@@ -1,10 +1,13 @@
-import { deleteSQL, executeSQL, selectSQL } from '@/sqls'
-import type { SessionPayload, SessionData, RecordData } from '@/types'
+import { deleteSQL, insertSQL, executeSQL, selectSQL, updateSQL } from '@/sqls'
 import { useRoleStore } from './role'
 import { useSettingsStore } from './settings'
+import type {
+  SessionPayload,
+  SessionData,
+  MessageData,
+  MessageType
+} from '@/types'
 
-// TODO: 无记忆对话和有记忆对话
-// 用来管理当前会话的状态
 export const useSessionStore = defineStore(
   'sessionStore',
   () => {
@@ -16,15 +19,31 @@ export const useSessionStore = defineStore(
     const sessionList = ref<SessionPayload[]>([])
     // 请求发送状态
     const isThinking = ref(false)
-    // 流式回复
-    const streamReply = ref('')
 
+    // 获取会话列表
     const getSessionList = async () => {
+      // TODO: 优化 sql
       const sql =
         'SELECT session.*,role.name FROM session LEFT JOIN role ON role.id=session.role_id;'
-      sessionList.value = (await executeSQL(sql)) as SessionPayload[]
+
+      sessionList.value = (await executeSQL(sql)) as any[]
     }
 
+    // 获取当前会话数据
+    const getSessionData = async () => {
+      if (!currentSession.value) return
+
+      const list = await selectSQL('session_data', [
+        { key: 'session_id', value: currentSession.value.id }
+      ])
+
+      sessionDataList.value = list.reverse().map((item) => ({
+        ...item,
+        message: JSON.parse(item.message)
+      }))
+    }
+
+    // 创建新会话
     const createNewSession = async () => {
       const defaultRole = (
         await selectSQL('role', [{ key: 'is_default', value: true }])
@@ -37,10 +56,51 @@ export const useSessionStore = defineStore(
       }
     }
 
-    const deleteSession = async (session = currentSession.value) => {
-      if (!session) return
-      if (!session.id) return
+    // 添加当前对话数据
+    const addSessionData = async (payload: {
+      isAsk: boolean
+      messageType?: MessageType
+      data: MessageData
+    }) => {
+      if (!currentSession.value) return
 
+      const { isAsk, messageType = 'text', data } = payload
+
+      const isExist = await checkSessionExist()
+
+      const { currentRole } = useRoleStore()
+
+      if (!isExist && currentRole?.id) {
+        await insertSQL('session', {
+          id: currentSession.value.id,
+          title: data.content,
+          role_id: currentRole.id
+        })
+      }
+
+      const { isMemory } = useSettingsStore()
+
+      await insertSQL('session_data', {
+        session_id: currentSession.value.id,
+        is_ask: isAsk,
+        is_memory: isMemory,
+        message: data,
+        message_type: messageType
+      })
+
+      await getSessionData()
+    }
+
+    // 更新当前对话数据
+    const updateSessionData = async (payload: SessionData) => {
+      await updateSQL('session_data', payload)
+    }
+
+    // 删除会话
+    const deleteSession = async (session = currentSession.value) => {
+      if (!session || !session.id) return
+
+      // TODO: 优化 sql
       const sql1 = `DELETE FROM session_data WHERE session_id = '${session.id}';`
       const sql2 = `DELETE FROM session WHERE id = '${session.id}';`
 
@@ -49,56 +109,22 @@ export const useSessionStore = defineStore(
       switchSession(currentSession.value)
     }
 
-    const getSessionData = async () => {
-      if (!currentSession.value) return
-
-      const sql = `SELECT * FROM session_data WHERE session_id = '${currentSession.value.id}';`
-      sessionDataList.value = (await executeSQL(sql)) as SessionData[]
-    }
-
+    // 检查会话是否存在
     const checkSessionExist = async () => {
       if (!currentSession.value) return
 
-      const sql = `SELECT * FROM session WHERE id = '${currentSession.value.id}';`
-      const result = (await executeSQL(sql)) as SessionPayload[]
-      return result.length > 0
-    }
+      const sessionList = await selectSQL('session', [
+        { key: 'id', value: currentSession.value.id }
+      ])
 
-    // TODO: 是否为记忆对话
-    // TODO: messageType从 types 中取到
-    const addSessionData = async (
-      isAsk: boolean,
-      messageType: string,
-      data: RecordData
-    ) => {
-      if (!currentSession.value) return
-      // 检查会话是否已经存在
-      const isExist = await checkSessionExist()
-
-      const { currentRole } = useRoleStore()
-
-      if (!isExist) {
-        const sql = `INSERT INTO session (id, title, role_id) VALUES ('${currentSession.value.id}', '${data.content}', '${currentRole?.id}');`
-        executeSQL(sql)
-      }
-
-      const { isMemory } = useSettingsStore()
-
-      const sql = `INSERT INTO session_data (session_id, is_ask, is_memory, message) VALUES (
-        '${currentSession.value.id}', ${isAsk}, ${isMemory}, '${JSON.stringify(
-        data
-      )}');`
-
-      executeSQL(sql)
-      getSessionData()
+      return sessionList.length
     }
 
     // 新建或切换会话
-    const switchSession = (session?: SessionPayload) => {
-      if (!session) createNewSession()
-      else {
-        currentSession.value = session
-      }
+    // TODO: 新建对话保持上一个角色
+    const switchSession = async (session?: SessionPayload) => {
+      if (!session) await createNewSession()
+      else currentSession.value = session
 
       const { changeCurrentRole } = useRoleStore()
 
@@ -113,9 +139,9 @@ export const useSessionStore = defineStore(
       currentSession,
       sessionDataList,
       isThinking,
-      streamReply,
       sessionList,
       addSessionData,
+      updateSessionData,
       switchSession,
       getSessionList,
       deleteSession

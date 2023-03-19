@@ -2,7 +2,7 @@ type Role = 'system' | 'user' | 'assistant'
 
 export type TableName = 'session' | 'session_data' | 'role' | 'credit'
 
-export interface RecordData {
+export interface MessageData {
   role: Role
   content: string
 }
@@ -23,7 +23,7 @@ export interface SessionData {
   is_ask: boolean
   is_memory: boolean
   message_type: MessageType
-  message: RecordData
+  message: MessageData
   time?: string
 }
 
