@@ -17,9 +17,10 @@ onMounted(async () => {
 
   // 监听窗口有无获取焦点
   appWindow.onFocusChanged(({ payload }) => {
-    if (!payload && !isFix.value) appWindow.hide()
-
     windowFocused.value = payload
+    setTimeout(() => {
+      if (!windowFocused.value && !isFix.value) appWindow.hide()
+    }, 100)
   })
 
   if (import.meta.env.PROD) {
