@@ -11,11 +11,23 @@ const marked = new MarkdownIt().use(MarkdownItHighlight).use(MarkdownItCodeCopy)
 const { uuid } = storeToRefs(useSettingsStore())
 const { sessionDataList } = storeToRefs(useSessionStore())
 const { currentRole } = storeToRefs(useRoleStore())
+
+const sessionElement = ref<HTMLDivElement | null>(null)
+
+watchEffect(() => {
+  if (!sessionElement.value) return
+
+  if (sessionDataList.value.at(-1)?.message?.content) {
+    sessionElement.value.scrollTo({
+      top: sessionElement.value.offsetHeight
+    })
+  }
+})
 </script>
 
 <template>
   <!-- TODO: 复制，一键发送，导出图片-->
-  <div class="session flex-1 cursor-default overflow-auto">
+  <div ref="sessionElement" class="session flex-1 cursor-default overflow-auto">
     <template v-if="sessionDataList.length">
       <div
         :id="`session-${item.id}`"
