@@ -82,7 +82,8 @@
         "title": "ChatGPT",
         "decorations": false,
         "transparent": true,
-        "center": true
+        "center": true,
+        "alwaysOnTop": true
       }
     ],
     "systemTray": {

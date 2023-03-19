@@ -22,10 +22,6 @@ onMounted(async () => {
       if (!windowFocused.value && !isFix.value) appWindow.hide()
     }, 100)
   })
-
-  if (import.meta.env.PROD) {
-    appWindow.setAlwaysOnTop(true)
-  }
 })
 </script>
 
