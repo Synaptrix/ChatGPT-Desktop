@@ -26,8 +26,14 @@ watchEffect(() => {
 </script>
 
 <template>
-  <!-- TODO: 复制，一键发送，导出图片-->
-  <div ref="sessionElement" class="session flex-1 cursor-default overflow-auto">
+  <div
+    ref="sessionElement"
+    class="session relative flex-1 cursor-default overflow-auto"
+  >
+    <div
+      class="bg-gray/60 z-999 sticky top-2 m-auto h-3 w-80 cursor-move rounded-md opacity-0 hover:opacity-100"
+      data-tauri-drag-region
+    ></div>
     <template v-if="sessionDataList.length">
       <div
         :id="`session-${item.id}`"

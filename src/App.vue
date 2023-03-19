@@ -30,9 +30,8 @@ onMounted(async () => {
 
 <template>
   <div
-    class="frosted flex h-screen cursor-move flex-col overflow-hidden rounded-xl p-2"
+    class="frosted flex h-screen flex-col overflow-hidden rounded-xl p-2"
     :class="[themeClass, windowFocused ? 'bordered' : 'bordered-transparent']"
-    data-tauri-drag-region
   >
     <div class="flex h-full items-center justify-center" v-if="isLoading">
       <a-spin :size="50" :loading="true" />
