@@ -177,7 +177,7 @@ export const updateSQL = async (
  * @param tableName 表名称
  * @param id 删除数据的 id
  */
-export const deleteSQL = async (tableName: TableName, id?: number) => {
+export const deleteSQL = async (tableName: TableName, id?: number | string) => {
   // TODO: 改为 arco 气泡确认框
   const isDelete = await deleteConfirm()
 

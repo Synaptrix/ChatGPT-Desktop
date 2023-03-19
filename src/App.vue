@@ -46,14 +46,8 @@ onMounted(async () => {
       <Session />
 
       <div class="flex cursor-default flex-col gap-2 pt-2">
-        <div class="text-6 relative flex justify-end gap-4">
-          <!-- 当前聊天角色对象 -->
-          <!-- <div class="top-50% left-50% text-4 -translate-1/2 absolute">
-            正在与 <span class="mark">{{ currentRole?.name }}</span> 对话
-          </div> -->
-          <!-- 功能按钮 -->
-          <Function />
-        </div>
+        <!-- 功能区域 -->
+        <Function />
         <!-- 输入框 -->
         <Input />
       </div>

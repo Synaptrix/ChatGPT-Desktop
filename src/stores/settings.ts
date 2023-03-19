@@ -48,16 +48,16 @@ export const useSettingsStore = defineStore(
       })
     }
 
-    // 监听主题
-    watchEffect(() => {
-      document.body.setAttribute('arco-theme', themeMode.value)
-    })
-
-    // 监听 uuid
-    watchEffect(() => {
+    // 获取 uuid
+    onMounted(() => {
       if (uuid.value) return
 
       uuid.value = crypto.randomUUID()
+    })
+
+    // 监听主题
+    watchEffect(() => {
+      document.body.setAttribute('arco-theme', themeMode.value)
     })
 
     // 监听快捷键更换

@@ -53,7 +53,7 @@
 支持的平台与架构：
 
 - **Mac**: Apple Silicon, Intel
-- **Windows**: Windows 7 - Window 11
+- **Windows**: Windows 7 - Windows 11
 - **Linux**: x64
 
 <img src='./images/home.png' />
