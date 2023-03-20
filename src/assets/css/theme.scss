@@ -1,10 +1,14 @@
 body {
+  --background-color: #f2f3f5;
+
   --scroll-thumb-color: #c0c0c0;
   --scroll-thumb-color-hover: #a7a7a7;
   --scroll-track-color: #f1f1f1;
 }
 
-body[theme-mode="dark"] {
+body[arco-theme='dark'] {
+  --background-color: #17171a;
+
   --scroll-thumb-color: #686868;
   --scroll-thumb-color-hover: #7a7a7a;
   --scroll-track-color: #444;
