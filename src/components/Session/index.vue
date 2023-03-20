@@ -5,6 +5,10 @@ import MarkdownItCodeCopy from 'markdown-it-code-copy'
 import { IconImage } from '@arco-design/web-vue/es/icon'
 import { saveImage } from '@/utils'
 import { useSettingsStore, useSessionStore, useRoleStore } from '@/stores'
+import dayjs from 'dayjs'
+import utc from 'dayjs/plugin/utc'
+
+dayjs.extend(utc)
 
 const marked = new MarkdownIt().use(MarkdownItHighlight).use(MarkdownItCodeCopy)
 
@@ -13,6 +17,9 @@ const { sessionDataList } = storeToRefs(useSessionStore())
 const { currentRole } = storeToRefs(useRoleStore())
 
 const sessionElement = ref<HTMLDivElement | null>(null)
+
+const localTime = (time: string) =>
+  dayjs.utc(time).local().format('YYYY-MM-DD HH:mm:ss')
 
 watchEffect(() => {
   if (!sessionElement.value) return
@@ -44,7 +51,9 @@ watchEffect(() => {
           class="flex w-[calc(100%-8rem)] flex-col gap-2"
           :class="item.is_ask && 'items-end'"
         >
-          <span>{{ item.time }}</span>
+          <span class="text-true-gray text-xs">{{
+            localTime(item.time!)
+          }}</span>
 
           <div class="blink-block" v-if="!item.message.content"></div>
           <div
