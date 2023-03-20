@@ -1,4 +1,5 @@
 import { Body } from '@tauri-apps/api/http'
+import { Message } from '@arco-design/web-vue'
 import { request } from '.'
 import { OPEN_AI_MODEL } from '@/constants'
 import { dialogErrorMessage } from '@/utils'
@@ -79,6 +80,13 @@ export const getOpenAIResultStreamApi = async (messages: MessageData[]) => {
  * @param value 消息内容
  */
 export const getAiMessage = async (value?: string) => {
+  const { apiKey } = useSettingsStore()
+
+  if (!apiKey || !import.meta.env.VITE_OPEN_AI_API_KEY) {
+    Message.warning('请先填写 OpenAi API Key')
+    return
+  }
+
   const { isThinking } = storeToRefs(useSessionStore())
 
   try {
