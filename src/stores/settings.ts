@@ -36,6 +36,9 @@ export const useSettingsStore = defineStore(
     // 记忆对话
     const isMemory = ref(false)
 
+    // 是否记住上次位置
+    const isRememberPosition = ref(false)
+
     // 切换主题
     const toggleTheme = () => {
       themeMode.value =
@@ -49,8 +52,10 @@ export const useSettingsStore = defineStore(
       register(shortcutKeys.value.join('+'), () => {
         // 如果窗口已经显示，就隐藏
         if (!windowFocused.value) {
-          // 窗口打开时居中
-          appWindow.center()
+          // 窗口打开时居中还是上次位置
+          if (!isRememberPosition.value) {
+            appWindow.center()
+          }
           appWindow.show()
           appWindow.setFocus()
         } else {
@@ -112,6 +117,7 @@ export const useSettingsStore = defineStore(
       isBinding,
       autoStart,
       isMemory,
+      isRememberPosition,
       toggleTheme
     }
   },
@@ -123,7 +129,8 @@ export const useSettingsStore = defineStore(
         'apiKey',
         'shortcutKeys',
         'autoStart',
-        'isMemory'
+        'isMemory',
+        'isRememberPosition'
       ]
     }
   }

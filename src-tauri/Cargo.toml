@@ -1,6 +1,6 @@
 [package]
 name = "chat_gpt"
-version = "0.0.1"
+version = "0.0.2"
 description = "ChatGPT-Desktop"
 authors = ["orangelckc", "bilibili-ayang"]
 license = "MIT"
