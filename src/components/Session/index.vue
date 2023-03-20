@@ -32,16 +32,29 @@ watchEffect(() => {
   >
     <template v-if="sessionDataList.length">
       <div
-        :id="`session-data-${item.id}`"
         class="flex items-start gap-4 py-2 px-4"
         v-for="item in sessionDataList"
         :key="item.time"
+        :id="`session-data-${item.id}`"
+        :class="item.is_ask && 'flex-row-reverse'"
       >
         <!-- TODO: 优化 css -->
-        <Avatar class="w-12!" :value="item.is_ask ? uuid : currentRole?.name" />
-        <div class="group relative flex flex-1 flex-col py-3" :key="item.id">
+        <Avatar
+          class="w-12! flex-shrink-0 flex-grow-0"
+          :value="item.is_ask ? uuid : currentRole?.name"
+        />
+        <div
+          class="group relative flex w-auto flex-col py-3"
+          :key="item.id"
+          :class="
+            item.is_ask
+              ? 'bg-red items-end rounded-md pr-3 pl-8'
+              : 'bg-blue rounded-md pl-3 pr-8'
+          "
+        >
           <div
-            class="text-5 absolute top-2 right-2 opacity-0 transition group-hover:opacity-100"
+            class="text-5 absolute top-2 opacity-0 transition group-hover:opacity-100"
+            :class="item.is_ask ? 'left-2' : 'right-2'"
           >
             <IconImage
               class="cursor-pointer"
@@ -49,7 +62,7 @@ watchEffect(() => {
             />
           </div>
           <div
-            class="session-item flex flex-col gap-4 leading-6"
+            class="`session-item leading-6` flex flex-col gap-4"
             v-html="marked.render(item.message.content)"
             :class="!item.message.content && 'blink-block'"
           ></div>
