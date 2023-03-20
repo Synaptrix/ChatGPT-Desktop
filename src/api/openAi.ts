@@ -56,6 +56,17 @@ export const getOpenAIResultStreamApi = async (messages: MessageData[]) => {
       'Content-Type': 'application/json',
       Accept: 'application/json'
     },
+    async onopen(response) {
+      if (response.ok) return
+
+      if (response.status === 429) {
+        throw new Error('请求的key超出限制')
+      } else if (response.status === 401) {
+        throw new Error('请求的key无效')
+      } else {
+        throw new Error('请求出错')
+      }
+    },
     onmessage(msg: EventSourceMessage) {
       if (msg.data !== '[DONE]') {
         const { choices } = JSON.parse(msg.data)
@@ -70,7 +81,7 @@ export const getOpenAIResultStreamApi = async (messages: MessageData[]) => {
       updateSessionData(sessionDataList.value.at(-1)!)
     },
     onerror({ message }: any) {
-      throw new Error(`流输出出错：${message}`)
+      throw new Error(message)
     }
   })
 }
@@ -168,12 +179,7 @@ export const getAiMessage = async (value?: string) => {
     isThinking.value = false
   } catch ({ message }: any) {
     // TODO: 删除失败的询问和回答项
-    if (message.includes('timed out')) {
-      dialogErrorMessage('请求超时！')
-    } else {
-      dialogErrorMessage('填写的 API KEY 无效')
-    }
-
+    dialogErrorMessage(message as string)
     isThinking.value = false
   }
 }
