@@ -14,15 +14,15 @@ const { getRoleList, updateRole, deleteRole, addRole } = roleStore
 const { currentRole, roleList, filterRoleList, popoverVisible, isEdit } =
   storeToRefs(roleStore)
 
-const { sessionDataList } = storeToRefs(useSessionStore())
+const { sessionDataList, currentSession } = storeToRefs(useSessionStore())
 
 const isAdd = ref(false)
 
-const renderList = computed(() =>
-  filterRoleList.value.length && !isAdd.value
+const renderList = computed(() => {
+  return filterRoleList.value.length && !isAdd.value
     ? filterRoleList.value
     : roleList.value
-)
+})
 
 watch(renderList, () => handleVisible(!!renderList.value.length))
 
@@ -65,7 +65,10 @@ const handleSelect = (item: RolePayload) => {
     return
   }
 
+  if (!currentSession.value || !item.id) return
+
   currentRole.value = item
+  currentSession.value.role_id = item.id
 
   popoverVisible.value = false
 }
@@ -180,7 +183,13 @@ const handleClose = () => {
           <div v-if="!item.is_default" @click.stop>
             <div v-if="!item.isEdit" class="text-5 flex gap-5">
               <IconEdit @click="handleEdit(item)" />
-              <IconDelete @click="deleteRole(item.id!)" />
+              <IconDelete
+                @click="deleteRole(item.id!)"
+                :class="{
+                  'pointer-events-none opacity-50':
+                    item.id === currentSession?.role_id
+                }"
+              />
             </div>
             <div v-else class="text-5 flex gap-5">
               <IconCheck @click="handleUpdate(item)" />
