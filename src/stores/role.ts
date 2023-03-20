@@ -1,9 +1,8 @@
-import { selectSQL, insertSQL, updateSQL, deleteSQL, executeSQL } from '@/sqls'
+import { selectSQL, insertSQL, updateSQL, deleteSQL } from '@/sqls'
 import { useSessionStore } from '.'
 import { Message } from '@arco-design/web-vue'
 import type { RolePayload } from '@/types'
 
-// BUG: useRoleStore 使用地方过多，在获取到角色列表然后如果没有当前角色赋值为第 0 个时出问题了，即便存储了 currentRole，但也是获取到 undefined
 export const useRoleStore = defineStore(
   'roleStore',
   () => {
@@ -15,8 +14,25 @@ export const useRoleStore = defineStore(
     const filterRoleList = ref<RolePayload[]>([])
     // 显示角色列表弹框
     const popoverVisible = ref(false)
+    // 检索角色列表的输入框值
+    const textAreaValue = ref('')
     // 是否有角色正在编辑
     const isEdit = computed(() => roleList.value.some((item) => item.isEdit))
+
+    watch(roleList, () => {
+      getFilterRoleList()
+    })
+
+    watch(textAreaValue, () => {
+      getFilterRoleList()
+    })
+
+    watch(popoverVisible, (val) => {
+      if (val) return getRoleList()
+
+      roleList.value.length = 0
+      filterRoleList.value.length = 0
+    })
 
     // 获取角色列表
     const getRoleList = async () => {
@@ -26,29 +42,14 @@ export const useRoleStore = defineStore(
     }
 
     // 检索角色列表
-    // BUG：检索出来后点击了编辑后的一系列问题
-    const getFilterRoleList = (value: string) => {
-      if (value.startsWith('/')) {
+    const getFilterRoleList = () => {
+      if (textAreaValue.value.startsWith('/')) {
+        popoverVisible.value = true
+        filterRoleList.value.length = 0
         filterRoleList.value = roleList.value.filter((item) =>
-          item.name.includes(value.slice(1))
+          item.name.includes(textAreaValue.value.slice(1))
         )
-
-        console.log('filterRoleList.value ', filterRoleList.value)
-
-        popoverVisible.value = !!filterRoleList.value.length
-
-        return
       }
-
-      if (isEdit.value) {
-        Message.info('请先完成角色的编辑')
-
-        return
-      }
-
-      filterRoleList.value = []
-
-      popoverVisible.value = false
     }
 
     // 添加角色
@@ -94,13 +95,12 @@ export const useRoleStore = defineStore(
       )[0]
     }
 
-    onMounted(getRoleList)
-
     return {
       currentRole,
       roleList,
       filterRoleList,
       popoverVisible,
+      textAreaValue,
       isEdit,
       getRoleList,
       getFilterRoleList,

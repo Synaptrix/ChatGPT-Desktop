@@ -8,12 +8,9 @@ const recordStore = useSessionStore()
 const { isThinking } = storeToRefs(recordStore)
 
 const roleStore = useRoleStore()
-const { getFilterRoleList } = roleStore
-const { currentRole, isEdit } = storeToRefs(roleStore)
+const { currentRole, isEdit, textAreaValue } = storeToRefs(roleStore)
 
 const textAreaElement = ref<HTMLTextAreaElement | null>(null)
-
-const textAreaValue = ref('')
 
 const onKeydown = (event: KeyboardEvent) => {
   if (event.key === 'Enter') {
@@ -67,10 +64,9 @@ onMounted(() => {
       class="bordered bg-transparent!"
       :placeholder="isThinking ? 'AI 正在思考...' : '有什么问题尽管问我'"
       v-model="textAreaValue"
-      :disabled="isThinking"
+      :disabled="isThinking || isEdit"
       auto-size
       clearable
-      @input="getFilterRoleList"
       @keydown="onKeydown"
     ></a-textarea>
   </div>

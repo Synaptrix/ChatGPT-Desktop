@@ -11,19 +11,20 @@ import type { RolePayload } from '@/types'
 
 const roleStore = useRoleStore()
 const { getRoleList, updateRole, deleteRole, addRole } = roleStore
-const { currentRole, roleList, filterRoleList, popoverVisible } =
+const { currentRole, roleList, filterRoleList, popoverVisible, isEdit } =
   storeToRefs(roleStore)
 
 const { sessionDataList } = storeToRefs(useSessionStore())
 
 const isAdd = ref(false)
-const isEdit = computed(() => roleList.value.some((item) => item.isEdit))
 
 const renderList = computed(() =>
   filterRoleList.value.length && !isAdd.value
     ? filterRoleList.value
     : roleList.value
 )
+
+watch(renderList, () => handleVisible(!!renderList.value.length))
 
 const handleVisible = (value: boolean) => {
   if (sessionDataList.value.length || isAdd.value || isEdit.value) return
@@ -33,12 +34,11 @@ const handleVisible = (value: boolean) => {
 
 const handleAdd = () => {
   isAdd.value = true
+  filterRoleList.value = []
   roleList.value = [{ name: '', description: '', isEdit: true }]
 }
 
 const handleClick = () => {
-  getRoleList()
-
   if (sessionDataList.value.length) {
     Message.info({ content: '每个会话只能选择一个对话角色' })
 
@@ -108,7 +108,6 @@ const handleClose = () => {
 </script>
 
 <!-- TODO: 优化代码 -->
-<!-- 修改和添加后期可优化为modal，会省去很多代码和 bug -->
 <template>
   <a-popover
     title="请选择对话的角色"
