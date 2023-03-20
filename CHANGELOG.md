@@ -1,5 +1,22 @@
 
 
+## [0.0.4](https://github.com/bilibili-ayang/ChatGPT-desktop/compare/v0.0.3...v0.0.4) (2023-03-20)
+
+
+### Bug Fixes
+
+* filter role list problem ([#34](https://github.com/bilibili-ayang/ChatGPT-desktop/issues/34)) ([7d9e298](https://github.com/bilibili-ayang/ChatGPT-desktop/commit/7d9e298dcce28f07e6d17abdfe7916d4c522b451))
+
+
+### Features
+
+* add sessionList style close [#35](https://github.com/bilibili-ayang/ChatGPT-desktop/issues/35) ([#36](https://github.com/bilibili-ayang/ChatGPT-desktop/issues/36)) ([72107aa](https://github.com/bilibili-ayang/ChatGPT-desktop/commit/72107aa8569fdc605161f22125d19e3d2b81900a))
+
+
+### Performance Improvements
+
+* optimized the display of session content ([#39](https://github.com/bilibili-ayang/ChatGPT-desktop/issues/39)) ([55ab28f](https://github.com/bilibili-ayang/ChatGPT-desktop/commit/55ab28f6876a23d1f7426fd4bf5dbfadc021854e))
+
 ## [0.0.3](https://github.com/bilibili-ayang/ChatGPT-desktop/compare/v0.0.2...v0.0.3) (2023-03-20)
 
 
