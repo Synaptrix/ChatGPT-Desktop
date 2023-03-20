@@ -60,9 +60,9 @@ export const getOpenAIResultStreamApi = async (messages: MessageData[]) => {
       if (response.ok) return
 
       if (response.status === 429) {
-        throw new Error('请求的key超出限制')
+        throw new Error('请求的 key 超出限制')
       } else if (response.status === 401) {
-        throw new Error('请求的key无效')
+        throw new Error('请求的 API KEY 无效')
       } else {
         throw new Error('请求出错')
       }
@@ -98,7 +98,8 @@ export const getAiMessage = async (value?: string) => {
     return
   }
 
-  const { isThinking } = storeToRefs(useSessionStore())
+  const { isThinking, sessionDataList } = storeToRefs(useSessionStore())
+  const { updateSessionData } = useSessionStore()
 
   try {
     const { currentRole } = useRoleStore()
@@ -178,8 +179,10 @@ export const getAiMessage = async (value?: string) => {
 
     isThinking.value = false
   } catch ({ message }: any) {
-    // TODO: 删除失败的询问和回答项
-    dialogErrorMessage(message as string)
+    sessionDataList.value.at(-1)!.message.content = message
+
+    updateSessionData(sessionDataList.value.at(-1)!)
+
     isThinking.value = false
   }
 }

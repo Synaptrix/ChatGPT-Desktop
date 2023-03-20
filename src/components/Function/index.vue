@@ -21,14 +21,14 @@ const disabled = computed(
 
 // 控制设置弹框
 const modalVisible = ref(false)
-const setModalVisible = () => {
-  modalVisible.value = !modalVisible.value
+const closeModal = () => {
+  modalVisible.value = false
 }
 
 // 控制历史列表抽屉
 const drawerVisible = ref(false)
-const setDrawerVisible = () => {
-  drawerVisible.value = !drawerVisible.value
+const closeDrawer = () => {
+  drawerVisible.value = false
 }
 
 // TODO: 在获取数据时删除的处理，在获取数据时切换历史记录的处理
@@ -54,12 +54,12 @@ const functions = computed(() => [
   {
     content: '历史记录',
     icon: IconHistory,
-    handleClick: setDrawerVisible
+    handleClick: () => (drawerVisible.value = true)
   },
   {
     content: '设置',
     icon: IconSettings,
-    handleClick: setModalVisible
+    handleClick: () => (modalVisible.value = true)
   }
 ])
 </script>
@@ -96,10 +96,10 @@ const functions = computed(() => [
   </div>
 
   <!-- 设置弹框 -->
-  <SettingsModal :visible="modalVisible" :set-visible="setModalVisible" />
+  <SettingsModal :visible="modalVisible" :set-visible="closeModal" />
 
   <!-- 历史会话抽屉 -->
-  <HistoryDrawer :visible="drawerVisible" :set-visible="setDrawerVisible" />
+  <HistoryDrawer :visible="drawerVisible" :set-visible="closeDrawer" />
 </template>
 
 <style scoped lang="scss">

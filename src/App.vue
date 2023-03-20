@@ -15,6 +15,7 @@ onMounted(async () => {
   // 监听窗口有无获取焦点
   appWindow.onFocusChanged(({ payload }) => {
     windowFocused.value = payload
+
     setTimeout(() => {
       if (!windowFocused.value && !isFix.value) appWindow.hide()
     }, 100)
@@ -37,11 +38,11 @@ onMounted(async () => {
     </div>
 
     <template v-else>
-      <div class="text-7 z-999 fixed top-2 right-2 flex gap-2">
-        <!-- 主题切换 -->
-        <Theme />
+      <div class="text-7 z-999 fixed top-2 left-2 flex flex-col gap-2">
         <!-- 固定窗口 -->
         <Fixed />
+        <!-- 主题切换 -->
+        <Theme />
       </div>
 
       <!-- 会话信息 -->

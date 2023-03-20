@@ -23,6 +23,7 @@
     "@multiavatar/multiavatar": "^1.0.7",
     "@tauri-apps/api": "^1.2.0",
     "@types/marked": "^4.0.8",
+    "dayjs": "^1.11.7",
     "highlight.js": "^11.7.0",
     "html-to-image": "^1.11.11",
     "markdown-it": "^13.0.1",
