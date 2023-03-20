@@ -1,5 +1,26 @@
 
 
+## [0.0.2](https://github.com/bilibili-ayang/ChatGPT-desktop/compare/v0.0.1...v0.0.2) (2023-03-20)
+
+
+### Bug Fixes
+
+* fix the problem that add role in search mode is invalid, close [#19](https://github.com/bilibili-ayang/ChatGPT-desktop/issues/19) ([#29](https://github.com/bilibili-ayang/ChatGPT-desktop/issues/29)) ([dc25a44](https://github.com/bilibili-ayang/ChatGPT-desktop/commit/dc25a44efd2f70cbdbc5c5f25468c0c5c056bd5c))
+* global shortcut on windows, close [#13](https://github.com/bilibili-ayang/ChatGPT-desktop/issues/13) ([#21](https://github.com/bilibili-ayang/ChatGPT-desktop/issues/21)) ([43c01e8](https://github.com/bilibili-ayang/ChatGPT-desktop/commit/43c01e8a19e3c3869f5615a59ad4d911d5163634))
+
+
+### Features
+
+* optimize scrollbars resolve [#9](https://github.com/bilibili-ayang/ChatGPT-desktop/issues/9) ([#10](https://github.com/bilibili-ayang/ChatGPT-desktop/issues/10)) ([3806a6e](https://github.com/bilibili-ayang/ChatGPT-desktop/commit/3806a6ef9b99bf1ccf30136759a23ad153044c1c))
+* remove the double tap shortcut function, close [#17](https://github.com/bilibili-ayang/ChatGPT-desktop/issues/17) ([#25](https://github.com/bilibili-ayang/ChatGPT-desktop/issues/25)) ([052dddf](https://github.com/bilibili-ayang/ChatGPT-desktop/commit/052dddf5ab240d74ed9515eb76815634ddfa938d))
+* set the modal to add a click mask to close, close [#12](https://github.com/bilibili-ayang/ChatGPT-desktop/issues/12) ([8cc608c](https://github.com/bilibili-ayang/ChatGPT-desktop/commit/8cc608c307d9757a8bc325e1363f1a444a70988d))
+* validation of the key before send message ([#27](https://github.com/bilibili-ayang/ChatGPT-desktop/issues/27)) ([bb3f8fb](https://github.com/bilibili-ayang/ChatGPT-desktop/commit/bb3f8fb9fca47e1036033d7d9cf2911130d350b5))
+
+
+### Performance Improvements
+
+* drag bar relative problem ([#23](https://github.com/bilibili-ayang/ChatGPT-desktop/issues/23)) ([5b2757d](https://github.com/bilibili-ayang/ChatGPT-desktop/commit/5b2757d0022572baea58c3acc02c7485bf634a81)), closes [#11](https://github.com/bilibili-ayang/ChatGPT-desktop/issues/11) [#11](https://github.com/bilibili-ayang/ChatGPT-desktop/issues/11)
+
 ## 0.0.1 (2023-03-19)
 
 
