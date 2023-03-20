@@ -82,7 +82,7 @@ export const getOpenAIResultStreamApi = async (messages: MessageData[]) => {
 export const getAiMessage = async (value?: string) => {
   const { apiKey } = useSettingsStore()
 
-  if (!apiKey || !import.meta.env.VITE_OPEN_AI_API_KEY) {
+  if (!apiKey && !import.meta.env.VITE_OPEN_AI_API_KEY) {
     Message.warning('请先填写 OpenAi API Key')
     return
   }
@@ -167,7 +167,12 @@ export const getAiMessage = async (value?: string) => {
 
     isThinking.value = false
   } catch ({ message }: any) {
-    dialogErrorMessage(message)
+    // TODO: 删除失败的询问和回答项
+    if (message.includes('timed out')) {
+      dialogErrorMessage('请求超时！')
+    } else {
+      dialogErrorMessage('填写的 API KEY 无效')
+    }
 
     isThinking.value = false
   }

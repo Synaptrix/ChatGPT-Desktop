@@ -8,15 +8,21 @@
   <h3>基于 tauri + vue3 开发的跨平台桌面端应用</h3>
 
   <div>
-    <a href="https://github.com/Bin-Huang/chatbox/releases" target="_blank">
+    <a href="https://github.com/bilibili-ayang/ChatGPT-Desktop/releases">
       <img alt="macOS" src="https://img.shields.io/badge/-macOS-black?style=flat-square&logo=apple&logoColor=white" />
     </a>
-    <a href="https://github.com/Bin-Huang/chatbox/releases" target="_blank">
+    <a href="https://github.com/bilibili-ayang/ChatGPT-Desktop/releases">
       <img alt="Windows" src="https://img.shields.io/badge/-Windows-blue?style=flat-square&logo=windows&logoColor=white" />
     </a>
-    <a href="https://github.com/Bin-Huang/chatbox/releases" target="_blank">
+    <a href="https://github.com/bilibili-ayang/ChatGPT-Desktop/releases">
       <img alt="Linux" src="https://img.shields.io/badge/-Linux-yellow?style=flat-square&logo=linux&logoColor=white" />
     </a>
+  </div>
+
+  <div>
+    <img src="https://img.shields.io/github/license/bilibili-ayang/ChatGPT-Desktop?style=flat-square" />
+    <img src="https://img.shields.io/github/package-json/v/bilibili-ayang/ChatGPT-Desktop?style=flat-square" />
+    <img src="https://img.shields.io/github/downloads/bilibili-ayang/ChatGPT-Desktop/total?style=flat-square" />
   </div>
 </div>
 
