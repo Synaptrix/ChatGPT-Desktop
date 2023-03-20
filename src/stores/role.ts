@@ -19,12 +19,15 @@ export const useRoleStore = defineStore(
     // 是否有角色正在编辑
     const isEdit = computed(() => roleList.value.some((item) => item.isEdit))
 
-    watch(roleList, () => {
-      getFilterRoleList()
-    })
-
-    watch(textAreaValue, () => {
-      getFilterRoleList()
+    watch(textAreaValue, (val) => {
+      const { sessionDataList } = useSessionStore()
+      if (sessionDataList.length) return
+      if (val.startsWith('/')) {
+        popoverVisible.value = true
+        getFilterRoleList()
+      } else {
+        popoverVisible.value = false
+      }
     })
 
     watch(popoverVisible, (val) => {
@@ -43,12 +46,15 @@ export const useRoleStore = defineStore(
 
     // 检索角色列表
     const getFilterRoleList = () => {
-      if (textAreaValue.value.startsWith('/')) {
-        popoverVisible.value = true
-        filterRoleList.value.length = 0
-        filterRoleList.value = roleList.value.filter((item) =>
-          item.name.includes(textAreaValue.value.slice(1))
-        )
+      if (textAreaValue.value === '/') return
+
+      filterRoleList.value.length = 0
+      filterRoleList.value = roleList.value.filter((item) =>
+        item.name.includes(textAreaValue.value.slice(1))
+      )
+      if (!filterRoleList.value.length) {
+        roleList.value.length = 0
+        popoverVisible.value = false
       }
     }
 

@@ -8,7 +8,8 @@ const recordStore = useSessionStore()
 const { isThinking } = storeToRefs(recordStore)
 
 const roleStore = useRoleStore()
-const { currentRole, isEdit, textAreaValue } = storeToRefs(roleStore)
+const { currentRole, isEdit, textAreaValue, popoverVisible } =
+  storeToRefs(roleStore)
 
 const textAreaElement = ref<HTMLTextAreaElement | null>(null)
 
@@ -26,6 +27,10 @@ const onKeydown = (event: KeyboardEvent) => {
       const value = textAreaValue.value.trim()
 
       if (!value) return
+
+      // if (popoverVisible) {
+      popoverVisible.value = false
+      // }
 
       getAiMessage(value)
 
