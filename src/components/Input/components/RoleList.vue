@@ -205,14 +205,14 @@ const handleClose = () => {
 <style lang="scss">
 .role-popover {
   .arco-trigger-content {
-    @apply flex max-h-[calc(100vh-56px)] flex-col rounded-t-xl py-4 px-0;
+    --uno: flex max-h-[calc(100vh-56px)] flex-col rounded-t-xl py-4 px-0;
 
     .arco-popover-title {
-      @apply p-4 pt-0;
+      --uno: p-4 pt-0;
     }
 
     .arco-popover-content {
-      @apply mt-0 flex-1 overflow-auto;
+      --uno: mt-0 flex-1 overflow-auto;
     }
   }
 }

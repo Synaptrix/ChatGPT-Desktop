@@ -13,7 +13,11 @@ export default defineConfig(async () => ({
     vue(),
     Unocss({
       presets: [presetUno(), presetIcons(), presetDaisy()],
-      transformers: [transformerDirectives()]
+      transformers: [
+        transformerDirectives({
+          applyVariable: ['--uno']
+        })
+      ]
     }),
     AutoImport({
       dts: './src/types/auto-import.d.ts',

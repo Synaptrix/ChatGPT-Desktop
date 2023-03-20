@@ -70,18 +70,19 @@ watchEffect(() => {
 .session {
   .blink-block::after {
     animation: blink 1s infinite;
-    @apply absolute h-6 w-1 bg-[var(--color-text-3)] content-none;
+    --uno: absolute h-6 w-1 bg-[var(--color-text-2)] content-none;
   }
 
-  ::v-deep(.session-item) {
-    p {
-      @apply leading-6;
+  ::v-deep(pre) {
+    margin: 0;
+    code {
+      --uno: rounded-md;
     }
 
     pre {
       margin: 0;
       code {
-        @apply rounded-md leading-6;
+        --uno: rounded-md leading-6;
       }
       + .markdown-it-code-copy {
         width: 20px;
@@ -109,9 +110,9 @@ watchEffect(() => {
     ol,
     ul {
       li {
-        @apply flex flex-col gap-4;
+        --uno: flex flex-col gap-4;
         &:not(:last-child) {
-          @apply pb-4;
+          --uno: pb-4;
         }
       }
     }

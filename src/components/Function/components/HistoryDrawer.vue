@@ -63,7 +63,7 @@ const handleClick = (item: SessionPayload) => {
 
 <style lang="scss">
 .history-drawer {
-  @apply overflow-hidden rounded-xl;
+  --uno: overflow-hidden rounded-xl;
   .arco-drawer {
     .arco-drawer-body {
       padding: 0.5rem;
