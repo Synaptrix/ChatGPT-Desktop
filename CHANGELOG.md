@@ -1,5 +1,17 @@
 
 
+## [0.0.3](https://github.com/bilibili-ayang/ChatGPT-desktop/compare/v0.0.2...v0.0.3) (2023-03-20)
+
+
+### Features
+
+* window wake up support for last position ([#30](https://github.com/bilibili-ayang/ChatGPT-desktop/issues/30)) ([bcc0cac](https://github.com/bilibili-ayang/ChatGPT-desktop/commit/bcc0cac4737b803796bec9dd24deb1d185b436c7))
+
+
+### Performance Improvements
+
+* optimized some details ([#31](https://github.com/bilibili-ayang/ChatGPT-desktop/issues/31)) ([86d08f7](https://github.com/bilibili-ayang/ChatGPT-desktop/commit/86d08f7230da6d6c0070698f0c43a67dc57d3b2b))
+
 ## [0.0.2](https://github.com/bilibili-ayang/ChatGPT-desktop/compare/v0.0.1...v0.0.2) (2023-03-20)
 
 
