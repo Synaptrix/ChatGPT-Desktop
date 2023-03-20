@@ -22,7 +22,7 @@ const { apiKey, autoStart, isMemory } = storeToRefs(useSettingsStore())
     <div class="flex flex-col gap-6">
       <div class="flex gap-2">
         <a-checkbox v-model="autoStart">开机自启动</a-checkbox>
-        <a-checkbox>隐藏菜单栏图标</a-checkbox>
+        <!-- <a-checkbox>隐藏菜单栏图标</a-checkbox> -->
       </div>
 
       <!-- 热键绑定 -->

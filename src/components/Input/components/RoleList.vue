@@ -19,6 +19,12 @@ const { sessionDataList } = storeToRefs(useSessionStore())
 const isAdd = ref(false)
 const isEdit = computed(() => roleList.value.some((item) => item.isEdit))
 
+const renderList = computed(() =>
+  filterRoleList.value.length && !isAdd.value
+    ? filterRoleList.value
+    : roleList.value
+)
+
 const handleVisible = (value: boolean) => {
   if (sessionDataList.value.length || isAdd.value || isEdit.value) return
 
@@ -131,7 +137,7 @@ const handleClose = () => {
     <template #content>
       <ul>
         <li
-          v-for="item in filterRoleList.length ? filterRoleList : roleList"
+          v-for="item in renderList"
           class="flex cursor-pointer items-center gap-4 bg-transparent p-4 text-[var(--color-text-1)] transition hover:bg-[var(--color-fill-2)]"
           :class="{
             'bg-[rgb(var(--blue-6))]!': currentRole?.id === item.id,

@@ -32,7 +32,10 @@ export const saveImage = async (nodeId: string) => {
 
     // 下载图片到 download 文件夹
     await writeBinaryFile(
-      { path: `${Date.now()}.png`, contents: uint8Array },
+      {
+        path: `ChatGPT-Desktop-${Date.now()}.png`,
+        contents: uint8Array
+      },
       { dir: BaseDirectory.Download }
     )
 
