@@ -1,5 +1,30 @@
 
 
+## [0.0.5](https://github.com/bilibili-ayang/ChatGPT-desktop/compare/v0.0.4...v0.0.5) (2023-03-21)
+
+
+### Bug Fixes
+
+* Improve compatibility of line breaks on Windows and Mac ([#56](https://github.com/bilibili-ayang/ChatGPT-desktop/issues/56)) ([21efbd9](https://github.com/bilibili-ayang/ChatGPT-desktop/commit/21efbd99dd5bd2ba97caa5ca845db448ebeedf06))
+* scrollbar caton pause, close [#35](https://github.com/bilibili-ayang/ChatGPT-desktop/issues/35) ([#51](https://github.com/bilibili-ayang/ChatGPT-desktop/issues/51)) ([391839d](https://github.com/bilibili-ayang/ChatGPT-desktop/commit/391839dc21e6aa1cc8097addf6faf39f564eee47))
+
+
+### Features
+
+* add account balance request, close [#37](https://github.com/bilibili-ayang/ChatGPT-desktop/issues/37) ([10c3be8](https://github.com/bilibili-ayang/ChatGPT-desktop/commit/10c3be821b176b81555d0760a930d9bfd9643d3e))
+* add font ([#54](https://github.com/bilibili-ayang/ChatGPT-desktop/issues/54)) ([3a9f75b](https://github.com/bilibili-ayang/ChatGPT-desktop/commit/3a9f75be42d05c48f6952b12dd54c03791126eaa))
+* add local time display ([3380725](https://github.com/bilibili-ayang/ChatGPT-desktop/commit/3380725afa7dac15cdd38f87f045e0802ca0a1c4))
+* code copy plugin ([8062b7c](https://github.com/bilibili-ayang/ChatGPT-desktop/commit/8062b7c490a1198508efa80c808e05763409f654))
+* disable right click in production environment ([#44](https://github.com/bilibili-ayang/ChatGPT-desktop/issues/44)) ([9f8c9eb](https://github.com/bilibili-ayang/ChatGPT-desktop/commit/9f8c9ebef2b00e9521d913fbed51f6b3dd7d7582))
+* link open to browser ([#47](https://github.com/bilibili-ayang/ChatGPT-desktop/issues/47)) ([9a47bc7](https://github.com/bilibili-ayang/ChatGPT-desktop/commit/9a47bc7456f364f7e3afec39f08f0185e1c223e3))
+
+
+### Performance Improvements
+
+* change code font-family ([7052764](https://github.com/bilibili-ayang/ChatGPT-desktop/commit/70527643e2e2b599138ed29929e9ec77615deccb))
+* optimized some styles ([#43](https://github.com/bilibili-ayang/ChatGPT-desktop/issues/43)) ([3b21e6c](https://github.com/bilibili-ayang/ChatGPT-desktop/commit/3b21e6c96bc027e4079775e63555d22fad276f4e))
+* role select interaction ([cd3934d](https://github.com/bilibili-ayang/ChatGPT-desktop/commit/cd3934d37d16135e3dc5b2a0b7ca4b0ae203bfc1))
+
 ## [0.0.4](https://github.com/bilibili-ayang/ChatGPT-desktop/compare/v0.0.3...v0.0.4) (2023-03-20)
 
 
