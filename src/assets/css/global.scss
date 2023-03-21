@@ -59,6 +59,8 @@ body {
 .frosted {
   position: relative;
 
+  background-color: var(--opacity-background);
+
   &::before,
   &::after {
     position: absolute;
@@ -81,4 +83,3 @@ body {
   color: rgb(var(--primary-6));
   background-color: transparent;
 }
-

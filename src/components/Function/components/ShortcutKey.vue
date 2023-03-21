@@ -56,7 +56,7 @@ const handleKeyup = (event: KeyboardEvent) => {
     <div
       ref="bindingElement"
       tabindex="0"
-      class="flex flex-1 cursor-pointer items-center justify-between rounded border border-solid border-[var(--color-fill-2)] bg-[var(--color-fill-2)] p-2 outline-none transition"
+      class="transition-300 flex flex-1 cursor-pointer items-center justify-between rounded border border-solid border-[var(--color-fill-2)] bg-[var(--color-fill-2)] p-2 outline-none"
       :class="[isBinding ? 'border-[rgb(var(--primary-5))]!' : '']"
       @focus="isBinding = true"
       @blur="isBinding = false"

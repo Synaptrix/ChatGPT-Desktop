@@ -67,10 +67,14 @@ onMounted(() => {
     <a-textarea
       ref="textAreaElement"
       class="bordered bg-transparent!"
+      :class="!textAreaValue && 'rounded-10'"
       :placeholder="isThinking ? 'AI 正在思考...' : '有什么问题尽管问我'"
       v-model="textAreaValue"
       :disabled="isThinking || isEdit"
-      auto-size
+      :auto-size="{
+        minRows: 1,
+        maxRows: 5
+      }"
       clearable
       @keydown="onKeydown"
     ></a-textarea>
@@ -82,16 +86,11 @@ onMounted(() => {
   .arco-textarea-wrapper {
     transition: all 0.3s;
 
-    border-radius: 32px;
-
     &:hover {
-      border-color: var(--color-neutral-4);
+      --uno: border-[var(--color-neutral-4)];
     }
     &.arco-textarea-focus {
-      max-height: 96px;
-
-      border-color: rgb(var(--arcoblue-6));
-      border-radius: 0;
+      --uno: rounded-0 border-[rgb(var(--primary-6))];
     }
   }
 }

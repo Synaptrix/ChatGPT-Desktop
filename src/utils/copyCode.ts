@@ -1,61 +1,51 @@
-// @unocss-include
 import Clipboard from 'clipboard'
+
+type RulesArgs = [Array<{ content: string }>, number]
 
 const PLUGIN_CLASS = 'code-copy'
 
 new Clipboard(`.${PLUGIN_CLASS}`, {
-  text: (trigger: HTMLButtonElement) => {
-    trigger.classList.add('i-mdi-checkbox-multiple-marked-outline')
-    setTimeout(() => {
-      trigger.classList.remove('i-mdi-checkbox-multiple-marked-outline')
-    }, 2000)
-    return trigger.getAttribute('data-clipboard-text') ?? ''
+  text: (trigger: HTMLElement) => {
+    const uuid = trigger.getAttribute('data-uuid')
+    const copyValue = trigger.getAttribute('data-clipboard-text')
+
+    if (!uuid || !copyValue || window[uuid]) return ''
+
+    trigger.classList.add('copied')
+
+    window[uuid] = setTimeout(() => {
+      trigger.classList.remove('copied')
+
+      clearTimeout(window[uuid])
+      window[uuid] = null
+    }, 3000)
+
+    return copyValue
   }
 })
 
-interface Options {
-  buttonClass?: string
-}
-
-type RulesArgs = [Array<{ content: string }>, number]
-
-const defaultOptions: Options = {
-  buttonClass:
-    'text-white h-5 absolute cursor-pointer i-mdi-checkbox-multiple-blank-outline top-6 right-2'
-}
-
-const renderCode = (
-  origRule: (...args: RulesArgs) => string,
-  options: Options
-) => {
-  options = { ...defaultOptions, ...options }
+const renderCode = (originRule: (...args: RulesArgs) => string) => {
   return (...args: RulesArgs) => {
     const [tokens, idx] = args
+
     const content = tokens[idx].content
       .replaceAll('"', '&quot;')
       .replaceAll("'", '&lt;')
-    const origRendered = origRule(...args)
 
-    if (content.length === 0) {
-      return origRendered
-    }
+    const originRendered = originRule(...args)
+
+    if (!content) return originRendered
 
     return `
-<div style="position: relative">
-	${origRendered}
-	<button class="${PLUGIN_CLASS} ${
-      options.buttonClass ?? ''
-    }" data-clipboard-text="${content}"  title="Copy code">
-	</button>
-</div>
-`
+    <div class='relative'>
+      ${originRendered}
+      <div class="${PLUGIN_CLASS}" data-clipboard-text="${content}" data-uuid="${crypto.randomUUID()}" title="复制代码"></div>
+    </div>
+    `
   }
 }
 
-export default (md: any, options: Options) => {
-  md.renderer.rules.code_block = renderCode(
-    md.renderer.rules.code_block,
-    options
-  )
-  md.renderer.rules.fence = renderCode(md.renderer.rules.fence, options)
+export default (md: any) => {
+  md.renderer.rules.code_block = renderCode(md.renderer.rules.code_block)
+  md.renderer.rules.fence = renderCode(md.renderer.rules.fence)
 }

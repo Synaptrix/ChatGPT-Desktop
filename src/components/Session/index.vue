@@ -51,9 +51,9 @@ watchEffect(() => {
           class="relative flex w-[calc(100%-8rem)] flex-col gap-2"
           :class="item.is_ask && 'items-end'"
         >
-          <span class="text-true-gray text-xs">{{
-            localTime(item.time!)
-          }}</span>
+          <span class="text-xs text-[var(--color-text-2)]">
+            {{ localTime(item.time!) }}
+          </span>
 
           <div class="blink-block" v-if="!item.message.content"></div>
           <div
@@ -61,7 +61,7 @@ watchEffect(() => {
             :class="
               item.is_ask
                 ? 'bg-[rgb(var(--blue-6))] text-white'
-                : 'bg-[var(--background-color)]'
+                : 'bg-[var(--session-background)]'
             "
             v-html="marked.render(item.message.content)"
             v-else
@@ -76,22 +76,5 @@ watchEffect(() => {
 </template>
 
 <style scoped lang="scss">
-.session {
-  .blink-block::after {
-    animation: blink 1s infinite;
-    --uno: absolute h-6 w-1 bg-[var(--color-text-2)] content-none;
-  }
-
-  @keyframes blink {
-    0% {
-      opacity: 1;
-    }
-    50% {
-      opacity: 0;
-    }
-    100% {
-      opacity: 1;
-    }
-  }
-}
+@import './index.scss';
 </style>

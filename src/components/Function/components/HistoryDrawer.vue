@@ -32,7 +32,7 @@ const handleClick = (item: SessionPayload) => {
     <ul class="flex flex-col gap-2">
       <li
         v-for="item in sessionList"
-        class="group flex cursor-pointer items-center justify-between rounded-lg p-2 transition hover:bg-[var(--color-fill-2)]"
+        class="transition-300 group flex cursor-pointer items-center justify-between rounded-lg p-2 hover:bg-[var(--color-fill-2)]"
         :class="{
           'bg-[rgb(var(--blue-6))]! text-white': item.id === currentSession?.id
         }"

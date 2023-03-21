@@ -9,7 +9,7 @@ const { isFix } = storeToRefs(useSettingsStore())
   <div class="swap swap-rotate" @click="isFix = !isFix">
     <input type="checkbox" v-model="isFix" />
 
-    <IconPushpin class="swap-on text-[rgb(var(--arcoblue-6))]" />
+    <IconPushpin class="swap-on text-[rgb(var(--primary-6))]" />
 
     <div class="swap-off">
       <IconPushpin class="-rotate-45" />

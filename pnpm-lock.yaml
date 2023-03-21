@@ -4,7 +4,6 @@ specifiers:
   '@arco-design/web-vue': ^2.44.1
   '@commitlint/cli': ^17.4.4
   '@commitlint/config-conventional': ^17.4.4
-  '@iconify-json/mdi': ^1.1.50
   '@kidonng/daisyui': ^2.51.3
   '@microsoft/fetch-event-source': ^2.0.1
   '@multiavatar/multiavatar': ^1.0.7
@@ -70,7 +69,6 @@ devDependencies:
   '@arco-design/web-vue': 2.44.2_vue@3.2.47
   '@commitlint/cli': 17.4.4
   '@commitlint/config-conventional': 17.4.4
-  '@iconify-json/mdi': 1.1.50
   '@kidonng/daisyui': 2.51.3
   '@release-it/conventional-changelog': 5.1.1_release-it@15.9.0
   '@tauri-apps/cli': 1.2.3
@@ -621,12 +619,6 @@ packages:
 
   /@iarna/toml/2.2.5:
     resolution: {integrity: sha512-trnsAYxU3xnS1gPHPyU961coFyLkh4gAD/0zQ5mymY4yOZ+CYvsPqUbOFSw0aDM4y0tV7tiFxL/1XfXPNC6IPg==}
-    dev: true
-
-  /@iconify-json/mdi/1.1.50:
-    resolution: {integrity: sha512-SgbT5w5eHCdOG74ZWPz7HlTGk6VsifIJhNi6lAsxj/5Nlqt6Cz4LlQmSa9eecU9p075Jub2aAx/o7YI+GCahRQ==}
-    dependencies:
-      '@iconify/types': 2.0.0
     dev: true
 
   /@iconify/types/2.0.0:
