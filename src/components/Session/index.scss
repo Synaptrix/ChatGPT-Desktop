@@ -6,6 +6,10 @@
   }
 
   ::v-deep(.session-item) {
+    p {
+      --uno: leading-6;
+    }
+
     pre {
       --uno: m0;
 

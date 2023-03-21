@@ -23,9 +23,7 @@ onMounted(async () => {
 
   if (import.meta.env.PROD) {
     document.addEventListener('contextmenu', function (event) {
-      const selectedText = window.getSelection()?.toString()
-
-      if (!selectedText) {
+      if (!window.getSelection()?.toString()) {
         event.preventDefault()
       }
     })
