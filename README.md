@@ -65,7 +65,6 @@
 <img src='./images/home.png' />
 <img src='./images/settings.png' />
 <img src='./images/role-1.png' />
-<img src='./images/role-2.png' />
 <img src='./images/session-1.png' />
 <img src='./images/session-2.png' />
 <img src='./images/history.png' />
