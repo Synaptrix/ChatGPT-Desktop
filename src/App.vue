@@ -20,6 +20,16 @@ onMounted(async () => {
       if (!windowFocused.value && !isFix.value) appWindow.hide()
     }, 100)
   })
+
+  if (import.meta.env.PROD) {
+    document.addEventListener('contextmenu', function (event) {
+      const selectedText = window.getSelection()?.toString()
+
+      if (!selectedText) {
+        event.preventDefault()
+      }
+    })
+  }
 })
 </script>
 

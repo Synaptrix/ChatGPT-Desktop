@@ -8,16 +8,16 @@
   ::v-deep(.session-item) {
     pre {
       --uno: m0;
+
       code {
         --uno: rounded-md leading-6;
       }
 
       + .code-copy {
-        background: url('@/assets/image/copy.svg') no-repeat center;
-        background-size: contain;
+        background-image: url('@/assets/image/copy.svg');
 
         --uno: transition-300 absolute top-2 right-2 h-6 w-6 cursor-pointer
-          text-white opacity-0;
+          bg-contain bg-center bg-no-repeat text-white opacity-0;
 
         &:hover {
           --uno: opacity-100;
