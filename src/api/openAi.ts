@@ -2,7 +2,6 @@ import { Body } from '@tauri-apps/api/http'
 import { Message } from '@arco-design/web-vue'
 import { request } from '.'
 import { OPEN_AI_MODEL } from '@/constants'
-import { dialogErrorMessage } from '@/utils'
 import {
   fetchEventSource,
   type EventSourceMessage
