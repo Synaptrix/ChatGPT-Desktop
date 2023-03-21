@@ -19,7 +19,9 @@ const { uuid } = storeToRefs(useSettingsStore())
 const { sessionDataList } = storeToRefs(useSessionStore())
 const { currentRole } = storeToRefs(useRoleStore())
 
+/** 自动滚动到底部 */
 const sessionElement = ref<HTMLDivElement | null>(null)
+const scrollHeight = ref<number | undefined>(0)
 
 const localTime = (time: string) =>
   dayjs.utc(time).local().format('YYYY-MM-DD HH:mm:ss')
@@ -31,6 +33,7 @@ watchEffect(() => {
     sessionElement.value.scrollTo({
       top: sessionElement.value.offsetHeight
     })
+    scrollHeight.value = sessionElement.value?.scrollHeight
   }
 })
 </script>
