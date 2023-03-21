@@ -30,6 +30,10 @@ const renderCode = (originRule: (...args: RulesArgs) => string) => {
 
     const content = tokens[idx].content
 
+    const copyContent = content
+      .replaceAll('"', '&quot;')
+      .replaceAll("'", '&apos;')
+
     const originRendered = originRule(...args)
 
     if (!content) return originRendered
@@ -37,7 +41,7 @@ const renderCode = (originRule: (...args: RulesArgs) => string) => {
     return `
     <div class='relative'>
       ${originRendered}
-      <div class="${PLUGIN_CLASS}" data-clipboard-text="${content}" data-uuid="${crypto.randomUUID()}" title="复制代码"></div>
+      <div class="${PLUGIN_CLASS}" data-clipboard-text="${copyContent}" data-uuid="${crypto.randomUUID()}" title="复制代码"></div>
     </div>
     `
   }

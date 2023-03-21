@@ -14,19 +14,22 @@ const usedCredit = ref(0)
 
 const getCredit = async () => {
   const credit = await getOpenAICreditApi()
+
   if (!credit) return
 
-  totalCredit.value = parseFloat(credit.total_granted.toFixed(2))
-  usedCredit.value = parseFloat(credit.total_available.toFixed(2))
+  totalCredit.value = parseFloat(credit.total_granted?.toFixed(2))
+  usedCredit.value = parseFloat(credit.total_available?.toFixed(2))
 }
 
-// TODO 优化，这里可能需要防抖
-watch(apiKey, getCredit)
-
 watch(
-  () => props.visible,
-  (val) => {
-    val && getCredit()
+  [apiKey, props],
+  ([newValue]) => {
+    if (!props.visible || newValue.length !== 51) return
+
+    getCredit()
+  },
+  {
+    immediate: true
   }
 )
 </script>

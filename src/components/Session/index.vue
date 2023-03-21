@@ -19,15 +19,16 @@ const { uuid } = storeToRefs(useSettingsStore())
 const { sessionDataList } = storeToRefs(useSessionStore())
 const { currentRole } = storeToRefs(useRoleStore())
 
-/** 自动滚动到底部 */
 const sessionElement = ref<HTMLDivElement | null>(null)
 const scrollHeight = ref<number | undefined>(0)
 
-const autoscrollBottom = () => {
+/**
+ * 自动滚动到底部
+ */
+const autoScrollBottom = () => {
   if (scrollHeight.value !== sessionElement.value?.scrollHeight) {
     sessionElement.value?.scroll({
-      top: sessionElement.value.scrollHeight,
-      behavior: 'smooth'
+      top: sessionElement.value.scrollHeight
     })
     scrollHeight.value = sessionElement.value?.scrollHeight
   }
@@ -37,7 +38,7 @@ const localTime = (time: string) =>
   dayjs.utc(time).local().format('YYYY-MM-DD HH:mm:ss')
 
 onUpdated(() => {
-  autoscrollBottom()
+  autoScrollBottom()
 })
 </script>
 
