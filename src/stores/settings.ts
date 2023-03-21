@@ -42,7 +42,7 @@ export const useSettingsStore = defineStore(
         themeMode.value === THEME.light ? THEME.dark : THEME.light
     }
 
-    // 绑定热键
+    // 绑定快捷键
     const registerKey = async () => {
       await unregisterAll()
 

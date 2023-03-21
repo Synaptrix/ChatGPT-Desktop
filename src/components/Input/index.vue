@@ -1,4 +1,4 @@
-<script lang="ts" setup>
+<script setup lang="ts">
 import { appWindow } from '@tauri-apps/api/window'
 import { Message } from '@arco-design/web-vue'
 import { useSessionStore, useRoleStore } from '@/stores'
@@ -81,7 +81,7 @@ onMounted(() => {
   </div>
 </template>
 
-<style lang="scss" scoped>
+<style scoped lang="scss">
 .app-input {
   .arco-textarea-wrapper {
     transition: all 0.3s;

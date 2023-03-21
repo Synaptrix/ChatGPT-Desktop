@@ -46,7 +46,7 @@ watch(
     <div class="flex flex-col gap-6">
       <div class="flex gap-2">
         <a-checkbox v-model="autoStart">开机自启动</a-checkbox>
-        <a-checkbox v-model="isRememberPosition">记住上次窗口位置</a-checkbox>
+        <a-checkbox v-model="isRememberPosition">记住窗口上次位置</a-checkbox>
       </div>
 
       <!-- 热键绑定 -->
@@ -62,7 +62,7 @@ watch(
       <a-input-password
         v-model="apiKey"
         class="w-full"
-        placeholder="API Key"
+        placeholder="OpenAI API KEY"
         allow-clear
       />
       <p class="text-3 text-right text-[var(--color-text-3)]" v-if="apiKey">

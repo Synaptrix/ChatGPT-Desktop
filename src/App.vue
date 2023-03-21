@@ -2,6 +2,7 @@
 import { appWindow } from '@tauri-apps/api/window'
 import { initSQL } from '@/sqls'
 import { useSettingsStore } from '@/stores'
+import { useObserverLink } from '@/hooks'
 
 const { isFix, windowFocused } = storeToRefs(useSettingsStore())
 
@@ -12,7 +13,8 @@ onMounted(async () => {
 
   isLoading.value = false
 
-  // 监听窗口有无获取焦点
+  useObserverLink()
+
   appWindow.onFocusChanged(({ payload }) => {
     windowFocused.value = payload
 

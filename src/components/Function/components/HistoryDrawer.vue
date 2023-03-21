@@ -1,15 +1,22 @@
-<script lang="ts" setup>
+<script setup lang="ts">
 import { useSessionStore } from '@/stores'
 import { IconDelete } from '@arco-design/web-vue/es/icon'
+import { Message } from '@arco-design/web-vue'
 import type { SessionPayload } from '@/types'
 
 const props = defineProps<{ visible: boolean; setVisible: () => void }>()
 
 const sessionStore = useSessionStore()
-const { sessionList, currentSession } = storeToRefs(sessionStore)
+const { sessionList, currentSession, isThinking } = storeToRefs(sessionStore)
 const { switchSession, getSessionList, deleteSession } = sessionStore
 
 const handleClick = (item: SessionPayload) => {
+  if (isThinking.value) {
+    Message.info('稍等片刻，AI 正在思考')
+
+    return
+  }
+
   switchSession(item)
 
   props.setVisible()
@@ -66,7 +73,7 @@ const handleClick = (item: SessionPayload) => {
   --uno: overflow-hidden rounded-xl;
   .arco-drawer {
     .arco-drawer-body {
-      padding: 0.5rem;
+      --uno: p-2;
     }
   }
 }
