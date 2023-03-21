@@ -40,7 +40,6 @@
     "@arco-design/web-vue": "^2.44.1",
     "@commitlint/cli": "^17.4.4",
     "@commitlint/config-conventional": "^17.4.4",
-    "@iconify-json/mdi": "^1.1.50",
     "@kidonng/daisyui": "^2.51.3",
     "@release-it/conventional-changelog": "^5.1.1",
     "@tauri-apps/cli": "^1.2.2",

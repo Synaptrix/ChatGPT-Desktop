@@ -9,9 +9,6 @@ export const useSettingsStore = defineStore(
   () => {
     // 主题
     const themeMode = ref(THEME.light)
-    const themeClass = computed(() =>
-      themeMode.value === THEME.light ? 'bg-white/70' : 'bg-black/70'
-    )
 
     // 用户的唯一值
     const uuid = ref('')
@@ -108,7 +105,6 @@ export const useSettingsStore = defineStore(
 
     return {
       themeMode,
-      themeClass,
       uuid,
       isFix,
       windowFocused,

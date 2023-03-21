@@ -1,15 +1,15 @@
 body {
-  --background-color: #f2f3f5;
-
+  --session-background: #f2f3f5;
   --scroll-thumb-color: #c0c0c0;
   --scroll-thumb-color-hover: #a7a7a7;
   --scroll-track-color: #f1f1f1;
+  --opacity-background: rgba(255, 255, 255, 0.7);
 }
 
 body[arco-theme='dark'] {
-  --background-color: #17171a;
-
+  --session-background: #17171a;
   --scroll-thumb-color: #686868;
   --scroll-thumb-color-hover: #7a7a7a;
   --scroll-track-color: #444;
+  --opacity-background: rgba(0, 0, 0, 0.7);
 }

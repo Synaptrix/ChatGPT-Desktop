@@ -140,7 +140,7 @@ const handleClose = () => {
       <ul>
         <li
           v-for="item in renderList"
-          class="flex cursor-pointer items-center gap-4 bg-transparent p-4 text-[var(--color-text-1)] transition hover:bg-[var(--color-fill-2)]"
+          class="transition-300 flex cursor-pointer items-center gap-4 bg-transparent p-4 text-[var(--color-text-1)] hover:bg-[var(--color-fill-2)]"
           :class="{
             'bg-[rgb(var(--blue-6))]!': currentRole?.id === item.id,
             'bg-transparent!': item.isEdit,

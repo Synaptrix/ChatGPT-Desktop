@@ -3,7 +3,7 @@ import { appWindow } from '@tauri-apps/api/window'
 import { initSQL } from '@/sqls'
 import { useSettingsStore } from '@/stores'
 
-const { themeClass, isFix, windowFocused } = storeToRefs(useSettingsStore())
+const { isFix, windowFocused } = storeToRefs(useSettingsStore())
 
 const isLoading = ref(true)
 
@@ -26,10 +26,10 @@ onMounted(async () => {
 <template>
   <div
     class="frosted flex h-screen flex-col overflow-hidden rounded-xl p-2"
-    :class="[themeClass, windowFocused ? 'bordered' : 'bordered-transparent']"
+    :class="[windowFocused ? 'bordered' : 'bordered-transparent']"
   >
     <div
-      class="bg-gray/60 z-999 fixed top-2 left-1/2 h-3 w-80 -translate-x-1/2 cursor-move rounded-md opacity-0 transition hover:opacity-100"
+      class="bg-gray/60 z-999 transition-300 fixed top-2 left-1/2 h-3 w-80 -translate-x-1/2 cursor-move rounded-md opacity-0 hover:opacity-100"
       data-tauri-drag-region
     ></div>
 
