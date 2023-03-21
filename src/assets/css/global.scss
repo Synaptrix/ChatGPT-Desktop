@@ -16,6 +16,13 @@
   }
 }
 
+@font-face {
+  font-family: JetBrainsMono;
+
+  src: url('../font/JetBrainsMono.woff2') format('woff2');
+  font-display: auto;
+}
+
 html {
   background-color: transparent !important;
 
@@ -29,7 +36,7 @@ body {
 
   color: var(--color-text-1);
 
-  font: 1rem/1;
+  font: 1rem/1 JetBrainsMono;
 }
 
 .bordered {

@@ -23,10 +23,11 @@ export const request = async (url: string, options?: FetchOptions) => {
     })
 
     const { error } = data
+
     if (error) throw new Error(error.message)
 
     return data
-  } catch (error: any) {
-    dialogErrorMessage('请求出错：' + error.message)
+  } catch ({ message }: any) {
+    throw new Error(`请求出错：${message}`)
   }
 }

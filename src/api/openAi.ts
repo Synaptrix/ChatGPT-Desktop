@@ -8,6 +8,7 @@ import {
 } from '@microsoft/fetch-event-source'
 import { useSessionStore, useSettingsStore, useRoleStore } from '@/stores'
 import { executeSQL } from '@/sqls'
+import { dialogErrorMessage } from '@/utils'
 import type { MessageData, SessionData } from '@/types'
 
 /**
@@ -92,15 +93,27 @@ export const getOpenAIResultStreamApi = async (messages: MessageData[]) => {
  * 获取账号余额信息
  */
 export const getOpenAICreditApi = async () => {
-  const apiKey = getOpenAIKey()
-  if (!apiKey) return
+  try {
+    const apiKey = getOpenAIKey()
+    if (!apiKey) return
 
-  return await request(OPENAI_CREDIT_URL, {
-    method: 'GET',
-    headers: {
-      Authorization: `Bearer ${apiKey}`
+    const result = await request(OPENAI_CREDIT_URL, {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${apiKey}`
+      }
+    })
+    console.log('result', result)
+    return result
+  } catch ({ message }: any) {
+    const { isThinking } = useSessionStore()
+
+    if (isThinking) {
+      return '请求的 API KEY 无效'
+    } else {
+      dialogErrorMessage(message)
     }
-  })
+  }
 }
 
 /**
@@ -115,10 +128,6 @@ export const getAiMessage = async (value?: string) => {
     const { currentRole } = useRoleStore()
 
     if (!currentRole) return
-
-    // 检测是否有余额
-    const credit = await getOpenAICreditApi()
-    if (!credit) return
 
     const messages: MessageData[] = []
 
@@ -188,6 +197,10 @@ export const getAiMessage = async (value?: string) => {
         content: ''
       }
     })
+
+    // 检测是否有余额
+    const credit = await getOpenAICreditApi()
+    if (!credit) return
 
     await getOpenAIResultStreamApi(messages)
 
