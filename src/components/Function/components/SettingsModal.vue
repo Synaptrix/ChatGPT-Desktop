@@ -1,11 +1,33 @@
 <script setup lang="ts">
 import { useSettingsStore } from '@/stores'
 import ShortcutKey from './ShortcutKey.vue'
+import { getOpenAICreditApi } from '@/api'
 
-defineProps<{ visible: boolean; setVisible: () => void }>()
+const props = defineProps<{ visible: boolean; setVisible: () => void }>()
 
 const { apiKey, autoStart, isMemory, isRememberPosition } = storeToRefs(
   useSettingsStore()
+)
+
+const totalCredit = ref(0)
+const usedCredit = ref(0)
+
+const getCredit = async () => {
+  const credit = await getOpenAICreditApi()
+  if (!credit) return
+
+  totalCredit.value = parseFloat(credit.total_granted.toFixed(2))
+  usedCredit.value = parseFloat(credit.total_available.toFixed(2))
+}
+
+// TODO 优化，这里可能需要防抖
+watch(apiKey, getCredit)
+
+watch(
+  () => props.visible,
+  (val) => {
+    val && getCredit()
+  }
 )
 </script>
 
@@ -43,6 +65,9 @@ const { apiKey, autoStart, isMemory, isRememberPosition } = storeToRefs(
         placeholder="API Key"
         allow-clear
       />
+      <p class="text-3 text-right text-[var(--color-text-3)]" v-if="apiKey">
+        账户余额&dollar; {{ usedCredit }} / {{ totalCredit }}
+      </p>
     </div>
   </a-modal>
 </template>

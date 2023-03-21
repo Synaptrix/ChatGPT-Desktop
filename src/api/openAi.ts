@@ -1,7 +1,7 @@
 import { Body } from '@tauri-apps/api/http'
 import { Message } from '@arco-design/web-vue'
 import { request } from '.'
-import { OPEN_AI_MODEL } from '@/constants'
+import { OPENAI_CHAT_URL, OPEN_AI_MODEL, OPENAI_CREDIT_URL } from '@/constants'
 import {
   fetchEventSource,
   type EventSourceMessage
@@ -17,16 +17,17 @@ import type { MessageData, SessionData } from '@/types'
 export const getOpenAIResultApi = async (messages: MessageData[]) => {
   if (!messages.length) return
 
-  const { apiKey } = useSettingsStore()
+  const apiKey = getOpenAIKey()
+  if (!apiKey) return
 
-  return await request(import.meta.env.VITE_OPEN_AI_URL, {
+  return await request(OPENAI_CHAT_URL, {
     method: 'POST',
     body: Body.json({
       model: OPEN_AI_MODEL,
       messages
     }),
     headers: {
-      Authorization: `Bearer ${apiKey || import.meta.env.VITE_OPEN_AI_API_KEY}`
+      Authorization: `Bearer ${apiKey}`
     }
   })
 }
@@ -38,11 +39,13 @@ export const getOpenAIResultApi = async (messages: MessageData[]) => {
 export const getOpenAIResultStreamApi = async (messages: MessageData[]) => {
   if (!messages.length) return
 
-  const { apiKey } = useSettingsStore()
+  const apiKey = getOpenAIKey()
+  if (!apiKey) return
+
   const { updateSessionData } = useSessionStore()
   const { sessionDataList } = storeToRefs(useSessionStore())
 
-  await fetchEventSource(import.meta.env.VITE_OPEN_AI_URL, {
+  await fetchEventSource(OPENAI_CHAT_URL, {
     method: 'POST',
     body: JSON.stringify({
       model: OPEN_AI_MODEL,
@@ -51,7 +54,7 @@ export const getOpenAIResultStreamApi = async (messages: MessageData[]) => {
       stream: true
     }),
     headers: {
-      Authorization: `Bearer ${apiKey || import.meta.env.VITE_OPEN_AI_API_KEY}`,
+      Authorization: `Bearer ${apiKey}`,
       'Content-Type': 'application/json',
       Accept: 'application/json'
     },
@@ -86,17 +89,25 @@ export const getOpenAIResultStreamApi = async (messages: MessageData[]) => {
 }
 
 /**
+ * 获取账号余额信息
+ */
+export const getOpenAICreditApi = async () => {
+  const apiKey = getOpenAIKey()
+  if (!apiKey) return
+
+  return await request(OPENAI_CREDIT_URL, {
+    method: 'GET',
+    headers: {
+      Authorization: `Bearer ${apiKey}`
+    }
+  })
+}
+
+/**
  * 获取 ai 回答
  * @param value 消息内容
  */
 export const getAiMessage = async (value?: string) => {
-  const { apiKey } = useSettingsStore()
-
-  if (!apiKey && !import.meta.env.VITE_OPEN_AI_API_KEY) {
-    Message.warning('请先填写 OpenAi API Key')
-    return
-  }
-
   const { isThinking, sessionDataList } = storeToRefs(useSessionStore())
   const { updateSessionData } = useSessionStore()
 
@@ -104,6 +115,10 @@ export const getAiMessage = async (value?: string) => {
     const { currentRole } = useRoleStore()
 
     if (!currentRole) return
+
+    // 检测是否有余额
+    const credit = await getOpenAICreditApi()
+    if (!credit) return
 
     const messages: MessageData[] = []
 
@@ -178,10 +193,24 @@ export const getAiMessage = async (value?: string) => {
 
     isThinking.value = false
   } catch ({ message }: any) {
-    sessionDataList.value.at(-1)!.message.content = message
+    sessionDataList.value.at(-1)!.message.content = message as any
 
     updateSessionData(sessionDataList.value.at(-1)!)
 
     isThinking.value = false
   }
+}
+
+/**
+ * 获取apiKey
+ */
+const getOpenAIKey = () => {
+  const { apiKey } = useSettingsStore()
+
+  if (!apiKey && !import.meta.env.VITE_OPEN_AI_API_KEY) {
+    Message.warning('请先填写 OpenAi API Key')
+    return false
+  }
+
+  return apiKey || import.meta.env.VITE_OPEN_AI_API_KEY
 }

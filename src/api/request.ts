@@ -16,19 +16,16 @@ export const request = async (url: string, options?: FetchOptions) => {
       timeout: 1000 * 60,
       headers: {
         ...headers,
+        'Content-Type': 'application/json',
         'user-agent':
           'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/104.0.0.0 Safari/537.36'
       }
     })
 
-    const { error, usage, choices } = data
-
+    const { error } = data
     if (error) throw new Error(error.message)
 
-    return {
-      usage,
-      message: choices[0].message
-    }
+    return data
   } catch (error: any) {
     dialogErrorMessage('请求出错：' + error.message)
   }
