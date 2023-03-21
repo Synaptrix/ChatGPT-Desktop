@@ -39,6 +39,10 @@ body {
   font: 1rem/1 JetBrainsMono;
 }
 
+code {
+  font-family: JetBrainsMono !important;
+}
+
 .bordered {
   border: 1px solid var(--color-border);
 }
