@@ -45,6 +45,10 @@
     li {
       --uno: flex flex-col gap-4;
     }
+
+    a {
+      --uno: text-[rgb(var(--primary-6))] hover:underline;
+    }
   }
 
   @keyframes blink {

@@ -29,8 +29,6 @@ const renderCode = (originRule: (...args: RulesArgs) => string) => {
     const [tokens, idx] = args
 
     const content = tokens[idx].content
-      .replaceAll('"', '&quot;')
-      .replaceAll("'", '&lt;')
 
     const originRendered = originRule(...args)
 
@@ -45,7 +43,7 @@ const renderCode = (originRule: (...args: RulesArgs) => string) => {
   }
 }
 
-export default (md: any) => {
+export const copyCode = (md: any) => {
   md.renderer.rules.code_block = renderCode(md.renderer.rules.code_block)
   md.renderer.rules.fence = renderCode(md.renderer.rules.fence)
 }

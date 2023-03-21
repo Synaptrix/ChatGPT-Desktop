@@ -1,16 +1,19 @@
 <script setup lang="ts">
 import MarkdownIt from 'markdown-it'
 import MarkdownItHighlight from 'markdown-it-highlightjs'
-import CopyCode from '@/utils/copyCode'
 import { IconImage } from '@arco-design/web-vue/es/icon'
-import { saveImage } from '@/utils'
+import { copyCode } from '@/utils'
 import { useSettingsStore, useSessionStore, useRoleStore } from '@/stores'
 import dayjs from 'dayjs'
 import utc from 'dayjs/plugin/utc'
 
 dayjs.extend(utc)
 
-const marked = new MarkdownIt().use(MarkdownItHighlight).use(CopyCode)
+const marked = new MarkdownIt({
+  linkify: true
+})
+  .use(MarkdownItHighlight)
+  .use(copyCode)
 
 const { uuid } = storeToRefs(useSettingsStore())
 const { sessionDataList } = storeToRefs(useSessionStore())
@@ -35,6 +38,7 @@ watchEffect(() => {
 <template>
   <div
     ref="sessionElement"
+    id=""
     class="session relative flex-1 cursor-default overflow-auto"
   >
     <template v-if="sessionDataList.length">

@@ -59,7 +59,7 @@ body {
 .frosted {
   position: relative;
 
-  background-color: var(--opacity-background);
+  background-color: var(--frosted-background);
 
   &::before,
   &::after {
