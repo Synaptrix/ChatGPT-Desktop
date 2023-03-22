@@ -26,9 +26,10 @@ export const useSessionStore = defineStore(
     const getSessionList = async () => {
       // TODO: 优化 sql
       const sql =
-        'SELECT session.*,role.name FROM session LEFT JOIN role ON role.id=session.role_id;'
+        'SELECT session.*, role.name FROM session LEFT JOIN role ON role.id=session.role_id ORDER BY session.update_time DESC;'
 
-      sessionList.value = (await executeSQL(sql)) as any[]
+      const res = (await executeSQL(sql)) as SessionPayload[]
+      sessionList.value = res.map((item) => ({ ...item, isEdit: false }))
     }
 
     // 获取当前会话数据
@@ -73,11 +74,8 @@ export const useSessionStore = defineStore(
       const { currentRole } = useRoleStore()
 
       if (!isExist && currentRole?.id) {
-        await insertSQL('session', {
-          id: currentSession.value.id,
-          title: data.content,
-          role_id: currentRole.id
-        })
+        currentSession.value.title = data.content
+        await insertSQL('session', currentSession.value)
       }
 
       const { isMemory } = useSettingsStore()
@@ -96,6 +94,15 @@ export const useSessionStore = defineStore(
     // 更新当前对话数据
     const updateSessionData = async (payload: SessionData) => {
       await updateSQL('session_data', payload)
+      await updateSession(currentSession.value!)
+    }
+
+    // 更新会话信息
+    const updateSession = async (payload: SessionPayload) => {
+      const sql = `UPDATE session SET title = '${
+        payload.title
+      }', update_time = '${Date.now()}' WHERE id = '${payload.id}';`
+      await executeSQL(sql)
     }
 
     // 删除会话
@@ -147,6 +154,7 @@ export const useSessionStore = defineStore(
       switchSession,
       getSessionList,
       deleteSession,
+      updateSession,
       chatController
     }
   },

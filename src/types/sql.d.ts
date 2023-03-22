@@ -31,7 +31,9 @@ export interface SessionPayload {
   id: string
   title: string
   role_id: number
+  update_time?: string
   name?: string
+  isEdit?: boolean
 }
 
 export interface RolePayload {
