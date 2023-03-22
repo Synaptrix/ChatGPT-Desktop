@@ -11,6 +11,7 @@ import {
 import { useRoleStore, useSessionStore } from '@/stores'
 import { getAiMessage } from '@/api'
 import { saveImage } from '@/utils'
+import { emit } from '@tauri-apps/api/event'
 
 const { currentRole } = storeToRefs(useRoleStore())
 
@@ -80,6 +81,10 @@ const functions = computed(() => [
     handleClick: () => (modalVisible.value = true)
   }
 ])
+
+const triggerScroll = () => {
+  emit('scroll-to-bottom')
+}
 </script>
 
 <!-- TODO:把聊天对象移过来 -->
@@ -87,7 +92,11 @@ const functions = computed(() => [
   <div class="function text-6 relative flex justify-end">
     <!-- 当前聊天角色对象 -->
     <div class="top-50% left-50% text-4 -translate-1/2 absolute">
-      正在与 <span class="mark">{{ currentRole?.name }}</span> 对话
+      正在与
+      <span class="mark cursor-pointer" @click="triggerScroll">{{
+        currentRole?.name
+      }}</span>
+      对话
     </div>
 
     <div class="flex gap-2">
