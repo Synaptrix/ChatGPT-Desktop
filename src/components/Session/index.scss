@@ -14,7 +14,7 @@
         mask-image: url('@/assets/image/copy.svg');
         -webkit-mask-size: contain;
         mask-size: contain;
-        &.active {
+        &.copied {
           -webkit-mask-image: url('@/assets/image/copied.svg');
           mask-image: url('@/assets/image/copied.svg');
         }
@@ -78,12 +78,10 @@
       ul {
         --uno: flex flex-col gap-4;
         li {
+          --uno: leading-6;
+
           > *:not(:last-child) {
             --uno: pb-4;
-          }
-
-          > code {
-            --uno: leading-6;
           }
         }
       }

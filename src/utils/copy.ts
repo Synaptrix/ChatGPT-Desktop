@@ -66,10 +66,10 @@ export const copyText = async (
       return
     }
 
-    element.classList.add('active')
+    element.classList.add('copied')
 
     window[id] = setTimeout(() => {
-      element.classList.remove('active')
+      element.classList.remove('copied')
 
       clearTimeout(window[id])
       window[id] = null
