@@ -100,11 +100,12 @@ export const useSettingsStore = defineStore(
 
     // 监听开机自启动
     watchEffect(() => {
-      if (autoStart.value) {
-        enable()
-      } else {
-        disable()
-      }
+      autoStart.value ? enable() : disable()
+    })
+
+    // 监听显示设备变化时，重置窗口位置到中间，以防止窗口位置偏移到屏幕外
+    appWindow.onScaleChanged(() => {
+      appWindow.center()
     })
 
     return {
