@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { appWindow } from '@tauri-apps/api/window'
+import { platform } from '@tauri-apps/api/os'
 import { initSQL } from '@/sqls'
 import { useSettingsStore } from '@/stores'
 import { useObserverLink } from '@/hooks'
@@ -7,6 +8,8 @@ import { useObserverLink } from '@/hooks'
 const { isFix, windowFocused } = storeToRefs(useSettingsStore())
 
 const isLoading = ref(true)
+
+const windowClass = ref('')
 
 onMounted(async () => {
   await initSQL()
@@ -31,12 +34,29 @@ onMounted(async () => {
     })
   }
 })
+
+watch(
+  windowFocused,
+  async (newValue) => {
+    const platformName = await platform()
+
+    if (platformName !== 'darwin') {
+      windowClass.value = 'bordered'
+    } else {
+      let className = 'rounded-xl '
+      className += newValue ? 'bordered' : 'bordered-transparent'
+
+      windowClass.value = className
+    }
+  },
+  { immediate: true }
+)
 </script>
 
 <template>
   <div
-    class="frosted flex h-screen flex-col overflow-hidden rounded-xl p-2"
-    :class="[windowFocused ? 'bordered' : 'bordered-transparent']"
+    class="frosted flex h-screen flex-col overflow-hidden p-2"
+    :class="[windowClass]"
   >
     <div
       class="bg-gray/60 z-999 transition-300 fixed top-2 left-1/2 h-3 w-80 -translate-x-1/2 cursor-move rounded-md opacity-0 hover:opacity-100"

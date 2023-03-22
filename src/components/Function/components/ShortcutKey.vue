@@ -64,7 +64,7 @@ const handleKeyup = (event: KeyboardEvent) => {
       @keyup="handleKeyup"
     >
       <div
-        class="text-6 flex items-center gap-2 font-bold leading-none text-[var(--color-text-4)]"
+        class="text-6 flex items-center gap-2 font-sans font-bold leading-none text-[var(--color-text-4)]"
       >
         <!-- 热键 -->
         <span
