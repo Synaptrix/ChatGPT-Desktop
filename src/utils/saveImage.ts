@@ -1,9 +1,6 @@
 import { writeBinaryFile, BaseDirectory } from '@tauri-apps/api/fs'
-import * as htmlToImage from 'html-to-image'
+import html2canvas from 'html2canvas'
 import { Message } from '@arco-design/web-vue'
-import { useSettingsStore } from '@/stores'
-import { THEME } from '@/constants'
-import { dialogErrorMessage } from './tauri'
 
 /**
  * 下载图片
@@ -11,24 +8,21 @@ import { dialogErrorMessage } from './tauri'
  */
 export const saveImage = async (nodeId: string) => {
   try {
-    const { themeMode } = useSettingsStore()
+    const uuid = '_' + nodeId
+
+    if (window[uuid]) return
+
+    window[uuid] = uuid
 
     const element = document.getElementById(nodeId) as HTMLElement
 
-    const cloneElement = element.cloneNode(true) as HTMLElement
-
-    document.body.appendChild(cloneElement)
-
-    cloneElement.style.background =
-      themeMode === THEME.light ? '#EEF0F2' : '#24272E'
-
-    const dataUrl = await htmlToImage.toPng(cloneElement)
+    const canvas = await html2canvas(element, {
+      backgroundColor: 'transparent'
+    })
 
     // base64 转 buffer
-    const response = await fetch(dataUrl)
-    const blob = await response.blob()
-    const arrayBuffer = await blob.arrayBuffer()
-    const uint8Array = new Uint8Array(arrayBuffer)
+    const response = await fetch(canvas.toDataURL('image/png'))
+    const uint8Array = new Uint8Array(await response.arrayBuffer())
 
     // 下载图片到 download 文件夹
     await writeBinaryFile(
@@ -39,10 +33,12 @@ export const saveImage = async (nodeId: string) => {
       { dir: BaseDirectory.Download }
     )
 
-    Message.success('图片导出成功！')
+    setTimeout(() => {
+      window[uuid] = null
+    }, 3000)
 
-    document.body.removeChild(cloneElement)
-  } catch ({ message }: any) {
-    dialogErrorMessage(message)
+    Message.success('图片导出成功')
+  } catch (error) {
+    Message.error('图片导出失败，请重试！')
   }
 }

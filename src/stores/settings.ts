@@ -4,7 +4,6 @@ import { hide, show } from '@tauri-apps/api/app'
 import { enable, disable } from 'tauri-plugin-autostart-api'
 import { THEME, DEFAULT_SHORTCUT_KEY } from '@/constants'
 
-// @unocss-include
 export const useSettingsStore = defineStore(
   'settingsStore',
   () => {
