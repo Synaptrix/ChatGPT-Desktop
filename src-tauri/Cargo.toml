@@ -1,6 +1,6 @@
 [package]
 name = "chat_gpt"
-version = "0.0.4"
+version = "0.0.5"
 description = "ChatGPT-Desktop"
 authors = ["orangelckc", "bilibili-ayang"]
 license = "MIT"
@@ -17,6 +17,7 @@ tauri = { version = "1.2", features = ["api-all", "macos-private-api", "system-t
 tauri-plugin-autostart = { git = "https://github.com/tauri-apps/plugins-workspace", branch = "dev" }
 serde = { version = "1.0", features = ["derive"] }
 serde_json = "1.0"
+window-shadows = "0.2.1"
 
 
 [dependencies.tauri-plugin-sql]
