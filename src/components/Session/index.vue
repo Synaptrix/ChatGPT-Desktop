@@ -4,7 +4,7 @@ import MarkdownItHighlight from 'markdown-it-highlightjs'
 import { IconImage } from '@arco-design/web-vue/es/icon'
 import dayjs from 'dayjs'
 import utc from 'dayjs/plugin/utc'
-import { copyText, copyCode, saveImage } from '@/utils'
+import { copyText, copyCode, saveImage, saveMarkdown } from '@/utils'
 import { useSettingsStore, useSessionStore, useRoleStore } from '@/stores'
 
 dayjs.extend(utc)
@@ -86,7 +86,7 @@ onUpdated(() => {
               <div
                 class="markdown"
                 :id="`markdown-${item.id}`"
-                @click="copyText($event, { content: item.message.content })"
+                @click="saveMarkdown(item.message.content)"
               ></div>
 
               <IconImage @click="saveImage(`session-data-${item.id}`)" />
