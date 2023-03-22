@@ -25,6 +25,12 @@ fn main() {
             MacosLauncher::LaunchAgent,
             Some(vec!["--flag1", "--flag2"]),
         ))
+        .plugin(tauri_plugin_single_instance::init(|app, _argv, _cwd| {
+            let window = app.get_window("main").unwrap();
+            window.show().unwrap();
+            window.unminimize().unwrap();
+            window.set_focus().unwrap();
+        }))
         .on_system_tray_event(tray::handler)
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
