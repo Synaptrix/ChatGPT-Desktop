@@ -1,4 +1,6 @@
 import Clipboard from 'clipboard'
+import { writeText } from '@tauri-apps/api/clipboard'
+import { Message } from '@arco-design/web-vue'
 
 type RulesArgs = [Array<{ content: string }>, number]
 
@@ -50,4 +52,42 @@ const renderCode = (originRule: (...args: RulesArgs) => string) => {
 export const copyCode = (md: any) => {
   md.renderer.rules.code_block = renderCode(md.renderer.rules.code_block)
   md.renderer.rules.fence = renderCode(md.renderer.rules.fence)
+}
+
+export const copyText = async (
+  event: MouseEvent,
+  payload: { nodeId?: string; content?: string }
+) => {
+  try {
+    const element = event.target as HTMLElement
+    const id = '_' + element.getAttribute('id')
+
+    if (!id || window[id]) {
+      return
+    }
+
+    element.classList.add('active')
+
+    window[id] = setTimeout(() => {
+      element.classList.remove('active')
+
+      clearTimeout(window[id])
+      window[id] = null
+    }, 3000)
+
+    const { nodeId } = payload
+    let { content } = payload
+
+    if (nodeId) {
+      content = document.getElementById(nodeId)?.innerText
+    }
+
+    if (!content) return
+
+    await writeText(content)
+
+    Message.success('复制成功')
+  } catch (error) {
+    Message.error('复制失败')
+  }
 }
