@@ -4,16 +4,20 @@ import {
   IconRefresh,
   IconDelete,
   IconHistory,
-  IconSettings
+  IconSettings,
+  IconStop,
+  IconImage
 } from '@arco-design/web-vue/es/icon'
 import { useRoleStore, useSessionStore } from '@/stores'
 import { getAiMessage } from '@/api'
+import { saveImage } from '@/utils'
 
 const { currentRole } = storeToRefs(useRoleStore())
 
 const sessionStore = useSessionStore()
-const { switchSession, deleteSession } = sessionStore
-const { isThinking, sessionDataList } = storeToRefs(sessionStore)
+const { switchSession, deleteSession, updateSessionData } = sessionStore
+const { isThinking, sessionDataList, chatController } =
+  storeToRefs(sessionStore)
 
 const disabled = computed(
   () => isThinking.value || !sessionDataList.value.length
@@ -40,10 +44,23 @@ const functions = computed(() => [
     handleClick: () => switchSession()
   },
   {
-    content: '重新回答',
-    icon: IconRefresh,
+    content: isThinking.value ? '停止思考' : '重新回答',
+    icon: isThinking.value ? IconStop : IconRefresh,
+    disabled: !sessionDataList.value.length,
+    handleClick: () => {
+      if (isThinking.value) {
+        chatController.value?.abort()
+        updateSessionData(sessionDataList.value.at(-1)!)
+      } else {
+        getAiMessage()
+      }
+    }
+  },
+  {
+    content: '导出图片',
+    icon: IconImage,
     disabled: disabled.value,
-    handleClick: () => getAiMessage()
+    handleClick: () => saveImage('session-list')
   },
   {
     content: '清空对话',
@@ -54,6 +71,7 @@ const functions = computed(() => [
   {
     content: '历史记录',
     icon: IconHistory,
+    disabled: isThinking.value,
     handleClick: () => (drawerVisible.value = true)
   },
   {

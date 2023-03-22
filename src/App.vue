@@ -6,7 +6,6 @@ import { useSessionStore, useSettingsStore } from '@/stores'
 import { useObserverLink } from '@/hooks'
 
 const { isFix, windowFocused } = storeToRefs(useSettingsStore())
-const { chatController } = storeToRefs(useSessionStore())
 
 const isLoading = ref(true)
 
@@ -78,8 +77,6 @@ watch(
 
       <!-- 会话信息 -->
       <Session />
-
-      <a-button @click="chatController?.abort()">stop</a-button>
 
       <div class="flex cursor-default flex-col gap-2 pt-2">
         <!-- 功能区域 -->

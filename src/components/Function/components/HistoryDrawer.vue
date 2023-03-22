@@ -11,12 +11,6 @@ const { sessionList, currentSession, isThinking } = storeToRefs(sessionStore)
 const { switchSession, getSessionList, deleteSession } = sessionStore
 
 const handleClick = (item: SessionPayload) => {
-  if (isThinking.value) {
-    Message.info('稍等片刻，AI 正在思考')
-
-    return
-  }
-
   switchSession(item)
 
   props.setVisible()
