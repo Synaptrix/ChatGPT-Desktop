@@ -1,4 +1,4 @@
-import { deleteSQL, insertSQL, executeSQL, selectSQL, updateSQL } from '@/sqls'
+import { insertSQL, executeSQL, selectSQL, updateSQL } from '@/sqls'
 import { useRoleStore } from './role'
 import { useSettingsStore } from './settings'
 import type {
@@ -19,6 +19,8 @@ export const useSessionStore = defineStore(
     const sessionList = ref<SessionPayload[]>([])
     // 请求发送状态
     const isThinking = ref(false)
+    // 停止请求
+    const chatController = ref<AbortController>()
 
     // 获取会话列表
     const getSessionList = async () => {
@@ -144,7 +146,8 @@ export const useSessionStore = defineStore(
       updateSessionData,
       switchSession,
       getSessionList,
-      deleteSession
+      deleteSession,
+      chatController
     }
   },
   {
