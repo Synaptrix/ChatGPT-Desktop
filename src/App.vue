@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { appWindow } from '@tauri-apps/api/window'
-import { platform } from '@tauri-apps/api/os'
+import { type } from '@tauri-apps/api/os'
 import { initSQL } from '@/sqls'
-import { useSessionStore, useSettingsStore } from '@/stores'
+import { useSettingsStore } from '@/stores'
 import { useObserverLink } from '@/hooks'
 
 const { isFix, windowFocused } = storeToRefs(useSettingsStore())
@@ -38,9 +38,9 @@ onMounted(async () => {
 watch(
   windowFocused,
   async (newValue) => {
-    const platformName = await platform()
+    const platformName = await type()
 
-    if (platformName !== 'darwin') {
+    if (platformName !== 'Darwin') {
       windowClass.value = 'bordered'
     } else {
       let className = 'rounded-xl '
