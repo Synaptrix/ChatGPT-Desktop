@@ -43,8 +43,8 @@ onUpdated(() => {
 <template>
   <div
     ref="sessionElement"
-    id=""
-    class="session relative flex-1 cursor-default overflow-auto"
+    id="session-list"
+    class="relative flex-1 cursor-default overflow-auto"
   >
     <template v-if="sessionDataList.length">
       <div
