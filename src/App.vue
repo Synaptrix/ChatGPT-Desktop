@@ -2,10 +2,11 @@
 import { appWindow } from '@tauri-apps/api/window'
 import { platform } from '@tauri-apps/api/os'
 import { initSQL } from '@/sqls'
-import { useSettingsStore } from '@/stores'
+import { useSessionStore, useSettingsStore } from '@/stores'
 import { useObserverLink } from '@/hooks'
 
 const { isFix, windowFocused } = storeToRefs(useSettingsStore())
+const { chatController } = storeToRefs(useSessionStore())
 
 const isLoading = ref(true)
 
@@ -77,6 +78,8 @@ watch(
 
       <!-- 会话信息 -->
       <Session />
+
+      <a-button @click="chatController?.abort()">stop</a-button>
 
       <div class="flex cursor-default flex-col gap-2 pt-2">
         <!-- 功能区域 -->

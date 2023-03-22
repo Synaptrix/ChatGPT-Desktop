@@ -44,7 +44,11 @@ export const getOpenAIResultStreamApi = async (messages: MessageData[]) => {
   if (!apiKey) return
 
   const { updateSessionData } = useSessionStore()
-  const { sessionDataList } = storeToRefs(useSessionStore())
+  const { sessionDataList, chatController } = storeToRefs(useSessionStore())
+
+  // 创建一个新的 AbortController
+  const abortController = new AbortController()
+  chatController.value = abortController
 
   await fetchEventSource(OPENAI_CHAT_URL, {
     method: 'POST',
@@ -59,6 +63,7 @@ export const getOpenAIResultStreamApi = async (messages: MessageData[]) => {
       'Content-Type': 'application/json',
       Accept: 'application/json'
     },
+    signal: abortController.signal,
     async onopen(response) {
       if (response.ok) return
 
@@ -103,7 +108,7 @@ export const getOpenAICreditApi = async () => {
         Authorization: `Bearer ${apiKey}`
       }
     })
-    console.log('result', result)
+
     return result
   } catch ({ message }: any) {
     const { isThinking } = useSessionStore()
@@ -111,7 +116,7 @@ export const getOpenAICreditApi = async () => {
     if (isThinking) {
       return '请求的 API KEY 无效'
     } else {
-      dialogErrorMessage(message)
+      dialogErrorMessage(message as string)
     }
   }
 }

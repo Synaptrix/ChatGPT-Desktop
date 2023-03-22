@@ -1,5 +1,4 @@
 import { fetch, type FetchOptions } from '@tauri-apps/api/http'
-import { dialogErrorMessage } from '@/utils'
 
 /**
  * 普通请求
