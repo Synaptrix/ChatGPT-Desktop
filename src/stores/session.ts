@@ -72,7 +72,11 @@ export const useSessionStore = defineStore(
 
       if (!isExist && currentRole?.id) {
         currentSession.value.title = data.content
-        await insertSQL('session', currentSession.value)
+        await insertSQL('session', {
+          id: currentSession.value.id,
+          title: data.content,
+          role_id: currentRole.id
+        })
       }
 
       const { isMemory } = useSettingsStore()
@@ -96,6 +100,7 @@ export const useSessionStore = defineStore(
 
     // 更新会话信息
     const updateSession = async (payload: SessionPayload) => {
+      console.log('payload', payload)
       const sql = `UPDATE session SET title = '${
         payload.title
       }', update_time = '${Date.now()}' WHERE id = '${payload.id}';`
