@@ -1,5 +1,36 @@
 
 
+## [0.0.6](https://github.com/bilibili-ayang/ChatGPT-desktop/compare/v0.0.5...v0.0.6) (2023-03-23)
+
+
+### Bug Fixes
+
+* app initialization and new conversation errors ([#82](https://github.com/bilibili-ayang/ChatGPT-desktop/issues/82)) ([fd3a3f1](https://github.com/bilibili-ayang/ChatGPT-desktop/commit/fd3a3f1663f7857fc9243c1e8d3f8a3ac40fa919))
+* scrollbar caton pause, close [#52](https://github.com/bilibili-ayang/ChatGPT-desktop/issues/52) [#42](https://github.com/bilibili-ayang/ChatGPT-desktop/issues/42) ([#71](https://github.com/bilibili-ayang/ChatGPT-desktop/issues/71)) ([e4361d3](https://github.com/bilibili-ayang/ChatGPT-desktop/commit/e4361d3304812faddc3e79729b810aab663096b9))
+* wake up app on window when minimized [#58](https://github.com/bilibili-ayang/ChatGPT-desktop/issues/58) ([#62](https://github.com/bilibili-ayang/ChatGPT-desktop/issues/62)) ([3c1ba49](https://github.com/bilibili-ayang/ChatGPT-desktop/commit/3c1ba4990263b586edbb57c8dbd3978d28e6b062))
+
+
+### Features
+
+* add abort answer controller [#67](https://github.com/bilibili-ayang/ChatGPT-desktop/issues/67) ([#68](https://github.com/bilibili-ayang/ChatGPT-desktop/issues/68)) ([b9371d3](https://github.com/bilibili-ayang/ChatGPT-desktop/commit/b9371d3c359412eabf9480aa113813ebc88a9375))
+* add session edit/search/sort ([#76](https://github.com/bilibili-ayang/ChatGPT-desktop/issues/76)) ([bb88573](https://github.com/bilibili-ayang/ChatGPT-desktop/commit/bb8857328d9dcd40d5621c9a7dcdcba88211aafc))
+* add window shadows to windows system, close [#14](https://github.com/bilibili-ayang/ChatGPT-desktop/issues/14) ([#59](https://github.com/bilibili-ayang/ChatGPT-desktop/issues/59)) ([254f301](https://github.com/bilibili-ayang/ChatGPT-desktop/commit/254f30153e537aa661a93775dedd28c04b9b73c4))
+* disable default shortcuts for Web pages ([#85](https://github.com/bilibili-ayang/ChatGPT-desktop/issues/85)) ([e29502e](https://github.com/bilibili-ayang/ChatGPT-desktop/commit/e29502e44307deac67056cb2a922380ac59b16a0))
+* export markdown, close [#72](https://github.com/bilibili-ayang/ChatGPT-desktop/issues/72) ([#73](https://github.com/bilibili-ayang/ChatGPT-desktop/issues/73)) ([4c718fa](https://github.com/bilibili-ayang/ChatGPT-desktop/commit/4c718fa43c50fbf855ee404500a28acd586c96b3))
+* session action add prompts, close [#78](https://github.com/bilibili-ayang/ChatGPT-desktop/issues/78) ([#80](https://github.com/bilibili-ayang/ChatGPT-desktop/issues/80)) ([d118471](https://github.com/bilibili-ayang/ChatGPT-desktop/commit/d11847168157b011af5a2934c3a8eaecc340047b))
+* sessions support copy, copy markdown, export images, close [#18](https://github.com/bilibili-ayang/ChatGPT-desktop/issues/18) ([#63](https://github.com/bilibili-ayang/ChatGPT-desktop/issues/63)) ([7a4758c](https://github.com/bilibili-ayang/ChatGPT-desktop/commit/7a4758c88d51f6b11e5d4b3eaa38417f994d95f6))
+* single instance supported on windows, close [#53](https://github.com/bilibili-ayang/ChatGPT-desktop/issues/53) ([#65](https://github.com/bilibili-ayang/ChatGPT-desktop/issues/65)) ([14673a8](https://github.com/bilibili-ayang/ChatGPT-desktop/commit/14673a8971b428b746d954561b8390e1545bc374))
+* support session export image ([#69](https://github.com/bilibili-ayang/ChatGPT-desktop/issues/69)) ([6d01959](https://github.com/bilibili-ayang/ChatGPT-desktop/commit/6d01959acbf987e58cfcd12e8ed9531355b2db4f))
+
+
+### Performance Improvements
+
+*  adjust display scale, close [#61](https://github.com/bilibili-ayang/ChatGPT-desktop/issues/61) ([#74](https://github.com/bilibili-ayang/ChatGPT-desktop/issues/74)) ([f7c4a84](https://github.com/bilibili-ayang/ChatGPT-desktop/commit/f7c4a84b01dfcbe203b491227fde9690df9a17df))
+* custom variables and methods are introduced automatically ([#79](https://github.com/bilibili-ayang/ChatGPT-desktop/issues/79)) ([14d83c3](https://github.com/bilibili-ayang/ChatGPT-desktop/commit/14d83c36e1c86887011f056d47612ad900444734))
+* optimize fixed windows ([#86](https://github.com/bilibili-ayang/ChatGPT-desktop/issues/86)) ([92c0c41](https://github.com/bilibili-ayang/ChatGPT-desktop/commit/92c0c419a05488e89f3d135bbcdacd2f8051acac))
+* optimize the history list, close [#75](https://github.com/bilibili-ayang/ChatGPT-desktop/issues/75) ([#84](https://github.com/bilibili-ayang/ChatGPT-desktop/issues/84)) ([0a23af7](https://github.com/bilibili-ayang/ChatGPT-desktop/commit/0a23af77d0e25188e0dc249ca21976fc77fc59e4))
+* shadows are only available for windows ([3b30525](https://github.com/bilibili-ayang/ChatGPT-desktop/commit/3b30525395e1aec2c42381a99342f3b33b471a36))
+
 ## [0.0.5](https://github.com/bilibili-ayang/ChatGPT-desktop/compare/v0.0.4...v0.0.5) (2023-03-21)
 
 
