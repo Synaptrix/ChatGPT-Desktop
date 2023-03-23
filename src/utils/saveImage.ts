@@ -1,8 +1,5 @@
 import { writeBinaryFile, BaseDirectory } from '@tauri-apps/api/fs'
 import html2canvas from 'html2canvas'
-import { Message } from '@arco-design/web-vue'
-import { useSettingsStore } from '@/stores'
-import { THEME } from '@/constants'
 
 /**
  * 下载图片

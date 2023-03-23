@@ -1,14 +1,8 @@
 import { Body } from '@tauri-apps/api/http'
-import { Message } from '@arco-design/web-vue'
-import { request } from '.'
-import { OPENAI_CHAT_URL, OPEN_AI_MODEL, OPENAI_CREDIT_URL } from '@/constants'
 import {
   fetchEventSource,
   type EventSourceMessage
 } from '@microsoft/fetch-event-source'
-import { useSessionStore, useSettingsStore, useRoleStore } from '@/stores'
-import { executeSQL } from '@/sqls'
-import { dialogErrorMessage } from '@/utils'
 import type { MessageData, SessionData } from '@/types'
 
 /**

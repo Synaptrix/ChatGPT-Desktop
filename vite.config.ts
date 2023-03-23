@@ -7,6 +7,7 @@ import AutoImport from 'unplugin-auto-import/vite'
 import Components from 'unplugin-vue-components/vite'
 import { ArcoResolver } from 'unplugin-vue-components/resolvers'
 import { visualizer } from 'rollup-plugin-visualizer'
+import * as myTypes from './src/types'
 
 export default defineConfig(async () => ({
   plugins: [
@@ -24,15 +25,29 @@ export default defineConfig(async () => ({
       eslintrc: {
         enabled: false
       },
-      imports: ['vue', 'pinia'],
+      imports: [
+        'vue',
+        'pinia',
+        {
+          '@arco-design/web-vue': ['Message']
+        }
+      ],
       resolvers: [ArcoResolver()],
-      vueTemplate: true
+      vueTemplate: true,
+      dirs: [
+        './src/api/*',
+        './src/constants/*',
+        './src/hooks/*',
+        './src/sqls/*',
+        './src/stores/*',
+        './src/utils/*'
+      ]
     }),
     Components({
       dts: './src/types/components.d.ts',
       resolvers: [
         ArcoResolver({
-          sideEffect: true
+          resolveIcons: true
         })
       ]
     }),

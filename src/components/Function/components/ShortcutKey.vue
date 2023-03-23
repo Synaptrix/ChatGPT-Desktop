@@ -1,7 +1,4 @@
 <script setup lang="ts">
-import { useSettingsStore } from '@/stores'
-import { hotkeys, isHotKey, isSpecialKey, getKeySymbol } from '@/utils'
-
 const { shortcutKeys, isBinding } = storeToRefs(useSettingsStore())
 
 // 获取最后一位快捷键

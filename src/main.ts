@@ -1,8 +1,6 @@
-import { createApp } from 'vue'
 import piniaPluginPersistedstate from 'pinia-plugin-persistedstate'
 import App from './App.vue'
 import '@arco-design/web-vue/es/message/style/css.js'
-import '@arco-design/web-vue/es/back-top/style/css.js'
 import 'uno.css'
 import 'highlight.js/styles/github-dark-dimmed.css'
 import '@kidonng/daisyui/index.css'

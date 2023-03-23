@@ -2,7 +2,6 @@ import { register, unregisterAll } from '@tauri-apps/api/globalShortcut'
 import { appWindow } from '@tauri-apps/api/window'
 import { hide, show } from '@tauri-apps/api/app'
 import { enable, disable } from 'tauri-plugin-autostart-api'
-import { THEME, DEFAULT_SHORTCUT_KEY } from '@/constants'
 
 export const useSettingsStore = defineStore(
   'settingsStore',

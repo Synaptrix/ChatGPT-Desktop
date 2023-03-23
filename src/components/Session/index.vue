@@ -1,12 +1,9 @@
 <script setup lang="ts">
+import { listen } from '@tauri-apps/api/event'
 import MarkdownIt from 'markdown-it'
 import MarkdownItHighlight from 'markdown-it-highlightjs'
-import { IconImage, IconCaretUp } from '@arco-design/web-vue/es/icon'
 import dayjs from 'dayjs'
 import utc from 'dayjs/plugin/utc'
-import { copyText, copyCode, saveImage, saveMarkdown } from '@/utils'
-import { useSettingsStore, useSessionStore, useRoleStore } from '@/stores'
-import { listen } from '@tauri-apps/api/event'
 
 dayjs.extend(utc)
 
@@ -17,7 +14,7 @@ const marked = new MarkdownIt({
   .use(copyCode)
 
 const { uuid } = storeToRefs(useSettingsStore())
-const { sessionDataList } = storeToRefs(useSessionStore())
+const { sessionDataList, currentSession } = storeToRefs(useSessionStore())
 const { currentRole } = storeToRefs(useRoleStore())
 
 const getLocalTime = (time: string) =>
@@ -26,31 +23,32 @@ const getLocalTime = (time: string) =>
 const sessionElement = ref<HTMLDivElement | null>(null)
 const isAutoScroll = ref(true)
 
-/** 自动滚动到底部 */
-const autoScroll = (isAuto = false) => {
+/**
+ * 自动滚动到底部
+ * @param isAuto
+ */
+const autoScroll = (isSmooth = false) => {
   if (!sessionElement.value || !isAutoScroll.value) return
 
   sessionElement.value.scroll({
     top: sessionElement.value.scrollHeight,
-    behavior: isAuto ? 'smooth' : 'auto'
+    behavior: isSmooth ? 'smooth' : 'auto'
   })
 }
 
-onMounted(() => {
-  listen('scroll-to-bottom', () => {
-    isAutoScroll.value = true
-    autoScroll(true)
-  })
-})
-
-//用户滚轮操作滚动条
+/**
+ * 滚轮事件
+ * @param event 滚轮事件参数
+ */
 const handleWheel = (event: WheelEvent) => {
-  if (event.deltaY < 0) {
-    isAutoScroll.value = false
-  }
+  if (event.deltaY > 0) return
+
+  isAutoScroll.value = false
 }
 
-//监听消息页面滚动
+/**
+ * 滚动事件
+ */
 const handleScroll = () => {
   if (!sessionElement.value) return
 
@@ -61,8 +59,18 @@ const handleScroll = () => {
   }
 }
 
-onUpdated(() => {
-  autoScroll()
+onMounted(() => {
+  listen('scroll-to-bottom', () => {
+    isAutoScroll.value = true
+
+    autoScroll(true)
+  })
+})
+
+onUpdated(autoScroll)
+
+watch(currentSession, () => {
+  isAutoScroll.value = true
 })
 </script>
 
@@ -114,10 +122,10 @@ onUpdated(() => {
               <div
                 class="markdown"
                 :id="`markdown-${item.id}`"
-                @click="saveMarkdown(item.message.content)"
+                @click="saveMarkdown($event, item.message.content)"
               ></div>
 
-              <IconImage @click="saveImage(`session-data-${item.id}`)" />
+              <icon-image @click="saveImage(`session-data-${item.id}`)" />
             </div>
 
             <div
@@ -145,7 +153,7 @@ onUpdated(() => {
     >
       <a-button type="primary" shape="circle">
         <template #icon>
-          <IconCaretUp />
+          <icon-caret-up />
         </template>
       </a-button>
     </a-back-top>

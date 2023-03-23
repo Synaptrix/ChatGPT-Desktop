@@ -1,12 +1,4 @@
 <script setup lang="ts">
-import {
-  IconEdit,
-  IconCheck,
-  IconDelete,
-  IconClose
-} from '@arco-design/web-vue/es/icon'
-import { Message } from '@arco-design/web-vue'
-import { useRoleStore, useSessionStore } from '@/stores'
 import type { RolePayload } from '@/types'
 
 const roleStore = useRoleStore()
@@ -182,8 +174,8 @@ const handleClose = () => {
 
           <div v-if="!item.is_default" @click.stop>
             <div v-if="!item.isEdit" class="text-5 flex gap-5">
-              <IconEdit @click="handleEdit(item)" />
-              <IconDelete
+              <icon-edit @click="handleEdit(item)" />
+              <icon-delete
                 @click="deleteRole(item.id!)"
                 :class="{
                   'pointer-events-none opacity-50':
@@ -192,8 +184,8 @@ const handleClose = () => {
               />
             </div>
             <div v-else class="text-5 flex gap-5">
-              <IconCheck @click="handleUpdate(item)" />
-              <IconClose @click="handleClose" />
+              <icon-check @click="handleUpdate(item)" />
+              <icon-close @click="handleClose" />
             </div>
           </div>
         </li>

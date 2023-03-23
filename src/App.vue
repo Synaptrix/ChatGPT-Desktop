@@ -1,9 +1,6 @@
 <script setup lang="ts">
 import { appWindow } from '@tauri-apps/api/window'
 import { type } from '@tauri-apps/api/os'
-import { initSQL } from '@/sqls'
-import { useSettingsStore } from '@/stores'
-import { useObserverLink } from '@/hooks'
 
 const { isFix, windowFocused } = storeToRefs(useSettingsStore())
 
