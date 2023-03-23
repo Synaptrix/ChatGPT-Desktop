@@ -76,11 +76,11 @@ export const initSQL = async () => {
   })
 
   // 发版之后的表更新操作，只能对已存在的表进行增加列，不能删除列
-  // 1.2023-03-22 在session表中添加update_time列，记录对话的最后一次更新时间
+  // 1. 2023-03-22 在 session 表中添加 update_time 列，记录对话的最后一次更新时间
   const sessionTable = (await executeSQL(
     'SELECT * FROM session LIMIT 1;'
   )) as any[]
-  if (sessionTable[0].update_time === undefined) {
+  if (sessionTable.length && !sessionTable[0].update_time) {
     await executeSQL(`ALTER TABLE session ADD COLUMN update_time TIMESTAMP;`)
   }
 }
