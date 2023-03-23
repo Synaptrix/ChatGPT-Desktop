@@ -100,7 +100,6 @@ export const useSessionStore = defineStore(
 
     // 更新会话信息
     const updateSession = async (payload: SessionPayload) => {
-      console.log('payload', payload)
       const sql = `UPDATE session SET title = '${
         payload.title
       }', update_time = '${Date.now()}' WHERE id = '${payload.id}';`
