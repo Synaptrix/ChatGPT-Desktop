@@ -62,12 +62,14 @@ watch(
     class="frosted flex h-screen flex-col overflow-hidden p-2"
     :class="[windowClass]"
   >
-    <div
-      class="z-999 transition-300 fixed top-2 left-1/2 h-3 w-80 -translate-x-1/2 cursor-move rounded-md opacity-0 hover:opacity-100"
-      :class="isFix ? 'bg-[rgb(var(--blue-6))]' : 'bg-gray/60'"
-      data-tauri-drag-region
-      @dblclick="handleDoubleClick"
-    ></div>
+    <a-tooltip :content="isFix ? '双击取消固定' : '双击固定窗口'">
+      <div
+        class="z-999 transition-300 fixed top-2 left-1/2 h-3 w-80 -translate-x-1/2 cursor-move rounded-md opacity-0 hover:opacity-100"
+        :class="isFix ? 'bg-gray' : 'bg-gray/50'"
+        data-tauri-drag-region
+        @dblclick="handleDoubleClick"
+      ></div>
+    </a-tooltip>
 
     <div class="flex h-full items-center justify-center" v-if="isLoading">
       <a-spin :size="50" :loading="true" />

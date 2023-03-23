@@ -3,6 +3,7 @@
 
 use tauri::Manager;
 use tauri_plugin_autostart::MacosLauncher;
+#[cfg(target_os = "windows")]
 use window_shadows::set_shadow;
 
 mod tray;
@@ -13,9 +14,8 @@ fn main() {
             #[cfg(target_os = "macos")]
             _app.set_activation_policy(tauri::ActivationPolicy::Accessory);
 
-            #[cfg(any(windows, target_os = "macos"))]
-            let window = _app.get_window("main").unwrap();
-            set_shadow(&window, true).expect("Unsupported platform!");
+            #[cfg(target_os = "windows")]
+            set_shadow(&_app.get_window("main").unwrap(), true).expect("Unsupported platform!");
 
             Ok(())
         })
