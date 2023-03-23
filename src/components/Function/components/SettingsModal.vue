@@ -1,8 +1,4 @@
 <script setup lang="ts">
-import { useSettingsStore } from '@/stores'
-import ShortcutKey from './ShortcutKey.vue'
-import { getOpenAICreditApi } from '@/api'
-
 const props = defineProps<{ visible: boolean; setVisible: () => void }>()
 
 const { apiKey, autoStart, isMemory, isRememberPosition } = storeToRefs(

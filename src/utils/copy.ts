@@ -1,6 +1,5 @@
 import Clipboard from 'clipboard'
 import { writeText } from '@tauri-apps/api/clipboard'
-import { Message } from '@arco-design/web-vue'
 
 type RulesArgs = [Array<{ content: string }>, number]
 
@@ -60,19 +59,19 @@ export const copyText = async (
 ) => {
   try {
     const element = event.target as HTMLElement
-    const id = '_' + element.getAttribute('id')
+    const uuid = '_' + element.getAttribute('id')
 
-    if (!id || window[id]) {
+    if (!uuid || window[uuid]) {
       return
     }
 
     element.classList.add('copied')
 
-    window[id] = setTimeout(() => {
+    window[uuid] = setTimeout(() => {
       element.classList.remove('copied')
 
-      clearTimeout(window[id])
-      window[id] = null
+      clearTimeout(window[uuid])
+      window[uuid] = null
     }, 3000)
 
     const { nodeId } = payload

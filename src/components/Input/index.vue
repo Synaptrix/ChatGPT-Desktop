@@ -1,8 +1,5 @@
 <script setup lang="ts">
 import { appWindow } from '@tauri-apps/api/window'
-import { Message } from '@arco-design/web-vue'
-import { useSessionStore, useRoleStore } from '@/stores'
-import { getAiMessage } from '@/api'
 
 const recordStore = useSessionStore()
 const { isThinking } = storeToRefs(recordStore)

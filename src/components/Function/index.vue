@@ -1,4 +1,5 @@
 <script setup lang="ts">
+// TODO：vue component 渲染组件不会被自动导入，看看有没有什么解决办法
 import {
   IconPlusCircle,
   IconRefresh,
@@ -8,9 +9,6 @@ import {
   IconStop,
   IconImage
 } from '@arco-design/web-vue/es/icon'
-import { useRoleStore, useSessionStore } from '@/stores'
-import { getAiMessage } from '@/api'
-import { saveImage } from '@/utils'
 import { emit } from '@tauri-apps/api/event'
 
 const { currentRole } = storeToRefs(useRoleStore())
@@ -93,9 +91,9 @@ const triggerScroll = () => {
     <!-- 当前聊天角色对象 -->
     <div class="top-50% left-50% text-4 -translate-1/2 absolute">
       正在与
-      <span class="mark cursor-pointer" @click="triggerScroll">{{
-        currentRole?.name
-      }}</span>
+      <span class="mark cursor-pointer" @click="triggerScroll">
+        {{ currentRole?.name }}
+      </span>
       对话
     </div>
 

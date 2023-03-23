@@ -1,13 +1,5 @@
 <script setup lang="ts">
-import { useSessionStore } from '@/stores'
-import {
-  IconDelete,
-  IconEdit,
-  IconCheck,
-  IconClose
-} from '@arco-design/web-vue/es/icon'
 import type { SessionPayload } from '@/types'
-import { Message } from '@arco-design/web-vue'
 
 const props = defineProps<{ visible: boolean; setVisible: () => void }>()
 
@@ -126,8 +118,8 @@ const handleCancle = (item: SessionPayload) => {
           v-if="!item.isEdit"
           class="text-5 flex gap-2 opacity-0 group-hover:opacity-100"
         >
-          <IconEdit @click="handleEdit(item)" />
-          <IconDelete
+          <icon-edit @click="handleEdit(item)" />
+          <icon-delete
             @click="deleteSession(item)"
             :class="{
               'pointer-events-none opacity-50': item.id === currentSession?.id
@@ -135,8 +127,8 @@ const handleCancle = (item: SessionPayload) => {
           />
         </div>
         <div v-else class="text-5 flex gap-2 opacity-0 group-hover:opacity-100">
-          <IconCheck @click="handleUpdate(item)" />
-          <IconClose @click="handleCancle(item)" />
+          <icon-check @click="handleUpdate(item)" />
+          <icon-close @click="handleCancle(item)" />
         </div>
       </li>
     </ul>

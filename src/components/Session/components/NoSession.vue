@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import { useSettingsStore } from '@/stores'
-
 const { shortcutKeys } = storeToRefs(useSettingsStore())
 </script>
 

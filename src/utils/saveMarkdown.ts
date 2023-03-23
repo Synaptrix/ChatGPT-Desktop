@@ -1,15 +1,25 @@
-import { useSessionStore } from '@/stores'
-import { Message } from '@arco-design/web-vue'
 import { writeTextFile, BaseDirectory } from '@tauri-apps/api/fs'
 
-export const saveMarkdown = async (content: string) => {
+export const saveMarkdown = async (event: MouseEvent, content: string) => {
   try {
     const { currentSession } = useSessionStore()
+
+    const element = event.target as HTMLElement
+    const uuid = '_' + element.getAttribute('id')
+
+    if (window[uuid]) return
+    window[uuid] = uuid
+
     await writeTextFile(`${currentSession?.title}-${Date.now()}.md`, content, {
       dir: BaseDirectory.Download
     })
-    Message.success('Markdown导出成功')
+
+    setTimeout(() => {
+      window[uuid] = null
+    }, 3000)
+
+    Message.success('Markdown 文件导出成功')
   } catch (error) {
-    Message.error('Markdown导出失败，请重试！')
+    Message.error('Markdown 文件导出失败，请重试！')
   }
 }
