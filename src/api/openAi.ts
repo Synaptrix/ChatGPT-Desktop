@@ -120,6 +120,9 @@ export const getOpenAICreditApi = async () => {
  * @param value 消息内容
  */
 export const getAiMessage = async (value?: string) => {
+  const apiKey = getOpenAIKey()
+  if (!apiKey) return
+
   const { isThinking, sessionDataList } = storeToRefs(useSessionStore())
   const { updateSessionData } = useSessionStore()
 
