@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { appWindow } from '@tauri-apps/api/window'
 import { type } from '@tauri-apps/api/os'
+import { useShortcuts } from './hooks/useShortcuts'
 
 const { isFix, windowFocused } = storeToRefs(useSettingsStore())
 
@@ -21,7 +22,8 @@ onMounted(async () => {
 
   // 禁用默认浏览器快捷键
   useDisableShortcuts()
-
+  // 启用应用内专属快捷键
+  useShortcuts()
   appWindow.onFocusChanged(({ payload }) => {
     windowFocused.value = payload
 
