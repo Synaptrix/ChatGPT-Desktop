@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { appWindow } from '@tauri-apps/api/window'
 import { type } from '@tauri-apps/api/os'
+import { useDisableShortcuts } from '@/hooks'
 
 const { isFix, windowFocused } = storeToRefs(useSettingsStore())
 
@@ -30,6 +31,9 @@ onMounted(async () => {
       }
     })
   }
+
+  // 禁用浏览器快捷键
+  useDisableShortcuts()
 })
 
 watch(
