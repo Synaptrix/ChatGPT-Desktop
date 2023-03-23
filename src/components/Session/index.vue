@@ -75,6 +75,7 @@ watch(currentSession, () => {
 </script>
 
 <template>
+  <!-- TODO: 拆分优化组件 -->
   <div
     ref="sessionElement"
     id="session-list"
@@ -111,21 +112,36 @@ watch(currentSession, () => {
                   : 'right-0 translate-x-full pl-2'
               "
             >
-              <div
-                class="copy"
-                :id="`copy-${item.id}`"
-                @click="
-                  copyText($event, { nodeId: `session-content-${item.id}` })
-                "
-              ></div>
+              <a-tooltip
+                content="复制"
+                :position="item.is_ask ? 'right' : 'left'"
+              >
+                <div
+                  class="copy"
+                  :id="`copy-${item.id}`"
+                  @click="
+                    copyText($event, { nodeId: `session-content-${item.id}` })
+                  "
+                ></div>
+              </a-tooltip>
 
-              <div
-                class="markdown"
-                :id="`markdown-${item.id}`"
-                @click="saveMarkdown($event, item.message.content)"
-              ></div>
+              <a-tooltip
+                content="导出 Markdown 文件"
+                :position="item.is_ask ? 'right' : 'left'"
+              >
+                <div
+                  class="markdown"
+                  :id="`markdown-${item.id}`"
+                  @click="saveMarkdown($event, item.message.content)"
+                ></div>
+              </a-tooltip>
 
-              <icon-image @click="saveImage(`session-data-${item.id}`)" />
+              <a-tooltip
+                content="导出图片"
+                :position="item.is_ask ? 'right' : 'left'"
+              >
+                <icon-image @click="saveImage(`session-data-${item.id}`)" />
+              </a-tooltip>
             </div>
 
             <div

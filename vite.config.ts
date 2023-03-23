@@ -7,7 +7,6 @@ import AutoImport from 'unplugin-auto-import/vite'
 import Components from 'unplugin-vue-components/vite'
 import { ArcoResolver } from 'unplugin-vue-components/resolvers'
 import { visualizer } from 'rollup-plugin-visualizer'
-import * as myTypes from './src/types'
 
 export default defineConfig(async () => ({
   plugins: [
