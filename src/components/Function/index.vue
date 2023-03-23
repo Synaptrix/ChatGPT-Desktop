@@ -1,5 +1,4 @@
 <script setup lang="ts">
-// TODO：vue component 渲染组件不会被自动导入，看看有没有什么解决办法
 import {
   IconPlusCircle,
   IconRefresh,

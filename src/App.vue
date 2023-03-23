@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { appWindow } from '@tauri-apps/api/window'
 import { type } from '@tauri-apps/api/os'
-import { useDisableShortcuts } from '@/hooks'
 
 const { isFix, windowFocused } = storeToRefs(useSettingsStore())
 
@@ -9,12 +8,19 @@ const isLoading = ref(true)
 
 const windowClass = ref('')
 
+const handleDoubleClick = () => {
+  isFix.value = !isFix.value
+}
+
 onMounted(async () => {
   await initSQL()
 
   isLoading.value = false
 
   useObserverLink()
+
+  // 禁用默认浏览器快捷键
+  useDisableShortcuts()
 
   appWindow.onFocusChanged(({ payload }) => {
     windowFocused.value = payload
@@ -31,9 +37,6 @@ onMounted(async () => {
       }
     })
   }
-
-  // 禁用浏览器快捷键
-  useDisableShortcuts()
 })
 
 watch(
@@ -60,8 +63,10 @@ watch(
     :class="[windowClass]"
   >
     <div
-      class="bg-gray/60 z-999 transition-300 fixed top-2 left-1/2 h-3 w-80 -translate-x-1/2 cursor-move rounded-md opacity-0 hover:opacity-100"
+      class="z-999 transition-300 fixed top-2 left-1/2 h-3 w-80 -translate-x-1/2 cursor-move rounded-md opacity-0 hover:opacity-100"
+      :class="isFix ? 'bg-[rgb(var(--blue-6))]' : 'bg-gray/60'"
       data-tauri-drag-region
+      @dblclick="handleDoubleClick"
     ></div>
 
     <div class="flex h-full items-center justify-center" v-if="isLoading">
@@ -70,8 +75,6 @@ watch(
 
     <template v-else>
       <div class="text-7 z-999 fixed top-2 left-2 flex flex-col gap-2">
-        <!-- 固定窗口 -->
-        <Fixed />
         <!-- 主题切换 -->
         <Theme />
       </div>
