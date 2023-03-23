@@ -36,16 +36,20 @@ const handleOpen = () => {
   searchRef.value?.focus()
 
   // 列表滚动到当前的会话
-  const el = document.getElementById(currentSession.value.id)
-  if (!el) return
+  const element = document.getElementById(currentSession.value.id)
+  if (!element) return
 
-  el.scrollIntoView()
+  // TODO: 元素在视口内不滑动
+  element.scrollIntoView({
+    behavior: 'smooth'
+  })
 }
 
 const handleClose = () => {
   if (isEdit.value) return Message.info('请先完成当前编辑')
 
   search.value = ''
+
   props.setVisible()
 }
 
@@ -56,15 +60,11 @@ const handleEdit = (item: SessionPayload) => {
 }
 
 const handleUpdate = (item: SessionPayload) => {
-  handleCancle(item)
-
-  updateSession(item)
-}
-
-const handleCancle = (item: SessionPayload) => {
-  if (!item.title.trim()) return Message.info(`标题不能为空`)
+  if (!item.title.trim()) return Message.info('标题不能为空')
 
   item.isEdit = false
+
+  updateSession(item)
 }
 </script>
 
@@ -79,61 +79,62 @@ const handleCancle = (item: SessionPayload) => {
     @open="handleOpen"
     unmountOnClose
   >
-    <!-- 加入全部清除的按钮 -->
+    <!-- TODO:加入全部清除的按钮 -->
     <template #title> 会话历史 </template>
-    <ul class="flex flex-col gap-2 scroll-smooth" v-if="renderList.length">
+
+    <ul class="flex flex-col gap-2" v-if="renderList.length">
       <li
         v-for="item in renderList"
-        class="transition-300 group flex cursor-pointer items-center justify-between rounded-lg p-2 hover:bg-[var(--color-fill-2)]"
+        class="transition-300 group flex cursor-pointer items-center gap-2 rounded-lg p-2 leading-none hover:bg-[var(--color-fill-2)]"
         :class="{
-          'bg-[rgb(var(--blue-6))]! text-white': item.id === currentSession?.id
+          'bg-[rgb(var(--blue-6))]!': currentSession?.id === item.id,
+          'bg-transparent!': item.isEdit,
+          'text-white': currentSession?.id === item.id && !item.isEdit
         }"
-        :key="item.id"
         :id="item.id"
+        :key="item.id"
+        @click="handleClick(item)"
       >
-        <!-- TODO: 优化此处宽度的计算，这样写有点鸡肋 -->
-        <div class="flex w-[calc(100%-16px)] items-center gap-2">
-          <Avatar :value="item.name" class="w-10!" />
-          <div
-            class="flex w-[calc(100%-56px)] flex-col gap-3 leading-none"
-            @click="handleClick(item)"
-          >
+        <Avatar :value="item.name" class="w-10!" />
+
+        <div class="flex w-[calc(100%-3rem)] items-center justify-between">
+          <div class="flex w-[calc(100%-46px)] flex-col gap-3">
             <a-input
               v-model="item.title"
               class="w-[150px] rounded-sm"
-              size="mini"
-              @click.stop
+              size="small"
               allow-clear
               v-if="item.isEdit"
+              @click.stop
             />
 
             <div class="truncate" v-else>
               {{ item.title }}
             </div>
 
-            <span> 与 {{ item.name }} 的聊天 </span>
+            <div class="truncate">与 {{ item.name }} 的会话</div>
           </div>
-        </div>
-        <div
-          v-if="!item.isEdit"
-          class="text-5 flex gap-2 opacity-0 group-hover:opacity-100"
-        >
-          <icon-edit @click="handleEdit(item)" />
-          <icon-delete
-            @click="deleteSession(item)"
-            :class="{
-              'pointer-events-none opacity-50': item.id === currentSession?.id
-            }"
-          />
-        </div>
-        <div v-else class="text-5 flex gap-2 opacity-0 group-hover:opacity-100">
-          <icon-check @click="handleUpdate(item)" />
-          <icon-close @click="handleCancle(item)" />
+
+          <div
+            class="text-5 flex gap-2 opacity-0 group-hover:opacity-100"
+            @click.stop
+          >
+            <template v-if="!item.isEdit">
+              <icon-edit @click="handleEdit(item)" />
+              <icon-delete @click="deleteSession(item)" />
+            </template>
+            <template v-else>
+              <icon-check @click="handleUpdate(item)" />
+              <icon-close @click="getSessionList" />
+            </template>
+          </div>
         </div>
       </li>
     </ul>
 
-    <a-empty v-else class="mt-1/2" />
+    <div class="flex h-full items-center" v-else>
+      <a-empty description="暂无历史会话" />
+    </div>
 
     <template #footer>
       <a-input-search
@@ -141,7 +142,6 @@ const handleCancle = (item: SessionPayload) => {
         v-model="search"
         placeholder="搜索对话"
         allow-clear
-        class="rounded-md"
       />
     </template>
   </a-drawer>

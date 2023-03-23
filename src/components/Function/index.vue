@@ -91,9 +91,11 @@ const triggerScroll = () => {
     <!-- 当前聊天角色对象 -->
     <div class="top-50% left-50% text-4 -translate-1/2 absolute">
       正在与
-      <span class="mark cursor-pointer" @click="triggerScroll">
-        {{ currentRole?.name }}
-      </span>
+      <a-tooltip content="点我回到底部">
+        <span class="mark cursor-pointer" @click="triggerScroll">
+          {{ currentRole?.name }}
+        </span>
+      </a-tooltip>
       对话
     </div>
 
