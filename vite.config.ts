@@ -25,7 +25,8 @@ export default defineConfig(async () => ({
         enabled: false
       },
       imports: ['vue', 'pinia'],
-      resolvers: [ArcoResolver()]
+      resolvers: [ArcoResolver()],
+      vueTemplate: true
     }),
     Components({
       dts: './src/types/components.d.ts',

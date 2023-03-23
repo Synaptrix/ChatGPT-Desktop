@@ -1,11 +1,12 @@
 <script setup lang="ts">
 import MarkdownIt from 'markdown-it'
 import MarkdownItHighlight from 'markdown-it-highlightjs'
-import { IconImage } from '@arco-design/web-vue/es/icon'
+import { IconImage, IconCaretUp } from '@arco-design/web-vue/es/icon'
 import dayjs from 'dayjs'
 import utc from 'dayjs/plugin/utc'
 import { copyText, copyCode, saveImage, saveMarkdown } from '@/utils'
 import { useSettingsStore, useSessionStore, useRoleStore } from '@/stores'
+import { listen } from '@tauri-apps/api/event'
 
 dayjs.extend(utc)
 
@@ -23,20 +24,45 @@ const getLocalTime = (time: string) =>
   dayjs.utc(time).local().format('YYYY-MM-DD HH:mm:ss')
 
 const sessionElement = ref<HTMLDivElement | null>(null)
+const isAutoScroll = ref(true)
 
-/**
- * 自动滚动到底部
- */
-const autoScrollBottom = () => {
-  if (!sessionElement.value) return
+/** 自动滚动到底部 */
+const autoScroll = (isAuto = false) => {
+  if (!sessionElement.value || !isAutoScroll.value) return
 
   sessionElement.value.scroll({
-    top: sessionElement.value.scrollHeight
+    top: sessionElement.value.scrollHeight,
+    behavior: isAuto ? 'smooth' : 'auto'
   })
 }
 
+onMounted(() => {
+  listen('scroll-to-bottom', () => {
+    isAutoScroll.value = true
+    autoScroll(true)
+  })
+})
+
+//用户滚轮操作滚动条
+const handleWheel = (event: WheelEvent) => {
+  if (event.deltaY < 0) {
+    isAutoScroll.value = false
+  }
+}
+
+//监听消息页面滚动
+const handleScroll = () => {
+  if (!sessionElement.value) return
+
+  const { scrollTop, clientHeight, scrollHeight } = sessionElement.value
+
+  if (Math.ceil(scrollTop + clientHeight) >= scrollHeight) {
+    isAutoScroll.value = true
+  }
+}
+
 onUpdated(() => {
-  autoScrollBottom()
+  autoScroll()
 })
 </script>
 
@@ -45,6 +71,8 @@ onUpdated(() => {
     ref="sessionElement"
     id="session-list"
     class="relative flex-1 cursor-default overflow-auto"
+    @scroll="handleScroll"
+    @wheel="handleWheel"
   >
     <template v-if="sessionDataList.length">
       <div
@@ -109,6 +137,18 @@ onUpdated(() => {
 
     <!-- 当前无会话 -->
     <NoSession v-else />
+
+    <a-back-top
+      @click="isAutoScroll = false"
+      target-container="#session-list"
+      class="bottom-[114px]"
+    >
+      <a-button type="primary" shape="circle">
+        <template #icon>
+          <IconCaretUp />
+        </template>
+      </a-button>
+    </a-back-top>
   </div>
 </template>
 
