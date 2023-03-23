@@ -1,6 +1,5 @@
 {
   "globals": {
-    "BaseDirectory": true,
     "Component": true,
     "ComponentPublicInstance": true,
     "ComputedRef": true,
@@ -99,6 +98,7 @@
     "useAttrs": true,
     "useCssModule": true,
     "useCssVars": true,
+    "useDisableShortcuts": true,
     "useObserverLink": true,
     "useRoleStore": true,
     "useSessionStore": true,
@@ -107,8 +107,6 @@
     "watch": true,
     "watchEffect": true,
     "watchPostEffect": true,
-    "watchSyncEffect": true,
-    "writeBinaryFile": true,
-    "writeTextFile": true
+    "watchSyncEffect": true
   }
 }

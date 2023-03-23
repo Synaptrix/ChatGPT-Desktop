@@ -12,11 +12,15 @@ export const useDisableShortcuts = () => {
     'F3',
     'F7'
   ]
+
   const onKeydown = (event: KeyboardEvent) => {
     const { ctrlKey, shiftKey, key, code } = event
-    const shortcut = `${ctrlKey ? 'Control+' : ''}${
-      shiftKey ? 'Shift+' : ''
-    }${key.toLowerCase()}`
+
+    const control = ctrlKey ? 'Control+' : ''
+    const shift = shiftKey ? 'Shift+' : ''
+
+    const shortcut = `${shift}${control}${key.toLowerCase()}`
+
     if (
       disabledShortcuts.includes(shortcut) ||
       disabledShortcuts.includes(code)
@@ -24,5 +28,6 @@ export const useDisableShortcuts = () => {
       event.preventDefault()
     }
   }
+
   document.body.addEventListener('keydown', onKeydown)
 }

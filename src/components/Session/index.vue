@@ -69,7 +69,7 @@ onMounted(() => {
 
 onUpdated(autoScroll)
 
-watch(currentSession, () => {
+watch([currentSession, sessionDataList], () => {
   isAutoScroll.value = true
 })
 </script>
@@ -150,7 +150,7 @@ watch(currentSession, () => {
               v-html="marked.render(item.message.content)"
               :class="
                 item.is_ask
-                  ? 'bg-[rgb(var(--blue-6))] text-white'
+                  ? 'bg-[rgb(var(--primary-6))] text-white'
                   : 'bg-[var(--session-background)]'
               "
             ></div>
@@ -166,6 +166,7 @@ watch(currentSession, () => {
       @click="isAutoScroll = false"
       target-container="#session-list"
       class="bottom-[114px]"
+      :visible-height="100"
     >
       <a-button type="primary" shape="circle">
         <template #icon>

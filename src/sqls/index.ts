@@ -18,7 +18,7 @@ const getValue = (value: any) =>
  * 执行 sql 语句
  * @param sql sql 语句
  */
-export const executeSQL = async (sql: string) => {
+export const executeSQL = async (sql: string, hideError = false) => {
   const sliceSQL = sql.slice(0, 6)
 
   try {
@@ -28,6 +28,8 @@ export const executeSQL = async (sql: string) => {
       await db.execute(sql)
     }
   } catch (error) {
+    if (hideError) return
+
     let action
 
     switch (sliceSQL) {
@@ -77,12 +79,10 @@ export const initSQL = async () => {
 
   // 发版之后的表更新操作，只能对已存在的表进行增加列，不能删除列
   // 1. 2023-03-22 在 session 表中添加 update_time 列，记录对话的最后一次更新时间
-  const sessionTable = (await executeSQL(
-    'SELECT * FROM session LIMIT 1;'
-  )) as any[]
-  if (sessionTable.length && !sessionTable[0].update_time) {
-    await executeSQL(`ALTER TABLE session ADD COLUMN update_time TIMESTAMP;`)
-  }
+  await executeSQL(
+    `ALTER TABLE session ADD COLUMN update_time TIMESTAMP DEFAULT ${Date.now()};`,
+    true
+  )
 }
 
 /**

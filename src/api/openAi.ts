@@ -200,10 +200,6 @@ export const getAiMessage = async (value?: string) => {
       }
     })
 
-    // 检测是否有余额
-    const credit = await getOpenAICreditApi()
-    if (!credit) return
-
     await getOpenAIResultStreamApi(messages)
 
     isThinking.value = false
