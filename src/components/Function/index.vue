@@ -9,17 +9,39 @@ import {
   IconImage
 } from '@arco-design/web-vue/es/icon'
 import { emit } from '@tauri-apps/api/event'
+import { estimateTokens, getMemoryList } from '@/utils'
 
-const { currentRole } = storeToRefs(useRoleStore())
+const { currentRole, textAreaValue } = storeToRefs(useRoleStore())
 
 const sessionStore = useSessionStore()
 const { switchSession, deleteSession, updateSessionData } = sessionStore
 const { isThinking, sessionDataList, chatController } =
   storeToRefs(sessionStore)
 
+const { isMemory } = storeToRefs(useSettingsStore())
+
 const disabled = computed(
   () => isThinking.value || !sessionDataList.value.length
 )
+
+const tokenUsage = ref(0)
+
+watch([textAreaValue, isMemory], async () => {
+  // 角色描述字符数
+  const roleTokens = estimateTokens(currentRole.value!.description)
+
+  // 输入字符数
+  const textAreaTokens = estimateTokens(textAreaValue.value)
+
+  // 记忆模式下额外消耗的字符数
+  const memroyList = await getMemoryList()
+
+  const memoryTokens = estimateTokens(
+    memroyList.map((item) => item.content).join('')
+  )
+
+  tokenUsage.value = textAreaTokens + roleTokens + memoryTokens
+})
 
 // 控制设置弹框
 const modalVisible = ref(false)
@@ -91,8 +113,15 @@ const triggerScroll = () => {
 <!-- TODO:把聊天对象移过来 -->
 <template>
   <div class="function text-6 relative flex justify-end">
+    <!-- 预估将要消耗的token -->
+    <div
+      class="left-1/5 text-4 -translate-1/2 absolute top-1/2"
+      v-if="textAreaValue.length"
+    >
+      {{ isMemory ? '记忆模式:' : '' }}预计消耗 {{ tokenUsage }} TK
+    </div>
     <!-- 当前聊天角色对象 -->
-    <div class="top-50% left-50% text-4 -translate-1/2 absolute select-none">
+    <div class="text-4 -translate-1/2 absolute top-1/2 left-1/2">
       正在与
       <a-tooltip content="点我回到底部">
         <span class="mark cursor-pointer" @click="triggerScroll">
