@@ -175,13 +175,14 @@ const handleClose = () => {
           <div v-if="!item.is_default" @click.stop>
             <div v-if="!item.isEdit" class="text-5 flex gap-5">
               <icon-edit @click="handleEdit(item)" />
-              <icon-delete
-                @click="deleteRole(item.id!)"
-                :class="{
-                  'pointer-events-none opacity-50':
-                    item.id === currentSession?.role_id
-                }"
-              />
+              <a-popconfirm
+                type="error"
+                position="tr"
+                content="确定删除该角色吗？"
+                @ok="deleteRole(item.id!)"
+              >
+                <icon-delete />
+              </a-popconfirm>
             </div>
             <div v-else class="text-5 flex gap-5">
               <icon-check @click="handleUpdate(item)" />

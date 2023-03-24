@@ -121,7 +121,13 @@ const handleUpdate = (item: SessionPayload) => {
           >
             <template v-if="!item.isEdit">
               <icon-edit @click="handleEdit(item)" />
-              <icon-delete @click="deleteSession(item)" />
+              <a-popconfirm
+                type="error"
+                content="确定删除该会话吗？"
+                @ok="deleteSession(item)"
+              >
+                <icon-delete />
+              </a-popconfirm>
             </template>
             <template v-else>
               <icon-check @click="handleUpdate(item)" />

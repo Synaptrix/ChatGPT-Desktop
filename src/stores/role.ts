@@ -86,7 +86,21 @@ export const useRoleStore = defineStore(
 
       await deleteSQL('role', id)
 
-      getRoleList()
+      await getRoleList()
+
+      const { currentSession } = storeToRefs(useSessionStore())
+
+      const findRole = roleList.value.find(
+        (item) => item.id === currentRole.value?.id
+      )
+
+      if (!findRole) {
+        currentRole.value = roleList.value.find((item) => item.is_default)
+
+        if (currentSession.value?.role_id === id) {
+          currentSession.value.role_id = currentRole.value?.id as number
+        }
+      }
     }
 
     // 更改当前的角色
