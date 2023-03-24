@@ -1,9 +1,9 @@
-import { Body } from '@tauri-apps/api/http'
+import type { MessageData, SessionData } from '@/types'
 import {
   fetchEventSource,
   type EventSourceMessage
 } from '@microsoft/fetch-event-source'
-import type { MessageData, SessionData } from '@/types'
+import { Body } from '@tauri-apps/api/http'
 
 /**
  * 获取 openai 对话消息
@@ -222,4 +222,68 @@ const getOpenAIKey = () => {
   }
 
   return apiKey || import.meta.env.VITE_OPEN_AI_API_KEY
+}
+
+export const getAiImagesMessage = async (value?: string) => {
+  const apiKey = getOpenAIKey()
+  if (!apiKey) return
+
+  const { isThinking, sessionDataList } = storeToRefs(useSessionStore())
+  const { updateSessionData } = useSessionStore()
+
+  isThinking.value = true
+
+  try {
+    const { currentRole } = useRoleStore()
+
+    if (!currentRole) return
+
+    const messages: MessageData[] = []
+
+    const { sessionDataList } = useSessionStore()
+
+    const lastQuestion = sessionDataList.filter((item) => item.is_ask).at(-1)
+
+    // 再次生成上一次问题
+    if (!value) {
+      if (!lastQuestion) return
+
+      // 为了保证统一，这之后的内容全部删掉
+      const deleteSql = `DELETE FROM session_data WHERE session_id = '${lastQuestion?.session_id}' AND id >= ${lastQuestion?.id};`
+      await executeSQL(deleteSql)
+
+      messages.push(lastQuestion?.message)
+    } else {
+      messages.push({
+        role: 'user',
+        content: value
+      })
+    }
+
+    const { isThinking } = storeToRefs(useSessionStore())
+    const { addSessionData } = useSessionStore()
+
+    await addSessionData({
+      isAsk: true,
+      data: messages.at(-1)!
+    })
+
+    await addSessionData({
+      isAsk: false,
+      data: {
+        role: 'assistant',
+        content: ''
+      }
+    })
+
+    sessionDataList
+
+    isThinking.value = false
+  } catch ({ message }: any) {
+    sessionDataList.value.at(-1)!.message.content = message as any
+
+    updateSessionData(sessionDataList.value.at(-1)!)
+
+    isThinking.value = false
+  }
 }
