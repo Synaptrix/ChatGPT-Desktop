@@ -19,3 +19,7 @@ export const OPENAI_CHAT_URL = `${
 export const OPENAI_CREDIT_URL = `${
   import.meta.env.VITE_OPEN_AI_URL
 }/dashboard/billing/credit_grants`
+
+export const OPENAI_IMAGES_URL = `${
+  import.meta.env.VITE_OPEN_AI_URL
+}/v1/images/generations`
