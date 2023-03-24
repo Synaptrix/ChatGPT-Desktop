@@ -16,6 +16,8 @@ specifiers:
   '@typescript-eslint/eslint-plugin': ^5.54.1
   '@typescript-eslint/parser': ^5.54.1
   '@vitejs/plugin-vue': ^4.0.0
+  autoprefixer: ^10.4.14
+  browserslist: ^4.21.5
   clipboard: ^2.0.11
   dayjs: ^1.11.7
   eslint: ^8.35.0
@@ -25,6 +27,7 @@ specifiers:
   highlight.js: ^11.7.0
   html2canvas: ^1.4.1
   husky: ^8.0.3
+  lightningcss: ^1.19.0
   lint-staged: ^13.1.2
   markdown-it: ^13.0.1
   markdown-it-highlightjs: ^4.0.1
@@ -40,6 +43,7 @@ specifiers:
   tauri-plugin-store-api: https://github.com/tauri-apps/tauri-plugin-store
   typescript: ^4.6.4
   unocss: ^0.50.4
+  unocss-preset-autoprefixer: ^0.0.5
   unocss-preset-daisy: ^2.0.0
   unplugin-auto-import: ^0.15.1
   unplugin-vue-components: ^0.24.1
@@ -77,11 +81,14 @@ devDependencies:
   '@typescript-eslint/eslint-plugin': 5.55.0_342y7v4tc7ytrrysmit6jo4wri
   '@typescript-eslint/parser': 5.55.0_vgl77cfdswitgr47lm5swmv43m
   '@vitejs/plugin-vue': 4.1.0_vite@4.2.0+vue@3.2.47
+  autoprefixer: 10.4.14
+  browserslist: 4.21.5
   eslint: 8.36.0
   eslint-config-prettier: 8.7.0_eslint@8.36.0
   eslint-plugin-prettier: 4.2.1_eqzx3hpkgx5nnvxls3azrcc7dm
   eslint-plugin-vue: 9.9.0_eslint@8.36.0
   husky: 8.0.3
+  lightningcss: 1.19.0
   lint-staged: 13.2.0
   prettier: 2.8.4
   prettier-plugin-tailwindcss: 0.2.5_prettier@2.8.4
@@ -90,7 +97,8 @@ devDependencies:
   sass: 1.59.3
   typescript: 4.9.5
   unocss: 0.50.6_vite@4.2.0
-  unocss-preset-daisy: 2.0.0_gk6kmzpjdghwcp22ozc37eiiqu
+  unocss-preset-autoprefixer: 0.0.5_ad42rjru7q7idq6g6jsp2atceu
+  unocss-preset-daisy: 2.0.0_phmruxpz7v2nbkomixo7rqb3d4
   unplugin-auto-import: 0.15.1
   unplugin-vue-components: 0.24.1_vue@3.2.47
   vite: 4.2.0_bbhgkqmop4v24vevyan3j2nitq
@@ -1691,6 +1699,21 @@ packages:
       retry: 0.13.1
     dev: true
 
+  /autoprefixer/10.4.14:
+    resolution: {integrity: sha512-FQzyfOsTlwVzjHxKEqRIAdJx9niO6VCBCoEwax/VLSoQF29ggECcPuBqUMZ+u8jCZOPSy8b8/8KnuFbp0SaFZQ==}
+    engines: {node: ^10 || ^12 || >=14}
+    hasBin: true
+    peerDependencies:
+      postcss: ^8.1.0
+    dependencies:
+      browserslist: 4.21.5
+      caniuse-lite: 1.0.30001469
+      fraction.js: 4.2.0
+      normalize-range: 0.1.2
+      picocolors: 1.0.0
+      postcss-value-parser: 4.2.0
+    dev: true
+
   /available-typed-arrays/1.0.5:
     resolution: {integrity: sha512-DMD0KiN46eipeziST1LPP/STfDU0sufISXmjSgvVsoU2tqxctQeASejWcfNtxYKqETM1UxQ8sp2OrSBWpHY6sw==}
     engines: {node: '>= 0.4'}
@@ -1772,6 +1795,17 @@ packages:
       fill-range: 7.0.1
     dev: true
 
+  /browserslist/4.21.5:
+    resolution: {integrity: sha512-tUkiguQGW7S3IhB7N+c2MV/HZPSCPAAiYBZXLsBhFB/PCy6ZKKsZrmBayHV9fdGV/ARIfJ14NkxKzRDjvp7L6w==}
+    engines: {node: ^6 || ^7 || ^8 || ^9 || ^10 || ^11 || ^12 || >=13.7}
+    hasBin: true
+    dependencies:
+      caniuse-lite: 1.0.30001469
+      electron-to-chromium: 1.4.339
+      node-releases: 2.0.10
+      update-browserslist-db: 1.0.10_browserslist@4.21.5
+    dev: true
+
   /buffer-from/1.1.2:
     resolution: {integrity: sha512-E+XQCRwSbaaiChtv6k6Dwgc+bx+Bs6vuKJHHl5kox/BaKbhiXzqQOwK4cO22yElGp2OCmjwVhT3HmxgyPGnJfQ==}
     dev: true
@@ -1845,6 +1879,10 @@ packages:
   /camelcase/7.0.1:
     resolution: {integrity: sha512-xlx1yCK2Oc1APsPXDL2LdlNP6+uu8OCDdhOBSVT279M/S+y75O30C2VuD8T2ogdePBBl7PfPF4504tnLgX3zfw==}
     engines: {node: '>=14.16'}
+    dev: true
+
+  /caniuse-lite/1.0.30001469:
+    resolution: {integrity: sha512-Rcp7221ScNqQPP3W+lVOYDyjdR6dC+neEQCttoNr5bAyz54AboB4iwpnWgyi8P4YUsPybVzT4LgWiBbI3drL4g==}
     dev: true
 
   /chalk/2.4.2:
@@ -2331,12 +2369,13 @@ packages:
   /csstype/2.6.21:
     resolution: {integrity: sha512-Z1PhmomIfypOpoMjRQB70jfvy/wxT50qW08YXO5lMIJkrdq4yOTR+AW7FqutScmB9NkLwxo+jU+kZLbofZZq/w==}
 
-  /daisyui/2.51.4:
+  /daisyui/2.51.4_autoprefixer@10.4.14:
     resolution: {integrity: sha512-TGYD2BQCduxkKbDALlaWWaUdi33tryUuO/MxxBtAmLJ9zKn04gF6xduMxbrAUesR4AFr6LZW187TqF2H5c1AoA==}
     peerDependencies:
       autoprefixer: ^10.0.2
       postcss: ^8.1.6
     dependencies:
+      autoprefixer: 10.4.14
       color: 4.2.3
       css-selector-tokenizer: 0.8.0
       postcss-js: 4.0.1
@@ -2471,6 +2510,12 @@ packages:
     resolution: {integrity: sha512-lrbCJwD9saUQrqUfXvl6qoM+QN3W7tLV5pAOs+OqOmopCCz/JkE05MHedJR1xfk4IAnZuJXPVuN5+7jNA2ZCiA==}
     dev: true
 
+  /detect-libc/1.0.3:
+    resolution: {integrity: sha512-pGjwhsmsp4kL2RTz08wcOlGN83otlqHeD/Z5T8GXZB+/YcpQ/dgo+lbU8ZsGxV0HIvqqxo9l7mqYwyYMD9bKDg==}
+    engines: {node: '>=0.10'}
+    hasBin: true
+    dev: true
+
   /detective/5.2.1:
     resolution: {integrity: sha512-v9XE1zRnz1wRtgurGu0Bs8uHKFSTdteYZNbIPFVhUZ39L/S79ppMpdmVOZAnoz1jfEFodc48n6MX483Xo3t1yw==}
     engines: {node: '>=0.8.0'}
@@ -2528,6 +2573,10 @@ packages:
 
   /eastasianwidth/0.2.0:
     resolution: {integrity: sha512-I88TYZWc9XiYHRQ4/3c5rjjfgkjhLyW2luGIheGERbNQ6OY7yTybanSpDXZa8y7VUP9YmDcYa+eyq4ca7iLqWA==}
+    dev: true
+
+  /electron-to-chromium/1.4.339:
+    resolution: {integrity: sha512-MSXHBJGcbBydq/DQDlpBeUKnJ6C7aTiNCTRpfDV5Iz0sNr/Ng6RJFloq82AAicp/SrmDq4zF6XsKG0B8Xwn1UQ==}
     dev: true
 
   /emoji-regex/8.0.0:
@@ -3031,6 +3080,10 @@ packages:
     engines: {node: '>=12.20.0'}
     dependencies:
       fetch-blob: 3.2.0
+    dev: true
+
+  /fraction.js/4.2.0:
+    resolution: {integrity: sha512-MhLuK+2gUcnZe8ZHlaaINnQLl0xRIGRfcGk2yl8xoQAfHrSsL3rYu6FCmBdkdbhc9EPlwyGHewaRsvwRMJtAlA==}
     dev: true
 
   /fs-extra/11.1.0:
@@ -3960,6 +4013,94 @@ packages:
       type-check: 0.4.0
     dev: true
 
+  /lightningcss-darwin-arm64/1.19.0:
+    resolution: {integrity: sha512-wIJmFtYX0rXHsXHSr4+sC5clwblEMji7HHQ4Ub1/CznVRxtCFha6JIt5JZaNf8vQrfdZnBxLLC6R8pC818jXqg==}
+    engines: {node: '>= 12.0.0'}
+    cpu: [arm64]
+    os: [darwin]
+    requiresBuild: true
+    dev: true
+    optional: true
+
+  /lightningcss-darwin-x64/1.19.0:
+    resolution: {integrity: sha512-Lif1wD6P4poaw9c/4Uh2z+gmrWhw/HtXFoeZ3bEsv6Ia4tt8rOJBdkfVaUJ6VXmpKHALve+iTyP2+50xY1wKPw==}
+    engines: {node: '>= 12.0.0'}
+    cpu: [x64]
+    os: [darwin]
+    requiresBuild: true
+    dev: true
+    optional: true
+
+  /lightningcss-linux-arm-gnueabihf/1.19.0:
+    resolution: {integrity: sha512-P15VXY5682mTXaiDtbnLYQflc8BYb774j2R84FgDLJTN6Qp0ZjWEFyN1SPqyfTj2B2TFjRHRUvQSSZ7qN4Weig==}
+    engines: {node: '>= 12.0.0'}
+    cpu: [arm]
+    os: [linux]
+    requiresBuild: true
+    dev: true
+    optional: true
+
+  /lightningcss-linux-arm64-gnu/1.19.0:
+    resolution: {integrity: sha512-zwXRjWqpev8wqO0sv0M1aM1PpjHz6RVIsBcxKszIG83Befuh4yNysjgHVplF9RTU7eozGe3Ts7r6we1+Qkqsww==}
+    engines: {node: '>= 12.0.0'}
+    cpu: [arm64]
+    os: [linux]
+    requiresBuild: true
+    dev: true
+    optional: true
+
+  /lightningcss-linux-arm64-musl/1.19.0:
+    resolution: {integrity: sha512-vSCKO7SDnZaFN9zEloKSZM5/kC5gbzUjoJQ43BvUpyTFUX7ACs/mDfl2Eq6fdz2+uWhUh7vf92c4EaaP4udEtA==}
+    engines: {node: '>= 12.0.0'}
+    cpu: [arm64]
+    os: [linux]
+    requiresBuild: true
+    dev: true
+    optional: true
+
+  /lightningcss-linux-x64-gnu/1.19.0:
+    resolution: {integrity: sha512-0AFQKvVzXf9byrXUq9z0anMGLdZJS+XSDqidyijI5njIwj6MdbvX2UZK/c4FfNmeRa2N/8ngTffoIuOUit5eIQ==}
+    engines: {node: '>= 12.0.0'}
+    cpu: [x64]
+    os: [linux]
+    requiresBuild: true
+    dev: true
+    optional: true
+
+  /lightningcss-linux-x64-musl/1.19.0:
+    resolution: {integrity: sha512-SJoM8CLPt6ECCgSuWe+g0qo8dqQYVcPiW2s19dxkmSI5+Uu1GIRzyKA0b7QqmEXolA+oSJhQqCmJpzjY4CuZAg==}
+    engines: {node: '>= 12.0.0'}
+    cpu: [x64]
+    os: [linux]
+    requiresBuild: true
+    dev: true
+    optional: true
+
+  /lightningcss-win32-x64-msvc/1.19.0:
+    resolution: {integrity: sha512-C+VuUTeSUOAaBZZOPT7Etn/agx/MatzJzGRkeV+zEABmPuntv1zihncsi+AyGmjkkzq3wVedEy7h0/4S84mUtg==}
+    engines: {node: '>= 12.0.0'}
+    cpu: [x64]
+    os: [win32]
+    requiresBuild: true
+    dev: true
+    optional: true
+
+  /lightningcss/1.19.0:
+    resolution: {integrity: sha512-yV5UR7og+Og7lQC+70DA7a8ta1uiOPnWPJfxa0wnxylev5qfo4P+4iMpzWAdYWOca4jdNQZii+bDL/l+4hUXIA==}
+    engines: {node: '>= 12.0.0'}
+    dependencies:
+      detect-libc: 1.0.3
+    optionalDependencies:
+      lightningcss-darwin-arm64: 1.19.0
+      lightningcss-darwin-x64: 1.19.0
+      lightningcss-linux-arm-gnueabihf: 1.19.0
+      lightningcss-linux-arm64-gnu: 1.19.0
+      lightningcss-linux-arm64-musl: 1.19.0
+      lightningcss-linux-x64-gnu: 1.19.0
+      lightningcss-linux-x64-musl: 1.19.0
+      lightningcss-win32-x64-msvc: 1.19.0
+    dev: true
+
   /lilconfig/2.1.0:
     resolution: {integrity: sha512-utWOt/GHzuUxnLKxB6dk81RoOeoNeHgbrXiuGk4yyF5qlRz+iIVWu56E2fqGHFrXz0QNUhLB/8nKqvRH66JKGQ==}
     engines: {node: '>=10'}
@@ -4388,6 +4529,10 @@ packages:
       formdata-polyfill: 4.0.10
     dev: true
 
+  /node-releases/2.0.10:
+    resolution: {integrity: sha512-5GFldHPXVG/YZmFzJvKK2zDSzPKhEp0+ZR5SVaoSag9fsL5YgHbUHDfnG5494ISANDcK4KwPXAx2xqVEydmd7w==}
+    dev: true
+
   /normalize-package-data/2.5.0:
     resolution: {integrity: sha512-/5CMN3T0R4XTj4DcGaexo+roZSdSFW/0AOOTROrjxzCG1wrWXEsGbRKevjlIL+ZDE4sZlJr5ED4YW0yqmkK+eA==}
     dependencies:
@@ -4409,6 +4554,11 @@ packages:
 
   /normalize-path/3.0.0:
     resolution: {integrity: sha512-6eZs5Ls3WtCisHWp9S2GUy8dqkpGi4BVSz3GaqiE6ezub0512ESztXUwUB6C6IKbQkY2Pnb/mD4WYojCRwcwLA==}
+    engines: {node: '>=0.10.0'}
+    dev: true
+
+  /normalize-range/0.1.2:
+    resolution: {integrity: sha512-bdok/XvKII3nUpklnV6P2hxtMNrCboOjAcyBuQnWEhO665FwrSNRxU+AqpsyvO6LgGYPspN+lu5CLtw4jPRKNA==}
     engines: {node: '>=0.10.0'}
     dev: true
 
@@ -6014,7 +6164,19 @@ packages:
     engines: {node: '>= 10.0.0'}
     dev: true
 
-  /unocss-preset-daisy/2.0.0_gk6kmzpjdghwcp22ozc37eiiqu:
+  /unocss-preset-autoprefixer/0.0.5_ad42rjru7q7idq6g6jsp2atceu:
+    resolution: {integrity: sha512-rxdJTEFQgoyaIGijloORgKkZQqQ8zBRv78OIVKHe+fVMjovLtQkycjZBlSFzCSzQclOY5IniqhjQctYSXg1lUg==}
+    peerDependencies:
+      browserslist: ^4.21.3
+      lightningcss: ^1.16.0
+      unocss: ^0.45.5
+    dependencies:
+      browserslist: 4.21.5
+      lightningcss: 1.19.0
+      unocss: 0.50.6_vite@4.2.0
+    dev: true
+
+  /unocss-preset-daisy/2.0.0_phmruxpz7v2nbkomixo7rqb3d4:
     resolution: {integrity: sha512-uuQjKDYToW05j2XN6VGtbuRBKyf7f4tgkZlAU7xx6/YHkGw4G64Se4Md3sqI/zpXoZbdIcs8X2P102LpgSE6GQ==}
     peerDependencies:
       '@kidonng/daisyui': ^2.51.3
@@ -6022,7 +6184,7 @@ packages:
     dependencies:
       '@kidonng/daisyui': 2.51.3
       camelcase: 7.0.1
-      daisyui: 2.51.4
+      daisyui: 2.51.4_autoprefixer@10.4.14
       unocss: 0.50.6_vite@4.2.0
     transitivePeerDependencies:
       - autoprefixer
@@ -6127,6 +6289,17 @@ packages:
       chokidar: 3.5.3
       webpack-sources: 3.2.3
       webpack-virtual-modules: 0.5.0
+    dev: true
+
+  /update-browserslist-db/1.0.10_browserslist@4.21.5:
+    resolution: {integrity: sha512-OztqDenkfFkbSG+tRxBeAnCVPckDBcvibKd35yDONx6OU8N7sqgwc7rCbkJ/WcYtVRZ4ba68d6byhC21GFh7sQ==}
+    hasBin: true
+    peerDependencies:
+      browserslist: '>= 4.21.0'
+    dependencies:
+      browserslist: 4.21.5
+      escalade: 3.1.1
+      picocolors: 1.0.0
     dev: true
 
   /update-notifier/6.0.2:

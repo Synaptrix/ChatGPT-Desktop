@@ -10,12 +10,9 @@
       .copy {
         background-color: var(--color-text-1);
 
-        -webkit-mask-image: url('@/assets/image/copy.svg');
         mask-image: url('@/assets/image/copy.svg');
-        -webkit-mask-size: contain;
         mask-size: contain;
         &.copied {
-          -webkit-mask-image: url('@/assets/image/copied.svg');
           mask-image: url('@/assets/image/copied.svg');
         }
       }
@@ -23,9 +20,7 @@
       .markdown {
         background-color: var(--color-text-1);
 
-        -webkit-mask-image: url('@/assets/image/markdown.svg');
         mask-image: url('@/assets/image/markdown.svg');
-        -webkit-mask-size: contain;
         mask-size: contain;
       }
 
@@ -86,9 +81,18 @@
         }
       }
 
-      a {
-        --uno: text-[rgb(var(--primary-6))] hover:underline;
+      &--ask{
+        a {
+          --uno: text-white hover:underline;
+        }
       }
+      
+      &--answer{
+        a {
+          --uno: text-[rgb(var(--primary-6))] hover:underline;
+        }
+      }
+    
     }
   }
 

@@ -92,7 +92,7 @@ const triggerScroll = () => {
 <template>
   <div class="function text-6 relative flex justify-end">
     <!-- 当前聊天角色对象 -->
-    <div class="top-50% left-50% text-4 -translate-1/2 absolute">
+    <div class="top-50% left-50% text-4 -translate-1/2 absolute select-none">
       正在与
       <a-tooltip content="点我回到底部">
         <span class="mark cursor-pointer" @click="triggerScroll">
