@@ -5,6 +5,7 @@ export const useDisableShortcuts = () => {
     'Control+g',
     'Control+r',
     'Control+u',
+    'Control+l',
     'Control+Shift+g',
     'Control+Shift+i',
     'Control+Shift+p',

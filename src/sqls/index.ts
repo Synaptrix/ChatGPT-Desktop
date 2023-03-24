@@ -196,16 +196,14 @@ export const updateSQL = async (
  * @param id 删除数据的 id
  */
 export const deleteSQL = async (tableName: TableName, id?: number | string) => {
-  // TODO: 改为 arco 气泡确认框
-  const isDelete = await deleteConfirm()
-
-  if (!isDelete) return
-
   if (id) {
     // 查找要删除的项是否还在数据库
     const findItem = await selectSQL(tableName, [{ key: 'id', value: id }])
 
-    if (!findItem.length) return
+    if (!findItem.length) {
+      Message.error('删除失败，该数据不存在于数据库！')
+      return
+    }
 
     await executeSQL(`DELETE FROM ${tableName} WHERE id=${id};`)
   } else {

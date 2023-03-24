@@ -25,7 +25,6 @@
     "defineAsyncComponent": true,
     "defineComponent": true,
     "defineStore": true,
-    "deleteConfirm": true,
     "deleteSQL": true,
     "dialogErrorMessage": true,
     "effectScope": true,

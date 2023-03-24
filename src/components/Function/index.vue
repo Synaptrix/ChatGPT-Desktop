@@ -48,6 +48,9 @@ const functions = computed(() => [
     handleClick: () => {
       if (isThinking.value) {
         chatController.value?.abort()
+        if (!sessionDataList.value.at(-1)?.message.content) {
+          sessionDataList.value.at(-1)!.message.content = '你停止了思考'
+        }
         updateSessionData(sessionDataList.value.at(-1)!)
       } else {
         getAiMessage()
@@ -64,6 +67,7 @@ const functions = computed(() => [
     content: '清空对话',
     icon: IconDelete,
     disabled: disabled.value,
+    isDelete: true,
     handleClick: () => deleteSession()
   },
   {
@@ -105,10 +109,27 @@ const triggerScroll = () => {
         :key="index"
         :position="index === functions.length - 1 ? 'tr' : 'top'"
       >
+        <template v-if="item.isDelete">
+          <a-popconfirm
+            type="error"
+            content="确定要删除该会话吗？"
+            @ok="item.handleClick"
+          >
+            <a-button type="text" :disabled="item.disabled">
+              <template #icon>
+                <component
+                  :is="item.icon"
+                  class="text-5.5 text-[var(--color-text-2)]"
+                />
+              </template>
+            </a-button>
+          </a-popconfirm>
+        </template>
         <a-button
           type="text"
           :disabled="item.disabled"
           @click="item.handleClick"
+          v-else
         >
           <template #icon>
             <component

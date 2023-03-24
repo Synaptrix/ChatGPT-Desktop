@@ -109,8 +109,6 @@ export const getOpenAICreditApi = async () => {
 
     if (isThinking) {
       return '请求的 API KEY 无效'
-    } else {
-      dialogErrorMessage(message as string)
     }
   }
 }
