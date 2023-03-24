@@ -40,7 +40,7 @@ const handleKeydown = (event: KeyboardEvent) => {
 }
 
 // 键盘弹起事件
-const handleKeyup = (event: KeyboardEvent) => {
+const handleKeyup = () => {
   if (!isBinding.value) return
 
   shortcutKeys.value = []

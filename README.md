@@ -71,9 +71,20 @@
 
 ## 常见问题：
 
+<details>
+<summary>1. 我所在的地区有网络限制，怎么正常使用？</summary>
+
+可以使用我们提供的[解决方案](https://github.com/ChatGPT-Desktop/ChatGPT-Desktop-Porxy)
+
+</details>
+
+<details>
+<summary>2. MacOS 提示 app 已损坏，无法打开。</summary>
 <img width='300' src='./images/problem-1.png' />
 
-如何解决：参考 huazai 大佬的[解决办法](https://zhuanlan.zhihu.com/p/135948430)
+参考 huazai 大佬的[解决办法](https://zhuanlan.zhihu.com/p/135948430)
+
+</details>
 
 ## 如何贡献
 
@@ -119,8 +130,20 @@ npm run build:icon
 - 提交文档校订
 - 提交其他任何形式的贡献
 
-#### Contributors
+## Contact
+
+- [Discord](https://discord.gg/jg4waryfA6)
+
+## Star History
+
+[![Star History Chart](https://api.star-history.com/svg?repos=ChatGPT-Desktop/ChatGPT-Desktop&type=Date)](https://star-history.com/#ChatGPT-Desktop/ChatGPT-Desktop&Date)
+
+## Contributors
 
 <a href="https://github.com/bilibili-ayang/ChatGPT-Desktop/graphs/contributors">
   <img src="https://contrib.rocks/image?repo=bilibili-ayang/ChatGPT-Desktop" />
 </a>
+
+## License
+
+[MIT](./LICENSE)

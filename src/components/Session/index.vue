@@ -148,11 +148,12 @@ watch([currentSession, sessionDataList], () => {
               :id="`session-content-${item.id}`"
               class="session-content flex flex-col gap-4 rounded-md p-4"
               v-html="marked.render(item.message.content)"
-              :class="
+              :class="[
                 item.is_ask
                   ? 'bg-[rgb(var(--primary-6))] text-white'
-                  : 'bg-[var(--session-background)]'
-              "
+                  : 'bg-[var(--session-background)]',
+                item.is_ask ? 'session-content--ask' : 'session-content--answer'
+              ]"
             ></div>
           </div>
         </div>
