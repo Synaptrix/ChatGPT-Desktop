@@ -1,12 +1,12 @@
 <script setup lang="ts">
 import {
-  IconPlusCircle,
-  IconRefresh,
   IconDelete,
   IconHistory,
+  IconImage,
+  IconPlusCircle,
+  IconRefresh,
   IconSettings,
-  IconStop,
-  IconImage
+  IconStop
 } from '@arco-design/web-vue/es/icon'
 import { emit } from '@tauri-apps/api/event'
 
@@ -36,10 +36,22 @@ const closeDrawer = () => {
 // TODO: 在获取数据时删除的处理，在获取数据时切换历史记录的处理
 const functions = computed(() => [
   {
+    content: '图像生成模式',
+    icon: IconPlusCircle,
+    disabled: disabled.value,
+    handleClick: () => {
+      window.isImagesMode = true
+      switchSession()
+    }
+  },
+  {
     content: '新建对话',
     icon: IconPlusCircle,
     disabled: disabled.value,
-    handleClick: () => switchSession()
+    handleClick: () => {
+      window.isImagesMode = false
+      switchSession()
+    }
   },
   {
     content: isThinking.value ? '停止思考' : '重新回答',

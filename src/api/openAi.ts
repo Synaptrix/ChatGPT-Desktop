@@ -224,12 +224,21 @@ const getOpenAIKey = () => {
   return apiKey || import.meta.env.VITE_OPEN_AI_API_KEY
 }
 
+/**
+ * ### 获取图片信息
+ * @date 2023/3/25 - 11:36:29
+ *
+ * @async
+ * @param {?string} [value]
+ * @returns {*}
+ */
 export const getAiImagesMessage = async (value?: string) => {
   const apiKey = getOpenAIKey()
   if (!apiKey) return
 
   const { isThinking, sessionDataList } = storeToRefs(useSessionStore())
-  const { updateSessionData } = useSessionStore()
+  const { updateSessionData, addSessionData } = useSessionStore()
+  const { chatController } = storeToRefs(useSessionStore())
 
   isThinking.value = true
 
@@ -240,9 +249,9 @@ export const getAiImagesMessage = async (value?: string) => {
 
     const messages: MessageData[] = []
 
-    const { sessionDataList } = useSessionStore()
-
-    const lastQuestion = sessionDataList.filter((item) => item.is_ask).at(-1)
+    const lastQuestion = sessionDataList.value
+      .filter((item) => item.is_ask)
+      .at(-1)
 
     // 再次生成上一次问题
     if (!value) {
@@ -260,9 +269,6 @@ export const getAiImagesMessage = async (value?: string) => {
       })
     }
 
-    const { isThinking } = storeToRefs(useSessionStore())
-    const { addSessionData } = useSessionStore()
-
     await addSessionData({
       isAsk: true,
       data: messages.at(-1)!
@@ -273,10 +279,40 @@ export const getAiImagesMessage = async (value?: string) => {
       data: {
         role: 'assistant',
         content: ''
-      }
+      },
+      messageType: 'image'
     })
 
-    sessionDataList
+    // 创建一个新的 AbortController
+    const abortController = new AbortController()
+    chatController.value = abortController
+
+    const sessionData = sessionDataList.value.at(-1)!
+
+    const result: ImageResultType = await fetch(OPENAI_IMAGES_URL, {
+      method: 'POST',
+      body: JSON.stringify({
+        prompt: value,
+        n: 2,
+        size: '512x512'
+      }),
+      headers: {
+        Authorization: `Bearer ${apiKey}`,
+        'Content-Type': 'application/json',
+        Accept: 'application/json'
+      },
+      signal: abortController.signal
+    })
+      .then((res) => res.json())
+      .catch((err) => {
+        sessionData.message.content = err
+      })
+
+    result.data.forEach(
+      ({ url }) => (sessionData.message.content += `![图片](${url}) \n\n`)
+    )
+
+    updateSessionData(sessionDataList.value.at(-1)!)
 
     isThinking.value = false
   } catch ({ message }: any) {
@@ -286,4 +322,11 @@ export const getAiImagesMessage = async (value?: string) => {
 
     isThinking.value = false
   }
+}
+
+type ImageResultType = {
+  created: number
+  data: {
+    url: string
+  }[]
 }

@@ -32,6 +32,7 @@
     "generalKeys": true,
     "getActivePinia": true,
     "getAiMessage": true,
+    "getAiImagesMessage": true,
     "getCurrentInstance": true,
     "getCurrentScope": true,
     "getKeySymbol": true,
