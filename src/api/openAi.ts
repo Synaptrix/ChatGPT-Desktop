@@ -15,7 +15,7 @@ export const getOpenAIResultApi = async (messages: MessageData[]) => {
   const apiKey = getOpenAIKey()
   if (!apiKey) return
 
-  return await request(OPENAI_CHAT_URL, {
+  return await request(`/v1/chat/completions`, {
     method: 'POST',
     body: Body.json({
       model: OPEN_AI_MODEL,
@@ -39,17 +39,30 @@ export const getOpenAIResultStreamApi = async (messages: MessageData[]) => {
 
   const { updateSessionData } = useSessionStore()
   const { sessionDataList, chatController } = storeToRefs(useSessionStore())
+  const {
+    proxy: { bypass, url: proxyURL },
+    modalParams: { temperature, max_tokens }
+  } = useSettingsStore()
+
+  let url = '/v1/chat/completions'
+
+  if (bypass && proxyURL) {
+    url = proxyURL + url
+  } else {
+    url = HOST_URL.OPENAI + url
+  }
 
   // 创建一个新的 AbortController
   const abortController = new AbortController()
   chatController.value = abortController
 
-  await fetchEventSource(OPENAI_CHAT_URL, {
+  await fetchEventSource(url, {
     method: 'POST',
     body: JSON.stringify({
       model: OPEN_AI_MODEL,
       messages,
-      temperature: 0.6,
+      temperature,
+      max_tokens,
       stream: true
     }),
     headers: {
@@ -96,7 +109,7 @@ export const getOpenAICreditApi = async () => {
     const apiKey = getOpenAIKey()
     if (!apiKey) return
 
-    const result = await request(OPENAI_CREDIT_URL, {
+    const result = await request('/dashboard/billing/credit_grants', {
       method: 'GET',
       headers: {
         Authorization: `Bearer ${apiKey}`,

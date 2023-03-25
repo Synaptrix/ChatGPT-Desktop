@@ -36,11 +36,11 @@ export const useSettingsStore = defineStore(
     // 是否记住上次位置
     const isRememberPosition = ref(false)
 
-    // 代理地址
-    const proxyUrl = ref('')
+    // 是否开启代理
+    const proxy = reactive({ bypass: false, url: '' })
 
     // modal设置参数
-    const modalParams = reactive({ temperature: 0.6, maxTokens: 2000 })
+    const modalParams = reactive({ temperature: 0.6, max_tokens: 2000 })
 
     // 绑定快捷键
     const registerKey = async () => {
@@ -131,8 +131,8 @@ export const useSettingsStore = defineStore(
       autoStart,
       isMemory,
       isRememberPosition,
-      proxyUrl,
-      ...toRefs(modalParams),
+      proxy,
+      modalParams,
       toggleTheme
     }
   },
@@ -146,7 +146,7 @@ export const useSettingsStore = defineStore(
         'autoStart',
         'isMemory',
         'isRememberPosition',
-        'proxyUrl',
+        'proxy',
         'modalParams'
       ]
     }

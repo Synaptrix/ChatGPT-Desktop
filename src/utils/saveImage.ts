@@ -24,9 +24,8 @@ export const saveImage = async (nodeId: string) => {
     document.body.appendChild(cloneElement)
 
     const canvas = await html2canvas(cloneElement, {
-      backgroundColor: document.body.getAttribute('arco-theme')
-        ? '#fff'
-        : '#000'
+      backgroundColor:
+        document.body.getAttribute('arco-theme') === 'light' ? '#fff' : '#000'
     })
 
     // base64 转 buffer

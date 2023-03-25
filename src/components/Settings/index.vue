@@ -1,12 +1,17 @@
 <script setup lang="ts">
 import { listen } from '@tauri-apps/api/event'
+import { type, OsType } from '@tauri-apps/api/os'
+
+const platform = ref<OsType>('Darwin')
 
 const visible = ref(false)
 
-onMounted(() => {
+onMounted(async () => {
   listen('open-settings', () => {
     visible.value = true
   })
+
+  platform.value = await type()
 })
 </script>
 
@@ -17,7 +22,7 @@ onMounted(() => {
     :visible="visible"
     width="70%"
     :mask-style="{
-      borderRadius: '0.75rem'
+      borderRadius: platform === 'Darwin' ? '0.75rem' : '0'
     }"
     :footer="false"
     @ok="visible = false"
