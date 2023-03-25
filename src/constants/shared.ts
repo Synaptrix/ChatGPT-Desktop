@@ -1,8 +1,3 @@
-export enum THEME {
-  light = 'light',
-  dark = 'dark'
-}
-
 export enum DEFAULT_ROLE {
   name = '问答机器人',
   description = '请以 markdown 的形式返回答案！'
@@ -19,3 +14,8 @@ export const OPENAI_CHAT_URL = `${
 export const OPENAI_CREDIT_URL = `${
   import.meta.env.VITE_OPEN_AI_URL
 }/dashboard/billing/credit_grants`
+
+export enum HOST_URL {
+  OPENAI = 'https://api.openai.com/',
+  GITHUB = 'https://api.github.com/'
+}

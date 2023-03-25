@@ -34,20 +34,14 @@ watch([textAreaValue, isMemory], async () => {
   const textAreaTokens = estimateTokens(textAreaValue.value)
 
   // 记忆模式下额外消耗的字符数
-  const memroyList = await getMemoryList()
+  const memoryList = await getMemoryList()
 
   const memoryTokens = estimateTokens(
-    memroyList.map((item) => item.content).join('')
+    memoryList.map((item) => item.content).join('')
   )
 
   tokenUsage.value = textAreaTokens + roleTokens + memoryTokens
 })
-
-// 控制设置弹框
-const modalVisible = ref(false)
-const closeModal = () => {
-  modalVisible.value = false
-}
 
 // 控制历史列表抽屉
 const drawerVisible = ref(false)
@@ -101,7 +95,7 @@ const functions = computed(() => [
   {
     content: '设置',
     icon: IconSettings,
-    handleClick: () => (modalVisible.value = true)
+    handleClick: () => emit('open-settings')
   }
 ])
 
@@ -110,18 +104,20 @@ const triggerScroll = () => {
 }
 </script>
 
-<!-- TODO:把聊天对象移过来 -->
 <template>
-  <div class="function text-6 relative flex justify-end">
+  <div class="function flex select-none items-center justify-between pl-14">
     <!-- 预估将要消耗的token -->
     <div
-      class="left-1/5 text-4 -translate-1/2 absolute top-1/2"
-      v-if="textAreaValue.length"
+      class="transition-300 opacity-0"
+      :class="textAreaValue.length && 'opacity-100!'"
     >
-      {{ isMemory ? '记忆模式:' : '' }}预计消耗 {{ tokenUsage }} TK
+      {{ isMemory ? '记忆模式：' : '' }}预计消耗
+      <span class="mark">{{ tokenUsage }}</span>
+      TK
     </div>
+
     <!-- 当前聊天角色对象 -->
-    <div class="text-4 -translate-1/2 absolute top-1/2 left-1/2">
+    <div>
       正在与
       <a-tooltip content="点我回到底部">
         <span class="mark cursor-pointer" @click="triggerScroll">
@@ -131,6 +127,7 @@ const triggerScroll = () => {
       对话
     </div>
 
+    <!-- 功能按钮 -->
     <div class="flex gap-2">
       <a-tooltip
         v-for="(item, index) in functions"
@@ -170,9 +167,6 @@ const triggerScroll = () => {
       </a-tooltip>
     </div>
   </div>
-
-  <!-- 设置弹框 -->
-  <SettingsModal :visible="modalVisible" :set-visible="closeModal" />
 
   <!-- 历史会话抽屉 -->
   <HistoryDrawer :visible="drawerVisible" :set-visible="closeDrawer" />

@@ -24,7 +24,7 @@ export const useObserverLink = () => {
     })
   })
 
-  observer.observe(document.querySelector('#app') as HTMLElement, {
+  observer.observe(document.body, {
     childList: true,
     subtree: true
   })
