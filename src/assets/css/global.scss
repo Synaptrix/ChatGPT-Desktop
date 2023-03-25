@@ -39,6 +39,10 @@ body {
   font: 1rem/1 JetBrainsMono;
 }
 
+a {
+  color: rgb(var(--primary-6));
+}
+
 code {
   font-family: JetBrainsMono !important;
 }

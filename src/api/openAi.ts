@@ -99,7 +99,8 @@ export const getOpenAICreditApi = async () => {
     const result = await request(OPENAI_CREDIT_URL, {
       method: 'GET',
       headers: {
-        Authorization: `Bearer ${apiKey}`
+        Authorization: `Bearer ${apiKey}`,
+        HostUrl: HOST_URL.OPENAI
       }
     })
 

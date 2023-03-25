@@ -65,8 +65,7 @@ const handleScroll = () => {
  * 计算单条消息消耗的token
  * @param item 单条消息
  */
-// FIXME 这里的item/data类型报错搞不定，只能用any
-const calcToken = (item: any) => {
+const calcToken = (item: SessionData) => {
   // 角色描述字符数
   const roleToken = estimateTokens(currentRole.value!.description)
   // 消息内容字符数
@@ -76,7 +75,7 @@ const calcToken = (item: any) => {
   if (item.is_memory) {
     // 获取sessionDataList中的此条之前的最后5条消息
     const memoryList = sessionDataList.value
-      .filter((data: any) => data.id < item.id)
+      .filter((data) => data.id! < item.id!)
       .slice(-5)
     memoryToken = estimateTokens(
       memoryList.map((data) => data.message.content).join('')

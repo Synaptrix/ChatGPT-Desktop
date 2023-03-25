@@ -48,44 +48,41 @@ const handleKeyup = () => {
 </script>
 
 <template>
-  <div class="flex items-center gap-2">
-    <span>唤醒窗口：</span>
+  <div
+    ref="bindingElement"
+    tabindex="0"
+    class="transition-300 max-w-50 flex flex-1 cursor-pointer items-center justify-between rounded border border-solid border-[var(--color-fill-2)] bg-[var(--color-fill-2)] p-2 outline-none"
+    :class="[isBinding ? 'border-[rgb(var(--primary-5))]!' : '']"
+    @focus="isBinding = true"
+    @blur="isBinding = false"
+    @keydown="handleKeydown"
+    @keyup="handleKeyup"
+  >
     <div
-      ref="bindingElement"
-      tabindex="0"
-      class="transition-300 flex flex-1 cursor-pointer items-center justify-between rounded border border-solid border-[var(--color-fill-2)] bg-[var(--color-fill-2)] p-2 outline-none"
-      :class="[isBinding ? 'border-[rgb(var(--primary-5))]!' : '']"
-      @focus="isBinding = true"
-      @blur="isBinding = false"
-      @keydown="handleKeydown"
-      @keyup="handleKeyup"
+      class="text-6 flex items-center gap-2 font-sans font-bold leading-none text-[var(--color-text-4)]"
     >
-      <div
-        class="text-6 flex items-center gap-2 font-sans font-bold leading-none text-[var(--color-text-4)]"
+      <!-- 热键 -->
+      <span
+        v-for="(item, index) of hotkeys"
+        :class="[
+          shortcutKeys.includes(item.key) && 'text-[rgb(var(--primary-5))]'
+        ]"
+        :key="index"
       >
-        <!-- 热键 -->
-        <span
-          v-for="(item, index) of hotkeys"
-          :class="[
-            shortcutKeys.includes(item.key) && 'text-[rgb(var(--primary-5))]'
-          ]"
-          :key="index"
-        >
-          {{ item.symbol }}
-        </span>
+        {{ item.symbol }}
+      </span>
 
-        <span class="pl-2 text-[rgb(var(--primary-5))]" v-if="!isBinding">
-          <!-- 特殊键 -->
-          <template v-if="isSpecialKey(lastShortcutKey)">
-            {{ getKeySymbol(lastShortcutKey) }}
-          </template>
+      <span class="pl-2 text-[rgb(var(--primary-5))]" v-if="!isBinding">
+        <!-- 特殊键 -->
+        <template v-if="isSpecialKey(lastShortcutKey)">
+          {{ getKeySymbol(lastShortcutKey) }}
+        </template>
 
-          <!-- 普通键 -->
-          <template v-else>
-            {{ lastShortcutKey }}
-          </template>
-        </span>
-      </div>
+        <!-- 普通键 -->
+        <template v-else>
+          {{ lastShortcutKey }}
+        </template>
+      </span>
     </div>
   </div>
 </template>
