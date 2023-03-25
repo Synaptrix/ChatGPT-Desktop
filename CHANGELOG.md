@@ -1,5 +1,20 @@
 
 
+## [0.0.7](https://github.com/bilibili-ayang/ChatGPT-desktop/compare/v0.0.6...v0.0.7) (2023-03-25)
+
+
+### Features
+
+* add css autoprefixer ([#93](https://github.com/bilibili-ayang/ChatGPT-desktop/issues/93)) ([16d28d5](https://github.com/bilibili-ayang/ChatGPT-desktop/commit/16d28d57783788e2a2b8c4dc29795104a5731d61))
+* add GPT3Tokenizer [#90](https://github.com/bilibili-ayang/ChatGPT-desktop/issues/90) ([#94](https://github.com/bilibili-ayang/ChatGPT-desktop/issues/94)) ([49b7ff1](https://github.com/bilibili-ayang/ChatGPT-desktop/commit/49b7ff13dd38a0114097d389528d34cd1df719f1))
+* add proxy ([#97](https://github.com/bilibili-ayang/ChatGPT-desktop/issues/97)) ([fd0e493](https://github.com/bilibili-ayang/ChatGPT-desktop/commit/fd0e49348b539ce3e117b85a1f02e2900e7c2f95))
+* confirm before delete ([#91](https://github.com/bilibili-ayang/ChatGPT-desktop/issues/91)) ([4ad1341](https://github.com/bilibili-ayang/ChatGPT-desktop/commit/4ad1341871d67102d448d3a53886ab0e1668b48b))
+
+
+### Performance Improvements
+
+* optimize the settings page ([#96](https://github.com/bilibili-ayang/ChatGPT-desktop/issues/96)) ([b24b7ff](https://github.com/bilibili-ayang/ChatGPT-desktop/commit/b24b7ffc3f8517b72e085fac80782a5f6cdf63d9))
+
 ## [0.0.6](https://github.com/bilibili-ayang/ChatGPT-desktop/compare/v0.0.5...v0.0.6) (2023-03-23)
 
 
