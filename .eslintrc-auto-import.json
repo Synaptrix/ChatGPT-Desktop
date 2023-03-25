@@ -9,8 +9,6 @@
     "HOST_URL": true,
     "InjectionKey": true,
     "Message": true,
-    "OPENAI_CHAT_URL": true,
-    "OPENAI_CREDIT_URL": true,
     "OPEN_AI_MODEL": true,
     "PropType": true,
     "Ref": true,

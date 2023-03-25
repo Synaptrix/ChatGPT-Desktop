@@ -14,14 +14,23 @@ onMounted(async () => {
 
 <template>
   <a-row>
-    <a-col :span="10" class="flex flex-col items-center">
-      <img width="100" src="@/assets/image/logo.png" alt="logo" />
+    <a-col :span="10" class="flex flex-col items-center gap-3 leading-none">
+      <div class="w-[100px]">
+        <img
+          src="@/assets/image/logo.png"
+          class="scale-120 w-full"
+          alt="logo"
+        />
+      </div>
       <span>ChatGPT-Desktop</span>
       <span>v{{ version }}</span>
-      <!-- TODO: 一键复制 -->
+      <a class="cursor-pointer">复制电脑信息</a>
+      <a href="https://github.com/ChatGPT-Desktop/ChatGPT-Desktop/issues/new">
+        BUG 反馈
+      </a>
     </a-col>
     <a-col :span="14" class="flex flex-col gap-3">
-      <b>仓库地址</b>
+      <span>仓库地址</span>
       <a
         href="https://github.com/ChatGPT-Desktop/ChatGPT-Desktop"
         class="flex items-center gap-2"
@@ -30,7 +39,7 @@ onMounted(async () => {
         github
       </a>
 
-      <b>官方社区</b>
+      <span>官方社区</span>
       <div>
         <a href="https://discord.gg/jg4waryfA6" class="flex items-center gap-2">
           <img src="@/assets/image/discord.svg" />
@@ -39,7 +48,7 @@ onMounted(async () => {
       </div>
 
       <div class="flex flex-col gap-3" v-if="contributors.length">
-        <b>贡献者</b>
+        <span>贡献者</span>
         <div class="max-h-30 flex flex-col gap-3 overflow-auto">
           <a
             v-for="item in contributors"

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 const settingsStore = useSettingsStore()
 const { toggleTheme } = settingsStore
-const { themeMode, autoStart, isRememberPosition, proxyUrl } =
+const { themeMode, autoStart, isRememberPosition, proxy } =
   storeToRefs(settingsStore)
 </script>
 
@@ -43,8 +43,13 @@ const { themeMode, autoStart, isRememberPosition, proxyUrl } =
     </li>
 
     <li>
-      <i>URL转发:</i>
-      <a-input v-model="proxyUrl"></a-input>
+      <i>开启代理:</i>
+      <a-switch v-model="proxy.bypass" type="round"></a-switch>
+    </li>
+
+    <li v-show="proxy.bypass">
+      <i>代理地址:</i>
+      <a-input v-model="proxy.url" placeholder="代理地址"></a-input>
     </li>
 
     <div class="flex justify-end text-sm text-[var(--color-text-3)]">
@@ -58,7 +63,8 @@ const { themeMode, autoStart, isRememberPosition, proxyUrl } =
   li {
     --uno: flex items-center gap-3;
     > i {
-      --uno: min-w-50 text-right not-italic text-[var(--color-text-2)];
+      --uno: cursor-default min-w-50 text-right not-italic
+        text-[var(--color-text-2)];
     }
     ::v-deep(.arco-radio-button-content) {
       --uno: flex h-[30px] items-center;

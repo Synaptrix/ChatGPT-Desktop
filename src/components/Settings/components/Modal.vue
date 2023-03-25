@@ -1,7 +1,5 @@
 <script setup lang="ts">
-const { apiKey, isMemory, temperature, maxTokens } = storeToRefs(
-  useSettingsStore()
-)
+const { apiKey, isMemory, modalParams } = storeToRefs(useSettingsStore())
 
 const totalCredit = ref(0)
 const usedCredit = ref(0)
@@ -32,7 +30,7 @@ watch(
   <ul class="modal flex flex-col gap-4">
     <li>
       <i>OpenAI API KEY:</i>
-      <a-input-password v-model="apiKey"> 123123 </a-input-password>
+      <a-input-password v-model="apiKey" placeholder="OpenAI API KEY" />
     </li>
 
     <li>
@@ -41,13 +39,27 @@ watch(
     </li>
 
     <li>
-      <i>采样温度:</i>
-      <a-slider v-model="temperature" :max="2" :step="0.1" show-input />
+      <a-tooltip content="双击重置为默认值" mini position="right">
+        <i @dblclick="modalParams.temperature = 0.6">采样温度:</i>
+      </a-tooltip>
+      <a-slider
+        v-model="modalParams.temperature"
+        :max="2"
+        :step="0.1"
+        show-input
+      />
     </li>
 
     <li>
-      <i>最大长度:</i>
-      <a-slider v-model="maxTokens" :min="100" :max="3500" show-input />
+      <a-tooltip content="双击重置为默认值" mini position="right">
+        <i @dblclick="modalParams.max_tokens = 2000">最大长度:</i>
+      </a-tooltip>
+      <a-slider
+        v-model="modalParams.max_tokens"
+        :min="100"
+        :max="3500"
+        show-input
+      />
     </li>
 
     <div class="flex justify-between text-sm text-[var(--color-text-3)]">
@@ -64,7 +76,8 @@ watch(
   li {
     --uno: flex items-center gap-3;
     > i {
-      --uno: min-w-50 text-right not-italic text-[var(--color-text-2)];
+      --uno: cursor-default min-w-50 text-right not-italic
+        text-[var(--color-text-2)];
     }
   }
 }

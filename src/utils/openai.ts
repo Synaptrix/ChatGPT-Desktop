@@ -36,12 +36,12 @@ export async function getMemoryList() {
 export const getOpenAIKey = () => {
   const { apiKey } = useSettingsStore()
 
-  if (!apiKey && !import.meta.env.VITE_OPEN_AI_API_KEY) {
+  if (!apiKey) {
     Message.warning('请先填写 OpenAi API Key')
     return false
   }
 
-  return apiKey || import.meta.env.VITE_OPEN_AI_API_KEY
+  return apiKey
 }
 
 /**

@@ -1,17 +1,31 @@
 import { fetch, type FetchOptions } from '@tauri-apps/api/http'
+import type { REQUEST_HOST } from '@/types'
 
 /**
  * 普通请求
  * @param url 请求地址
  * @param options 请求参数
  */
-export const request = async (url: string, options?: FetchOptions) => {
+export const request = async (
+  url: string,
+  options?: FetchOptions & { host?: REQUEST_HOST }
+) => {
   try {
-    const { method, headers } = options || {}
+    const { method = 'GET', headers, host = 'OPENAI' } = options || {}
+
+    const {
+      proxy: { bypass, url: proxyURL }
+    } = useSettingsStore()
+
+    if (bypass && proxyURL) {
+      url = proxyURL + url
+    } else {
+      url = HOST_URL[host] + url
+    }
 
     const { data }: Record<string, any> = await fetch(url, {
       ...options,
-      method: method || 'GET',
+      method,
       timeout: 1000 * 60,
       headers: {
         ...headers,
@@ -26,7 +40,7 @@ export const request = async (url: string, options?: FetchOptions) => {
     if (error) throw new Error(error.message)
 
     return data
-  } catch ({ message }: any) {
-    dialogErrorMessage(`请求出错：${message}`)
+  } catch (error) {
+    dialogErrorMessage(`请求出错：${error}`)
   }
 }
