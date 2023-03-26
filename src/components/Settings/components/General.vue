@@ -3,6 +3,10 @@ const settingsStore = useSettingsStore()
 const { toggleTheme } = settingsStore
 const { themeMode, autoStart, isRememberPosition, proxy } =
   storeToRefs(settingsStore)
+
+const refresh = () => {
+  window.location.reload()
+}
 </script>
 
 <template>
@@ -45,6 +49,11 @@ const { themeMode, autoStart, isRememberPosition, proxy } =
     <li>
       <i>开启代理:</i>
       <a-switch v-model="proxy.bypass" type="round"></a-switch>
+      <span class="text-sm text-[var(--color-text-3)]" v-show="proxy.bypass">
+        填写代理地址后，请点击<span class="mark cursor-pointer" @click="refresh"
+          >重启</span
+        >
+      </span>
     </li>
 
     <li v-show="proxy.bypass">

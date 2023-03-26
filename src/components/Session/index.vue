@@ -15,7 +15,7 @@ const marked = new MarkdownIt({
   .use(MarkdownItHighlight)
   .use(copyCode)
 
-const { uuid } = storeToRefs(useSettingsStore())
+const { uuid, isTokenUsage } = storeToRefs(useSettingsStore())
 const { sessionDataList, currentSession } = storeToRefs(useSessionStore())
 const { currentRole } = storeToRefs(useRoleStore())
 
@@ -128,7 +128,9 @@ watch([currentSession, sessionDataList], () => {
             class="w-12!"
             :value="item.is_ask ? uuid : currentRole?.name"
           />
-          <span class="text-gray text-xs">{{ calcToken(item) }}</span>
+          <span class="text-gray text-xs" v-if="isTokenUsage">
+            {{ calcToken(item) }}
+          </span>
         </div>
         <div
           class="relative flex w-[calc(100%-8rem)] flex-col gap-2"

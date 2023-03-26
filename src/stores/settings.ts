@@ -42,6 +42,9 @@ export const useSettingsStore = defineStore(
     // modal设置参数
     const modalParams = reactive({ temperature: 0.6, max_tokens: 2000 })
 
+    // token 用量
+    const isTokenUsage = ref(false)
+
     // 绑定快捷键
     const registerKey = async () => {
       await unregisterAll()
@@ -133,6 +136,7 @@ export const useSettingsStore = defineStore(
       isRememberPosition,
       proxy,
       modalParams,
+      isTokenUsage,
       toggleTheme
     }
   },
@@ -147,7 +151,8 @@ export const useSettingsStore = defineStore(
         'isMemory',
         'isRememberPosition',
         'proxy',
-        'modalParams'
+        'modalParams',
+        'isTokenUsage'
       ]
     }
   }
