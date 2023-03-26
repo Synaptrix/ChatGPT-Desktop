@@ -1,11 +1,9 @@
-import { configDir } from '@tauri-apps/api/path'
+import { appConfigDir } from '@tauri-apps/api/path'
 import Database from 'tauri-plugin-sql-api'
 import type { TableName, TablePayload, WherePayload } from '@/types'
 
 const dbFile = import.meta.env.DEV ? 'sql.dev.db' : 'sql.db'
-const db = await Database.load(
-  `sqlite:${await configDir()}/${import.meta.env.VITE_CONFIG_PATH}/${dbFile}`
-)
+const db = await Database.load(`sqlite:${await appConfigDir()}/${dbFile}`)
 
 /**
  * sql 的字符串参数需要在加一个冒号

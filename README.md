@@ -56,7 +56,7 @@
 - **Windows**: Windows 7 - Windows 11
 - **Linux**: x64
 
-<img src='./images/theme.gif' alt='theme' />
+<img src='./images/theme.gif' />
 <img src='./images/home.png' />
 <img src='./images/settings.png' />
 <img src='./images/role-1.png' />

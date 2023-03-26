@@ -1,5 +1,5 @@
-import type { MessageData, SessionData } from '@/types'
 import GPT3Tokenizer from 'gpt3-tokenizer'
+import type { MessageData, SessionData } from '@/types'
 
 const tokenizer = new GPT3Tokenizer({ type: 'gpt3' })
 
@@ -37,7 +37,7 @@ export const getOpenAIKey = () => {
   const { apiKey } = useSettingsStore()
 
   if (!apiKey) {
-    Message.warning('请先填写 OpenAi API Key')
+    Message.warning('请先填写 OpenAi API KEY')
     return false
   }
 

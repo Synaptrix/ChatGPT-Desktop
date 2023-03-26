@@ -1,5 +1,7 @@
 <script setup lang="ts">
-const { apiKey, isMemory, modalParams } = storeToRefs(useSettingsStore())
+const { apiKey, isMemory, modalParams, isTokenUsage } = storeToRefs(
+  useSettingsStore()
+)
 
 const totalCredit = ref(0)
 const usedCredit = ref(0)
@@ -36,6 +38,14 @@ watch(
     <li>
       <i>记忆模式:</i>
       <a-switch v-model="isMemory" type="round" />
+      <span class="text-sm text-[var(--color-text-3)]"
+        >开启记忆模式会加倍消耗 token</span
+      >
+    </li>
+
+    <li>
+      <i>Token 用量:</i>
+      <a-switch v-model="isTokenUsage" type="round" />
     </li>
 
     <li>

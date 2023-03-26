@@ -1,11 +1,16 @@
 <script setup lang="ts">
+import { getName } from '@tauri-apps/api/app'
 import multiAvatar from '@multiavatar/multiavatar'
 
 const props = defineProps<{ value?: string }>()
 
-const avatar = computed(() =>
-  multiAvatar(props.value || import.meta.env.VITE_APP_NAME)
-)
+const appName = ref('')
+
+const avatar = computed(() => multiAvatar(props.value || appName.value))
+
+onMounted(async () => {
+  appName.value = await getName()
+})
 </script>
 
 <template>

@@ -22,6 +22,14 @@ const copyInfo = async () => {
   }
 
   await writeText(JSON.stringify(info))
+
+  Message.success('复制成功')
+}
+
+const copyQQGroup = () => {
+  writeText('473033518')
+
+  Message.success('群号已复制，无法跳转则自行添加')
 }
 
 onMounted(async () => {
@@ -49,7 +57,7 @@ onMounted(async () => {
       </div>
       <span>{{ appInfo.appName }}</span>
       <span>v{{ appInfo.appVersion }}</span>
-      <a class="cursor-pointer" @click="copyInfo">复制电脑信息</a>
+      <a class="cursor-pointer" @click="copyInfo">复制信息</a>
       <a href="https://github.com/ChatGPT-Desktop/ChatGPT-Desktop/issues/new">
         BUG 反馈
       </a>
@@ -65,10 +73,18 @@ onMounted(async () => {
       </a>
 
       <span>官方社区</span>
-      <div>
+      <div class="flex gap-3">
         <a href="https://discord.gg/jg4waryfA6" class="flex items-center gap-2">
           <img src="@/assets/image/discord.svg" />
           Discord
+        </a>
+        <a
+          href="https://qm.qq.com/cgi-bin/qm/qr?k=vhU6EACVQqfxoXlVKAWCBE_dXH_qpxn2&jump_from=webapi&authKey=YTGKMbApCUrmxHWV0te4NFBWbN7YQViDrTZPH8zIdIzZLgs4xLQhcKxgaCFwqSx2"
+          class="flex items-center gap-2"
+          @click="copyQQGroup"
+        >
+          <img src="@/assets/image/qq.png" width="32" />
+          QQ群
         </a>
       </div>
 
