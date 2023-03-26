@@ -6,7 +6,7 @@ permissions:
 on:
   push:
     tags:
-      - 'v*'
+      - "v*"
   workflow_dispatch:
 
 jobs:
@@ -59,13 +59,13 @@ jobs:
       - name: Rust cache
         uses: swatinem/rust-cache@v2
         with:
-          workspaces: './src-tauri -> target'
+          workspaces: "./src-tauri -> target"
 
       - name: Sync node version and setup cache
         uses: actions/setup-node@v3
         with:
-          node-version: '16'
-          cache: 'pnpm'
+          node-version: "16"
+          cache: "pnpm"
 
       - name: Install app dependencies and build web
         run: pnpm install --frozen-lockfile
@@ -74,9 +74,11 @@ jobs:
         uses: tauri-apps/tauri-action@v0
         env:
           GITHUB_TOKEN: ${{ secrets.RELEASE_TOKEN }}
+          TAURI_PRIVATE_KEY: ${{ secrets.TAURI_PRIVATE_KEY }}
+          TAURI_KEY_PASSWORD: ""
         with:
           tagName: ${{ github.ref_name }}
           releaseName: ChatGPT-Desktop ${{ needs.create-release.outputs.APP_VERSION }}
-          releaseBody: ''
+          releaseBody: ""
           releaseDraft: true
           prerelease: false
