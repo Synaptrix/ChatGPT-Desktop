@@ -49,7 +49,6 @@ const closeDrawer = () => {
   drawerVisible.value = false
 }
 
-// TODO: 在获取数据时删除的处理，在获取数据时切换历史记录的处理
 const functions = computed(() => [
   {
     content: '新建对话',
@@ -112,7 +111,17 @@ const triggerScroll = () => {
       :class="textAreaValue.length && 'opacity-100!'"
     >
       {{ isMemory ? '记忆模式：' : '' }}预计消耗
-      <span class="mark">{{ tokenUsage }}</span>
+      <a-tooltip
+        mini
+        :popup-visible="tokenUsage > 3800"
+        content="已超出 token 最大阈值"
+      >
+        <span
+          :class="tokenUsage > 3800 ? 'text-[rgb(var(--danger-6))]' : 'mark'"
+        >
+          {{ tokenUsage }}
+        </span>
+      </a-tooltip>
       TK
     </div>
 
