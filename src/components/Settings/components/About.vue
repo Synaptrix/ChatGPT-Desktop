@@ -1,12 +1,37 @@
 <script setup lang="ts">
-import { getVersion } from '@tauri-apps/api/app'
+import { getVersion, getName, getTauriVersion } from '@tauri-apps/api/app'
+import { type, arch, platform, version } from '@tauri-apps/api/os'
+import { writeText } from '@tauri-apps/api/clipboard'
 
-const version = ref('')
+const appInfo = reactive({
+  appName: '',
+  appVersion: '',
+  tauriVersion: '',
+  platform: '',
+  os: '',
+  osVersion: '',
+  arch: ''
+})
 
 const contributors = ref<any[]>([])
 
+const copyInfo = async () => {
+  const info = {
+    ...appInfo,
+    userAgent: navigator.userAgent
+  }
+
+  await writeText(JSON.stringify(info))
+}
+
 onMounted(async () => {
-  version.value = await getVersion()
+  appInfo.appName = await getName()
+  appInfo.appVersion = await getVersion()
+  appInfo.tauriVersion = await getTauriVersion()
+  appInfo.platform = await platform()
+  appInfo.os = await type()
+  appInfo.osVersion = await version()
+  appInfo.arch = await arch()
 
   contributors.value = (await getContributorsApi()) || []
 })
@@ -22,9 +47,9 @@ onMounted(async () => {
           alt="logo"
         />
       </div>
-      <span>ChatGPT-Desktop</span>
-      <span>v{{ version }}</span>
-      <a class="cursor-pointer">复制电脑信息</a>
+      <span>{{ appInfo.appName }}</span>
+      <span>v{{ appInfo.appVersion }}</span>
+      <a class="cursor-pointer" @click="copyInfo">复制电脑信息</a>
       <a href="https://github.com/ChatGPT-Desktop/ChatGPT-Desktop/issues/new">
         BUG 反馈
       </a>

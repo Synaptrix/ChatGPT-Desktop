@@ -1,3 +1,4 @@
+import { getName } from '@tauri-apps/api/app'
 import { writeBinaryFile, BaseDirectory } from '@tauri-apps/api/fs'
 import html2canvas from 'html2canvas'
 
@@ -32,10 +33,11 @@ export const saveImage = async (nodeId: string) => {
     const response = await fetch(canvas.toDataURL('image/png'))
     const uint8Array = new Uint8Array(await response.arrayBuffer())
 
+    const appName = await getName()
     // 下载图片到 download 文件夹
     await writeBinaryFile(
       {
-        path: `ChatGPT-Desktop-${Date.now()}.png`,
+        path: `${appName}-${Date.now()}.png`,
         contents: uint8Array
       },
       { dir: BaseDirectory.Download }
