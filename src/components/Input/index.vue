@@ -29,10 +29,8 @@ const onKeydown = (event: KeyboardEvent) => {
       popoverVisible.value = false
       // }
 
-      if (
-        window.isImagesMode ||
-        recordStore.sessionDataList.at(-1)?.message_type === 'image'
-      ) {
+      // # 当前是否图片生成模式
+      if (recordStore.IsImagesMode()) {
         getAiImagesMessage(value)
       } else {
         getAiMessage(value)

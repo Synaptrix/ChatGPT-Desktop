@@ -65,7 +65,11 @@ const functions = computed(() => [
         }
         updateSessionData(sessionDataList.value.at(-1)!)
       } else {
-        getAiMessage()
+        if (sessionStore.IsImagesMode()) {
+          getAiImagesMessage()
+        } else {
+          getAiMessage()
+        }
       }
     }
   },

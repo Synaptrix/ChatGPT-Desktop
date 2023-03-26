@@ -292,7 +292,7 @@ export const getAiImagesMessage = async (value?: string) => {
     const result: ImageResultType = await fetch(OPENAI_IMAGES_URL, {
       method: 'POST',
       body: JSON.stringify({
-        prompt: value,
+        prompt: value || messages.at(-1)?.content,
         n: 1,
         size: '256x256'
       }),

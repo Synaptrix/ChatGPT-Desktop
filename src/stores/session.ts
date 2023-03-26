@@ -1,8 +1,8 @@
 import type {
-  SessionPayload,
-  SessionData,
   MessageData,
-  MessageType
+  MessageType,
+  SessionData,
+  SessionPayload
 } from '@/types'
 
 export const useSessionStore = defineStore(
@@ -18,6 +18,14 @@ export const useSessionStore = defineStore(
     const isThinking = ref(false)
     // 停止请求
     const chatController = ref<AbortController>()
+
+    // 获取当前会话是否是图片模式
+    const IsImagesMode = () => {
+      return (
+        window.isImagesMode ||
+        sessionDataList.value.at(-1)?.message_type === 'image'
+      )
+    }
 
     // 获取会话列表
     const getSessionList = async () => {
@@ -156,7 +164,8 @@ export const useSessionStore = defineStore(
       getSessionList,
       deleteSession,
       updateSession,
-      chatController
+      chatController,
+      IsImagesMode
     }
   },
   {
