@@ -76,11 +76,6 @@ watch(
     </div>
 
     <template v-else>
-      <div class="text-7 z-999 fixed top-2 left-2 flex flex-col gap-2">
-        <!-- 主题切换 -->
-        <Theme />
-      </div>
-
       <!-- 会话信息 -->
       <Session />
 
@@ -90,6 +85,9 @@ watch(
         <!-- 输入框 -->
         <Input />
       </div>
+
+      <!-- 设置界面 -->
+      <Settings />
     </template>
   </div>
 </template>

@@ -2,6 +2,8 @@
 import { listen } from '@tauri-apps/api/event'
 import MarkdownIt from 'markdown-it'
 import MarkdownItHighlight from 'markdown-it-highlightjs'
+import type { SessionData } from '@/types'
+import { estimateTokens } from '@/utils'
 import dayjs from 'dayjs'
 import utc from 'dayjs/plugin/utc'
 
@@ -59,6 +61,36 @@ const handleScroll = () => {
   }
 }
 
+/**
+ * 计算单条消息消耗的token
+ * @param item 单条消息
+ */
+const calcToken = (item: SessionData) => {
+  // 角色描述字符数
+  const roleToken = estimateTokens(currentRole.value!.description)
+  // 消息内容字符数
+  const contentToken = estimateTokens(item.message.content)
+  // 记忆模式下额外消耗的字符数
+  let memoryToken = 0
+  if (item.is_memory) {
+    // 获取sessionDataList中的此条之前的最后5条消息
+    const memoryList = sessionDataList.value
+      .filter((data) => data.id! < item.id!)
+      .slice(-5)
+    memoryToken = estimateTokens(
+      memoryList.map((data) => data.message.content).join('')
+    )
+  }
+
+  if (item.is_ask) {
+    return `${roleToken + contentToken + memoryToken}TK${
+      item.is_memory ? '*' : ''
+    }`
+  }
+
+  return `${contentToken}TK`
+}
+
 onMounted(() => {
   listen('scroll-to-bottom', () => {
     isAutoScroll.value = true
@@ -91,8 +123,13 @@ watch([currentSession, sessionDataList], () => {
         :class="item.is_ask && 'flex-row-reverse'"
         :key="item.id"
       >
-        <Avatar class="w-12!" :value="item.is_ask ? uuid : currentRole?.name" />
-
+        <div class="flex flex-col items-center gap-1">
+          <Avatar
+            class="w-12!"
+            :value="item.is_ask ? uuid : currentRole?.name"
+          />
+          <span class="text-gray text-xs">{{ calcToken(item) }}</span>
+        </div>
         <div
           class="relative flex w-[calc(100%-8rem)] flex-col gap-2"
           :class="item.is_ask && 'items-end'"

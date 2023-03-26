@@ -1,4 +1,6 @@
-import type { MessageData, SessionData } from '@/types'
+import { HOST_URL } from '@/constants'
+import type { MessageData } from '@/types'
+import { getOpenAIKey } from '@/utils'
 import {
   fetchEventSource,
   type EventSourceMessage
@@ -15,7 +17,7 @@ export const getOpenAIResultApi = async (messages: MessageData[]) => {
   const apiKey = getOpenAIKey()
   if (!apiKey) return
 
-  return await request(OPENAI_CHAT_URL, {
+  return await request(`/v1/chat/completions`, {
     method: 'POST',
     body: Body.json({
       model: OPEN_AI_MODEL,
@@ -39,17 +41,30 @@ export const getOpenAIResultStreamApi = async (messages: MessageData[]) => {
 
   const { updateSessionData } = useSessionStore()
   const { sessionDataList, chatController } = storeToRefs(useSessionStore())
+  const {
+    proxy: { bypass, url: proxyURL },
+    modalParams: { temperature, max_tokens }
+  } = useSettingsStore()
+
+  let url = '/v1/chat/completions'
+
+  if (bypass && proxyURL) {
+    url = proxyURL + url
+  } else {
+    url = HOST_URL.OPENAI + url
+  }
 
   // 创建一个新的 AbortController
   const abortController = new AbortController()
   chatController.value = abortController
 
-  await fetchEventSource(OPENAI_CHAT_URL, {
+  await fetchEventSource(url, {
     method: 'POST',
     body: JSON.stringify({
       model: OPEN_AI_MODEL,
       messages,
-      temperature: 0.6,
+      temperature,
+      max_tokens,
       stream: true
     }),
     headers: {
@@ -96,10 +111,11 @@ export const getOpenAICreditApi = async () => {
     const apiKey = getOpenAIKey()
     if (!apiKey) return
 
-    const result = await request(OPENAI_CREDIT_URL, {
+    const result = await request('/dashboard/billing/credit_grants', {
       method: 'GET',
       headers: {
-        Authorization: `Bearer ${apiKey}`
+        Authorization: `Bearer ${apiKey}`,
+        HostUrl: HOST_URL.OPENAI
       }
     })
 
@@ -111,117 +127,6 @@ export const getOpenAICreditApi = async () => {
       return '请求的 API KEY 无效'
     }
   }
-}
-
-/**
- * 获取 ai 回答
- * @param value 消息内容
- */
-export const getAiMessage = async (value?: string) => {
-  const apiKey = getOpenAIKey()
-  if (!apiKey) return
-
-  const { isThinking, sessionDataList } = storeToRefs(useSessionStore())
-  const { updateSessionData } = useSessionStore()
-
-  try {
-    const { currentRole } = useRoleStore()
-
-    if (!currentRole) return
-
-    const messages: MessageData[] = []
-
-    const { currentSession, sessionDataList } = useSessionStore()
-    const { isMemory } = useSettingsStore()
-
-    const lastQuestion = sessionDataList.filter((item) => item.is_ask).at(-1)
-
-    // 记忆模式，或者是第一次对话，都要生成角色描述
-    if (sessionDataList.length < 3 || isMemory) {
-      messages.push({
-        role: 'system',
-        content: currentRole.description
-      })
-    }
-
-    // 获取记忆（限制5条），往前推直到出现 is_momery 为 false 的
-    // TODO 应该进行限流，防止出现过多的记忆，导致token超出
-    const addMemory = async () => {
-      if (isMemory) {
-        // TODO: 优化 sql
-        const sql = `SELECT * FROM session_data WHERE session_id = '${currentSession?.id}' ORDER BY id DESC LIMIT 5;`
-        const memoryList = (await executeSQL(sql)) as SessionData[]
-
-        let count = 0
-        const arr = []
-        while (count < memoryList.length) {
-          if (!memoryList[count].is_memory) break
-          arr.push(JSON.parse(memoryList[count++].message as any))
-        }
-        messages.push(...arr.reverse())
-      }
-    }
-
-    // 再次生成上一次问题
-    if (!value) {
-      if (!lastQuestion) return
-
-      // 为了保证统一，这之后的内容全部删掉
-      const deleteSql = `DELETE FROM session_data WHERE session_id = '${lastQuestion?.session_id}' AND id >= ${lastQuestion?.id};`
-      await executeSQL(deleteSql)
-
-      await addMemory()
-      messages.push(lastQuestion?.message)
-    } else {
-      await addMemory()
-      messages.push({
-        role: 'user',
-        content: value
-      })
-    }
-
-    const { isThinking } = storeToRefs(useSessionStore())
-    const { addSessionData } = useSessionStore()
-
-    isThinking.value = true
-
-    await addSessionData({
-      isAsk: true,
-      data: messages.at(-1)!
-    })
-
-    await addSessionData({
-      isAsk: false,
-      data: {
-        role: 'assistant',
-        content: ''
-      }
-    })
-
-    await getOpenAIResultStreamApi(messages)
-
-    isThinking.value = false
-  } catch ({ message }: any) {
-    sessionDataList.value.at(-1)!.message.content = message as any
-
-    updateSessionData(sessionDataList.value.at(-1)!)
-
-    isThinking.value = false
-  }
-}
-
-/**
- * 获取apiKey
- */
-const getOpenAIKey = () => {
-  const { apiKey } = useSettingsStore()
-
-  if (!apiKey && !import.meta.env.VITE_OPEN_AI_API_KEY) {
-    Message.warning('请先填写 OpenAi API Key')
-    return false
-  }
-
-  return apiKey || import.meta.env.VITE_OPEN_AI_API_KEY
 }
 
 /**

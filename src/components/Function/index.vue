@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { estimateTokens, getMemoryList } from '@/utils'
 import {
   IconDelete,
   IconHistory,
@@ -10,22 +11,37 @@ import {
 } from '@arco-design/web-vue/es/icon'
 import { emit } from '@tauri-apps/api/event'
 
-const { currentRole } = storeToRefs(useRoleStore())
+const { currentRole, textAreaValue } = storeToRefs(useRoleStore())
 
 const sessionStore = useSessionStore()
 const { switchSession, deleteSession, updateSessionData } = sessionStore
 const { isThinking, sessionDataList, chatController } =
   storeToRefs(sessionStore)
 
+const { isMemory } = storeToRefs(useSettingsStore())
+
 const disabled = computed(
   () => isThinking.value || !sessionDataList.value.length
 )
 
-// 控制设置弹框
-const modalVisible = ref(false)
-const closeModal = () => {
-  modalVisible.value = false
-}
+const tokenUsage = ref(0)
+
+watch([textAreaValue, isMemory], async () => {
+  // 角色描述字符数
+  const roleTokens = estimateTokens(currentRole.value!.description)
+
+  // 输入字符数
+  const textAreaTokens = estimateTokens(textAreaValue.value)
+
+  // 记忆模式下额外消耗的字符数
+  const memoryList = await getMemoryList()
+
+  const memoryTokens = estimateTokens(
+    memoryList.map((item) => item.content).join('')
+  )
+
+  tokenUsage.value = textAreaTokens + roleTokens + memoryTokens
+})
 
 // 控制历史列表抽屉
 const drawerVisible = ref(false)
@@ -95,7 +111,7 @@ const functions = computed(() => [
   {
     content: '设置',
     icon: IconSettings,
-    handleClick: () => (modalVisible.value = true)
+    handleClick: () => emit('open-settings')
   }
 ])
 
@@ -104,11 +120,20 @@ const triggerScroll = () => {
 }
 </script>
 
-<!-- TODO:把聊天对象移过来 -->
 <template>
-  <div class="function text-6 relative flex justify-end">
+  <div class="function flex select-none items-center justify-between pl-14">
+    <!-- 预估将要消耗的token -->
+    <div
+      class="transition-300 opacity-0"
+      :class="textAreaValue.length && 'opacity-100!'"
+    >
+      {{ isMemory ? '记忆模式：' : '' }}预计消耗
+      <span class="mark">{{ tokenUsage }}</span>
+      TK
+    </div>
+
     <!-- 当前聊天角色对象 -->
-    <div class="top-50% left-50% text-4 -translate-1/2 absolute select-none">
+    <div>
       正在与
       <a-tooltip content="点我回到底部">
         <span class="mark cursor-pointer" @click="triggerScroll">
@@ -118,6 +143,7 @@ const triggerScroll = () => {
       对话
     </div>
 
+    <!-- 功能按钮 -->
     <div class="flex gap-2">
       <a-tooltip
         v-for="(item, index) in functions"
@@ -157,9 +183,6 @@ const triggerScroll = () => {
       </a-tooltip>
     </div>
   </div>
-
-  <!-- 设置弹框 -->
-  <SettingsModal :visible="modalVisible" :set-visible="closeModal" />
 
   <!-- 历史会话抽屉 -->
   <HistoryDrawer :visible="drawerVisible" :set-visible="closeDrawer" />

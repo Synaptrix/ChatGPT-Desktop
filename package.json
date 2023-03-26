@@ -1,7 +1,7 @@
 {
   "name": "ChatGPT-Desktop",
   "private": true,
-  "version": "0.0.6",
+  "version": "0.0.7",
   "type": "module",
   "scripts": {
     "dev": "npm run build:icon && vite",
@@ -25,6 +25,7 @@
     "@types/marked": "^4.0.8",
     "clipboard": "^2.0.11",
     "dayjs": "^1.11.7",
+    "gpt3-tokenizer": "^1.1.5",
     "highlight.js": "^11.7.0",
     "html2canvas": "^1.4.1",
     "markdown-it": "^13.0.1",
@@ -40,7 +41,6 @@
     "@arco-design/web-vue": "^2.44.1",
     "@commitlint/cli": "^17.4.4",
     "@commitlint/config-conventional": "^17.4.4",
-    "@kidonng/daisyui": "^2.51.3",
     "@release-it/conventional-changelog": "^5.1.1",
     "@tauri-apps/cli": "^1.2.2",
     "@types/markdown-it": "^12.2.3",
@@ -65,7 +65,6 @@
     "typescript": "^4.6.4",
     "unocss": "^0.50.4",
     "unocss-preset-autoprefixer": "^0.0.5",
-    "unocss-preset-daisy": "^2.0.0",
     "unplugin-auto-import": "^0.15.1",
     "unplugin-vue-components": "^0.24.1",
     "vite": "^4.0.0",

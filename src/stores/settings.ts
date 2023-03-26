@@ -2,12 +2,13 @@ import { register, unregisterAll } from '@tauri-apps/api/globalShortcut'
 import { appWindow } from '@tauri-apps/api/window'
 import { hide, show } from '@tauri-apps/api/app'
 import { enable, disable } from 'tauri-plugin-autostart-api'
+import type { THEME_MODE } from '@/types'
 
 export const useSettingsStore = defineStore(
   'settingsStore',
   () => {
     // 主题
-    const themeMode = ref(THEME.light)
+    const themeMode = ref<THEME_MODE>('system')
 
     // 用户的唯一值
     const uuid = ref('')
@@ -35,11 +36,11 @@ export const useSettingsStore = defineStore(
     // 是否记住上次位置
     const isRememberPosition = ref(false)
 
-    // 切换主题
-    const toggleTheme = () => {
-      themeMode.value =
-        themeMode.value === THEME.light ? THEME.dark : THEME.light
-    }
+    // 是否开启代理
+    const proxy = reactive({ bypass: false, url: '' })
+
+    // modal设置参数
+    const modalParams = reactive({ temperature: 0.6, max_tokens: 2000 })
 
     // 绑定快捷键
     const registerKey = async () => {
@@ -64,16 +65,28 @@ export const useSettingsStore = defineStore(
       })
     }
 
-    // 获取 uuid
+    // 切换主题
+    const toggleTheme = async (theme: THEME_MODE = themeMode.value) => {
+      if (theme === 'system') {
+        theme = (await appWindow.theme()) as THEME_MODE
+      }
+
+      document.body.setAttribute('arco-theme', theme)
+    }
+
     onMounted(() => {
+      toggleTheme()
+
+      // 监听主题的变化
+      appWindow.onThemeChanged(({ payload }) => {
+        if (themeMode.value === 'system') {
+          document.body.setAttribute('arco-theme', payload)
+        }
+      })
+
+      // 获取 uuid
       if (uuid.value) return
-
       uuid.value = crypto.randomUUID()
-    })
-
-    // 监听主题
-    watchEffect(() => {
-      document.body.setAttribute('arco-theme', themeMode.value)
     })
 
     // 监听快捷键更换
@@ -118,6 +131,8 @@ export const useSettingsStore = defineStore(
       autoStart,
       isMemory,
       isRememberPosition,
+      proxy,
+      modalParams,
       toggleTheme
     }
   },
@@ -130,7 +145,9 @@ export const useSettingsStore = defineStore(
         'shortcutKeys',
         'autoStart',
         'isMemory',
-        'isRememberPosition'
+        'isRememberPosition',
+        'proxy',
+        'modalParams'
       ]
     }
   }

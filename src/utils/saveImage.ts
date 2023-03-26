@@ -7,8 +7,6 @@ import html2canvas from 'html2canvas'
  */
 export const saveImage = async (nodeId: string) => {
   try {
-    const { themeMode } = useSettingsStore()
-
     const uuid = '_' + nodeId
 
     if (window[uuid]) return
@@ -26,7 +24,8 @@ export const saveImage = async (nodeId: string) => {
     document.body.appendChild(cloneElement)
 
     const canvas = await html2canvas(cloneElement, {
-      backgroundColor: themeMode === THEME.light ? '#fff' : '#000'
+      backgroundColor:
+        document.body.getAttribute('arco-theme') === 'light' ? '#fff' : '#000'
     })
 
     // base64 转 buffer
