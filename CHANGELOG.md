@@ -1,5 +1,15 @@
 
 
+## [0.0.8](https://github.com/bilibili-ayang/ChatGPT-desktop/compare/v0.0.7...v0.0.8) (2023-03-26)
+
+
+### Features
+
+* add auto updater ([#105](https://github.com/bilibili-ayang/ChatGPT-desktop/issues/105)) ([58ca3df](https://github.com/bilibili-ayang/ChatGPT-desktop/commit/58ca3df64f81f04e4d41045f84801868d2dfa272))
+* add token limit notification, close [#95](https://github.com/bilibili-ayang/ChatGPT-desktop/issues/95) ([#103](https://github.com/bilibili-ayang/ChatGPT-desktop/issues/103)) ([77a261b](https://github.com/bilibili-ayang/ChatGPT-desktop/commit/77a261b9b32a869fff452810f8eb3e5e540f4123))
+* add token show switch ([#102](https://github.com/bilibili-ayang/ChatGPT-desktop/issues/102)) ([76d585f](https://github.com/bilibili-ayang/ChatGPT-desktop/commit/76d585fbd922c344f17fc34f72aac64c35b0e0b7))
+* copy app & system info ([#101](https://github.com/bilibili-ayang/ChatGPT-desktop/issues/101)) ([000994a](https://github.com/bilibili-ayang/ChatGPT-desktop/commit/000994aa41075f2047fdcd7854d245cf7471b3cf))
+
 ## [0.0.7](https://github.com/bilibili-ayang/ChatGPT-desktop/compare/v0.0.6...v0.0.7) (2023-03-25)
 
 
