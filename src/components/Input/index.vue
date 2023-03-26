@@ -29,7 +29,10 @@ const onKeydown = (event: KeyboardEvent) => {
       popoverVisible.value = false
       // }
 
-      if (window.isImagesMode) {
+      if (
+        window.isImagesMode ||
+        recordStore.sessionDataList.at(-1)?.message_type === 'image'
+      ) {
         getAiImagesMessage(value)
       } else {
         getAiMessage(value)

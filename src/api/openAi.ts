@@ -293,8 +293,8 @@ export const getAiImagesMessage = async (value?: string) => {
       method: 'POST',
       body: JSON.stringify({
         prompt: value,
-        n: 2,
-        size: '512x512'
+        n: 1,
+        size: '256x256'
       }),
       headers: {
         Authorization: `Bearer ${apiKey}`,
@@ -308,9 +308,11 @@ export const getAiImagesMessage = async (value?: string) => {
         sessionData.message.content = err
       })
 
-    result.data.forEach(
-      ({ url }) => (sessionData.message.content += `![图片](${url}) \n\n`)
-    )
+    if (result.data instanceof Array) {
+      result.data.forEach(
+        ({ url }) => (sessionData.message.content += `![图片](${url}) \n\n`)
+      )
+    }
 
     updateSessionData(sessionDataList.value.at(-1)!)
 
