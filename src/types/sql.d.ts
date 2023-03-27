@@ -2,16 +2,18 @@ type Role = 'system' | 'user' | 'assistant'
 
 export type TableName = 'session' | 'session_data' | 'role' | 'credit'
 
-export interface MessageData {
-  role: Role
-  content: string
-}
-
 export interface ImageData {
   n: number
   prompt: string
   size: '256x256' | '512x512' | '1024x1024'
+  response_format: string
 }
+
+export interface MessageData {
+  role: Role
+  content: any
+}
+
 export interface RolePayload {
   id?: number
   name: string
@@ -39,7 +41,7 @@ export interface SessionPayload {
   role_id: number
   update_time?: string
   name?: string
-  type: 'text' | 'image'
+  type: MessageType
   isEdit?: boolean
 }
 

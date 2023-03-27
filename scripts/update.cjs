@@ -22,7 +22,9 @@ const updateCargoVersion = () => {
   for (const dir of [tomlDir, lockDir]) {
     let content = readFileSync(dir, 'utf-8')
 
-    const reg = /name\s*=\s*"chatgpt-desktop"\s*version\s*=\s*"\d+\.\d+\.\d+"/
+    const reg = new RegExp(
+      `name\\s*=\\s*"${name}"\\s*version\\s*=\\s*"\\d+.\\d+.\\d+"`
+    )
 
     content = content.replace(reg, `name = "${name}"\nversion = "${version}"`)
 

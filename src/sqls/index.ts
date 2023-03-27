@@ -189,7 +189,9 @@ export const updateSQL = async (
   }
 
   await executeSQL(
-    `UPDATE ${tableName} SET ${updateParams.join()} WHERE id=${payload.id};`
+    `UPDATE ${tableName} SET ${updateParams.join()} WHERE id=${getValue(
+      payload.id
+    )};`
   )
 }
 

@@ -53,7 +53,7 @@ export const getAiMessage = async (value?: string) => {
   if (!apiKey) return
 
   const { isThinking, sessionDataList } = storeToRefs(useSessionStore())
-  const { updateSessionData } = useSessionStore()
+  const { updateSessionData, changeLastSessionContent } = useSessionStore()
   const { isMemory } = storeToRefs(useSettingsStore())
 
   try {
@@ -115,7 +115,7 @@ export const getAiMessage = async (value?: string) => {
 
     await getOpenAIResultStreamApi(messages)
   } catch ({ message }: any) {
-    sessionDataList.value.at(-1)!.message.content = message as any
+    changeLastSessionContent(message)
 
     updateSessionData(sessionDataList.value.at(-1)!)
   } finally {
@@ -129,7 +129,7 @@ export const getAiMessage = async (value?: string) => {
  */
 export const getAiIamge = async (value?: string) => {
   const { isThinking, sessionDataList } = storeToRefs(useSessionStore())
-  const { updateSessionData } = useSessionStore()
+  const { updateSessionData, changeLastSessionContent } = useSessionStore()
 
   try {
     // 获取图像的记忆模式 = 按照上一张图去修改生成
@@ -154,6 +154,7 @@ export const getAiIamge = async (value?: string) => {
         n: parseInt(imageValue.number),
         size: imageValue.size,
         prompt: value
+        // response_format: 'b64_json'
       }
     }
 
@@ -179,14 +180,14 @@ export const getAiIamge = async (value?: string) => {
     })
 
     const res = await getOpenAIImage(imageData)
+
     if (!res) return
 
-    sessionDataList.value.at(-1)!.message.content = res.data as string
-  } catch ({ message }: any) {
-    sessionDataList.value.at(-1)!.message.content = message as any
-
-    updateSessionData(sessionDataList.value.at(-1)!)
+    changeLastSessionContent(res.data)
+  } catch (error: any) {
+    changeLastSessionContent(error)
   } finally {
     isThinking.value = false
+    updateSessionData(sessionDataList.value.at(-1)!)
   }
 }

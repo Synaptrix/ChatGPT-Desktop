@@ -1,12 +1,10 @@
 <script setup lang="ts">
+import { relaunch } from '@tauri-apps/api/process'
+
 const settingsStore = useSettingsStore()
 const { toggleTheme } = settingsStore
 const { themeMode, autoStart, isRememberPosition, proxy } =
   storeToRefs(settingsStore)
-
-const refresh = () => {
-  window.location.reload()
-}
 </script>
 
 <template>
@@ -49,8 +47,11 @@ const refresh = () => {
     <li>
       <i>开启代理:</i>
       <a-switch v-model="proxy.bypass" type="round"></a-switch>
+      <!-- TODO: 提示文字可以在url改变后在出现，默认不出现 -->
       <span class="text-sm text-[var(--color-text-3)]" v-show="proxy.bypass">
-        填写代理地址后，请点击<span class="mark cursor-pointer" @click="refresh"
+        填写代理地址后，请点击<span
+          class="mark cursor-pointer"
+          @click="relaunch"
           >重启</span
         >
       </span>

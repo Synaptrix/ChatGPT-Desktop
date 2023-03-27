@@ -2,7 +2,8 @@ import type {
   SessionPayload,
   SessionData,
   MessageData,
-  MessageType
+  MessageType,
+  ImageData
 } from '@/types'
 
 export const useSessionStore = defineStore(
@@ -18,6 +19,8 @@ export const useSessionStore = defineStore(
     const isThinking = ref(false)
     // 停止请求
     const chatController = ref<AbortController>()
+    // 类型
+    const sessionType = ref<MessageType>('text')
 
     // 获取会话列表
     const getSessionList = async () => {
@@ -53,7 +56,7 @@ export const useSessionStore = defineStore(
         id: crypto.randomUUID(),
         title: '',
         role_id: defaultRole.id,
-        type: 'image'
+        type: 'text'
       }
     }
 
@@ -72,10 +75,14 @@ export const useSessionStore = defineStore(
       const { currentRole } = useRoleStore()
 
       if (!isExist && currentRole?.id) {
-        currentSession.value.title = data.content
+        const title =
+          messageType === 'text' ? data.content : data.content.prompt
+
+        currentSession.value.title = title
+
         await insertSQL('session', {
           id: currentSession.value.id,
-          title: data.content,
+          title: title,
           role_id: currentRole.id,
           type: currentSession.value.type
         })
@@ -112,10 +119,10 @@ export const useSessionStore = defineStore(
 
     // 更新会话信息
     const updateSession = async (payload: SessionPayload) => {
-      const sql = `UPDATE session SET title = '${
-        payload.title
-      }', update_time = '${Date.now()}' WHERE id = '${payload.id}';`
-      await executeSQL(sql)
+      await updateSQL('session', {
+        ...payload,
+        update_time: Date.now().toString()
+      })
     }
 
     // 删除会话
@@ -155,6 +162,13 @@ export const useSessionStore = defineStore(
       getSessionList()
     }
 
+    // 修改最后一个对话内容
+    const changeLastSessionContent = (content: string) => {
+      if (!sessionDataList.value.at(-1)?.message.content || content) {
+        sessionDataList.value.at(-1)!.message.content = content
+      }
+    }
+
     onMounted(() => switchSession(currentSession.value))
 
     return {
@@ -162,18 +176,19 @@ export const useSessionStore = defineStore(
       sessionDataList,
       isThinking,
       sessionList,
+      chatController,
       addSessionData,
       updateSessionData,
       switchSession,
       getSessionList,
       deleteSession,
       updateSession,
-      chatController
+      changeLastSessionContent
     }
   },
   {
     persist: {
-      paths: ['currentSession']
+      paths: ['currentSession', 'sessionType']
     }
   }
 )

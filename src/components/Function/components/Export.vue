@@ -1,0 +1,29 @@
+<script setup lang="ts">
+const { isThinking, sessionDataList } = storeToRefs(useSessionStore())
+
+const disabled = computed(
+  () => isThinking.value || !sessionDataList.value.length
+)
+
+const handleSelect = (value: string) => {
+  if (value === 'image') {
+    saveImage('session-list')
+  }
+}
+</script>
+
+<template>
+  <a-tooltip content="导出文件">
+    <a-dropdown @select="handleSelect">
+      <a-button type="text" :disabled="disabled">
+        <template #icon>
+          <icon-download />
+        </template>
+      </a-button>
+      <template #content>
+        <a-doption value="image">导出图片</a-doption>
+        <!-- <a-doption value="markdown">导出 Markdown</a-doption> -->
+      </template>
+    </a-dropdown>
+  </a-tooltip>
+</template>
