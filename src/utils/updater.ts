@@ -13,7 +13,7 @@ const marked = new MarkdownIt({
 })
 
 export const checkVersion = async () => {
-  const updateInfo = await checkUpdate()
+  const updateInfo = await checkUpdate().catch(() => null)
 
   if (!updateInfo || !updateInfo.manifest) return
 

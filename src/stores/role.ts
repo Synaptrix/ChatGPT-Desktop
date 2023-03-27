@@ -13,6 +13,10 @@ export const useRoleStore = defineStore(
     const popoverVisible = ref(false)
     // 检索角色列表的输入框值
     const textAreaValue = ref('')
+    const imageValue = reactive({
+      number: '1',
+      size: '256x256'
+    })
     // 是否有角色正在编辑
     const isEdit = computed(() => roleList.value.some((item) => item.isEdit))
 
@@ -118,6 +122,7 @@ export const useRoleStore = defineStore(
       filterRoleList,
       popoverVisible,
       textAreaValue,
+      imageValue,
       isEdit,
       getRoleList,
       getFilterRoleList,
