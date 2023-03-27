@@ -52,7 +52,8 @@ export const useSessionStore = defineStore(
       currentSession.value = {
         id: crypto.randomUUID(),
         title: '',
-        role_id: defaultRole.id
+        role_id: defaultRole.id,
+        type: 'image'
       }
     }
 
@@ -75,19 +76,30 @@ export const useSessionStore = defineStore(
         await insertSQL('session', {
           id: currentSession.value.id,
           title: data.content,
-          role_id: currentRole.id
+          role_id: currentRole.id,
+          type: currentSession.value.type
         })
       }
 
-      const { isMemory } = useSettingsStore()
+      if (messageType === 'text') {
+        const { isMemory } = useSettingsStore()
 
-      await insertSQL('session_data', {
-        session_id: currentSession.value.id,
-        is_ask: isAsk,
-        is_memory: isMemory,
-        message: data,
-        message_type: messageType
-      })
+        await insertSQL('session_data', {
+          session_id: currentSession.value.id,
+          is_ask: isAsk,
+          is_memory: isMemory,
+          message: data,
+          message_type: messageType
+        })
+      } else if (messageType === 'image') {
+        await insertSQL('session_data', {
+          session_id: currentSession.value.id,
+          is_ask: isAsk,
+          is_memory: false,
+          message: data,
+          message_type: messageType
+        })
+      }
 
       await getSessionData()
     }

@@ -3,7 +3,7 @@ import {
   fetchEventSource,
   type EventSourceMessage
 } from '@microsoft/fetch-event-source'
-import type { MessageData } from '@/types'
+import type { MessageData, ImageData } from '@/types'
 
 /**
  * 获取 openai 对话消息
@@ -125,4 +125,24 @@ export const getOpenAICreditApi = async () => {
       return '请求的 API KEY 无效'
     }
   }
+}
+
+/**
+ * 根据提示创建图像
+ * @param messages 图像参数
+ */
+export const getOpenAIImage = async (imageData: ImageData) => {
+  if (!imageData) return
+
+  const apiKey = getOpenAIKey()
+  if (!apiKey) return
+
+  return await request('/v1/images/generations', {
+    method: 'POST',
+    headers: {
+      Authorization: `Bearer ${apiKey}`,
+      HostUrl: HOST_URL.OPENAI
+    },
+    body: Body.json(imageData)
+  })
 }

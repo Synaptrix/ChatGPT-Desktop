@@ -6,6 +6,12 @@ export interface MessageData {
   role: Role
   content: string
 }
+
+export interface ImageData {
+  n: number
+  prompt: string
+  size: '256x256' | '512x512' | '1024x1024'
+}
 export interface RolePayload {
   id?: number
   name: string
@@ -33,6 +39,7 @@ export interface SessionPayload {
   role_id: number
   update_time?: string
   name?: string
+  type: 'text' | 'image'
   isEdit?: boolean
 }
 

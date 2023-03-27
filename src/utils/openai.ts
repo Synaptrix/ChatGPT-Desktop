@@ -122,3 +122,71 @@ export const getAiMessage = async (value?: string) => {
     isThinking.value = false
   }
 }
+
+/**
+ * 获取 ai 作图
+ * @param value 消息内容
+ */
+export const getAiIamge = async (value?: string) => {
+  const { isThinking, sessionDataList } = storeToRefs(useSessionStore())
+  const { updateSessionData } = useSessionStore()
+
+  try {
+    // 获取图像的记忆模式 = 按照上一张图去修改生成
+    let imageData
+
+    if (!value) {
+      // 重复上一次提问
+      const { sessionDataList } = useSessionStore()
+
+      const lastQuestion = sessionDataList.filter((item) => item.is_ask).at(-1)
+      if (!lastQuestion) return
+
+      const deleteSql = `DELETE FROM session_data WHERE session_id = '${lastQuestion?.session_id}' AND id >= ${lastQuestion?.id};`
+      await executeSQL(deleteSql)
+
+      imageData = JSON.parse(lastQuestion?.message.content as any)
+    } else {
+      // 添加正常提问
+      const { imageValue } = useRoleStore()
+
+      imageData = {
+        n: parseInt(imageValue.number),
+        size: imageValue.size,
+        prompt: value
+      }
+    }
+
+    const { addSessionData } = useSessionStore()
+
+    isThinking.value = true
+
+    await addSessionData({
+      isAsk: true,
+      data: {
+        role: 'user',
+        content: imageData
+      }
+    })
+
+    await addSessionData({
+      isAsk: false,
+      messageType: 'image',
+      data: {
+        role: 'assistant',
+        content: ''
+      }
+    })
+
+    const res = await getOpenAIImage(imageData)
+    if (!res) return
+
+    sessionDataList.value.at(-1)!.message.content = res.data as string
+  } catch ({ message }: any) {
+    sessionDataList.value.at(-1)!.message.content = message as any
+
+    updateSessionData(sessionDataList.value.at(-1)!)
+  } finally {
+    isThinking.value = false
+  }
+}

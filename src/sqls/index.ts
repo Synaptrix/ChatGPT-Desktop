@@ -62,7 +62,7 @@ export const executeSQL = async (sql: string, hideError = false) => {
 export const initSQL = async () => {
   await executeSQL(
     `
-    CREATE TABLE IF NOT EXISTS session (id TEXT, title TEXT, role_id INTEGER, update_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP);
+    CREATE TABLE IF NOT EXISTS session (id TEXT, title TEXT, role_id INTEGER, type TEXT, update_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP);
     CREATE TABLE IF NOT EXISTS session_data (id INTEGER PRIMARY KEY AUTOINCREMENT, session_id TEXT, message TEXT, is_ask INTEGER, is_memory INTEGER, message_type TEXT, time TIMESTAMP DEFAULT CURRENT_TIMESTAMP);
     CREATE TABLE IF NOT EXISTS role (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, description TEXT, is_default INTEGER DEFAULT false);
     CREATE TABLE IF NOT EXISTS credit (id INTEGER PRIMARY KEY AUTOINCREMENT, history_id INTEGER, token_cost INTEGER, api_key TEXT);
@@ -79,6 +79,11 @@ export const initSQL = async () => {
   // 1. 2023-03-22 在 session 表中添加 update_time 列，记录对话的最后一次更新时间
   await executeSQL(
     `ALTER TABLE session ADD COLUMN update_time TIMESTAMP DEFAULT ${Date.now()};`,
+    true
+  )
+  // 2. 2023-03-27 在 session 表中添加 type 列，记录对话的类型
+  await executeSQL(
+    `ALTER TABLE session ADD COLUMN type TEXT DEFAULT 'text';`,
     true
   )
 }
