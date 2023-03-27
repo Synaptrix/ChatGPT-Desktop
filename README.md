@@ -8,13 +8,13 @@
   <h3>基于 tauri + vue3 开发的跨平台桌面端应用</h3>
 
   <div>
-    <a href="https://github.com/bilibili-ayang/ChatGPT-Desktop/releases">
+    <a href="https://github.com/bilibili-ayang/ChatGPT-Desktop/releases/latest">
       <img alt="macOS" src="https://img.shields.io/badge/-macOS-black?style=flat-square&logo=apple&logoColor=white" />
     </a>
-    <a href="https://github.com/bilibili-ayang/ChatGPT-Desktop/releases">
+    <a href="https://github.com/bilibili-ayang/ChatGPT-Desktop/releases/latest">
       <img alt="Windows" src="https://img.shields.io/badge/-Windows-blue?style=flat-square&logo=windows&logoColor=white" />
     </a>
-    <a href="https://github.com/bilibili-ayang/ChatGPT-Desktop/releases">
+    <a href="https://github.com/bilibili-ayang/ChatGPT-Desktop/releases/latest">
       <img alt="Linux" src="https://img.shields.io/badge/-Linux-yellow?style=flat-square&logo=linux&logoColor=white" />
     </a>
   </div>
@@ -48,13 +48,9 @@
 
 ## 下载
 
-[下载链接](https://github.com/bilibili-ayang/ChatGPT-Desktop/releases)
-
-支持的平台与架构：
-
-- **Mac**: Apple Silicon, Intel
-- **Windows**: Windows 7 - Windows 11
-- **Linux**: x64
+- **Mac**: [Apple Silicon](https://github.com/ChatGPT-Desktop/ChatGPT-Desktop/releases/download/v0.0.8/ChatGPT-Desktop_0.0.8_aarch64.dmg) 或者 [Intel](https://github.com/ChatGPT-Desktop/ChatGPT-Desktop/releases/download/v0.0.8/ChatGPT-Desktop_0.0.8_x64.dmg)
+- **Windows**: [全平台](https://github.com/ChatGPT-Desktop/ChatGPT-Desktop/releases/download/v0.0.8/ChatGPT-Desktop_0.0.8_x64_zh-CN.msi)
+- **Linux**: [全平台](https://github.com/ChatGPT-Desktop/ChatGPT-Desktop/releases/download/v0.0.8/chat-gpt-desktop_0.0.8_amd64.deb)
 
 <img src='./images/theme.gif' />
 <img src='./images/home.png' />
