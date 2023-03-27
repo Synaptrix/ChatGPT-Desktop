@@ -141,4 +141,4 @@ npm run build:icon
 
 ## License
 
-[MIT](./LICENSE)
+[MIT License](./LICENSE)

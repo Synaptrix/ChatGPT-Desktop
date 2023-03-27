@@ -103,6 +103,7 @@
     "useCssModule": true,
     "useCssVars": true,
     "useDisableShortcuts": true,
+    "useInit": true,
     "useObserverLink": true,
     "useRoleStore": true,
     "useSessionStore": true,

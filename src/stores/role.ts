@@ -13,6 +13,7 @@ export const useRoleStore = defineStore(
     const popoverVisible = ref(false)
     // 检索角色列表的输入框值
     const textAreaValue = ref('')
+    // 图片的参数
     const imageValue = reactive({
       number: '1',
       size: '256x256'

@@ -193,7 +193,26 @@ watch([currentSession, sessionDataList], () => {
                   : 'bg-[var(--session-background)]',
                 item.is_ask ? 'session-content--ask' : 'session-content--answer'
               ]"
+              v-if="currentSession?.type === 'text'"
             ></div>
+
+            <div
+              :id="`session-content-${item.id}`"
+              class="session-content flex flex-col gap-4 rounded-md p-4"
+              v-html="marked.render(item.message.content.prompt)"
+              :class="[
+                item.is_ask
+                  ? 'bg-[rgb(var(--primary-6))] text-white'
+                  : 'bg-[var(--session-background)]',
+                item.is_ask ? 'session-content--ask' : 'session-content--answer'
+              ]"
+              v-else-if="
+                currentSession?.type === 'image' && item.message_type === 'text'
+              "
+            ></div>
+
+            <!--  -->
+            <!-- <img  :src="" alt="" v-else /> -->
           </div>
         </div>
       </div>
