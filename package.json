@@ -11,6 +11,7 @@
     "tauri": "tauri",
     "lint": "eslint . --ext .vue,.ts --fix",
     "prepare": "husky install",
+    "update:version": "node ./scripts/update.cjs",
     "release": "release-it"
   },
   "lint-staged": {

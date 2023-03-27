@@ -10,6 +10,9 @@ module.exports = {
   npm: {
     publish: false
   },
+  hooks: {
+    'after:bump': 'npm run update:version'
+  },
   plugins: {
     '@release-it/conventional-changelog': {
       preset: 'angular',
