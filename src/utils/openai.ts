@@ -114,8 +114,8 @@ export const getAiMessage = async (value?: string) => {
     })
 
     await getOpenAIResultStreamApi(messages)
-  } catch ({ message }: any) {
-    changeLastSessionContent(message)
+  } catch (error: any) {
+    changeLastSessionContent(error)
 
     updateSessionData(sessionDataList.value.at(-1)!)
   } finally {
@@ -145,16 +145,16 @@ export const getAiIamge = async (value?: string) => {
       const deleteSql = `DELETE FROM session_data WHERE session_id = '${lastQuestion?.session_id}' AND id >= ${lastQuestion?.id};`
       await executeSQL(deleteSql)
 
-      imageData = JSON.parse(lastQuestion?.message.content as any)
+      imageData = lastQuestion?.message.content
     } else {
       // 添加正常提问
       const { imageValue } = useRoleStore()
 
       imageData = {
-        n: parseInt(imageValue.number),
+        n: imageValue.number,
         size: imageValue.size,
-        prompt: value
-        // response_format: 'b64_json'
+        prompt: value,
+        response_format: 'b64_json'
       }
     }
 
@@ -184,10 +184,14 @@ export const getAiIamge = async (value?: string) => {
     if (!res) return
 
     changeLastSessionContent(res.data)
+    updateSessionData(sessionDataList.value.at(-1)!)
   } catch (error: any) {
-    changeLastSessionContent(error)
+    changeLastSessionContent('生成失败')
+    updateSessionData({
+      ...sessionDataList.value.at(-1)!,
+      message_type: 'text'
+    })
   } finally {
     isThinking.value = false
-    updateSessionData(sessionDataList.value.at(-1)!)
   }
 }

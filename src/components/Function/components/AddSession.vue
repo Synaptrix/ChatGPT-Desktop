@@ -5,9 +5,8 @@ const sessionStore = useSessionStore()
 const { switchSession } = sessionStore
 const { isThinking, currentSession } = storeToRefs(sessionStore)
 
-const handleSelect = async (value: MessageType) => {
+const handleSelect = async (value: MessageType | any) => {
   await switchSession()
-
   currentSession.value!.type = value
 }
 </script>

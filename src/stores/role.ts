@@ -15,7 +15,7 @@ export const useRoleStore = defineStore(
     const textAreaValue = ref('')
     // 图片的参数
     const imageValue = reactive({
-      number: '1',
+      number: 1,
       size: '256x256'
     })
     // 是否有角色正在编辑

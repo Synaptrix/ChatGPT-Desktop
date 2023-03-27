@@ -37,7 +37,7 @@ export const getOpenAIResultStreamApi = async (messages: MessageData[]) => {
   const apiKey = getOpenAIKey()
   if (!apiKey) return
 
-  const { updateSessionData, changeLastSessionContent } = useSessionStore()
+  const { updateSessionData } = useSessionStore()
   const { sessionDataList, chatController } = storeToRefs(useSessionStore())
   const {
     proxy: { bypass, url: proxyURL },

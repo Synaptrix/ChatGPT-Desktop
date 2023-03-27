@@ -11,3 +11,9 @@ export enum HOST_URL {
   OPENAI = 'https://api.openai.com',
   GITHUB = 'https://api.github.com'
 }
+
+export enum ImageCost {
+  '256x256' = 8000,
+  '512x512' = 9000,
+  '1024x1024' = 10000
+}
