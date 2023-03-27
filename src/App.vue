@@ -55,6 +55,11 @@ watch(
   },
   { immediate: true }
 )
+
+checkVersion()
+setInterval(() => {
+  checkVersion()
+}, 1000 * 60 * 60 * 24)
 </script>
 
 <template>

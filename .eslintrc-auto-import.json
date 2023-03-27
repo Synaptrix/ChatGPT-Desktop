@@ -14,6 +14,7 @@
     "Ref": true,
     "VNode": true,
     "acceptHMRUpdate": true,
+    "checkVersion": true,
     "computed": true,
     "copyCode": true,
     "copyText": true,
