@@ -68,7 +68,7 @@
     },
     "updater": {
       "active": true,
-      "dialog": true,
+      "dialog": false,
       "endpoints": [
         "https://updater-two.vercel.app/update/{{target}}/{{current_version}}"
       ],

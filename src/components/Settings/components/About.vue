@@ -57,6 +57,7 @@ onMounted(async () => {
       </div>
       <span>{{ appInfo.appName }}</span>
       <span>v{{ appInfo.appVersion }}</span>
+      <a class="cursor-pointer" @click="checkVersion">检查更新</a>
       <a class="cursor-pointer" @click="copyInfo">复制信息</a>
       <a href="https://github.com/ChatGPT-Desktop/ChatGPT-Desktop/issues/new">
         BUG 反馈
