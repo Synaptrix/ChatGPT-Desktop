@@ -2,8 +2,7 @@ import type {
   SessionPayload,
   SessionData,
   MessageData,
-  MessageType,
-  ImageData
+  MessageType
 } from '@/types'
 
 export const useSessionStore = defineStore(
@@ -19,8 +18,6 @@ export const useSessionStore = defineStore(
     const isThinking = ref(false)
     // 停止请求
     const chatController = ref<AbortController>()
-    // 类型
-    const sessionType = ref<MessageType>('text')
 
     // 获取会话列表
     const getSessionList = async () => {
@@ -48,6 +45,8 @@ export const useSessionStore = defineStore(
 
     // 创建新会话
     const createNewSession = async () => {
+      if (!currentSession.value) return
+
       const defaultRole = (
         await selectSQL('role', [{ key: 'is_default', value: true }])
       )[0]
@@ -56,7 +55,7 @@ export const useSessionStore = defineStore(
         id: crypto.randomUUID(),
         title: '',
         role_id: defaultRole.id,
-        type: 'text'
+        type: currentSession.value.type
       }
     }
 
@@ -76,7 +75,9 @@ export const useSessionStore = defineStore(
 
       if (!isExist && currentRole?.id) {
         const title =
-          messageType === 'text' ? data.content : data.content.prompt
+          currentSession.value.type === 'text'
+            ? data.content
+            : data.content.prompt
 
         currentSession.value.title = title
 
@@ -96,7 +97,7 @@ export const useSessionStore = defineStore(
           is_ask: isAsk,
           is_memory: isMemory,
           message: data,
-          message_type: messageType
+          message_type: 'text'
         })
       } else if (messageType === 'image') {
         await insertSQL('session_data', {
@@ -104,7 +105,7 @@ export const useSessionStore = defineStore(
           is_ask: isAsk,
           is_memory: false,
           message: data,
-          message_type: messageType
+          message_type: 'image'
         })
       }
 
@@ -119,8 +120,12 @@ export const useSessionStore = defineStore(
 
     // 更新会话信息
     const updateSession = async (payload: SessionPayload) => {
+      const newPayload = { ...payload }
+      delete newPayload.name
+      delete newPayload.isEdit
+
       await updateSQL('session', {
-        ...payload,
+        ...newPayload,
         update_time: Date.now().toString()
       })
     }
@@ -155,11 +160,14 @@ export const useSessionStore = defineStore(
       if (!session) await createNewSession()
       else currentSession.value = session
 
-      const { changeCurrentRole } = useRoleStore()
+      sessionDataList.value.length = 0
+      setTimeout(() => {
+        const { changeCurrentRole } = useRoleStore()
 
-      changeCurrentRole()
-      getSessionData()
-      getSessionList()
+        changeCurrentRole()
+        getSessionData()
+        getSessionList()
+      }, 50)
     }
 
     // 修改最后一个对话内容

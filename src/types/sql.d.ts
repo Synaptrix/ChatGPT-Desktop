@@ -2,10 +2,12 @@ type Role = 'system' | 'user' | 'assistant'
 
 export type TableName = 'session' | 'session_data' | 'role' | 'credit'
 
+export type ImageSize = '256x256' | '512x512' | '1024x1024'
+
 export interface ImageData {
   n: number
   prompt: string
-  size: '256x256' | '512x512' | '1024x1024'
+  size: ImageSize
   response_format: string
 }
 

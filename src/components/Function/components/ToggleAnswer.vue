@@ -1,18 +1,16 @@
 <script setup lang="ts">
 const sessionStore = useSessionStore()
-const { updateSessionData, changeLastSessionContent } = sessionStore
-const { isThinking, sessionDataList, chatController } =
+const { updateSessionData } = sessionStore
+const { isThinking, sessionDataList, chatController, currentSession } =
   storeToRefs(sessionStore)
 
 const handleClick = () => {
   if (isThinking.value) {
     chatController.value?.abort()
 
-    changeLastSessionContent('终止了回答')
-
     updateSessionData(sessionDataList.value.at(-1)!)
   } else {
-    getAiMessage()
+    currentSession.value?.type === 'text' ? getAiMessage() : getAiIamge()
   }
 }
 </script>
