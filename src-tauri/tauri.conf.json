@@ -70,7 +70,7 @@
       "active": true,
       "dialog": false,
       "endpoints": [
-        "https://updater-two.vercel.app/update/{{target}}/{{current_version}}"
+        "https://download.ayangweb.cn/update/{{target}}/{{current_version}}"
       ],
       "pubkey": "dW50cnVzdGVkIGNvbW1lbnQ6IG1pbmlzaWduIHB1YmxpYyBrZXk6IDhDRkYzMDc2NTFGRTQ5MTIKUldRU1NmNVJkakQvaklIVnpidTB5TVBwUXlFOTI1WkJwS0h4YTJScEdxQ0lzRkFnQUhDQ3pnM28K"
     },
