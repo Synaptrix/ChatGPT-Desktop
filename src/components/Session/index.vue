@@ -82,6 +82,7 @@ watch([currentSession, sessionDataList], () => {
         :key="item.id"
       >
         <SessionAvatar :data="item" />
+
         <div
           class="relative flex w-[calc(100%-8rem)] flex-col gap-2"
           :class="item.is_ask && 'items-end'"
@@ -92,7 +93,7 @@ watch([currentSession, sessionDataList], () => {
 
           <div class="blink-block" v-if="!item.message.content" />
 
-          <SessionContent :data="item" />
+          <SessionContent :data="item" v-else />
         </div>
       </div>
     </template>

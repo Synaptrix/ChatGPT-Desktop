@@ -14,7 +14,7 @@ const handleSelect = (value: string) => {
 
 <template>
   <a-tooltip content="导出文件">
-    <a-dropdown @select="handleSelect">
+    <a-dropdown @select="(value: any) => handleSelect(value)" position="top">
       <a-button type="text" :disabled="disabled">
         <template #icon>
           <icon-download />

@@ -1,9 +1,8 @@
 import { writeTextFile, BaseDirectory } from '@tauri-apps/api/fs'
+import { downloadDir } from '@tauri-apps/api/path'
+import { open } from '@tauri-apps/api/shell'
 
-export const saveMarkdown = async (
-  event: MouseEvent,
-  content: string | ImageData
-) => {
+export const saveMarkdown = async (event: MouseEvent, content: any) => {
   try {
     const { currentSession } = useSessionStore()
 
@@ -15,7 +14,7 @@ export const saveMarkdown = async (
 
     await writeTextFile(
       `${currentSession?.title}-${Date.now()}.md`,
-      content as string,
+      content?.prompt || content,
       {
         dir: BaseDirectory.Download
       }
@@ -24,6 +23,8 @@ export const saveMarkdown = async (
     setTimeout(() => {
       window[uuid] = null
     }, 3000)
+
+    open(await downloadDir())
 
     Message.success('Markdown 文件导出成功')
   } catch (error) {

@@ -1,8 +1,9 @@
-import type { ImageSize, SAVE_TYPE } from '@/types'
 import { getName } from '@tauri-apps/api/app'
 import { writeBinaryFile, BaseDirectory, copyFile } from '@tauri-apps/api/fs'
-import { appConfigDir } from '@tauri-apps/api/path'
+import { appConfigDir, downloadDir } from '@tauri-apps/api/path'
+import { open } from '@tauri-apps/api/shell'
 import html2canvas from 'html2canvas'
+import type { ImageSize, SAVE_TYPE } from '@/types'
 
 /**
  * 下载图片
@@ -35,6 +36,10 @@ export const saveImage = async (nodeId: string) => {
       writeImage(buffer, 'image')
     })
   })
+
+  setTimeout(() => {
+    window[uuid] = null
+  }, 3000)
 }
 
 export const saveImageFromBase64 = async (base64: string) => {
@@ -53,6 +58,10 @@ export const saveImageFromFile = async (file: string) => {
   await copyFile(`${await appConfigDir()}/${file}`, file, {
     dir: BaseDirectory.Download
   })
+
+  open(await downloadDir())
+
+  Message.success('下载成功')
 }
 
 const writeImage = async (
@@ -90,6 +99,8 @@ const writeImage = async (
     Message.error('图片导出失败，请重试！')
   })
 
+  open(await downloadDir())
+
   Message.success('图片导出成功')
 }
 
@@ -105,7 +116,9 @@ export const calcImageSize = (base64: string): ImageSize | undefined => {
 
   // 在 Image 对象的 onload 事件中获取图像的宽度和高度
   img.onload = () => {
-    const width = img.width
+    // console.log(img.style)
+
+    const width = img.style
     const height = img.height
     // return `${width}x${height}`
     return 0
