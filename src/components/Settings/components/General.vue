@@ -1,10 +1,12 @@
 <script setup lang="ts">
-import { relaunch } from '@tauri-apps/api/process'
-
 const settingsStore = useSettingsStore()
 const { toggleTheme } = settingsStore
 const { themeMode, autoStart, isRememberPosition, proxy } =
   storeToRefs(settingsStore)
+
+const relaunch = () => {
+  window.location.reload()
+}
 </script>
 
 <template>
