@@ -20,7 +20,7 @@ const { themeMode, autoStart, isRememberPosition, proxy } =
         v-model="themeMode"
         type="button"
         size="large"
-        @change="toggleTheme"
+        @change="(value: any) => toggleTheme(value)"
       >
         <a-radio value="light">
           <icon-sun />

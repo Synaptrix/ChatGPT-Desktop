@@ -1,5 +1,5 @@
 .session-data {
-  ::v-deep(.operation) {
+  .operation {
     .copy {
       background-color: var(--color-text-1);
 
@@ -18,7 +18,7 @@
       mask-size: contain;
     }
 
-    >* {
+    > * {
       cursor: pointer;
 
       --uno: transition-300 h-6 w-6 opacity-70;
@@ -41,7 +41,7 @@
         --uno: rounded-md leading-6;
       }
 
-      +.code-copy {
+      + .code-copy {
         background-image: url('@/assets/image/copy.svg');
 
         --uno: transition-300 absolute top-2 right-2 h-6 w-6 cursor-pointer bg-contain bg-center bg-no-repeat text-white opacity-0;
@@ -57,7 +57,7 @@
       }
 
       &:hover {
-        +.code-copy {
+        + .code-copy {
           --uno: opacity-70;
         }
       }
@@ -70,7 +70,7 @@
       li {
         --uno: leading-6;
 
-        >*:not(:last-child) {
+        > *:not(:last-child) {
           --uno: pb-4;
         }
       }
@@ -87,6 +87,5 @@
         --uno: text-[rgb(var(--primary-6))] hover:underline;
       }
     }
-
   }
 }

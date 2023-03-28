@@ -44,18 +44,14 @@ const calcToken = (data: SessionData) => {
   }
 
   if (currentSession.value?.type === 'image') {
-    return '0TK'
+    return
     // const { message, message_type } = props.data
-
     // if (message_type !== 'image') return '0TK'
-
     // // 计算图片的 token * 数量
     // const num = message.content.length
-
-    // TODO 通过base64获得图片的大小
+    // // TODO 通过base64获得图片的大小
     // const size = calcImageSize(message.content[0].b64_json)
     // if (!size) return '0TK'
-
     // return `${num * ImageCost[size]}TK`
   }
 }

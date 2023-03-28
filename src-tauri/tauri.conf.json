@@ -15,8 +15,7 @@
     "allowlist": {
       "all": true,
       "shell": {
-        "all": false,
-        "open": true
+        "all": true
       },
       "globalShortcut": {
         "all": true
@@ -29,6 +28,7 @@
         ]
       },
       "fs": {
+        "all": true,
         "scope": [
           "**"
         ]

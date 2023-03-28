@@ -25,6 +25,7 @@ const position = computed(() => (props.data.is_ask ? 'left' : 'right'))
           ? 'left-0 -translate-x-full pr-2'
           : 'right-0 translate-x-full pl-2'
       "
+      v-if="data.message_type === 'text'"
     >
       <a-tooltip content="复制" :position="position">
         <div
@@ -75,25 +76,29 @@ const position = computed(() => (props.data.is_ask ? 'left' : 'right'))
       "
     ></div>
 
-    <a-image-preview-group infinite v-else>
-      <a-space>
-        <a-image
-          v-for="(img, index) in data.message.content"
-          :key="index"
-          :src="`data:image/png;base64,${img.b64_json}`"
-        >
-          <template #extra>
+    <a-row class="-m-1" v-else>
+      <a-col
+        class="p-1"
+        :span="data.message.content.length > 3 ? 8 : 12"
+        v-for="(img, index) in data.message.content"
+        :key="index"
+      >
+        <div class="group/image relative w-full">
+          <img :src="`data:image/png;base64,${img.b64_json}`" class="w-full" />
+          <div
+            class="transition-300 absolute top-0 grid h-full w-full place-items-center bg-black/50 opacity-0 group-hover/image:opacity-100"
+          >
             <icon-download
-              class="text-6"
+              class="text-10 cursor-pointer text-white"
               @click="saveImageFromFile(img.file)"
             />
-          </template>
-        </a-image>
-      </a-space>
-    </a-image-preview-group>
+          </div>
+        </div>
+      </a-col>
+    </a-row>
   </div>
 </template>
 
-<style scoped lang="scss">
+<style lang="scss">
 @import './index.scss';
 </style>
