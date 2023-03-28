@@ -7,6 +7,7 @@ use tauri_plugin_autostart::MacosLauncher;
 use window_shadows::set_shadow;
 
 mod tray;
+mod commands;
 
 fn main() {
     tauri::Builder::default()
@@ -31,6 +32,7 @@ fn main() {
             window.unminimize().unwrap();
             window.set_focus().unwrap();
         }))
+        .invoke_handler(tauri::generate_handler![commands::show_in_folder])
         .on_system_tray_event(tray::handler)
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
