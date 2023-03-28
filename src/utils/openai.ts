@@ -151,7 +151,7 @@ export const getAiIamge = async (value?: string) => {
       const { imageValue } = useRoleStore()
 
       imageData = {
-        n: imageValue.number,
+        n: parseInt(imageValue.number),
         size: imageValue.size,
         prompt: value,
         response_format: 'b64_json'
@@ -182,6 +182,13 @@ export const getAiIamge = async (value?: string) => {
     const res = await getOpenAIImage(imageData)
 
     if (!res) return
+
+    // 返回的是base64的json字符串，写入到文件中，然后再读取文件地址
+    for (let i = 0; i < res.data.length; i++) {
+      const item = res.data[i]
+      const fileName = await saveImageFromBase64(item.b64_json)
+      item.file = fileName
+    }
 
     changeLastSessionContent(res.data)
     updateSessionData(sessionDataList.value.at(-1)!)

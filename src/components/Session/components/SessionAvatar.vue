@@ -27,10 +27,10 @@ const calcToken = (data: SessionData) => {
     if (data.is_memory) {
       // 获取sessionDataList中的此条之前的最后5条消息
       const memoryList = sessionDataList.value
-        .filter((data) => data.id! < data.id!)
+        .filter((memo) => memo.id! < data.id!)
         .slice(-5)
       memoryToken = estimateTokens(
-        memoryList.map((data) => data.message.content).join('')
+        memoryList.map((memo) => memo.message.content).join('')
       )
     }
 

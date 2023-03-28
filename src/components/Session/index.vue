@@ -1,18 +1,9 @@
 <script setup lang="ts">
 import { listen } from '@tauri-apps/api/event'
-import MarkdownIt from 'markdown-it'
-import MarkdownItHighlight from 'markdown-it-highlightjs'
-
 import dayjs from 'dayjs'
 import utc from 'dayjs/plugin/utc'
 
 dayjs.extend(utc)
-
-const marked = new MarkdownIt({
-  linkify: true
-})
-  .use(MarkdownItHighlight)
-  .use(copyCode)
 
 const { sessionDataList, currentSession } = storeToRefs(useSessionStore())
 
@@ -99,94 +90,9 @@ watch([currentSession, sessionDataList], () => {
             {{ getLocalTime(item.time!) }}
           </span>
 
-          <div class="blink-block" v-if="!item.message.content"></div>
+          <div class="blink-block" v-if="!item.message.content" />
 
-          <div class="session-item group relative max-w-fit" v-else>
-            <div
-              class="operation transition-300 absolute flex flex-col gap-1 opacity-0 group-hover:opacity-100"
-              :class="
-                item.is_ask
-                  ? 'left-0 -translate-x-full pr-2'
-                  : 'right-0 translate-x-full pl-2'
-              "
-            >
-              <a-tooltip
-                content="复制"
-                :position="item.is_ask ? 'right' : 'left'"
-              >
-                <div
-                  class="copy"
-                  :id="`copy-${item.id}`"
-                  @click="
-                    copyText($event, { nodeId: `session-content-${item.id}` })
-                  "
-                ></div>
-              </a-tooltip>
-
-              <a-tooltip
-                content="导出 Markdown 文件"
-                :position="item.is_ask ? 'right' : 'left'"
-              >
-                <div
-                  class="markdown"
-                  :id="`markdown-${item.id}`"
-                  @click="saveMarkdown($event, item.message.content)"
-                ></div>
-              </a-tooltip>
-
-              <a-tooltip
-                content="导出图片"
-                :position="item.is_ask ? 'right' : 'left'"
-              >
-                <icon-image @click="saveImage(`session-data-${item.id}`)" />
-              </a-tooltip>
-            </div>
-
-            <div
-              :id="`session-content-${item.id}`"
-              class="session-content flex flex-col gap-4 rounded-md p-4"
-              v-html="marked.render(item.message.content)"
-              :class="[
-                item.is_ask
-                  ? 'bg-[rgb(var(--primary-6))] text-white'
-                  : 'bg-[var(--session-background)]',
-                item.is_ask ? 'session-content--ask' : 'session-content--answer'
-              ]"
-              v-if="currentSession?.type === 'text'"
-            ></div>
-
-            <div
-              :id="`session-content-${item.id}`"
-              class="session-content flex flex-col gap-4 rounded-md p-4"
-              v-html="marked.render(item.message.content.prompt)"
-              :class="[
-                item.is_ask
-                  ? 'bg-[rgb(var(--primary-6))] text-white'
-                  : 'bg-[var(--session-background)]',
-                item.is_ask ? 'session-content--ask' : 'session-content--answer'
-              ]"
-              v-else-if="
-                currentSession?.type === 'image' && item.message_type === 'text'
-              "
-            ></div>
-
-            <a-image-preview-group infinite v-else>
-              <a-space>
-                <a-image
-                  v-for="(img, index) in item.message.content"
-                  :key="index"
-                  :src="`data:image/png;base64,${img.b64_json}`"
-                >
-                  <template #extra>
-                    <icon-download
-                      class="text-6"
-                      @click="saveImageFromBase64(img.b64_json)"
-                    />
-                  </template>
-                </a-image>
-              </a-space>
-            </a-image-preview-group>
-          </div>
+          <SessionContent :data="item" />
         </div>
       </div>
     </template>
@@ -209,6 +115,24 @@ watch([currentSession, sessionDataList], () => {
   </div>
 </template>
 
-<style scoped lang="scss">
-@import './index.scss';
+<style lang="scss" scoped>
+#session-list {
+  .blink-block::after {
+    animation: blink 1s infinite;
+
+    --uno: absolute h-6 w-1 bg-[var(--color-text-3)] content-none;
+  }
+
+  @keyframes blink {
+    0% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+}
 </style>

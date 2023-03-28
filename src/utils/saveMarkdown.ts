@@ -1,6 +1,9 @@
 import { writeTextFile, BaseDirectory } from '@tauri-apps/api/fs'
 
-export const saveMarkdown = async (event: MouseEvent, content: string) => {
+export const saveMarkdown = async (
+  event: MouseEvent,
+  content: string | ImageData
+) => {
   try {
     const { currentSession } = useSessionStore()
 
@@ -10,9 +13,13 @@ export const saveMarkdown = async (event: MouseEvent, content: string) => {
     if (window[uuid]) return
     window[uuid] = uuid
 
-    await writeTextFile(`${currentSession?.title}-${Date.now()}.md`, content, {
-      dir: BaseDirectory.Download
-    })
+    await writeTextFile(
+      `${currentSession?.title}-${Date.now()}.md`,
+      content as string,
+      {
+        dir: BaseDirectory.Download
+      }
+    )
 
     setTimeout(() => {
       window[uuid] = null

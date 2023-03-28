@@ -1,0 +1,92 @@
+.session-data {
+  ::v-deep(.operation) {
+    .copy {
+      background-color: var(--color-text-1);
+
+      mask-image: url('@/assets/image/copy.svg');
+      mask-size: contain;
+
+      &.copied {
+        mask-image: url('@/assets/image/copied.svg');
+      }
+    }
+
+    .markdown {
+      background-color: var(--color-text-1);
+
+      mask-image: url('@/assets/image/markdown.svg');
+      mask-size: contain;
+    }
+
+    >* {
+      cursor: pointer;
+
+      --uno: transition-300 h-6 w-6 opacity-70;
+
+      &:hover {
+        --uno: opacity-100;
+      }
+    }
+  }
+
+  .session-content {
+    p {
+      --uno: leading-6;
+    }
+
+    pre {
+      --uno: m0;
+
+      code {
+        --uno: rounded-md leading-6;
+      }
+
+      +.code-copy {
+        background-image: url('@/assets/image/copy.svg');
+
+        --uno: transition-300 absolute top-2 right-2 h-6 w-6 cursor-pointer bg-contain bg-center bg-no-repeat text-white opacity-0;
+
+        &:hover {
+          --uno: opacity-100;
+        }
+
+        &.copied {
+          opacity: 1 !important;
+          background-image: url('@/assets/image/copied.svg');
+        }
+      }
+
+      &:hover {
+        +.code-copy {
+          --uno: opacity-70;
+        }
+      }
+    }
+
+    ol,
+    ul {
+      --uno: flex flex-col gap-4;
+
+      li {
+        --uno: leading-6;
+
+        >*:not(:last-child) {
+          --uno: pb-4;
+        }
+      }
+    }
+
+    &--ask {
+      a {
+        --uno: text-white hover:underline;
+      }
+    }
+
+    &--answer {
+      a {
+        --uno: text-[rgb(var(--primary-6))] hover:underline;
+      }
+    }
+
+  }
+}

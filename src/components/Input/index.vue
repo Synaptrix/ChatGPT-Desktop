@@ -81,7 +81,7 @@ onMounted(() => {
           <a-option>1024x1024</a-option>
         </a-select>
         <a-select placeholder="选择生成的数量" v-model="imageValue.number">
-          <a-option v-for="i in 10" :key="i">{{ i }}</a-option>
+          <a-option v-for="i in 10" :key="i + ''">{{ i }}</a-option>
         </a-select>
       </div>
     </div>

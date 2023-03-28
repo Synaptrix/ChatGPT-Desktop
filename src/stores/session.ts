@@ -155,10 +155,13 @@ export const useSessionStore = defineStore(
     }
 
     // 新建或切换会话
-    // TODO: 新建对话保持上一个角色
     const switchSession = async (session?: SessionPayload) => {
       if (!session) await createNewSession()
-      else currentSession.value = session
+      else {
+        // !!!添加了新的字段后，旧的session可能不存在type字段，需要处理一下
+        if (!currentSession.value?.type) currentSession.value!.type = 'text'
+        currentSession.value = session
+      }
 
       sessionDataList.value.length = 0
       setTimeout(() => {
