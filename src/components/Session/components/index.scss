@@ -65,7 +65,7 @@
 
     ol,
     ul {
-      --uno: flex flex-col gap-4;
+      --uno: flex flex-col gap-4 pl-5 list-disc ;
 
       li {
         --uno: leading-6;
@@ -74,6 +74,10 @@
           --uno: pb-4;
         }
       }
+    }
+
+    ol{
+      --uno: pl-8 list-decimal;
     }
 
     &--ask {
