@@ -87,6 +87,7 @@
     "resolveComponent": true,
     "saveImage": true,
     "saveImageFromBase64": true,
+    "saveImageFromFile": true,
     "saveMarkdown": true,
     "selectSQL": true,
     "setActivePinia": true,

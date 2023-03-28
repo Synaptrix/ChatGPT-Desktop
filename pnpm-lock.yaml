@@ -11,7 +11,7 @@ specifiers:
   '@tauri-apps/cli': ^1.2.2
   '@types/markdown-it': ^12.2.3
   '@types/marked': ^4.0.8
-  '@types/node': ^18.7.10
+  '@types/node': ^18.15.3
   '@typescript-eslint/eslint-plugin': ^5.54.1
   '@typescript-eslint/parser': ^5.54.1
   '@vitejs/plugin-vue': ^4.0.0

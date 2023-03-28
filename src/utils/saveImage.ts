@@ -1,6 +1,7 @@
-import type { ImageSize } from '@/types'
+import type { ImageSize, SAVE_TYPE } from '@/types'
 import { getName } from '@tauri-apps/api/app'
-import { writeBinaryFile, BaseDirectory } from '@tauri-apps/api/fs'
+import { writeBinaryFile, BaseDirectory, copyFile } from '@tauri-apps/api/fs'
+import { appConfigDir } from '@tauri-apps/api/path'
 import html2canvas from 'html2canvas'
 
 /**
@@ -31,7 +32,7 @@ export const saveImage = async (nodeId: string) => {
 
   canvas.toBlob(async (blob) => {
     blob?.arrayBuffer().then((buffer) => {
-      writeImage(buffer)
+      writeImage(buffer, 'image')
     })
   })
 }
@@ -41,12 +42,42 @@ export const saveImageFromBase64 = async (base64: string) => {
     .split('')
     .map((c) => c.charCodeAt(0))
 
-  writeImage(buffer)
+  const fileName = Date.now() + '.png'
+  await writeImage(buffer, 'system', fileName)
+
+  return fileName
 }
 
-const writeImage = async (buffer: number[] | ArrayBuffer) => {
+export const saveImageFromFile = async (file: string) => {
+  // 把对应的图片复制到下载文件夹
+  await copyFile(`${await appConfigDir()}/${file}`, file, {
+    dir: BaseDirectory.Download
+  })
+}
+
+const writeImage = async (
+  buffer: number[] | ArrayBuffer,
+  type: SAVE_TYPE,
+  fileName?: string
+) => {
   const uint8Array = new Uint8Array(buffer)
 
+  if (type === 'system') {
+    if (!fileName) return
+
+    // 生成的图片
+    return await writeBinaryFile(
+      {
+        path: fileName,
+        contents: uint8Array
+      },
+      { dir: BaseDirectory.AppConfig }
+    ).catch(() => {
+      Message.error('图片加载失败，请重试！')
+    })
+  }
+
+  // 用户下载的图片
   const appName = await getName()
 
   await writeBinaryFile(
