@@ -25,13 +25,13 @@ export const useInit = () => {
       }, 100)
     })
 
-    // if (import.meta.env.PROD) {
-    //   document.addEventListener('contextmenu', function (event) {
-    //     if (!window.getSelection()?.toString()) {
-    //       event.preventDefault()
-    //     }
-    //   })
-    // }
+    if (import.meta.env.PROD) {
+      document.addEventListener('contextmenu', function (event) {
+        if (!window.getSelection()?.toString()) {
+          event.preventDefault()
+        }
+      })
+    }
   })
 
   watch(
