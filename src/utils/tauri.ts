@@ -1,15 +1,12 @@
-import { message } from '@tauri-apps/api/dialog'
-import { getName } from '@tauri-apps/api/app'
+import { invoke } from '@tauri-apps/api/tauri'
+import { downloadDir, sep } from '@tauri-apps/api/path'
 
 /**
- * 错误弹框
- * @param errorMessage 错误信息
+ * 打开文件所在位置
+ * @param file 文件
  */
-export const dialogErrorMessage = async (errorMessage: string) => {
-  const appName = await getName()
-
-  message(errorMessage, {
-    title: appName,
-    type: 'error'
+export const openFilePath = async (file: string) => {
+  await invoke('show_in_folder', {
+    path: (await downloadDir()) + sep + file
   })
 }

@@ -41,6 +41,6 @@ export const request = async (
 
     return data
   } catch (error) {
-    dialogErrorMessage(`请求出错：${error}`)
+    Message.error('网络似乎出了问题，请检查你的网络设置')
   }
 }

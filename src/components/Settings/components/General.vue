@@ -50,12 +50,12 @@ const relaunch = () => {
       <i>开启代理:</i>
       <a-switch v-model="proxy.bypass" type="round"></a-switch>
       <!-- TODO: 提示文字可以在url改变后在出现，默认不出现 -->
-      <span class="text-sm text-[var(--color-text-3)]" v-show="proxy.bypass">
-        填写代理地址后，请点击<span
+      <span class="text-sm text-[var(--color-text-3)]">
+        代理信息变化后，请点击<span
           class="mark cursor-pointer"
           @click="relaunch"
           >重启</span
-        >
+        >确保正常工作
       </span>
     </li>
 

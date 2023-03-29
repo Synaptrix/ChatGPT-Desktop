@@ -2,6 +2,8 @@
 import { getVersion, getName, getTauriVersion } from '@tauri-apps/api/app'
 import { type, arch, platform, version } from '@tauri-apps/api/os'
 import { writeText } from '@tauri-apps/api/clipboard'
+import { emit } from '@tauri-apps/api/event'
+import { open } from '@tauri-apps/api/shell'
 
 const appInfo = reactive({
   appName: '',
@@ -21,7 +23,7 @@ const copyInfo = async () => {
     userAgent: navigator.userAgent
   }
 
-  await writeText(JSON.stringify(info))
+  await writeText('软件以及系统信息如下：' + JSON.stringify(info))
 
   Message.success('复制成功')
 }
@@ -55,13 +57,31 @@ onMounted(async () => {
           alt="logo"
         />
       </div>
+
       <span>{{ appInfo.appName }}</span>
-      <span>v{{ appInfo.appVersion }}</span>
-      <a class="cursor-pointer" @click="checkVersion">检查更新</a>
-      <a class="cursor-pointer" @click="copyInfo">复制信息</a>
-      <a href="https://github.com/ChatGPT-Desktop/ChatGPT-Desktop/issues/new">
-        BUG 反馈
-      </a>
+
+      <div class="flex items-center gap-2 text-[var(--color-text-2)]">
+        <span> v{{ appInfo.appVersion }} </span>
+        <a-tooltip content="检查更新" mini>
+          <icon-refresh
+            class="text-5 transition-300 cursor-pointer hover:text-[rgb(var(--primary-6))]"
+            @click="emit('update-app')"
+          />
+        </a-tooltip>
+      </div>
+
+      <a-tooltip content="复制软件以及系统信息" mini>
+        <a class="cursor-pointer" @click="copyInfo">复制信息</a>
+      </a-tooltip>
+
+      <a-tooltip content="请务必提供复制的信息" mini position="bottom">
+        <a
+          class="text-[var(--color-text-3)]"
+          href="https://github.com/ChatGPT-Desktop/ChatGPT-Desktop/issues/new"
+        >
+          问题反馈
+        </a>
+      </a-tooltip>
     </a-col>
     <a-col :span="14" class="flex flex-col gap-3">
       <span>仓库地址</span>

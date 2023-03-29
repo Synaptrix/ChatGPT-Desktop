@@ -15,11 +15,6 @@ export const useInit = () => {
 
     useObserverLink()
 
-    checkVersion()
-    setInterval(() => {
-      checkVersion()
-    }, 1000 * 60 * 60 * 24)
-
     useDisableShortcuts()
 
     appWindow.onFocusChanged(({ payload }) => {

@@ -52,7 +52,7 @@
 - **Windows**: [全平台](https://github.com/ChatGPT-Desktop/ChatGPT-Desktop/releases/download/v0.0.8/ChatGPT-Desktop_0.0.8_x64_zh-CN.msi)
 - **Linux**: [全平台](https://github.com/ChatGPT-Desktop/ChatGPT-Desktop/releases/download/v0.0.8/chat-gpt-desktop_0.0.8_amd64.deb)
 
-<img src='./images/theme.gif' />
+<img src='./images/theme.gif' width="100%" />
 <img src='./images/home.png' />
 <img src='./images/settings.png' />
 <img src='./images/role-1.png' />

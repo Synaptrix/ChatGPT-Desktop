@@ -15,3 +15,10 @@ export const isString = (value: any) => typeof value === 'string'
  * @param value 数据
  */
 export const isObject = (value: any) => typeof value === 'object'
+
+/**
+ * 空函数
+ */
+export const NOOP = () => {
+  /* empty */
+}
