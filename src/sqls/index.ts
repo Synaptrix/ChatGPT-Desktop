@@ -1,9 +1,10 @@
 import { appConfigDir } from '@tauri-apps/api/path'
 import Database from 'tauri-plugin-sql-api'
+import { sep } from '@tauri-apps/api/path'
 import type { TableName, TablePayload, WherePayload } from '@/types'
 
 const dbFile = import.meta.env.DEV ? 'sql.dev.db' : 'sql.db'
-const db = await Database.load(`sqlite:${await appConfigDir()}/${dbFile}`)
+const db = await Database.load(`sqlite:${await appConfigDir()}${sep}${dbFile}`)
 
 /**
  * sql 的字符串参数需要在加一个冒号
@@ -52,7 +53,7 @@ export const executeSQL = async (sql: string, hideError = false) => {
         break
     }
 
-    dialogErrorMessage(`${action}数据时遇到了问题，请重试！`)
+    Message.error(`${action}数据时遇到了问题，请稍后重试！`)
   }
 }
 

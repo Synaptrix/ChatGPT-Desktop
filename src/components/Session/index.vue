@@ -1,14 +1,7 @@
 <script setup lang="ts">
 import { listen } from '@tauri-apps/api/event'
-import dayjs from 'dayjs'
-import utc from 'dayjs/plugin/utc'
-
-dayjs.extend(utc)
 
 const { sessionDataList, currentSession } = storeToRefs(useSessionStore())
-
-const getLocalTime = (time: string) =>
-  dayjs.utc(time).local().format('YYYY-MM-DD HH:mm:ss')
 
 const sessionElement = ref<HTMLDivElement | null>(null)
 const isAutoScroll = ref(true)

@@ -6,8 +6,8 @@ use tauri_plugin_autostart::MacosLauncher;
 #[cfg(target_os = "windows")]
 use window_shadows::set_shadow;
 
-mod tray;
 mod commands;
+mod tray;
 
 fn main() {
     tauri::Builder::default()

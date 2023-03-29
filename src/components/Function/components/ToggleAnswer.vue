@@ -1,12 +1,14 @@
 <script setup lang="ts">
 const sessionStore = useSessionStore()
-const { updateSessionData } = sessionStore
+const { updateSessionData, changeLastSessionContent } = sessionStore
 const { isThinking, sessionDataList, chatController, currentSession } =
   storeToRefs(sessionStore)
 
 const handleClick = () => {
   if (isThinking.value) {
     chatController.value?.abort()
+
+    changeLastSessionContent('停止思考')
 
     updateSessionData(sessionDataList.value.at(-1)!)
   } else {
@@ -19,7 +21,10 @@ const handleClick = () => {
   <a-tooltip :content="isThinking ? '停止思考' : '重新回答'">
     <a-button
       type="text"
-      :disabled="!sessionDataList.length"
+      :disabled="
+        !sessionDataList.length ||
+        (isThinking && currentSession?.type === 'image')
+      "
       @click="handleClick"
     >
       <template #icon>

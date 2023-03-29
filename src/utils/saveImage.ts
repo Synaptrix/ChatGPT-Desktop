@@ -1,7 +1,6 @@
 import { getName } from '@tauri-apps/api/app'
 import { writeBinaryFile, BaseDirectory, copyFile } from '@tauri-apps/api/fs'
-import { appConfigDir, downloadDir } from '@tauri-apps/api/path'
-import { open } from '@tauri-apps/api/shell'
+import { appConfigDir, sep } from '@tauri-apps/api/path'
 import html2canvas from 'html2canvas'
 import type { ImageSize, SAVE_TYPE } from '@/types'
 
@@ -54,12 +53,14 @@ export const saveImageFromBase64 = async (base64: string) => {
 }
 
 export const saveImageFromFile = async (file: string) => {
+  const targetFile = `${await getName()}-${file}`
+
   // 把对应的图片复制到下载文件夹
-  await copyFile(`${await appConfigDir()}/${file}`, file, {
+  await copyFile(`${await appConfigDir()}${sep}${file}`, targetFile, {
     dir: BaseDirectory.Download
   })
 
-  open(await downloadDir())
+  openFilePath(targetFile)
 
   Message.success('下载成功')
 }
@@ -87,11 +88,11 @@ const writeImage = async (
   }
 
   // 用户下载的图片
-  const appName = await getName()
+  const path = `${await getName()}-${Date.now()}.png`
 
   await writeBinaryFile(
     {
-      path: `${appName}-${Date.now()}.png`,
+      path,
       contents: uint8Array
     },
     { dir: BaseDirectory.Download }
@@ -99,7 +100,7 @@ const writeImage = async (
     Message.error('图片导出失败，请重试！')
   })
 
-  open(await downloadDir())
+  openFilePath(path)
 
   Message.success('图片导出成功')
 }

@@ -39,6 +39,9 @@ const handleDoubleClick = () => {
 
       <!-- 设置界面 -->
       <Settings />
+
+      <!-- 更新 -->
+      <Update />
     </template>
   </div>
 </template>
