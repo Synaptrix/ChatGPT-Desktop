@@ -4,7 +4,9 @@ const { isMemory } = storeToRefs(useSettingsStore())
 
 const tokenUsage = ref(0)
 
-const tokenExceed = computed(() => tokenUsage.value > 3800)
+const tokenExceed = computed(
+  () => !!textAreaValue.value && tokenUsage.value > 3800
+)
 
 watch([textAreaValue, isMemory], async () => {
   // 角色描述字符数
