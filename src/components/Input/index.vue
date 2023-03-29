@@ -5,7 +5,7 @@ const recordStore = useSessionStore()
 const { isThinking, currentSession } = storeToRefs(recordStore)
 
 const roleStore = useRoleStore()
-const { currentRole, isEdit, textAreaValue, imageValue, popoverVisible } =
+const { currentRole, isEdit, textAreaValue, popoverVisible } =
   storeToRefs(roleStore)
 
 const textAreaElement = ref<HTMLTextAreaElement | null>(null)
@@ -74,16 +74,6 @@ onMounted(() => {
         clearable
         @keydown="onKeydown"
       ></a-textarea>
-      <div class="flex w-full" v-if="currentSession?.type === 'image'">
-        <a-select placeholder="选择生成的尺寸" v-model="imageValue.size">
-          <a-option>256x256</a-option>
-          <a-option>512x512</a-option>
-          <a-option>1024x1024</a-option>
-        </a-select>
-        <a-select placeholder="选择生成的数量" v-model="imageValue.number">
-          <a-option v-for="i in 10" :key="i + ''">{{ i }}</a-option>
-        </a-select>
-      </div>
     </div>
   </div>
 </template>

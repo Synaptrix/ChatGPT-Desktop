@@ -148,11 +148,11 @@ export const getAiIamge = async (value?: string) => {
       imageData = lastQuestion?.message.content
     } else {
       // 添加正常提问
-      const { imageValue } = useRoleStore()
+      const { imageParams } = useSessionStore()
 
       imageData = {
-        n: parseInt(imageValue.number),
-        size: imageValue.size,
+        n: imageParams.number,
+        size: imageParams.size,
         prompt: value,
         response_format: 'b64_json'
       }

@@ -18,6 +18,11 @@ export const useSessionStore = defineStore(
     const isThinking = ref(false)
     // 停止请求
     const chatController = ref<AbortController>()
+    // 图片的参数
+    const imageParams = reactive({
+      number: 1,
+      size: '256x256'
+    })
 
     // 获取会话列表
     const getSessionList = async () => {
@@ -188,6 +193,7 @@ export const useSessionStore = defineStore(
       isThinking,
       sessionList,
       chatController,
+      imageParams,
       addSessionData,
       updateSessionData,
       switchSession,
@@ -199,7 +205,7 @@ export const useSessionStore = defineStore(
   },
   {
     persist: {
-      paths: ['currentSession', 'sessionType']
+      paths: ['currentSession']
     }
   }
 )
