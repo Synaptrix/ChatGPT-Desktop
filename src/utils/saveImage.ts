@@ -1,5 +1,11 @@
 import { getName } from '@tauri-apps/api/app'
-import { writeBinaryFile, BaseDirectory, copyFile } from '@tauri-apps/api/fs'
+import {
+  writeBinaryFile,
+  BaseDirectory,
+  copyFile,
+  readDir,
+  createDir
+} from '@tauri-apps/api/fs'
 import { appConfigDir, sep } from '@tauri-apps/api/path'
 import html2canvas from 'html2canvas'
 import type { ImageSize, SAVE_TYPE } from '@/types'
@@ -56,9 +62,13 @@ export const saveImageFromFile = async (file: string) => {
   const targetFile = `${await getName()}-${file}`
 
   // 把对应的图片复制到下载文件夹
-  await copyFile(`${await appConfigDir()}${sep}${file}`, targetFile, {
-    dir: BaseDirectory.Download
-  })
+  await copyFile(
+    `${await appConfigDir()}${sep}images/${sep}${file}`,
+    targetFile,
+    {
+      dir: BaseDirectory.Download
+    }
+  )
 
   openFilePath(targetFile)
 
@@ -75,10 +85,16 @@ const writeImage = async (
   if (type === 'system') {
     if (!fileName) return
 
+    const folder = (await appConfigDir()) + sep + 'images'
+
+    await readDir(folder).catch(async () => {
+      await createDir(folder)
+    })
+
     // 生成的图片
     return await writeBinaryFile(
       {
-        path: fileName,
+        path: folder + sep + fileName,
         contents: uint8Array
       },
       { dir: BaseDirectory.AppConfig }

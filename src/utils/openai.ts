@@ -114,8 +114,8 @@ export const getAiMessage = async (value?: string) => {
     })
 
     await getOpenAIResultStreamApi(messages)
-  } catch (error: any) {
-    changeLastSessionContent(error)
+  } catch ({ message }: any) {
+    changeLastSessionContent(message)
 
     updateSessionData(sessionDataList.value.at(-1)!)
   } finally {

@@ -179,8 +179,8 @@ export const useSessionStore = defineStore(
     }
 
     // 修改最后一个对话内容
-    const changeLastSessionContent = (content: string) => {
-      if (!sessionDataList.value.at(-1)?.message.content || content) {
+    const changeLastSessionContent = (content = '未知错误') => {
+      if (!sessionDataList.value.at(-1)?.message.content) {
         sessionDataList.value.at(-1)!.message.content = content
       }
     }
