@@ -12,7 +12,6 @@ const isAutoScroll = ref(true)
  */
 const autoScroll = (isSmooth = false) => {
   if (!sessionElement.value || !isAutoScroll.value) return
-
   sessionElement.value.scroll({
     top: sessionElement.value.scrollHeight,
     behavior: isSmooth ? 'smooth' : 'auto'

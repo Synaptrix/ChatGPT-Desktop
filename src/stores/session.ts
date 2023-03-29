@@ -123,6 +123,15 @@ export const useSessionStore = defineStore(
       await updateSession(currentSession.value!)
     }
 
+    // 删除一条对话数据
+    const deleteSessionData = async (payload: SessionData) => {
+      const { id, session_id } = payload
+      const sql = `DELETE FROM session_data WHERE id = '${id}' AND session_id = '${session_id}';`
+      await executeSQL(sql)
+
+      getSessionData()
+    }
+
     // 更新会话信息
     const updateSession = async (payload: SessionPayload) => {
       const newPayload = { ...payload }
@@ -196,6 +205,7 @@ export const useSessionStore = defineStore(
       imageParams,
       addSessionData,
       updateSessionData,
+      deleteSessionData,
       switchSession,
       getSessionList,
       deleteSession,
