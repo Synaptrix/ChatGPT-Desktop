@@ -1,5 +1,5 @@
 import { invoke } from '@tauri-apps/api/tauri'
-import { downloadDir, sep } from '@tauri-apps/api/path'
+import { downloadDir } from '@tauri-apps/api/path'
 
 /**
  * 打开文件所在位置
@@ -7,6 +7,6 @@ import { downloadDir, sep } from '@tauri-apps/api/path'
  */
 export const openFilePath = async (file: string) => {
   await invoke('show_in_folder', {
-    path: (await downloadDir()) + sep + file
+    path: (await downloadDir()) + file
   })
 }

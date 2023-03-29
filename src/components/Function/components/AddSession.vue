@@ -31,7 +31,11 @@ const handleSelect = async (value: MessageType | any) => {
           </div>
           <div class="flex items-center gap-2">
             <span>数量：</span>
-            <a-radio-group v-model="imageParams.number" type="button">
+            <a-radio-group
+              v-model="imageParams.number"
+              type="button"
+              class="w-[168px] justify-between"
+            >
               <a-radio :value="1">1</a-radio>
               <a-radio :value="2">2</a-radio>
               <a-radio :value="3">3</a-radio>
