@@ -1,9 +1,12 @@
 <script lang="ts" setup>
 import MarkdownIt from 'markdown-it'
 import MarkdownItHighlight from 'markdown-it-highlightjs'
+import { emit } from '@tauri-apps/api/event'
 import type { SessionData } from '@/types'
 
-const { currentSession } = storeToRefs(useSessionStore())
+const store = useSessionStore()
+const { currentSession } = storeToRefs(store)
+const { deleteSessionData } = store
 
 const props = defineProps<{ data: SessionData }>()
 
@@ -33,6 +36,10 @@ const position = computed(() => (props.data.is_ask ? 'left' : 'right'))
           :id="`copy-${data.id}`"
           @click="copyText($event, { nodeId: `session-content-${data.id}` })"
         ></div>
+      </a-tooltip>
+
+      <a-tooltip content="删除" :position="position">
+        <icon-delete @click="deleteSessionData(data)" />
       </a-tooltip>
 
       <a-tooltip content="导出 Markdown 文件" :position="position">
@@ -84,7 +91,11 @@ const position = computed(() => (props.data.is_ask ? 'left' : 'right'))
         :key="index"
       >
         <div class="group/image text-0 relative w-full">
-          <img :src="`data:image/png;base64,${img.b64_json}`" class="w-full" />
+          <img
+            :src="`data:image/png;base64,${img.b64_json}`"
+            class="w-full"
+            @load="emit('scroll-to-bottom')"
+          />
           <div
             class="transition-300 absolute top-0 grid h-full w-full place-items-center bg-black/50 opacity-0 group-hover/image:opacity-100"
           >
