@@ -79,7 +79,7 @@ const position = computed(() => (props.data.is_ask ? 'left' : 'right'))
     <a-row class="-m-1" v-else>
       <a-col
         class="p-1"
-        :span="data.message.content.length > 2 ? 8 : 12"
+        :span="data.message.content.length === 3 ? 8 : 12"
         v-for="(img, index) in data.message.content"
         :key="index"
       >
