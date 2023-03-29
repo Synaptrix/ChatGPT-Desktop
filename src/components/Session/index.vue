@@ -19,19 +19,14 @@ const autoScroll = (isSmooth = false) => {
   })
 }
 
-/**
- * 滚轮事件
- * @param event 滚轮事件参数
- */
+// 滚轮事件
 const handleWheel = (event: WheelEvent) => {
   if (event.deltaY > 0) return
 
   isAutoScroll.value = false
 }
 
-/**
- * 滚动事件
- */
+// 滚动事件
 const handleScroll = () => {
   if (!sessionElement.value) return
 

@@ -83,7 +83,7 @@ const position = computed(() => (props.data.is_ask ? 'left' : 'right'))
         v-for="(img, index) in data.message.content"
         :key="index"
       >
-        <div class="group/image relative w-full">
+        <div class="group/image text-0 relative w-full">
           <img :src="`data:image/png;base64,${img.b64_json}`" class="w-full" />
           <div
             class="transition-300 absolute top-0 grid h-full w-full place-items-center bg-black/50 opacity-0 group-hover/image:opacity-100"
