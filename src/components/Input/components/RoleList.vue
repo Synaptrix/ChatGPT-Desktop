@@ -205,7 +205,7 @@ const handleClose = () => {
     }
 
     .arco-popover-content {
-      --uno: mt-0 flex-1 overflow-auto;
+      --uno: flex-1 overflow-auto;
     }
   }
 }

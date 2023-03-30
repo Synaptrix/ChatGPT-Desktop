@@ -125,9 +125,15 @@ export const useSessionStore = defineStore(
 
     // 删除一条对话数据
     const deleteSessionData = async (payload: SessionData) => {
-      const { id, session_id } = payload
-      const sql = `DELETE FROM session_data WHERE id = '${id}' AND session_id = '${session_id}';`
-      await executeSQL(sql)
+      if (sessionDataList.value.length === 1) {
+        await deleteSession()
+      } else {
+        const { id, session_id } = payload
+        const sql = `DELETE FROM session_data WHERE id = '${id}' AND session_id = '${session_id}';`
+        await executeSQL(sql)
+      }
+
+      Message.success('删除成功')
 
       getSessionData()
     }

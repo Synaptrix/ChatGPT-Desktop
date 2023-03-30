@@ -13,17 +13,19 @@ const handleSelect = (value: string) => {
 </script>
 
 <template>
-  <a-tooltip content="导出文件">
-    <a-dropdown @select="(value: any) => handleSelect(value)" position="top">
-      <a-button type="text" :disabled="disabled">
-        <template #icon>
-          <icon-download />
-        </template>
-      </a-button>
-      <template #content>
-        <a-doption value="image">导出图片</a-doption>
-        <!-- <a-doption value="markdown">导出 Markdown</a-doption> -->
+  <a-dropdown
+    trigger="hover"
+    @select="(value: any) => handleSelect(value)"
+    position="top"
+  >
+    <a-button type="text" :disabled="disabled">
+      <template #icon>
+        <icon-download />
       </template>
-    </a-dropdown>
-  </a-tooltip>
+    </a-button>
+    <template #content>
+      <a-doption value="image">导出图片</a-doption>
+      <!-- <a-doption value="markdown">导出 Markdown</a-doption> -->
+    </template>
+  </a-dropdown>
 </template>
