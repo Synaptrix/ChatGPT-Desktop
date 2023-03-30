@@ -10,7 +10,7 @@ const handleClick = () => {
 
     changeLastSessionContent('停止思考')
 
-    updateSessionData(sessionDataList.value.at(-1)!)
+    updateSessionData(getLastItem(sessionDataList.value))
   } else {
     currentSession.value?.type === 'text' ? getAiMessage() : getAiIamge()
   }

@@ -263,7 +263,7 @@ export const generalKeys = [
   symbol: symbol
     ? symbol
     : code.includes('Digit') || code.includes('Key')
-    ? code.at(-1)
+    ? code[code.length - 1]
     : code.toUpperCase()
 }))
 

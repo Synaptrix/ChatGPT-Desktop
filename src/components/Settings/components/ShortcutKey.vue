@@ -2,7 +2,7 @@
 const { shortcutKeys, isBinding } = storeToRefs(useSettingsStore())
 
 // 获取最后一位快捷键
-const lastShortcutKey = computed(() => shortcutKeys.value.at(-1) || '')
+const lastShortcutKey = computed(() => getLastItem(shortcutKeys.value) || '')
 
 // 绑定快捷键的元素
 const bindingElement = ref<HTMLElement | null>(null)

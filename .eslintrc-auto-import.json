@@ -38,6 +38,7 @@
     "getCurrentInstance": true,
     "getCurrentScope": true,
     "getKeySymbol": true,
+    "getLastItem": true,
     "getLocalTime": true,
     "getMemoryList": true,
     "getOpenAICreditApi": true,

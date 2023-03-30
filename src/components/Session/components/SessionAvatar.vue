@@ -1,9 +1,8 @@
 <script lang="ts" setup>
 import type { SessionData } from '@/types'
 import { estimateTokens } from '@/utils'
-import { ImageCost } from '@/constants'
 
-const props = defineProps<{
+defineProps<{
   data: SessionData
 }>()
 const { currentRole } = storeToRefs(useRoleStore())

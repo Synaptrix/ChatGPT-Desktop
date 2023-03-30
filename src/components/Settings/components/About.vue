@@ -3,7 +3,6 @@ import { getVersion, getName, getTauriVersion } from '@tauri-apps/api/app'
 import { type, arch, platform, version } from '@tauri-apps/api/os'
 import { writeText } from '@tauri-apps/api/clipboard'
 import { emit } from '@tauri-apps/api/event'
-import { open } from '@tauri-apps/api/shell'
 
 const appInfo = reactive({
   appName: '',

@@ -1,3 +1,4 @@
+import { nanoid } from 'nanoid'
 import type {
   SessionPayload,
   SessionData,
@@ -50,17 +51,15 @@ export const useSessionStore = defineStore(
 
     // 创建新会话
     const createNewSession = async () => {
-      if (!currentSession.value) return
-
       const defaultRole = (
         await selectSQL('role', [{ key: 'is_default', value: true }])
       )[0]
 
       currentSession.value = {
-        id: crypto.randomUUID(),
+        id: nanoid(),
         title: '',
         role_id: defaultRole.id,
-        type: currentSession.value.type
+        type: currentSession.value?.type || 'text'
       }
     }
 
@@ -176,10 +175,13 @@ export const useSessionStore = defineStore(
 
     // 新建或切换会话
     const switchSession = async (session?: SessionPayload) => {
-      if (!session) await createNewSession()
+      const { currentRole } = useRoleStore()
+
+      if (!session || !Object.keys(session).length || !currentRole)
+        await createNewSession()
       else {
         // !!!添加了新的字段后，旧的session可能不存在type字段，需要处理一下
-        if (!currentSession.value?.type) currentSession.value!.type = 'text'
+        if (!session?.type) session.type = 'text'
         currentSession.value = session
       }
 
@@ -195,8 +197,9 @@ export const useSessionStore = defineStore(
 
     // 修改最后一个对话内容
     const changeLastSessionContent = (content = '未知错误') => {
-      if (!sessionDataList.value.at(-1)?.message.content) {
-        sessionDataList.value.at(-1)!.message.content = content
+      const lastDate = getLastItem(sessionDataList.value)
+      if (!lastDate.message.content) {
+        lastDate.message.content = content
       }
     }
 
