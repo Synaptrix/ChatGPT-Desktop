@@ -4,11 +4,11 @@ import MarkdownItHighlight from 'markdown-it-highlightjs'
 import { emit } from '@tauri-apps/api/event'
 import type { SessionData } from '@/types'
 
+const props = defineProps<{ data: SessionData }>()
+
 const store = useSessionStore()
 const { currentSession } = storeToRefs(store)
 const { deleteSessionData } = store
-
-const props = defineProps<{ data: SessionData }>()
 
 const marked = new MarkdownIt({
   linkify: true
@@ -38,20 +38,27 @@ const position = computed(() => (props.data.is_ask ? 'left' : 'right'))
         ></div>
       </a-tooltip>
 
+      <a-popover class="session-data-download-popover" :position="position">
+        <icon-download />
+
+        <template #content>
+          <a-tooltip content="导出 Markdown">
+            <div
+              class="markdown"
+              :id="`markdown-${data.id}`"
+              @click="saveMarkdown($event, data.message.content)"
+            ></div>
+          </a-tooltip>
+
+          <a-tooltip content="导出图片">
+            <icon-image @click="saveImage(`session-data-${data.id}`)" />
+          </a-tooltip>
+        </template>
+      </a-popover>
+      <!-- </a-tooltip -->
+
       <a-tooltip content="删除" :position="position">
         <icon-delete @click="deleteSessionData(data)" />
-      </a-tooltip>
-
-      <a-tooltip content="导出 Markdown 文件" :position="position">
-        <div
-          class="markdown"
-          :id="`markdown-${data.id}`"
-          @click="saveMarkdown($event, data.message.content)"
-        ></div>
-      </a-tooltip>
-
-      <a-tooltip content="导出图片" :position="position">
-        <icon-image @click="saveImage(`session-data-${data.id}`)" />
       </a-tooltip>
     </div>
 
@@ -97,11 +104,15 @@ const position = computed(() => (props.data.is_ask ? 'left' : 'right'))
             @load="emit('scroll-to-bottom')"
           />
           <div
-            class="transition-300 absolute top-0 grid h-full w-full place-items-center bg-black/50 opacity-0 group-hover/image:opacity-100"
+            class="transition-300 absolute top-0 flex h-full w-full items-center justify-center gap-6 bg-black/50 opacity-0 group-hover/image:opacity-100"
           >
             <icon-download
-              class="text-10 cursor-pointer text-white"
+              class="text-8 cursor-pointer text-white opacity-70 hover:opacity-100"
               @click="saveImageFromFile(img.file)"
+            />
+            <icon-delete
+              class="text-8 cursor-pointer text-white opacity-70 hover:opacity-100"
+              @click="deleteSessionData(data)"
             />
           </div>
         </div>

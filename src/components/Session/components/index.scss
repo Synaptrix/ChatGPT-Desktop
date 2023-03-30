@@ -1,10 +1,9 @@
 .session-data {
   .operation {
     .copy {
-      background-color: var(--color-text-1);
-
       mask-image: url('@/assets/image/copy.svg');
       mask-size: contain;
+      --uno: bg-[var(--color-text-1)];
 
       &.copied {
         mask-image: url('@/assets/image/copied.svg');
@@ -12,16 +11,13 @@
     }
 
     .markdown {
-      background-color: var(--color-text-1);
-
       mask-image: url('@/assets/image/markdown.svg');
       mask-size: contain;
+      --uno: bg-[var(--color-text-1)];
     }
 
     > * {
-      cursor: pointer;
-
-      --uno: transition-300 h-6 w-6 opacity-70;
+      --uno: h-6 w-6 cursor-pointer opacity-70;
 
       &:hover {
         --uno: opacity-100;
@@ -65,7 +61,7 @@
 
     ol,
     ul {
-      --uno: flex flex-col gap-4 pl-5 list-disc ;
+      --uno: flex list-disc flex-col gap-4 pl-5;
 
       li {
         --uno: leading-6;
@@ -76,8 +72,8 @@
       }
     }
 
-    ol{
-      --uno: pl-8 list-decimal;
+    ol {
+      --uno: list-decimal pl-8;
     }
 
     &--ask {
@@ -89,6 +85,29 @@
     &--answer {
       a {
         --uno: text-[rgb(var(--primary-6))] hover:underline;
+      }
+    }
+  }
+}
+
+.session-data-download-popover {
+  .arco-trigger-content {
+    --uno: py-1 px-2;
+    .arco-popover-content {
+      --uno: flex gap-2;
+
+      .markdown {
+        mask-image: url('@/assets/image/markdown.svg');
+        mask-size: contain;
+        --uno: bg-[var(--color-text-1)];
+      }
+
+      > * {
+        --uno: h-6 w-6 cursor-pointer text-[var(--color-text-1)] opacity-70;
+
+        &:hover {
+          --uno: opacity-100;
+        }
       }
     }
   }
