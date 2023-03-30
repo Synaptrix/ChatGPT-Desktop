@@ -16,7 +16,6 @@
     "Ref": true,
     "VNode": true,
     "acceptHMRUpdate": true,
-    "calcImageSize": true,
     "computed": true,
     "copyCode": true,
     "copyText": true,

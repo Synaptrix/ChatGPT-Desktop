@@ -10,6 +10,24 @@ const store = useSessionStore()
 const { currentSession } = storeToRefs(store)
 const { deleteSessionData } = store
 
+const imageSpan = computed(() => {
+  if (props.data.message_type === 'image') {
+    switch (props.data.message.content.length) {
+      case 1:
+        return 24
+
+      case 2:
+        return 12
+
+      case 3:
+        return 8
+
+      case 4:
+        return 6
+    }
+  }
+})
+
 const marked = new MarkdownIt({
   linkify: true
 })
@@ -28,34 +46,34 @@ const position = computed(() => (props.data.is_ask ? 'left' : 'right'))
           ? 'left-0 -translate-x-full pr-2'
           : 'right-0 translate-x-full pl-2'
       "
-      v-if="data.message_type === 'text'"
     >
-      <a-tooltip content="复制" :position="position">
-        <div
-          class="copy"
-          :id="`copy-${data.id}`"
-          @click="copyText($event, { nodeId: `session-content-${data.id}` })"
-        ></div>
-      </a-tooltip>
+      <template v-if="data.message_type === 'text'">
+        <a-tooltip content="复制" :position="position">
+          <div
+            class="copy"
+            :id="`copy-${data.id}`"
+            @click="copyText($event, { nodeId: `session-content-${data.id}` })"
+          ></div>
+        </a-tooltip>
 
-      <a-popover class="session-data-download-popover" :position="position">
-        <icon-download />
+        <a-popover class="session-data-download-popover" :position="position">
+          <icon-download />
 
-        <template #content>
-          <a-tooltip content="导出 Markdown">
-            <div
-              class="markdown"
-              :id="`markdown-${data.id}`"
-              @click="saveMarkdown($event, data.message.content)"
-            ></div>
-          </a-tooltip>
+          <template #content>
+            <a-tooltip content="导出 Markdown">
+              <div
+                class="markdown"
+                :id="`markdown-${data.id}`"
+                @click="saveMarkdown($event, data.message.content)"
+              ></div>
+            </a-tooltip>
 
-          <a-tooltip content="导出图片">
-            <icon-image @click="saveImage(`session-data-${data.id}`)" />
-          </a-tooltip>
-        </template>
-      </a-popover>
-      <!-- </a-tooltip -->
+            <a-tooltip content="导出图片">
+              <icon-image @click="saveImage(`session-data-${data.id}`)" />
+            </a-tooltip>
+          </template>
+        </a-popover>
+      </template>
 
       <a-tooltip content="删除" :position="position">
         <icon-delete @click="deleteSessionData(data)" />
@@ -92,8 +110,8 @@ const position = computed(() => (props.data.is_ask ? 'left' : 'right'))
 
     <a-row class="-m-1" v-else>
       <a-col
-        class="p-1"
-        :span="data.message.content.length === 3 ? 8 : 12"
+        class="w-[221px] p-1"
+        :span="imageSpan"
         v-for="(img, index) in data.message.content"
         :key="index"
       >
@@ -107,12 +125,8 @@ const position = computed(() => (props.data.is_ask ? 'left' : 'right'))
             class="transition-300 absolute top-0 flex h-full w-full items-center justify-center gap-6 bg-black/50 opacity-0 group-hover/image:opacity-100"
           >
             <icon-download
-              class="text-8 cursor-pointer text-white opacity-70 hover:opacity-100"
+              class="text-10 cursor-pointer text-white opacity-70 hover:opacity-100"
               @click="saveImageFromFile(img.file)"
-            />
-            <icon-delete
-              class="text-8 cursor-pointer text-white opacity-70 hover:opacity-100"
-              @click="deleteSessionData(data)"
             />
           </div>
         </div>

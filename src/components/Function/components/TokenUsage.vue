@@ -44,5 +44,3 @@ watch([textAreaValue, isMemory], async () => {
     TK
   </div>
 </template>
-
-<style scoped lang="scss"></style>
