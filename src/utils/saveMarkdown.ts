@@ -10,7 +10,7 @@ export const saveMarkdown = async (event: MouseEvent, content: any) => {
     if (window[uuid]) return
     window[uuid] = uuid
 
-    const file = `${currentSession?.title}-${Date.now()}.md`
+    const file = `${currentSession?.title.slice(0, 10)}-${Date.now()}.md`
 
     await writeTextFile(file, content?.prompt || content, {
       dir: BaseDirectory.Download
