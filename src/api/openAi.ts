@@ -88,12 +88,12 @@ export const getOpenAIResultStreamApi = async (messages: MessageData[]) => {
 
         if (!choices[0].delta.content) return
 
-        sessionDataList.value.at(-1)!.message.content +=
+        getLastItem(sessionDataList.value).message.content +=
           choices[0].delta.content
       }
     },
     onclose() {
-      updateSessionData(sessionDataList.value.at(-1)!)
+      updateSessionData(getLastItem(sessionDataList.value!))
     },
     onerror({ message }: any) {
       throw new Error(message)

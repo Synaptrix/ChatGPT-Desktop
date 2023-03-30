@@ -18,6 +18,12 @@ fn main() {
             #[cfg(target_os = "windows")]
             set_shadow(&_app.get_window("main").unwrap(), true).expect("Unsupported platform!");
 
+            #[cfg(debug_assertions)] // only include this code on debug builds
+            {
+                let window = _app.get_window("main").unwrap();
+                window.open_devtools();
+            }
+
             Ok(())
         })
         .system_tray(tray::main_menu())

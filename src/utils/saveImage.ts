@@ -8,7 +8,7 @@ import {
 } from '@tauri-apps/api/fs'
 import { appConfigDir, sep } from '@tauri-apps/api/path'
 import html2canvas from 'html2canvas'
-import type { ImageSize, SAVE_TYPE } from '@/types'
+import type { SAVE_TYPE } from '@/types'
 
 /**
  * 下载图片
@@ -119,27 +119,4 @@ const writeImage = async (
   openFilePath(path)
 
   Message.success('图片导出成功')
-}
-
-export const calcImageSize = (base64: string): ImageSize | undefined => {
-  // base64 编码的图像
-  const url = `data:image/png;base64,${base64}}`
-
-  // 创建一个新的 Image 对象
-  const img = new Image()
-
-  // 将 URL 赋值给 Image 对象的 src 属性
-  img.src = url
-
-  // 在 Image 对象的 onload 事件中获取图像的宽度和高度
-  img.onload = () => {
-    // console.log(img.style)
-
-    const width = img.style
-    const height = img.height
-    // return `${width}x${height}`
-    return 0
-  }
-
-  return
 }

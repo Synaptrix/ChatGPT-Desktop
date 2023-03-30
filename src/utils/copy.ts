@@ -1,5 +1,6 @@
 import Clipboard from 'clipboard'
 import { writeText } from '@tauri-apps/api/clipboard'
+import { nanoid } from 'nanoid'
 
 type RulesArgs = [Array<{ content: string }>, number]
 
@@ -42,7 +43,7 @@ const renderCode = (originRule: (...args: RulesArgs) => string) => {
     return `
     <div class='relative'>
       ${originRendered}
-      <div class="${PLUGIN_CLASS}" data-clipboard-text="${copyContent}" data-uuid="${crypto.randomUUID()}" title="复制代码"></div>
+      <div class="${PLUGIN_CLASS}" data-clipboard-text="${copyContent}" data-uuid="${nanoid()}" title="复制代码"></div>
     </div>
     `
   }

@@ -8,6 +8,7 @@ import AutoImport from 'unplugin-auto-import/vite'
 import Components from 'unplugin-vue-components/vite'
 import { ArcoResolver } from 'unplugin-vue-components/resolvers'
 import { visualizer } from 'rollup-plugin-visualizer'
+import topLevelAwait from 'vite-plugin-top-level-await'
 
 export default defineConfig(async () => ({
   plugins: [
@@ -51,7 +52,13 @@ export default defineConfig(async () => ({
         })
       ]
     }),
-    visualizer()
+    visualizer(),
+    topLevelAwait({
+      // The export name of top-level await promise for each chunk module
+      promiseExportName: '__tla',
+      // The function to generate import names of top-level await promise in each chunk module
+      promiseImportName: (i) => `__tla_${i}`
+    })
   ],
   resolve: {
     alias: {
@@ -66,7 +73,7 @@ export default defineConfig(async () => ({
   },
   envPrefix: ['VITE_', 'TAURI_'],
   build: {
-    target: 'esnext',
+    target: process.env.TAURI_PLATFORM == 'windows' ? 'chrome105' : 'safari13',
     minify: !process.env.TAURI_DEBUG ? 'esbuild' : false,
     sourcemap: !!process.env.TAURI_DEBUG
   },

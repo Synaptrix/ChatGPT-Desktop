@@ -22,3 +22,8 @@ export const isObject = (value: any) => typeof value === 'object'
 export const NOOP = () => {
   /* empty */
 }
+
+/**
+ * 获取数组/字符串最后一个元素
+ */
+export const getLastItem = <T>(arr: T[]) => arr[arr.length - 1]

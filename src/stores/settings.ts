@@ -1,6 +1,7 @@
 import { register, unregisterAll } from '@tauri-apps/api/globalShortcut'
 import { appWindow } from '@tauri-apps/api/window'
 import { enable, disable } from 'tauri-plugin-autostart-api'
+import { nanoid } from 'nanoid'
 import type { THEME_MODE } from '@/types'
 
 export const useSettingsStore = defineStore(
@@ -84,7 +85,7 @@ export const useSettingsStore = defineStore(
 
       // 获取 uuid
       if (uuid.value) return
-      uuid.value = crypto.randomUUID()
+      uuid.value = nanoid()
     })
 
     // 监听快捷键更换

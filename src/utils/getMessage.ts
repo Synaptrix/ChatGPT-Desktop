@@ -73,7 +73,9 @@ export const getAiMessage = async (value?: string) => {
       // 重复上一次提问
       const { sessionDataList } = useSessionStore()
 
-      const lastQuestion = sessionDataList.filter((item) => item.is_ask).at(-1)
+      const lastQuestion = getLastItem(
+        sessionDataList.filter((item) => item.is_ask)
+      )
       if (!lastQuestion) return
 
       const deleteSql = `DELETE FROM session_data WHERE session_id = '${lastQuestion?.session_id}' AND id >= ${lastQuestion?.id};`
@@ -102,7 +104,7 @@ export const getAiMessage = async (value?: string) => {
 
     await addSessionData({
       isAsk: true,
-      data: messages.at(-1)!
+      data: getLastItem(messages)
     })
 
     await addSessionData({
@@ -115,9 +117,9 @@ export const getAiMessage = async (value?: string) => {
 
     await getOpenAIResultStreamApi(messages)
   } catch ({ message }: any) {
-    changeLastSessionContent(message)
+    changeLastSessionContent(message as string)
 
-    updateSessionData(sessionDataList.value.at(-1)!)
+    updateSessionData(getLastItem(sessionDataList.value!))
   } finally {
     isThinking.value = false
   }
@@ -128,6 +130,9 @@ export const getAiMessage = async (value?: string) => {
  * @param value 消息内容
  */
 export const getAiIamge = async (value?: string) => {
+  const key = getOpenAIKey()
+  if (!key) return
+
   const { isThinking, sessionDataList } = storeToRefs(useSessionStore())
   const { updateSessionData, changeLastSessionContent } = useSessionStore()
 
@@ -139,7 +144,9 @@ export const getAiIamge = async (value?: string) => {
       // 重复上一次提问
       const { sessionDataList } = useSessionStore()
 
-      const lastQuestion = sessionDataList.filter((item) => item.is_ask).at(-1)
+      const lastQuestion = getLastItem(
+        sessionDataList.filter((item) => item.is_ask)
+      )
       if (!lastQuestion) return
 
       const deleteSql = `DELETE FROM session_data WHERE session_id = '${lastQuestion?.session_id}' AND id >= ${lastQuestion?.id};`
@@ -191,11 +198,11 @@ export const getAiIamge = async (value?: string) => {
     }
 
     changeLastSessionContent(res.data)
-    updateSessionData(sessionDataList.value.at(-1)!)
+    updateSessionData(getLastItem(sessionDataList.value))
   } catch (error: any) {
     changeLastSessionContent('生成失败')
     updateSessionData({
-      ...sessionDataList.value.at(-1)!,
+      ...getLastItem(sessionDataList.value),
       message_type: 'text'
     })
   } finally {
