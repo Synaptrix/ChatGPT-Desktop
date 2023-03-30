@@ -21,7 +21,7 @@ export const useInit = () => {
       windowFocused.value = payload
 
       setTimeout(() => {
-        if (!windowFocused.value && !isFix.value) appWindow.hide()
+        if (!windowFocused.value && !isFix.value) hideWindow()
       }, 100)
     })
 

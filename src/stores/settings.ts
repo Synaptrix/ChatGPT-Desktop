@@ -1,6 +1,5 @@
 import { register, unregisterAll } from '@tauri-apps/api/globalShortcut'
 import { appWindow } from '@tauri-apps/api/window'
-import { hide, show } from '@tauri-apps/api/app'
 import { enable, disable } from 'tauri-plugin-autostart-api'
 import type { THEME_MODE } from '@/types'
 
@@ -57,13 +56,9 @@ export const useSettingsStore = defineStore(
             appWindow.center()
           }
 
-          appWindow.unminimize()
-          show() // macos 显示程序专用
-          appWindow.show()
-          appWindow.setFocus()
+          showWindow()
         } else {
-          hide() // macos 隐藏程序专用
-          appWindow.hide()
+          hideWindow()
         }
       })
     }
