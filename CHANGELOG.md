@@ -1,5 +1,34 @@
 
 
+# [1.0.0](https://github.com/ChatGPT-Desktop/ChatGPT-Desktop/compare/v0.0.8...v1.0.0) (2023-03-30)
+
+
+### Bug Fixes
+
+* file name too long ([87fbe1f](https://github.com/ChatGPT-Desktop/ChatGPT-Desktop/commit/87fbe1fb95bee206fe0f2260ab88e65e75f76701))
+* fix the bug that mac hide cannot be opened from the launch pad ([#137](https://github.com/ChatGPT-Desktop/ChatGPT-Desktop/issues/137)) ([bf7059d](https://github.com/ChatGPT-Desktop/ChatGPT-Desktop/commit/bf7059d35e5dd1331ca417f2381b74e5fa382198))
+
+
+### Features
+
+* add ai generate image ([7cd91dc](https://github.com/ChatGPT-Desktop/ChatGPT-Desktop/commit/7cd91dcd9842caf5f373f510774f9d2c61570dce))
+* add custom update notification ([#112](https://github.com/ChatGPT-Desktop/ChatGPT-Desktop/issues/112)) ([dcd826a](https://github.com/ChatGPT-Desktop/ChatGPT-Desktop/commit/dcd826adeddacad95e3ed903a3b5064bcf7613b0))
+* add show folder also select specify file ([#124](https://github.com/ChatGPT-Desktop/ChatGPT-Desktop/issues/124)) ([30cca03](https://github.com/ChatGPT-Desktop/ChatGPT-Desktop/commit/30cca0306f70f6764d68e71229a30a883f5fcf59))
+* allow delete single session data, close [#133](https://github.com/ChatGPT-Desktop/ChatGPT-Desktop/issues/133) ([#135](https://github.com/ChatGPT-Desktop/ChatGPT-Desktop/issues/135)) ([86fc1d6](https://github.com/ChatGPT-Desktop/ChatGPT-Desktop/commit/86fc1d6b6116150a75646fea8a1bd9d9c79a64de))
+* image generate and download ([a212a74](https://github.com/ChatGPT-Desktop/ChatGPT-Desktop/commit/a212a7467d1493109c564038610c4a56280cfc2d))
+
+
+### Performance Improvements
+
+* optimize image layout ([7995a9f](https://github.com/ChatGPT-Desktop/ChatGPT-Desktop/commit/7995a9fffa98e01498e4837bb83ef60124196fc1))
+* optimize image layout ([#134](https://github.com/ChatGPT-Desktop/ChatGPT-Desktop/issues/134)) ([0984df9](https://github.com/ChatGPT-Desktop/ChatGPT-Desktop/commit/0984df943fa4b469db376364a976a1cdebe3013c))
+* optimize the auto update ([#127](https://github.com/ChatGPT-Desktop/ChatGPT-Desktop/issues/127)) ([c73ec6b](https://github.com/ChatGPT-Desktop/ChatGPT-Desktop/commit/c73ec6bd907469df05a1bbb4c0df124735bf3d71))
+* optimize the display of images ([ba29a41](https://github.com/ChatGPT-Desktop/ChatGPT-Desktop/commit/ba29a41cf9e84a792e5d95c6d1f8072231627c3a))
+* optimize the style of image params ([#129](https://github.com/ChatGPT-Desktop/ChatGPT-Desktop/issues/129)) ([fefa556](https://github.com/ChatGPT-Desktop/ChatGPT-Desktop/commit/fefa55629752b346d3ed66f55c969c183e5c775a))
+* optimized error display ([#131](https://github.com/ChatGPT-Desktop/ChatGPT-Desktop/issues/131)) ([b717e67](https://github.com/ChatGPT-Desktop/ChatGPT-Desktop/commit/b717e67f945c6cb6f72f0ac62f48a9d71c045b4c))
+* optimized some styles ([#136](https://github.com/ChatGPT-Desktop/ChatGPT-Desktop/issues/136)) ([85aeda9](https://github.com/ChatGPT-Desktop/ChatGPT-Desktop/commit/85aeda9551d0276a806dbebca71ade6109e173d3))
+* update the style of the list ([4402a14](https://github.com/ChatGPT-Desktop/ChatGPT-Desktop/commit/4402a14413cc4623889d06c680515a30ac0eb3f2))
+
 ## [0.0.8](https://github.com/bilibili-ayang/ChatGPT-desktop/compare/v0.0.7...v0.0.8) (2023-03-26)
 
 

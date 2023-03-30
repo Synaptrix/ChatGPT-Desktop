@@ -48,9 +48,9 @@
 
 ## 下载
 
-- **Mac**: [Apple Silicon](https://github.com/ChatGPT-Desktop/ChatGPT-Desktop/releases/download/v0.0.8/ChatGPT-Desktop_0.0.8_aarch64.dmg) 或者 [Intel](https://github.com/ChatGPT-Desktop/ChatGPT-Desktop/releases/download/v0.0.8/ChatGPT-Desktop_0.0.8_x64.dmg)
-- **Windows**: [全平台](https://github.com/ChatGPT-Desktop/ChatGPT-Desktop/releases/download/v0.0.8/ChatGPT-Desktop_0.0.8_x64_zh-CN.msi)
-- **Linux**: [全平台](https://github.com/ChatGPT-Desktop/ChatGPT-Desktop/releases/download/v0.0.8/chat-gpt-desktop_0.0.8_amd64.deb)
+- **Mac**: [Apple Silicon](https://github.com/ChatGPT-Desktop/ChatGPT-Desktop/releases/download/v1.0.0/ChatGPT-Desktop_1.0.0_aarch64.dmg) 或者 [Intel](https://github.com/ChatGPT-Desktop/ChatGPT-Desktop/releases/download/v1.0.0/ChatGPT-Desktop_1.0.0_x64.dmg)
+- **Windows**: [全平台](https://github.com/ChatGPT-Desktop/ChatGPT-Desktop/releases/download/v1.0.0/ChatGPT-Desktop_1.0.0_x64_zh-CN.msi)
+- **Linux**: [全平台](https://github.com/ChatGPT-Desktop/ChatGPT-Desktop/releases/download/v1.0.0/chat-gpt-desktop_1.0.0_amd64.deb)
 
 <img src='./images/theme.gif' width="100%" />
 <img src='./images/home.png' />
