@@ -1,11 +1,16 @@
 <script setup lang="ts">
+import { invoke } from '@tauri-apps/api/tauri'
 const { isFix } = storeToRefs(useSettingsStore())
 
-const { isLoading, windowClass } = useInit()
+const { windowClass } = useInit()
 
 const handleDoubleClick = () => {
   isFix.value = !isFix.value
 }
+
+onMounted(() => {
+  invoke('close_splashscreen')
+})
 </script>
 
 <template>
@@ -22,26 +27,20 @@ const handleDoubleClick = () => {
       ></div>
     </a-tooltip>
 
-    <div class="flex h-full items-center justify-center" v-if="isLoading">
-      <a-spin :size="50" :loading="true" />
+    <!-- 会话信息 -->
+    <Session />
+
+    <div class="flex cursor-default flex-col gap-2 pt-2">
+      <!-- 功能区域 -->
+      <Function />
+      <!-- 输入框 -->
+      <Input />
     </div>
 
-    <template v-else>
-      <!-- 会话信息 -->
-      <Session />
+    <!-- 设置界面 -->
+    <Settings />
 
-      <div class="flex cursor-default flex-col gap-2 pt-2">
-        <!-- 功能区域 -->
-        <Function />
-        <!-- 输入框 -->
-        <Input />
-      </div>
-
-      <!-- 设置界面 -->
-      <Settings />
-
-      <!-- 更新 -->
-      <Update />
-    </template>
+    <!-- 更新 -->
+    <Update />
   </div>
 </template>

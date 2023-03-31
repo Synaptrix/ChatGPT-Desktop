@@ -1,4 +1,5 @@
 use std::process::Command;
+use tauri::Manager;
 
 #[tauri::command]
 pub async fn show_in_folder(path: String) {
@@ -46,4 +47,15 @@ pub async fn show_in_folder(path: String) {
     {
         Command::new("open").args(["-R", &path]).spawn().unwrap();
     }
+}
+
+// 页面加载
+#[tauri::command]
+pub fn close_splashscreen(window: tauri::Window) {
+  // 关闭启动视图
+  if let Some(splashscreen) = window.get_window("splashscreen") {
+    splashscreen.close().unwrap();
+  }
+  // 展示主视图
+  window.get_window("main").unwrap().show().unwrap();
 }

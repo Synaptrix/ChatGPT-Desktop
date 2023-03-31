@@ -84,7 +84,17 @@
         "decorations": false,
         "transparent": true,
         "center": true,
-        "alwaysOnTop": true
+        "alwaysOnTop": true,
+        "visible": false
+      },
+      {
+        "width": 400,
+        "height": 200,
+        "center": true,
+        "transparent": true,
+        "decorations": false,
+        "url": "splashscreen.html",
+        "label": "splashscreen"
       }
     ],
     "systemTray": {
