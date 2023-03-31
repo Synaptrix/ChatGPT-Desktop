@@ -7,6 +7,8 @@
 
   <h3>基于 tauri + vue3 开发的跨平台桌面端应用</h3>
 
+  <h4>注意：软件本身不提供 API KEY，需要自行准备</h4>
+
   <div>
     <a href="https://github.com/bilibili-ayang/ChatGPT-Desktop/releases/latest">
       <img alt="macOS" src="https://img.shields.io/badge/-macOS-black?style=flat-square&logo=apple&logoColor=white" />
@@ -42,6 +44,8 @@
 
 - 内置丰富的导出功能，更加便利的分享结果！
 
+- 软件支持自动更新和手动检查更新的功能，以便大家更方便地更新软件。
+
 - 将所有对话存储到本地，方便随时查阅，留在身边最安心。
 
 - 更多的好玩的功能，有待与你一起探索...
@@ -58,7 +62,9 @@
 <img src='./images/role-1.png' />
 <img src='./images/session-1.png' />
 <img src='./images/session-2.png' />
+<img src='./images/session-3.png' />
 <img src='./images/history.png' />
+<img src='./images/update.png' />
 
 ## 常见问题：
 
