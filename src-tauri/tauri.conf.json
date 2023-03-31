@@ -91,6 +91,7 @@
         "width": 400,
         "height": 200,
         "center": true,
+        "transparent": true,
         "decorations": false,
         "url": "splashscreen.html",
         "label": "splashscreen"
