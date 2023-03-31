@@ -1,9 +1,8 @@
 import { appWindow } from '@tauri-apps/api/window'
 import { type } from '@tauri-apps/api/os'
+import { invoke } from '@tauri-apps/api/tauri'
 
 export const useInit = () => {
-  const isLoading = ref(true)
-
   const windowClass = ref('')
 
   const { isFix, windowFocused } = storeToRefs(useSettingsStore())
@@ -11,7 +10,7 @@ export const useInit = () => {
   onMounted(async () => {
     await initSQL()
 
-    isLoading.value = false
+    invoke('close_splashscreen')
 
     useObserverLink()
 
@@ -51,5 +50,5 @@ export const useInit = () => {
     { immediate: true }
   )
 
-  return { isLoading, windowClass }
+  return { windowClass }
 }

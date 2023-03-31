@@ -88,13 +88,14 @@
         "visible": false
       },
       {
-        "width": 400,
-        "height": 200,
+        "width": 300,
+        "height": 300,
         "center": true,
         "transparent": true,
         "decorations": false,
         "url": "splashscreen.html",
-        "label": "splashscreen"
+        "label": "splashscreen",
+        "alwaysOnTop": true
       }
     ],
     "systemTray": {
