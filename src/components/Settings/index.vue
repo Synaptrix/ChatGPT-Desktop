@@ -1,8 +1,7 @@
 <script setup lang="ts">
 import { listen } from '@tauri-apps/api/event'
-import { type, OsType } from '@tauri-apps/api/os'
 
-const platform = ref<OsType>('Darwin')
+const { modalMaskStyle } = useModalStyle()
 
 const visible = ref(false)
 
@@ -10,8 +9,6 @@ onMounted(async () => {
   listen('open-settings', () => {
     visible.value = true
   })
-
-  platform.value = await type()
 })
 </script>
 
@@ -21,9 +18,7 @@ onMounted(async () => {
     class="settings-modal"
     :visible="visible"
     width="70%"
-    :mask-style="{
-      borderRadius: platform === 'Darwin' ? '0.75rem' : '0'
-    }"
+    :mask-style="modalMaskStyle"
     :footer="false"
     @ok="visible = false"
     @cancel="visible = false"

@@ -8,6 +8,8 @@ import { getVersion } from '@tauri-apps/api/app'
 import { relaunch } from '@tauri-apps/api/process'
 import { listen } from '@tauri-apps/api/event'
 
+const { modalMaskStyle } = useModalStyle()
+
 const visible = ref(false)
 
 const isDownload = ref(false)
@@ -85,6 +87,7 @@ onMounted(() => {
     :visible="visible"
     simple
     title="发现新版本可用 🥳"
+    :mask-style="modalMaskStyle"
     :ok-text="isDownload ? '正在更新' : '立即更新'"
     :cancel-text="isDownload ? '取消更新' : '稍后更新'"
     :mask-closable="false"
