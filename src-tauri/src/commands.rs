@@ -13,7 +13,6 @@ pub async fn show_in_folder(path: String) {
 
     #[cfg(target_os = "linux")]
     {
-        use std::fs;
         use std::fs::metadata;
         use std::path::PathBuf;
         if path.contains(",") {
@@ -52,10 +51,10 @@ pub async fn show_in_folder(path: String) {
 // 页面加载
 #[tauri::command]
 pub fn close_splashscreen(window: tauri::Window) {
-  // 关闭启动视图
-  if let Some(splashscreen) = window.get_window("splashscreen") {
-    splashscreen.close().unwrap();
-  }
-  // 展示主视图
-  window.get_window("main").unwrap().show().unwrap();
+    // 关闭启动视图
+    if let Some(splashscreen) = window.get_window("splashscreen") {
+        splashscreen.close().unwrap();
+    }
+    // 展示主视图
+    window.get_window("main").unwrap().show().unwrap();
 }

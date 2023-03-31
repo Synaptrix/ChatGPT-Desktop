@@ -2,7 +2,9 @@ use tauri::{AppHandle, CustomMenuItem, Manager, SystemTray, SystemTrayEvent, Sys
 
 // 加载菜单
 pub fn main_menu() -> SystemTray {
-    let tray_menu = SystemTrayMenu::new().add_item(CustomMenuItem::new("quit".to_string(), "退出"));
+    let tray_menu = SystemTrayMenu::new()
+        .add_item(CustomMenuItem::new("show".to_string(), "显示"))
+        .add_item(CustomMenuItem::new("quit".to_string(), "退出"));
 
     SystemTray::new().with_menu(tray_menu)
 }
@@ -20,6 +22,10 @@ pub fn handler(app: &AppHandle, event: SystemTrayEvent) {
             println!("右键点击图标");
         }
         SystemTrayEvent::MenuItemClick { id, .. } => match id.as_str() {
+            "show" => app.windows().values().for_each(|window| {
+                window.show().unwrap();
+                window.set_focus().unwrap();
+            }),
             "quit" => std::process::exit(0),
             _ => {}
         },
