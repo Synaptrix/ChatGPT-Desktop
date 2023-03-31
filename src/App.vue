@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { invoke } from '@tauri-apps/api/tauri'
 const { isFix } = storeToRefs(useSettingsStore())
 
 const { windowClass } = useInit()
@@ -7,10 +6,6 @@ const { windowClass } = useInit()
 const handleDoubleClick = () => {
   isFix.value = !isFix.value
 }
-
-onMounted(() => {
-  invoke('close_splashscreen')
-})
 </script>
 
 <template>

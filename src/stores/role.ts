@@ -63,7 +63,9 @@ export const useRoleStore = defineStore(
     }
 
     // 更新角色信息
-    const updateRole = async (payload: RolePayload) => {
+    const updateRole = async (payload?: RolePayload) => {
+      if (!payload) payload = currentRole.value!
+
       await updateSQL('role', payload)
 
       getRoleList()
