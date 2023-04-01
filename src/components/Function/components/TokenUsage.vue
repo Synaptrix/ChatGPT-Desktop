@@ -1,6 +1,7 @@
 <script setup lang="ts">
 const { currentRole, textAreaValue } = storeToRefs(useRoleStore())
 const { isMemory } = storeToRefs(useSettingsStore())
+const { currentSession, imageParams } = storeToRefs(useSessionStore())
 
 const tokenUsage = ref(0)
 
@@ -8,7 +9,18 @@ const tokenExceed = computed(
   () => !!textAreaValue.value && tokenUsage.value > 3800
 )
 
+const ImagePrices = {
+  '256x256': 0.016,
+  '512x512': 0.018,
+  '1024x1024': 0.02
+}
+
 watch([textAreaValue, isMemory], async () => {
+  if (currentSession.value?.type === 'image') {
+    const size = imageParams.value.size as keyof typeof ImagePrices
+    tokenUsage.value = ImagePrices[size] * imageParams.value.number
+    return
+  }
   // 角色描述字符数
   const roleTokens = estimateTokens(currentRole.value!.description)
 
@@ -24,6 +36,20 @@ watch([textAreaValue, isMemory], async () => {
 
   tokenUsage.value = textAreaTokens + roleTokens + memoryTokens
 })
+
+const showTipsToUsage = () => {
+  let tipStr =
+    currentSession.value?.type === 'image'
+      ? '图像模式：'
+      : isMemory.value
+      ? '记忆模式：'
+      : ''
+  return tipStr + '预计消耗'
+}
+const getUnit = () => {
+  const typeList: (string | undefined)[] = ['image', 'voice']
+  return typeList.includes(currentSession.value?.type) ? '$' : 'TK'
+}
 </script>
 
 <template>
@@ -31,7 +57,7 @@ watch([textAreaValue, isMemory], async () => {
     class="transition-300 opacity-0"
     :class="textAreaValue.length && 'opacity-100!'"
   >
-    {{ isMemory ? '记忆模式：' : '' }}预计消耗
+    {{ showTipsToUsage() }}
     <a-tooltip
       mini
       :popup-visible="tokenExceed"
@@ -41,6 +67,6 @@ watch([textAreaValue, isMemory], async () => {
         {{ tokenUsage }}
       </span>
     </a-tooltip>
-    TK
+    {{ getUnit() }}
   </div>
 </template>
