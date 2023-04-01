@@ -10,9 +10,9 @@ const tokenExceed = computed(
 )
 
 const ImagePrices = {
-  '256x256': 0.016,
-  '512x512': 0.018,
-  '1024x1024': 0.02
+  '256x256': 16,
+  '512x512': 18,
+  '1024x1024': 20
 }
 
 watch([textAreaValue, isMemory], async () => {
@@ -44,7 +44,7 @@ watch([imageParams.value], () => {
 
 const generateUsage = () => {
   const size = imageParams.value.size as keyof typeof ImagePrices
-  tokenUsage.value = ImagePrices[size] * imageParams.value.number
+  tokenUsage.value = (ImagePrices[size] * imageParams.value.number) / 1000
 }
 
 const showTipsToUsage = () => {
