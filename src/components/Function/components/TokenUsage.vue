@@ -17,8 +17,7 @@ const ImagePrices = {
 
 watch([textAreaValue, isMemory], async () => {
   if (currentSession.value?.type === 'image') {
-    const size = imageParams.value.size as keyof typeof ImagePrices
-    tokenUsage.value = ImagePrices[size] * imageParams.value.number
+    generateUsage()
     return
   }
   // 角色描述字符数
@@ -36,6 +35,17 @@ watch([textAreaValue, isMemory], async () => {
 
   tokenUsage.value = textAreaTokens + roleTokens + memoryTokens
 })
+
+watch([imageParams.value], () => {
+  if (currentSession.value?.type === 'image') {
+    generateUsage()
+  }
+})
+
+const generateUsage = () => {
+  const size = imageParams.value.size as keyof typeof ImagePrices
+  tokenUsage.value = ImagePrices[size] * imageParams.value.number
+}
 
 const showTipsToUsage = () => {
   let tipStr =
