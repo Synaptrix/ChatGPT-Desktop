@@ -2,13 +2,13 @@ import { register, unregisterAll } from '@tauri-apps/api/globalShortcut'
 import { appWindow } from '@tauri-apps/api/window'
 import { enable, disable } from 'tauri-plugin-autostart-api'
 import { nanoid } from 'nanoid'
-import type { THEME_MODE } from '@/types'
+import type { ThemeMode, TokenUnit } from '@/types'
 
 export const useSettingsStore = defineStore(
   'settingsStore',
   () => {
     // 主题
-    const themeMode = ref<THEME_MODE>('system')
+    const themeMode = ref<ThemeMode>('system')
 
     // 用户的唯一值
     const uuid = ref('')
@@ -42,8 +42,11 @@ export const useSettingsStore = defineStore(
     // modal设置参数
     const modalParams = reactive({ temperature: 0.6, max_tokens: 2000 })
 
-    // token 用量
+    // token
+    // 用量
     const isTokenUsage = ref(false)
+    // 单位
+    const tokenUnit = ref<TokenUnit>('TK')
 
     // 绑定快捷键
     const registerKey = async () => {
@@ -65,9 +68,9 @@ export const useSettingsStore = defineStore(
     }
 
     // 切换主题
-    const toggleTheme = async (theme: THEME_MODE = themeMode.value) => {
+    const toggleTheme = async (theme: ThemeMode = themeMode.value) => {
       if (theme === 'system') {
-        theme = (await appWindow.theme()) as THEME_MODE
+        theme = (await appWindow.theme()) as ThemeMode
       }
 
       document.body.setAttribute('arco-theme', theme)
@@ -133,6 +136,7 @@ export const useSettingsStore = defineStore(
       proxy,
       modalParams,
       isTokenUsage,
+      tokenUnit,
       toggleTheme
     }
   },
@@ -148,7 +152,8 @@ export const useSettingsStore = defineStore(
         'isRememberPosition',
         'proxy',
         'modalParams',
-        'isTokenUsage'
+        'isTokenUsage',
+        'tokenUnit'
       ]
     }
   }

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-const { apiKey, isMemory, modalParams, isTokenUsage } = storeToRefs(
+const { apiKey, isMemory, modalParams, isTokenUsage, tokenUnit } = storeToRefs(
   useSettingsStore()
 )
 
@@ -46,6 +46,10 @@ watch(
     <li>
       <i>Token 用量:</i>
       <a-switch v-model="isTokenUsage" type="round" />
+      <a-radio-group type="button" v-model="tokenUnit">
+        <a-radio value="TK">Token</a-radio>
+        <a-radio value="￠">美分(￠)</a-radio>
+      </a-radio-group>
     </li>
 
     <li>

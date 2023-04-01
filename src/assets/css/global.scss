@@ -14,6 +14,10 @@
       background-color: var(--scroll-thumb-color-hover);
     }
   }
+
+  &::selection {
+    background-color: #b4d0f6;
+  }
 }
 
 @font-face {

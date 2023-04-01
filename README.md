@@ -1,5 +1,5 @@
 <div align=center>
-  <a href='https://github.com/bilibili-ayang/ChatGPT-Desktop'>
+  <a href='https://github.com/Synaptrix/ChatGPT-Desktop'>
     <img height=100 src='./src-tauri/assets/icon.png' alt='icon' />
   </a>
 
@@ -10,21 +10,21 @@
   <h4>注意：软件本身不提供 API KEY，需要自行准备</h4>
 
   <div>
-    <a href="https://github.com/bilibili-ayang/ChatGPT-Desktop/releases/latest">
+    <a href="https://github.com/Synaptrix/ChatGPT-Desktop/releases/latest">
       <img alt="macOS" src="https://img.shields.io/badge/-macOS-black?style=flat-square&logo=apple&logoColor=white" />
     </a>
-    <a href="https://github.com/bilibili-ayang/ChatGPT-Desktop/releases/latest">
+    <a href="https://github.com/Synaptrix/ChatGPT-Desktop/releases/latest">
       <img alt="Windows" src="https://img.shields.io/badge/-Windows-blue?style=flat-square&logo=windows&logoColor=white" />
     </a>
-    <a href="https://github.com/bilibili-ayang/ChatGPT-Desktop/releases/latest">
+    <a href="https://github.com/Synaptrix/ChatGPT-Desktop/releases/latest">
       <img alt="Linux" src="https://img.shields.io/badge/-Linux-yellow?style=flat-square&logo=linux&logoColor=white" />
     </a>
   </div>
 
   <div>
-    <img src="https://img.shields.io/github/license/bilibili-ayang/ChatGPT-Desktop?style=flat-square" />
-    <img src="https://img.shields.io/github/package-json/v/bilibili-ayang/ChatGPT-Desktop?style=flat-square" />
-    <img src="https://img.shields.io/github/downloads/bilibili-ayang/ChatGPT-Desktop/total?style=flat-square" />
+    <img src="https://img.shields.io/github/license/Synaptrix/ChatGPT-Desktop?style=flat-square" />
+    <img src="https://img.shields.io/github/package-json/v/Synaptrix/ChatGPT-Desktop?style=flat-square" />
+    <img src="https://img.shields.io/github/downloads/Synaptrix/ChatGPT-Desktop/total?style=flat-square" />
   </div>
 </div>
 
@@ -133,12 +133,12 @@ npm run build:icon
 
 ## Star History
 
-[![Star History Chart](https://api.star-history.com/svg?repos=ChatGPT-Desktop/ChatGPT-Desktop&type=Date)](https://star-history.com/#ChatGPT-Desktop/ChatGPT-Desktop&Date)
+[![Star History Chart](https://api.star-history.com/svg?repos=Synaptrix/ChatGPT-Desktop&type=Date)](https://star-history.com/#Synaptrix/ChatGPT-Desktop&Date)
 
 ## Contributors
 
-<a href="https://github.com/bilibili-ayang/ChatGPT-Desktop/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=bilibili-ayang/ChatGPT-Desktop" />
+<a href="https://github.com/Synaptrix/ChatGPT-Desktop/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=Synaptrix/ChatGPT-Desktop" />
 </a>
 
 ## License
