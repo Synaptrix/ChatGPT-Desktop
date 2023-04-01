@@ -1,13 +1,7 @@
+<img src="https://socialify.git.ci/Synaptrix/ChatGPT-Desktop/image?description=1&descriptionEditable=%E5%9F%BA%E4%BA%8E%20tauri%20%2B%20vue3%20%E5%BC%80%E5%8F%91%E7%9A%84%20ChatGPT%20%E8%B7%A8%E5%B9%B3%E5%8F%B0%E5%AE%A2%E6%88%B7%E7%AB%AF%EF%BC%8C%E5%BF%AB%E6%8D%B7%E9%94%AE%E5%BF%AB%E9%80%9F%E5%94%A4%E9%86%92%E7%AA%97%E5%8F%A3%EF%BC%8C%E9%97%AE%E7%AD%94%E5%BF%AB%E4%BA%BA%E4%B8%80%E6%AD%A5%EF%BC%81&font=Inter&forks=1&logo=https%3A%2F%2Fraw.githubusercontent.com%2FSynaptrix%2FChatGPT-Desktop%2Fmaster%2Fsrc-tauri%2Fassets%2Ficon.png&name=1&owner=1&pattern=Circuit%20Board&stargazers=1&theme=Auto" alt="ChatGPT-Desktop"/>
+
 <div align=center>
-  <a href='https://github.com/Synaptrix/ChatGPT-Desktop'>
-    <img height=100 src='./src-tauri/assets/icon.png' alt='icon' />
-  </a>
-
-  <h1>ChatGPT-Desktop</h1>
-
-  <h3>基于 tauri + vue3 开发的跨平台桌面端应用</h3>
-
-  <h4>注意：软件本身不提供 API KEY，需要自行准备</h4>
+  <h3>注意：软件本身不提供 API KEY，需要自行准备</h3>
 
   <div>
     <a href="https://github.com/Synaptrix/ChatGPT-Desktop/releases/latest">
@@ -57,6 +51,11 @@
 - **Linux**: [全平台](https://github.com/ChatGPT-Desktop/ChatGPT-Desktop/releases/download/v1.0.0/chat-gpt-desktop_1.0.0_amd64.deb)
 
 <img src='./images/theme.gif' width="100%" />
+
+## 软件截图：
+
+<details>
+<summary>点击查看</summary>
 <img src='./images/home.png' />
 <img src='./images/settings.png' />
 <img src='./images/role-1.png' />
@@ -65,6 +64,7 @@
 <img src='./images/session-3.png' />
 <img src='./images/history.png' />
 <img src='./images/update.png' />
+</details>
 
 ## 常见问题：
 
@@ -72,6 +72,8 @@
 <summary>1. 我所在的地区有网络限制，怎么正常使用？</summary>
 
 可以使用我们提供的[解决方案](https://github.com/ChatGPT-Desktop/ChatGPT-Desktop-Porxy)
+
+详细部署教程：[Discord](https://discord.com/channels/1074429768063262791/1090723974650015857)
 
 </details>
 
