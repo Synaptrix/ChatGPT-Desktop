@@ -1,5 +1,5 @@
 import { fetch, type FetchOptions } from '@tauri-apps/api/http'
-import type { REQUEST_HOST } from '@/types'
+import type { RequestHost } from '@/types'
 
 /**
  * 普通请求
@@ -8,7 +8,7 @@ import type { REQUEST_HOST } from '@/types'
  */
 export const request = async (
   url: string,
-  options?: FetchOptions & { host?: REQUEST_HOST }
+  options?: FetchOptions & { host?: RequestHost }
 ) => {
   try {
     const { method = 'GET', headers, host = 'OPENAI' } = options || {}

@@ -52,7 +52,11 @@ const position = computed(() => (props.data.is_ask ? 'left' : 'right'))
           <div
             class="copy"
             :id="`copy-${data.id}`"
-            @click="copyText($event, { content: data.message.content })"
+            @click="
+              copyText($event, {
+                content: data.message.content?.prompt || data.message.content
+              })
+            "
           ></div>
         </a-tooltip>
 

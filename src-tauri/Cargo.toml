@@ -4,7 +4,7 @@ version = "1.0.0"
 description = "ChatGPT-Desktop"
 authors = ["orangelckc", "bilibili-ayang"]
 license = "MIT"
-repository = "https://github.com/bilibili-ayang/ChatGPT-Desktop"
+repository = "https://github.com/Synaptrix/ChatGPT-Desktop"
 edition = "2021"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html

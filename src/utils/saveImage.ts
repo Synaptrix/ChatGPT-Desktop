@@ -8,7 +8,7 @@ import {
 } from '@tauri-apps/api/fs'
 import { appConfigDir, sep } from '@tauri-apps/api/path'
 import html2canvas from 'html2canvas'
-import type { SAVE_TYPE } from '@/types'
+import type { SaveType } from '@/types'
 
 /**
  * 下载图片
@@ -77,7 +77,7 @@ export const saveImageFromFile = async (file: string) => {
 
 const writeImage = async (
   buffer: number[] | ArrayBuffer,
-  type: SAVE_TYPE,
+  type: SaveType,
   fileName?: string
 ) => {
   const uint8Array = new Uint8Array(buffer)

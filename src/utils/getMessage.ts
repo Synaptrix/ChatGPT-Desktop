@@ -8,8 +8,12 @@ const tokenizer = new GPT3Tokenizer({ type: 'gpt3' })
  * @param str 需要估算的字符串
  */
 export function estimateTokens(str: string): number {
+  const { tokenUnit } = useSettingsStore()
+
   const encoded: { bpe: number[]; text: string[] } = tokenizer.encode(str)
-  return encoded.bpe.length
+  const length = encoded.bpe.length
+
+  return tokenUnit === 'TK' ? length : Number((length * 0.0002).toFixed(3))
 }
 
 /**

@@ -103,7 +103,7 @@ onMounted(() => {
       <span>更新时间：{{ getLocalTime(updateManifest.date) }}</span>
       <span
         >更新详情：<a
-          href="https://github.com/bilibili-ayang/ChatGPT-Desktop/releases/latest"
+          href="https://github.com/Synaptrix/ChatGPT-Desktop/releases/latest"
           >Github</a
         ></span
       >
