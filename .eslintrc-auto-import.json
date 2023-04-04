@@ -100,6 +100,7 @@
     "showWindow": true,
     "specialKeys": true,
     "storeToRefs": true,
+    "throttle": true,
     "toRaw": true,
     "toRef": true,
     "toRefs": true,

@@ -6,7 +6,7 @@ import {
   readDir,
   createDir
 } from '@tauri-apps/api/fs'
-import { appConfigDir, sep } from '@tauri-apps/api/path'
+import { appConfigDir, downloadDir, sep } from '@tauri-apps/api/path'
 import html2canvas from 'html2canvas'
 import type { SaveType } from '@/types'
 
@@ -58,17 +58,27 @@ export const saveImageFromBase64 = async (base64: string) => {
   return fileName
 }
 
-export const saveImageFromFile = async (file: string) => {
-  const targetFile = `${await getName()}-${file}`
+export const saveImageFromFile = async (file: string, renderMd = false) => {
+  let targetFile = `${await getName()}-${file}`
+
+  if (renderMd) {
+    const folder = (await downloadDir()) + 'markdown-images'
+
+    await readDir(folder).catch(async () => {
+      await createDir(folder)
+    })
+
+    targetFile = folder + sep + file
+  }
 
   // 把对应的图片复制到下载文件夹
-  await copyFile(
-    `${await appConfigDir()}${sep}images/${sep}${file}`,
-    targetFile,
-    {
-      dir: BaseDirectory.Download
-    }
-  )
+  await copyFile(`${await appConfigDir()}images${sep}${file}`, targetFile, {
+    dir: BaseDirectory.Download
+  })
+
+  if (renderMd) {
+    return file
+  }
 
   openFilePath(targetFile)
 
@@ -85,7 +95,7 @@ const writeImage = async (
   if (type === 'system') {
     if (!fileName) return
 
-    const folder = (await appConfigDir()) + sep + 'images'
+    const folder = (await appConfigDir()) + 'images'
 
     await readDir(folder).catch(async () => {
       await createDir(folder)

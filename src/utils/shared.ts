@@ -1,3 +1,5 @@
+import { Timeout } from '@/types'
+
 /**
  * 判断数据是否为 null 或者 undefined
  * @param value 数据
@@ -27,3 +29,24 @@ export const NOOP = () => {
  * 获取数组/字符串最后一个元素
  */
 export const getLastItem = <T>(arr: T[]) => arr[arr.length - 1]
+
+/**
+ * 节流
+ * @param func 回调函数
+ * @param delay 延迟时间
+ */
+export const throttle = <T extends (...args: any[]) => void>(
+  func: T,
+  delay = 3000
+): T => {
+  let lastTime = 0
+
+  return ((...args: any[]) => {
+    const currentTime = Date.now()
+    if (currentTime - lastTime > delay) {
+      lastTime = currentTime
+
+      func.apply(this, args)
+    }
+  }) as T
+}

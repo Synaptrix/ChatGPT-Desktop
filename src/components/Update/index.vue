@@ -78,7 +78,7 @@ onMounted(() => {
 
   listen('update-app', () => checkUpdate(false))
 
-  setTimeout(checkUpdate, 1000 * 60 * 60 * 24)
+  setInterval(checkUpdate, 1000 * 60 * 60 * 24)
 })
 </script>
 

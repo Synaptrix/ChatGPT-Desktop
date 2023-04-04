@@ -69,8 +69,7 @@ const position = computed(() => (props.data.is_ask ? 'left' : 'right'))
             <a-tooltip content="导出 Markdown">
               <div
                 class="markdown"
-                :id="`markdown-${data.id}`"
-                @click="saveMarkdown($event, data.message.content)"
+                @click="saveMarkdown(data.message.content)"
               ></div>
             </a-tooltip>
 
