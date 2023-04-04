@@ -40,7 +40,8 @@ fn main() {
         }))
         .invoke_handler(tauri::generate_handler![
             commands::show_in_folder,
-            commands::close_splashscreen
+            commands::close_splashscreen,
+            commands::get_user_language
         ])
         .on_system_tray_event(tray::handler)
         .run(tauri::generate_context!())
