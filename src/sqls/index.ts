@@ -4,7 +4,7 @@ import { sep } from '@tauri-apps/api/path'
 import type { TableName, TablePayload, WherePayload } from '@/types'
 
 const dbFile = import.meta.env.DEV ? 'sql.dev.db' : 'sql.db'
-const db = await Database.load(`sqlite:${await appConfigDir()}${sep}${dbFile}`)
+const db = await Database.load(`sqlite:${await appConfigDir()}${dbFile}`)
 
 /**
  * sql 的字符串参数需要在加一个冒号
