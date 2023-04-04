@@ -1,12 +1,14 @@
 <a href="https://github.com/Synaptrix/ChatGPT-Desktop">
-  <img src="https://socialify.git.ci/Synaptrix/ChatGPT-Desktop/image?description=1&descriptionEditable=Blazingly%20fast%20launcher%20for%20ChatGPT%20API%2C%20%0Asupercharged%20and%20productivity%20Chat%20Assistant&forks=1&logo=https%3A%2F%2Fstorage.googleapis.com%2Fpai-images%2Fupscaled_image-8b9307c5-39ab-49fa-a858-528bdb28c90c.png&owner=1&pattern=Circuit%20Board&stargazers=1&theme=Auto" alt="ChatGPT-Desktop"/>
+  <img src="https://socialify.git.ci/Synaptrix/ChatGPT-Desktop/image?description=1&descriptionEditable=Blazingly%20fast%20launcher%20for%20ChatGPT%20API%2C%20supercharged%20and%20productivity%20Chat%20Assistant&font=Inter&forks=1&logo=https%3A%2F%2Fraw.githubusercontent.com%2FSynaptrix%2FChatGPT-Desktop%2Fmaster%2Fsrc-tauri%2Fassets%2Ficon.png&name=1&owner=1&pattern=Circuit%20Board&stargazers=1&theme=Auto" alt="ChatGPT-Desktop"/>
 </a>
 
-<h3 align="center">
-    English | <a href="./README-CN.md">中文介绍</a>
-</h3>
-
 <div align=center>
+  <br/>
+  <div>
+      English | <a href="./README-CN.md">中文</a>
+  </div>
+  <br/>
+
   <div>
     <a href="https://github.com/Synaptrix/ChatGPT-Desktop/releases/latest">
       <img alt="macOS" src="https://img.shields.io/badge/-macOS-black?style=flat-square&logo=apple&logoColor=white" />
