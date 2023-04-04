@@ -48,6 +48,9 @@ export const useSettingsStore = defineStore(
     // 单位
     const tokenUnit = ref<TokenUnit>('TK')
 
+    // 显示对话时间
+    const showTime = ref(false)
+
     // 绑定快捷键
     const registerKey = async () => {
       await unregisterAll()
@@ -137,6 +140,7 @@ export const useSettingsStore = defineStore(
       modalParams,
       isTokenUsage,
       tokenUnit,
+      showTime,
       toggleTheme
     }
   },
@@ -153,7 +157,8 @@ export const useSettingsStore = defineStore(
         'proxy',
         'modalParams',
         'isTokenUsage',
-        'tokenUnit'
+        'tokenUnit',
+        'showTime'
       ]
     }
   }

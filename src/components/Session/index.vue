@@ -2,6 +2,7 @@
 import { listen } from '@tauri-apps/api/event'
 
 const { sessionDataList, currentSession } = storeToRefs(useSessionStore())
+const { showTime } = storeToRefs(useSettingsStore())
 
 const sessionElement = ref<HTMLDivElement | null>(null)
 const isAutoScroll = ref(true)
@@ -74,7 +75,7 @@ watch([currentSession, sessionDataList], () => {
           class="relative flex w-[calc(100%-8rem)] flex-col gap-2"
           :class="item.is_ask && 'items-end'"
         >
-          <span class="text-xs text-[var(--color-text-2)]">
+          <span class="text-xs text-[var(--color-text-2)]" v-if="showTime">
             {{ getLocalTime(item.time!) }}
           </span>
 
