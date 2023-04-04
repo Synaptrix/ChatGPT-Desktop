@@ -31,7 +31,16 @@ const imageSpan = computed(() => {
 const marked = new MarkdownIt({
   linkify: true
 })
-  .use(MarkdownItHighlight)
+  .use(MarkdownItHighlight, {
+    register: {
+      vue: () => {
+        return {
+          name: 'vue',
+          subLanguage: ['html', 'xml', 'javascript', 'css']
+        }
+      }
+    }
+  })
   .use(copyCode)
 
 const position = computed(() => (props.data.is_ask ? 'left' : 'right'))
