@@ -20,7 +20,7 @@ watch(
   ([newValue]) => {
     if (newValue.length !== 51) return
 
-    getCredit()
+    // getCredit()
   },
   {
     immediate: true
@@ -77,7 +77,8 @@ watch(
     </li>
 
     <div class="flex justify-between text-sm text-[var(--color-text-3)]">
-      <div>账户余额：&dollar; {{ usedCredit }} / {{ totalCredit }}</div>
+      <!-- <div>账户余额：&dollar; {{ usedCredit }} / {{ totalCredit }}</div> -->
+      <div>余额查询暂不可用</div>
       <div>
         温馨提示：软件使用 <span class="mark">gpt-3.5-turbo-0301</span> 模型
       </div>

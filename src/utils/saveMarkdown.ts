@@ -1,10 +1,9 @@
+import { getName } from '@tauri-apps/api/app'
 import { writeTextFile, BaseDirectory } from '@tauri-apps/api/fs'
 
 export const saveMarkdown = throttle(async (content: any) => {
   try {
-    const { currentSession } = useSessionStore()
-
-    const file = `${currentSession?.title.slice(0, 10)}-${Date.now()}.md`
+    const file = `${await getName()}-${Date.now()}.md`
 
     await writeTextFile(file, content?.prompt || content, {
       dir: BaseDirectory.Download

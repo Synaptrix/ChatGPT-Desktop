@@ -120,11 +120,6 @@ export const useSettingsStore = defineStore(
       autoStart.value ? enable() : disable()
     })
 
-    // 监听显示设备变化时，重置窗口位置到中间，以防止窗口位置偏移到屏幕外
-    appWindow.onScaleChanged(() => {
-      appWindow.center()
-    })
-
     return {
       themeMode,
       uuid,
