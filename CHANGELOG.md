@@ -1,5 +1,33 @@
 
 
+## [1.0.1](https://github.com/Synaptrix/ChatGPT-Desktop/compare/v1.0.0...v1.0.1) (2023-04-04)
+
+
+### Bug Fixes
+
+* show folder error in linux ([d34dbc7](https://github.com/Synaptrix/ChatGPT-Desktop/commit/d34dbc733b03d89d55cacaf67aff0082d9394a70))
+
+
+### Features
+
+* adaptive window height, close [#147](https://github.com/Synaptrix/ChatGPT-Desktop/issues/147) ([#188](https://github.com/Synaptrix/ChatGPT-Desktop/issues/188)) ([4d9f234](https://github.com/Synaptrix/ChatGPT-Desktop/commit/4d9f2340b270af2dd796687f61b15a2fc94ee942))
+* add display tray menu item ([330898e](https://github.com/Synaptrix/ChatGPT-Desktop/commit/330898e703262a4eea29adfb9aaea755998a9e50))
+* add image mode usage tip,and done ([#161](https://github.com/Synaptrix/ChatGPT-Desktop/issues/161)) ([c0cdfa3](https://github.com/Synaptrix/ChatGPT-Desktop/commit/c0cdfa3e61aac146bf7b698f30556b51afaad115))
+* add vue code highlight ([2f7d200](https://github.com/Synaptrix/ChatGPT-Desktop/commit/2f7d200e203cb5314e3269a06e634de04753821d))
+* conversation time support hide, close [#184](https://github.com/Synaptrix/ChatGPT-Desktop/issues/184) ([#185](https://github.com/Synaptrix/ChatGPT-Desktop/issues/185)) ([b513f0b](https://github.com/Synaptrix/ChatGPT-Desktop/commit/b513f0be160ef8ca499233a2d530b25fbc67615b))
+* support session markdown export, close [#115](https://github.com/Synaptrix/ChatGPT-Desktop/issues/115) ([#187](https://github.com/Synaptrix/ChatGPT-Desktop/issues/187)) ([ce07ffd](https://github.com/Synaptrix/ChatGPT-Desktop/commit/ce07ffddf01f115c5deb5d9083c748f41d2be2d7))
+* support token unit switch ([#165](https://github.com/Synaptrix/ChatGPT-Desktop/issues/165)) ([10751c8](https://github.com/Synaptrix/ChatGPT-Desktop/commit/10751c818173c189a57e359e4e4a376dc4ca9bd2))
+* uniform modal style ([#150](https://github.com/Synaptrix/ChatGPT-Desktop/issues/150)) ([6ef4682](https://github.com/Synaptrix/ChatGPT-Desktop/commit/6ef468250473cf183635c9e0338aa7f0660f7925))
+
+
+### Performance Improvements
+
+* change the code highlight ([87a967b](https://github.com/Synaptrix/ChatGPT-Desktop/commit/87a967b7df0e12fb6ddab1921f515eea49fd2729))
+* optimize the software loading experience ([#153](https://github.com/Synaptrix/ChatGPT-Desktop/issues/153)) ([44857ff](https://github.com/Synaptrix/ChatGPT-Desktop/commit/44857fff07fd8ff86273e17a3495de4008d16e36))
+* support for modify role info during session, close [#140](https://github.com/Synaptrix/ChatGPT-Desktop/issues/140) ([#157](https://github.com/Synaptrix/ChatGPT-Desktop/issues/157)) ([fefbca7](https://github.com/Synaptrix/ChatGPT-Desktop/commit/fefbca7aacb5235d38303b84d44c9b443d6d19aa))
+* the copied content is markdown ([#156](https://github.com/Synaptrix/ChatGPT-Desktop/issues/156)) ([3604806](https://github.com/Synaptrix/ChatGPT-Desktop/commit/3604806e43ecf5b1aa98e341566ea4ebac9aacbd))
+* unify unrendered languages into html ([#182](https://github.com/Synaptrix/ChatGPT-Desktop/issues/182)) ([e8bb992](https://github.com/Synaptrix/ChatGPT-Desktop/commit/e8bb992d9287a2d8f2f317fa451cc449067907d7))
+
 # [1.0.0](https://github.com/ChatGPT-Desktop/ChatGPT-Desktop/compare/v0.0.8...v1.0.0) (2023-03-30)
 
 
