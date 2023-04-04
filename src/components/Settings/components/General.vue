@@ -1,7 +1,7 @@
 <script setup lang="ts">
 const settingsStore = useSettingsStore()
 const { toggleTheme } = settingsStore
-const { themeMode, autoStart, isRememberPosition, proxy } =
+const { themeMode, autoStart, isRememberPosition, proxy, showTime } =
   storeToRefs(settingsStore)
 
 const relaunch = () => {
@@ -47,9 +47,14 @@ const relaunch = () => {
     </li>
 
     <li>
+      <i>显示对话时间:</i>
+      <a-switch v-model="showTime" type="round" />
+    </li>
+
+    <li>
       <i>开启代理:</i>
       <a-switch v-model="proxy.bypass" type="round"></a-switch>
-      <!-- TODO: 提示文字可以在url改变后在出现，默认不出现 -->
+
       <span class="text-sm text-[var(--color-text-3)]">
         代理信息变化后，请点击<span
           class="mark cursor-pointer"
@@ -64,7 +69,10 @@ const relaunch = () => {
       <a-input v-model="proxy.url" placeholder="代理地址"></a-input>
     </li>
 
-    <div class="flex justify-end text-sm text-[var(--color-text-3)]">
+    <div
+      class="flex justify-end text-sm text-[var(--color-text-3)]"
+      v-show="proxy.bypass"
+    >
       示例：https://chatgpt.proxy.com<span class="mark">/api</span>
     </div>
   </ul>

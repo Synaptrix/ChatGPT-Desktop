@@ -54,7 +54,7 @@ watch(
 
     <li>
       <a-tooltip content="双击重置为默认值" mini position="right">
-        <i @dblclick="modalParams.temperature = 0.6">采样温度:</i>
+        <i @dblclick="modalParams.temperature = 0.6">思维发散程度:</i>
       </a-tooltip>
       <a-slider
         v-model="modalParams.temperature"
@@ -66,7 +66,7 @@ watch(
 
     <li>
       <a-tooltip content="双击重置为默认值" mini position="right">
-        <i @dblclick="modalParams.max_tokens = 2000">最大长度:</i>
+        <i @dblclick="modalParams.max_tokens = 2000">返回最大长度:</i>
       </a-tooltip>
       <a-slider
         v-model="modalParams.max_tokens"
