@@ -1,6 +1,5 @@
 import { appConfigDir } from '@tauri-apps/api/path'
 import Database from 'tauri-plugin-sql-api'
-import { sep } from '@tauri-apps/api/path'
 import type { TableName, TablePayload, WherePayload } from '@/types'
 
 const dbFile = import.meta.env.DEV ? 'sql.dev.db' : 'sql.db'

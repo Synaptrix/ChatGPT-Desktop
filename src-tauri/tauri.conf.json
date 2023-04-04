@@ -30,7 +30,8 @@
       "fs": {
         "all": true,
         "scope": [
-          "**"
+          "$APPCONFIG/**",
+          "$DOWNLOAD/**"
         ]
       }
     },

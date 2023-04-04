@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import MarkdownIt from 'markdown-it'
-import MarkdownItPrism from 'markdown-it-prism'
+import MarkdownItHighlight from 'markdown-it-highlightjs'
 import { emit } from '@tauri-apps/api/event'
 import type { SessionData } from '@/types'
 
@@ -31,9 +31,7 @@ const imageSpan = computed(() => {
 const marked = new MarkdownIt({
   linkify: true
 })
-  .use(MarkdownItPrism, {
-    defaultLanguage: 'html'
-  })
+  .use(MarkdownItHighlight)
   .use(copyCode)
 
 const position = computed(() => (props.data.is_ask ? 'left' : 'right'))
