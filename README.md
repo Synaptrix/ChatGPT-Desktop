@@ -1,4 +1,6 @@
-<img src="https://socialify.git.ci/Synaptrix/ChatGPT-Desktop/image?description=1&descriptionEditable=%E5%9F%BA%E4%BA%8E%20tauri%20%2B%20vue3%20%E5%BC%80%E5%8F%91%E7%9A%84%20ChatGPT%20%E8%B7%A8%E5%B9%B3%E5%8F%B0%E5%AE%A2%E6%88%B7%E7%AB%AF%EF%BC%8C%E5%BF%AB%E6%8D%B7%E9%94%AE%E5%BF%AB%E9%80%9F%E5%94%A4%E9%86%92%E7%AA%97%E5%8F%A3%EF%BC%8C%E9%97%AE%E7%AD%94%E5%BF%AB%E4%BA%BA%E4%B8%80%E6%AD%A5%EF%BC%81&font=Inter&forks=1&logo=https%3A%2F%2Fraw.githubusercontent.com%2FSynaptrix%2FChatGPT-Desktop%2Fmaster%2Fsrc-tauri%2Fassets%2Ficon.png&name=1&owner=1&pattern=Circuit%20Board&stargazers=1&theme=Auto" alt="ChatGPT-Desktop"/>
+<a href="https://github.com/Synaptrix/ChatGPT-Desktop">
+  <img src="https://socialify.git.ci/Synaptrix/ChatGPT-Desktop/image?description=1&descriptionEditable=%E5%9F%BA%E4%BA%8E%20tauri%20%2B%20vue3%20%E5%BC%80%E5%8F%91%E7%9A%84%20ChatGPT%20%E8%B7%A8%E5%B9%B3%E5%8F%B0%E5%AE%A2%E6%88%B7%E7%AB%AF%EF%BC%8C%E5%BF%AB%E6%8D%B7%E9%94%AE%E5%BF%AB%E9%80%9F%E5%94%A4%E9%86%92%E7%AA%97%E5%8F%A3%EF%BC%8C%E9%97%AE%E7%AD%94%E5%BF%AB%E4%BA%BA%E4%B8%80%E6%AD%A5%EF%BC%81&font=Inter&forks=1&logo=https%3A%2F%2Fraw.githubusercontent.com%2FSynaptrix%2FChatGPT-Desktop%2Fmaster%2Fsrc-tauri%2Fassets%2Ficon.png&name=1&owner=1&pattern=Circuit%20Board&stargazers=1&theme=Auto" alt="ChatGPT-Desktop"/>
+</a>
 
 <div align=center>
   <h3>注意：软件本身不提供 API KEY，需要自行准备</h3>
@@ -28,13 +30,13 @@
 
 - 我们使用 tauri 构建项目，使项目包更加小巧精简，资源占用更少，同时适配多个平台。
 
-- 提供了配置代理的功能，您可以通过设置代理来实现更加灵活的网络访问。
+- 我们提供了配置代理的功能，您可以通过设置代理来实现更加灵活的网络访问。
 
 - 可以选择让 app 常驻后台，快捷键(支持自定义)一键唤醒，节省时间，提高效率。
 
-- 支持多 session 对话，利用 GPT-3.5-turbo 的最新特性，配合记忆模式，随时继续上一次对话。
+- 支持多对话，利用 GPT-3.5-turbo 的最新特性，配合记忆模式，随时继续上一次对话。
 
-- 更便捷的管理和调试 prompt，构建你自己的角色预设库，使得对话更加个性化。
+- 更便捷的管理和调试 prompt 预设，构建你自己的角色预设库，使得对话更加个性化。
 
 - 内置丰富的导出功能，更加便利的分享结果！
 
@@ -122,10 +124,10 @@ npm run build:icon
 
 欢迎任何形式的贡献，包括但不限于：
 
-- 提交 issue
-- 提交 pull request
-- 提交 feature request
-- 提交 bug report
+- 提交 Issue
+- 提交 Pull request
+- 提交 Feature request
+- 提交 Bug report
 - 提交文档校订
 - 提交其他任何形式的贡献
 
