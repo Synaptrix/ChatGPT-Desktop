@@ -86,6 +86,7 @@
     "readonly": true,
     "ref": true,
     "request": true,
+    "resizeWindow": true,
     "resolveComponent": true,
     "saveImage": true,
     "saveImageFromBase64": true,

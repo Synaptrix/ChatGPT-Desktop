@@ -12,6 +12,8 @@ export const useInit = () => {
 
     invoke('close_splashscreen')
 
+    resizeWindow()
+
     useObserverLink()
 
     useDisableShortcuts()
@@ -22,6 +24,12 @@ export const useInit = () => {
       setTimeout(() => {
         if (!windowFocused.value && !isFix.value) hideWindow()
       }, 100)
+    })
+
+    // 监听显示设备变化时，重置窗口位置到中间，以防止窗口位置偏移到屏幕外
+    appWindow.onScaleChanged(() => {
+      resizeWindow()
+      appWindow.center()
     })
 
     if (import.meta.env.PROD) {
