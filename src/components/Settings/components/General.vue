@@ -1,6 +1,6 @@
 <script setup lang="ts">
 const settingsStore = useSettingsStore()
-const { toggleTheme } = settingsStore
+const { toggleTheme, setLanguage } = settingsStore
 const { themeMode, autoStart, isRememberPosition, proxy, showTime } =
   storeToRefs(settingsStore)
 
@@ -11,6 +11,8 @@ const relaunch = () => {
 
 <template>
   <ul class="general flex flex-col gap-4">
+    <button @click="setLanguage('zh')">zh</button>
+    <button @click="setLanguage('en')">en</button>
     <li>
       <i>唤醒窗口:</i>
       <ShortcutKey />

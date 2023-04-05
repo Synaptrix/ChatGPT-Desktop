@@ -1,0 +1,14 @@
+{
+    "history": {},
+    "session": {},
+    "setting": {},
+    "message": {},
+    "errors": {},
+    "tips": {
+        "input": {
+            "placeholder": "有什么问题尽管问我",
+            "isThinking": "AI 正在思考..."
+        }
+    },
+    "common": {}
+}

@@ -9,10 +9,12 @@ import Components from 'unplugin-vue-components/vite'
 import { ArcoResolver } from 'unplugin-vue-components/resolvers'
 import { visualizer } from 'rollup-plugin-visualizer'
 import topLevelAwait from 'vite-plugin-top-level-await'
+import VueI18nPlugin from '@intlify/unplugin-vue-i18n/vite'
 
 export default defineConfig(async () => ({
   plugins: [
     vue(),
+    VueI18nPlugin({}),
     Unocss({
       presets: [presetUno(), presetIcons(), presetAutoprefixer()],
       transformers: [
@@ -29,6 +31,7 @@ export default defineConfig(async () => ({
       imports: [
         'vue',
         'pinia',
+        'vue-i18n',
         {
           '@arco-design/web-vue': ['Message']
         }

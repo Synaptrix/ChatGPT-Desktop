@@ -7,4 +7,4 @@ import './assets/css/global.scss'
 
 const app = createApp(App)
 
-app.use(createPinia().use(piniaPluginPersistedstate)).mount('#app')
+app.use(i18n).use(createPinia().use(piniaPluginPersistedstate)).mount('#app')

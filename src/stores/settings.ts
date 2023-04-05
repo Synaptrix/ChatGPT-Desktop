@@ -2,7 +2,8 @@ import { register, unregisterAll } from '@tauri-apps/api/globalShortcut'
 import { appWindow } from '@tauri-apps/api/window'
 import { enable, disable } from 'tauri-plugin-autostart-api'
 import { nanoid } from 'nanoid'
-import type { ThemeMode, TokenUnit } from '@/types'
+import type { ThemeMode, TokenUnit, Locales } from '@/types'
+import { invoke } from '@tauri-apps/api/tauri'
 
 export const useSettingsStore = defineStore(
   'settingsStore',
@@ -79,7 +80,21 @@ export const useSettingsStore = defineStore(
       document.body.setAttribute('arco-theme', theme)
     }
 
+    // 当前显示语言
+    const currentLang = ref<string | undefined>()
+    const { locale } = useI18n({ useScope: 'global' })
+
+    // 语言切换
+    const setLanguage = async (lang?: Locales) => {
+      const systemLang = ((await invoke('get_user_language')) as string).split(
+        '-'
+      )[0] as string
+
+      locale.value = lang || currentLang.value || systemLang
+    }
+
     onMounted(() => {
+      setLanguage()
       toggleTheme()
 
       // 监听主题的变化
@@ -120,6 +135,11 @@ export const useSettingsStore = defineStore(
       autoStart.value ? enable() : disable()
     })
 
+    // 监听语言更改
+    watch(locale, (val) => {
+      currentLang.value = val as string
+    })
+
     return {
       themeMode,
       uuid,
@@ -136,7 +156,9 @@ export const useSettingsStore = defineStore(
       isTokenUsage,
       tokenUnit,
       showTime,
-      toggleTheme
+      currentLang,
+      toggleTheme,
+      setLanguage
     }
   },
   {
@@ -153,6 +175,7 @@ export const useSettingsStore = defineStore(
         'modalParams',
         'isTokenUsage',
         'tokenUnit',
+        'currentLang',
         'showTime'
       ]
     }
