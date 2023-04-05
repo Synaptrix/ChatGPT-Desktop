@@ -1,7 +1,7 @@
 <script setup lang="ts">
 const settingsStore = useSettingsStore()
 const { toggleTheme, setLanguage } = settingsStore
-const { themeMode, autoStart, isRememberPosition, proxy, showTime } =
+const { themeMode, autoStart, isRememberPosition, proxy, currentLang } =
   storeToRefs(settingsStore)
 
 const relaunch = () => {
@@ -11,11 +11,21 @@ const relaunch = () => {
 
 <template>
   <ul class="general flex flex-col gap-4">
-    <button @click="setLanguage('zh')">zh</button>
-    <button @click="setLanguage('en')">en</button>
     <li>
-      <i>唤醒窗口:</i>
-      <ShortcutKey />
+      <i>语言:</i>
+      <a-radio-group
+        v-model="currentLang"
+        type="button"
+        size="large"
+        @change="(value: any) => setLanguage(value)"
+      >
+        <a-radio value="zh">
+          <icon-chinese-fill />
+        </a-radio>
+        <a-radio value="en">
+          <icon-english-fill />
+        </a-radio>
+      </a-radio-group>
     </li>
 
     <li>
@@ -39,6 +49,11 @@ const relaunch = () => {
     </li>
 
     <li>
+      <i>唤醒窗口:</i>
+      <ShortcutKey />
+    </li>
+
+    <li>
       <i>开机自启动:</i>
       <a-switch v-model="autoStart" type="round" size="medium" />
     </li>
@@ -46,11 +61,6 @@ const relaunch = () => {
     <li>
       <i>记住窗口上次位置:</i>
       <a-switch v-model="isRememberPosition" type="round" />
-    </li>
-
-    <li>
-      <i>显示对话时间:</i>
-      <a-switch v-model="showTime" type="round" />
     </li>
 
     <li>

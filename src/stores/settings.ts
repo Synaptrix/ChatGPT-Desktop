@@ -52,6 +52,10 @@ export const useSettingsStore = defineStore(
     // 显示对话时间
     const showTime = ref(false)
 
+    // 当前显示语言
+    const currentLang = ref<string | undefined>()
+    const { locale } = useI18n({ useScope: 'global' })
+
     // 绑定快捷键
     const registerKey = async () => {
       await unregisterAll()
@@ -79,10 +83,6 @@ export const useSettingsStore = defineStore(
 
       document.body.setAttribute('arco-theme', theme)
     }
-
-    // 当前显示语言
-    const currentLang = ref<string | undefined>()
-    const { locale } = useI18n({ useScope: 'global' })
 
     // 语言切换
     const setLanguage = async (lang?: Locales) => {
