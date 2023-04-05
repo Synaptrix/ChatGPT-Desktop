@@ -1,6 +1,14 @@
 {
-  "history": {},
-  "session": {},
+  "history": {
+    "confirmDelete": "Are you sure you want to delete this conversation?",
+    "empty": "No history session yet",
+    "historyWith": "Session with {0}",
+    "searchPlaceholder": "search session",
+    "title": "session history"
+  },
+  "session": {
+    "sessionWith": "Talking to {0}"
+  },
   "setting": {
     "tab": {
       "common": "Common",
@@ -44,7 +52,10 @@
       "checkUpdate": "Check for updates"
     }
   },
-  "message": {},
+  "message": {
+    "pleaseFinishEdit": "Please complete the current edit first",
+    "titleRequire": "The title can not be blank"
+  },
   "errors": {},
   "tips": {
     "input": {
