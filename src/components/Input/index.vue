@@ -64,7 +64,11 @@ onMounted(() => {
         ref="textAreaElement"
         class="bordered bg-transparent!"
         :class="!textAreaValue && 'rounded-10'"
-        :placeholder="isThinking ? 'AI 正在思考...' : '有什么问题尽管问我'"
+        :placeholder="
+          isThinking
+            ? $t('tips.input.isThinking')
+            : $t('tips.input.placeholder')
+        "
         v-model="textAreaValue"
         :disabled="isThinking || isEdit"
         :auto-size="{
