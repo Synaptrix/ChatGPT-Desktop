@@ -3,7 +3,7 @@ import { getVersion, getName, getTauriVersion } from '@tauri-apps/api/app'
 import { type, arch, platform, version } from '@tauri-apps/api/os'
 import { writeText } from '@tauri-apps/api/clipboard'
 import { emit } from '@tauri-apps/api/event'
-
+const { t, locale } = useI18n()
 const appInfo = reactive({
   appName: '',
   appVersion: '',
@@ -22,9 +22,11 @@ const copyInfo = async () => {
     userAgent: navigator.userAgent
   }
 
-  await writeText('软件以及系统信息如下：' + JSON.stringify(info))
+  await writeText(
+    t('setting.about.softwareAndSystemInfo', { info: JSON.stringify(info) })
+  )
 
-  Message.success('复制成功')
+  Message.success(t('setting.about.copySuccess'))
 }
 
 const copyQQGroup = () => {
@@ -61,7 +63,7 @@ onMounted(async () => {
 
       <div class="flex items-center gap-2 text-[var(--color-text-2)]">
         <span> v{{ appInfo.appVersion }} </span>
-        <a-tooltip content="检查更新" mini>
+        <a-tooltip :content="`${t('setting.about.checkUpdate')}`" mini>
           <icon-refresh
             class="text-5 transition-300 cursor-pointer hover:text-[rgb(var(--primary-6))]"
             @click="emit('update-app')"
@@ -69,21 +71,27 @@ onMounted(async () => {
         </a-tooltip>
       </div>
 
-      <a-tooltip content="复制软件以及系统信息" mini>
-        <a class="cursor-pointer" @click="copyInfo">复制信息</a>
+      <a-tooltip :content="`${t('setting.about.copyTip')}`" mini>
+        <a class="cursor-pointer" @click="copyInfo">
+          {{ $t('setting.about.copy') }}
+        </a>
       </a-tooltip>
 
-      <a-tooltip content="请务必提供复制的信息" mini position="bottom">
+      <a-tooltip
+        :content="`${t('setting.about.feedbackTip')}`"
+        mini
+        position="bottom"
+      >
         <a
           class="text-[var(--color-text-3)]"
           href="https://github.com/ChatGPT-Desktop/ChatGPT-Desktop/issues/new"
         >
-          问题反馈
+          {{ $t('setting.about.feedback') }}
         </a>
       </a-tooltip>
     </a-col>
     <a-col :span="14" class="flex flex-col gap-3">
-      <span>仓库地址</span>
+      <span>{{ $t('setting.about.repository') }}</span>
       <a
         href="https://github.com/ChatGPT-Desktop/ChatGPT-Desktop"
         class="flex items-center gap-2"
@@ -92,13 +100,14 @@ onMounted(async () => {
         github
       </a>
 
-      <span>官方社区</span>
+      <span>{{ $t('setting.about.community') }}</span>
       <div class="flex gap-3">
         <a href="https://discord.gg/jg4waryfA6" class="flex items-center gap-2">
           <img src="@/assets/image/discord.svg" />
           Discord
         </a>
         <a
+          v-if="locale === 'zh'"
           href="https://qm.qq.com/cgi-bin/qm/qr?k=vhU6EACVQqfxoXlVKAWCBE_dXH_qpxn2&jump_from=webapi&authKey=YTGKMbApCUrmxHWV0te4NFBWbN7YQViDrTZPH8zIdIzZLgs4xLQhcKxgaCFwqSx2"
           class="flex items-center gap-2"
           @click="copyQQGroup"
@@ -109,7 +118,7 @@ onMounted(async () => {
       </div>
 
       <div class="flex flex-col gap-3" v-if="contributors.length">
-        <span>贡献者</span>
+        <span>{{ $t('setting.about.contributor') }}</span>
         <div class="max-h-30 flex flex-col gap-3 overflow-auto">
           <a
             v-for="item in contributors"

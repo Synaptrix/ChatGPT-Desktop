@@ -1,14 +1,56 @@
 {
-    "history": {},
-    "session": {},
-    "setting": {},
-    "message": {},
-    "errors": {},
-    "tips": {
-        "input": {
-            "placeholder": "有什么问题尽管问我",
-            "isThinking": "AI 正在思考..."
-        }
+  "history": {},
+  "session": {},
+  "setting": {
+    "tab": {
+      "common": "通用",
+      "model": "模型",
+      "about": "关于"
     },
-    "common": {}
+    "general": {
+      "language": "语言",
+      "theme": "主题",
+      "wake": "唤醒窗口",
+      "autoStart": "开机自启动",
+      "keepPosition": "记住窗口上次位置",
+      "proxy": "开启代理",
+      "proxyTip": "代理信息变化后，请点击{0}确保正常工作",
+      "restart": "重启",
+      "proxyAddress": "代理地址",
+      "example": "示例"
+    },
+    "model": {
+      "showTime": "显示对话时间",
+      "memory": "记忆模式",
+      "memoryTip": "开启记忆模式会加倍消耗 token",
+      "tokenUsage": "Token 用量",
+      "cents": "美分(￠)",
+      "divergenceOfThinking": "思维发散程度",
+      "maxLengthOfReturn": "返回最大长度",
+      "balance": "账户余额",
+      "balanceTip": "余额查询暂不可用",
+      "aiModelTip": "温馨提示：软件使用 {0} 模型"
+    },
+    "about": {
+      "copy": "复制信息",
+      "copyTip": "复制软件以及系统信息",
+      "feedback": "问题反馈",
+      "feedbackTip": "请务必提供复制的信息",
+      "repository": "仓库地址",
+      "community": "官方社区",
+      "contributor": "贡献者",
+      "copySuccess": "复制成功",
+      "softwareAndSystemInfo": "软件以及系统信息如下: {info}",
+      "checkUpdate": "检查更新"
+    }
+  },
+  "message": {},
+  "errors": {},
+  "tips": {
+    "input": {
+      "placeholder": "有什么问题尽管问我",
+      "isThinking": "AI 正在思考..."
+    }
+  },
+  "common": {}
 }

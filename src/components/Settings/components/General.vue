@@ -12,7 +12,7 @@ const relaunch = () => {
 <template>
   <ul class="general flex flex-col gap-4">
     <li>
-      <i>语言:</i>
+      <i>{{ $t('setting.general.language') }}:</i>
       <a-radio-group
         v-model="currentLang"
         type="button"
@@ -29,7 +29,7 @@ const relaunch = () => {
     </li>
 
     <li>
-      <i>主题:</i>
+      <i>{{ $t('setting.general.theme') }}:</i>
       <a-radio-group
         v-model="themeMode"
         type="button"
@@ -49,35 +49,35 @@ const relaunch = () => {
     </li>
 
     <li>
-      <i>唤醒窗口:</i>
+      <i>{{ $t('setting.general.wake') }}:</i>
       <ShortcutKey />
     </li>
 
     <li>
-      <i>开机自启动:</i>
+      <i>{{ $t('setting.general.autoStart') }}:</i>
       <a-switch v-model="autoStart" type="round" size="medium" />
     </li>
 
     <li>
-      <i>记住窗口上次位置:</i>
+      <i>{{ $t('setting.general.keepPosition') }}:</i>
       <a-switch v-model="isRememberPosition" type="round" />
     </li>
 
     <li>
-      <i>开启代理:</i>
+      <i>{{ $t('setting.general.proxy') }}:</i>
       <a-switch v-model="proxy.bypass" type="round"></a-switch>
 
       <span class="text-sm text-[var(--color-text-3)]">
-        代理信息变化后，请点击<span
-          class="mark cursor-pointer"
-          @click="relaunch"
-          >重启</span
-        >确保正常工作
+        <i18n-t keypath="setting.general.proxyTip" tag="label" for="restart">
+          <span class="mark cursor-pointer" @click="relaunch">{{
+            $t('setting.general.restart')
+          }}</span>
+        </i18n-t>
       </span>
     </li>
 
     <li v-show="proxy.bypass">
-      <i>代理地址:</i>
+      <i>{{ $t('setting.general.proxyAddress') }}:</i>
       <a-input v-model="proxy.url" placeholder="代理地址"></a-input>
     </li>
 
@@ -85,7 +85,10 @@ const relaunch = () => {
       class="flex justify-end text-sm text-[var(--color-text-3)]"
       v-show="proxy.bypass"
     >
-      示例：https://chatgpt.proxy.com<span class="mark">/api</span>
+      {{ $t('setting.general.example') }}：https://chatgpt.proxy.com<span
+        class="mark"
+        >/api</span
+      >
     </div>
   </ul>
 </template>

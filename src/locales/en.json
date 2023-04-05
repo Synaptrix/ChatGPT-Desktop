@@ -1,14 +1,56 @@
 {
-    "history": {},
-    "session": {},
-    "setting": {},
-    "message": {},
-    "errors": {},
-    "tips": {
-        "input": {
-            "placeholder": "Type to ask",
-            "isThinking": "AI is thinking"
-        }
+  "history": {},
+  "session": {},
+  "setting": {
+    "tab": {
+      "common": "Common",
+      "model": "Model",
+      "about": "About"
     },
-    "common": {}
+    "general": {
+      "language": "Language",
+      "theme": "Theme",
+      "wake": "Wake",
+      "autoStart": "Auto start",
+      "keepPosition": "Keep position",
+      "proxy": "Proxy",
+      "proxyTip": "After proxy information is changed, please click {0} to ensure normal operation",
+      "restart": "reboot",
+      "proxyAddress": "Proxy address",
+      "example": "e.g."
+    },
+    "model": {
+      "aiModelTip": "Reminder: The software uses the {0} model",
+      "balance": "Account Balance",
+      "balanceTip": "Balance inquiry is temporarily unavailable",
+      "cents": "cents (￠)",
+      "divergenceOfThinking": "Divergence of thinking",
+      "maxLengthOfReturn": "max length of return",
+      "memory": "memory mode",
+      "memoryTip": "Turning on the memory mode will double the token consumption",
+      "showTime": "Show time",
+      "tokenUsage": "Token usage"
+    },
+    "about": {
+      "community": "community",
+      "contributor": "contributor",
+      "copy": "copy",
+      "copySuccess": "copy successfully",
+      "copyTip": "Copy software and system information",
+      "feedback": "feedback",
+      "feedbackTip": "Be sure to provide the copied information",
+      "repository": "repository",
+      "softwareAndSystemInfo": "The software and system information are as follows: {info}",
+      "checkUpdate": "Check for updates"
+    }
+  },
+  "message": {},
+  "errors": {},
+  "tips": {
+    "input": {
+      "placeholder": "Type to ask",
+      "isThinking": "AI is thinking"
+    }
+  },
+  "common": {}
 }
