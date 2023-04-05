@@ -27,21 +27,21 @@ onMounted(async () => {
       <a-tab-pane key="1">
         <template #title>
           <icon-settings />
-          <span>通用</span>
+          <span>{{ $t('setting.tab.common') }}</span>
         </template>
         <General />
       </a-tab-pane>
       <a-tab-pane key="2">
         <template #title>
           <icon-bulb />
-          <span>模型</span>
+          <span>{{ $t('setting.tab.model') }}</span>
         </template>
-        <Modal />
+        <Model />
       </a-tab-pane>
       <a-tab-pane key="3">
         <template #title>
           <icon-info-circle />
-          <span>关于</span>
+          <span>{{ $t('setting.tab.about') }}</span>
         </template>
         <About />
       </a-tab-pane>

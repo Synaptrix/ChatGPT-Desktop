@@ -35,30 +35,32 @@ watch(
     </li>
 
     <li>
-      <i>显示对话时间:</i>
+      <i>{{ $t('setting.model.showTime') }}<span>:</span></i>
       <a-switch v-model="showTime" type="round" />
     </li>
 
     <li>
-      <i>记忆模式:</i>
+      <i>{{ $t('setting.model.memory') }}<span>:</span></i>
       <a-switch v-model="isMemory" type="round" />
-      <span class="text-sm text-[var(--color-text-3)]"
-        >开启记忆模式会加倍消耗 token</span
-      >
+      <span class="text-sm text-[var(--color-text-3)]">
+        {{ $t('setting.model.memoryTip') }}
+      </span>
     </li>
 
     <li>
-      <i>Token 用量:</i>
+      <i>{{ $t('setting.model.tokenUsage') }}<span>:</span></i>
       <a-switch v-model="isTokenUsage" type="round" />
       <a-radio-group type="button" v-model="tokenUnit">
         <a-radio value="TK">Token</a-radio>
-        <a-radio value="￠">美分(￠)</a-radio>
+        <a-radio value="￠">{{ $t('setting.model.cents') }}</a-radio>
       </a-radio-group>
     </li>
 
     <li>
       <a-tooltip content="双击重置为默认值" mini position="right">
-        <i @dblclick="modalParams.temperature = 0.6">思维发散程度:</i>
+        <i @dblclick="modalParams.temperature = 0.6">
+          {{ $t('setting.model.divergenceOfThinking') }}<span>:</span>
+        </i>
       </a-tooltip>
       <a-slider
         v-model="modalParams.temperature"
@@ -70,7 +72,9 @@ watch(
 
     <li>
       <a-tooltip content="双击重置为默认值" mini position="right">
-        <i @dblclick="modalParams.max_tokens = 2000">返回最大长度:</i>
+        <i @dblclick="modalParams.max_tokens = 2000">
+          {{ $t('setting.model.maxLengthOfReturn') }}<span>:</span>
+        </i>
       </a-tooltip>
       <a-slider
         v-model="modalParams.max_tokens"
@@ -81,11 +85,14 @@ watch(
     </li>
 
     <div class="flex justify-between text-sm text-[var(--color-text-3)]">
-      <!-- <div>账户余额：&dollar; {{ usedCredit }} / {{ totalCredit }}</div> -->
-      <div>余额查询暂不可用</div>
-      <div>
-        温馨提示：软件使用 <span class="mark">gpt-3.5-turbo-0301</span> 模型
-      </div>
+      <!-- <div>
+        {{ $t('setting.model.balance') }}<span>: </span>&dollar;
+        {{ usedCredit }} / {{ totalCredit }}
+      </div> -->
+      <div>{{ $t('setting.model.balanceTip') }}</div>
+      <i18n-t keypath="setting.model.aiModelTip" tag="label">
+        <span class="mark">gpt-3.5-turbo-0301</span>
+      </i18n-t>
     </div>
   </ul>
 </template>
