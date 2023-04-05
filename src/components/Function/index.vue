@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { emit } from '@tauri-apps/api/event'
-
+const { t } = useI18n()
 const { currentRole } = storeToRefs(useRoleStore())
 
 const { isThinking } = storeToRefs(useSessionStore())
@@ -23,13 +23,13 @@ const triggerScroll = () => {
 
     <!-- 当前聊天角色对象 -->
     <div>
-      正在与
-      <a-tooltip content="点我回到底部">
-        <span class="mark cursor-pointer" @click="triggerScroll">
-          {{ currentRole?.name }}
-        </span>
-      </a-tooltip>
-      对话
+      <i18n-t keypath="session.sessionWith" tag="label">
+        <a-tooltip content="点我回到底部">
+          <span class="mark cursor-pointer" @click="triggerScroll">
+            {{ currentRole?.name }}
+          </span>
+        </a-tooltip>
+      </i18n-t>
     </div>
 
     <!-- 功能按钮 -->
@@ -41,7 +41,7 @@ const triggerScroll = () => {
       <!-- 导出 -->
       <Export />
       <!-- 历史记录 -->
-      <a-tooltip content="历史记录">
+      <a-tooltip :content="`${t('history.title')}`">
         <a-button
           type="text"
           :disabled="isThinking"

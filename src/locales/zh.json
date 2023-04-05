@@ -1,6 +1,14 @@
 {
-  "history": {},
-  "session": {},
+  "history": {
+    "title": "会话记录",
+    "historyWith": "与{0}的会话",
+    "confirmDelete": "确定删除该会话吗？",
+    "empty": "暂无历史会话",
+    "searchPlaceholder": "搜索对话"
+  },
+  "session": {
+    "sessionWith": "正在与{0}对话"
+  },
   "setting": {
     "tab": {
       "common": "通用",
@@ -44,7 +52,10 @@
       "checkUpdate": "检查更新"
     }
   },
-  "message": {},
+  "message": {
+    "pleaseFinishEdit": "请先完成当前编辑",
+    "titleRequire": "标题不能为空"
+  },
   "errors": {},
   "tips": {
     "input": {

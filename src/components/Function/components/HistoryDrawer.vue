@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { SessionPayload } from '@/types'
-
+const { t } = useI18n()
 const props = defineProps<{ visible: boolean; setVisible: () => void }>()
 
 const sessionStore = useSessionStore()
@@ -22,7 +22,7 @@ const renderList = computed(() =>
 const isEdit = computed(() => sessionList.value.some((item) => item.isEdit))
 
 const handleClick = (item: SessionPayload) => {
-  if (isEdit.value) return Message.info('请先完成当前编辑')
+  if (isEdit.value) return Message.info(t('message.pleaseFinishEdit'))
 
   switchSession(item)
 
@@ -46,7 +46,7 @@ const handleOpen = () => {
 }
 
 const handleClose = () => {
-  if (isEdit.value) return Message.info('请先完成当前编辑')
+  if (isEdit.value) return Message.info(t('message.pleaseFinishEdit'))
 
   search.value = ''
 
@@ -54,13 +54,13 @@ const handleClose = () => {
 }
 
 const handleEdit = (item: SessionPayload) => {
-  if (isEdit.value) return Message.info(`请先完成当前编辑`)
+  if (isEdit.value) return Message.info(t('message.pleaseFinishEdit'))
 
   item.isEdit = true
 }
 
 const handleUpdate = (item: SessionPayload) => {
-  if (!item.title.trim()) return Message.info('标题不能为空')
+  if (!item.title.trim()) return Message.info(t('message.titleRequire'))
 
   item.isEdit = false
 
@@ -80,7 +80,7 @@ const handleUpdate = (item: SessionPayload) => {
     unmountOnClose
   >
     <!-- TODO:加入全部清除的按钮 -->
-    <template #title> 会话历史 </template>
+    <template #title> {{ $t('history.title') }} </template>
 
     <ul class="flex flex-col gap-2" v-if="renderList.length">
       <li
@@ -112,7 +112,11 @@ const handleUpdate = (item: SessionPayload) => {
               {{ item.title }}
             </div>
 
-            <div class="truncate">与 {{ item.name }} 的会话</div>
+            <div class="truncate">
+              <i18n-t keypath="history.historyWith" tag="label">
+                <span>{{ ` ${item.name} ` }}</span>
+              </i18n-t>
+            </div>
           </div>
 
           <div
@@ -123,7 +127,7 @@ const handleUpdate = (item: SessionPayload) => {
               <icon-edit @click="handleEdit(item)" />
               <a-popconfirm
                 type="error"
-                content="确定删除该会话吗？"
+                :content="t('history.confirmDelete')"
                 @ok="deleteSession(item)"
               >
                 <icon-delete />
@@ -139,14 +143,14 @@ const handleUpdate = (item: SessionPayload) => {
     </ul>
 
     <div class="flex h-full items-center" v-else>
-      <a-empty description="暂无历史会话" />
+      <a-empty :description="t('history.empty')" />
     </div>
 
     <template #footer>
       <a-input-search
         ref="searchRef"
         v-model="search"
-        placeholder="搜索对话"
+        :placeholder="t('history.searchPlaceholder')"
         allow-clear
       />
     </template>
