@@ -1,7 +1,6 @@
 <script setup lang="ts">
-const { apiKey, isMemory, modalParams, isTokenUsage, tokenUnit } = storeToRefs(
-  useSettingsStore()
-)
+const { apiKey, isMemory, modalParams, isTokenUsage, tokenUnit, showTime } =
+  storeToRefs(useSettingsStore())
 
 const totalCredit = ref(0)
 const usedCredit = ref(0)
@@ -33,6 +32,11 @@ watch(
     <li>
       <i>OpenAI API KEY:</i>
       <a-input-password v-model="apiKey" placeholder="OpenAI API KEY" />
+    </li>
+
+    <li>
+      <i>显示对话时间:</i>
+      <a-switch v-model="showTime" type="round" />
     </li>
 
     <li>

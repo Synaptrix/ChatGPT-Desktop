@@ -86,7 +86,10 @@ const calcToken = (data: SessionData) => {
       />
     </a-tooltip>
 
-    <span class="text-gray text-xs" v-if="isTokenUsage">
+    <span
+      class="text-gray w-13! whitespace-nowrap text-center text-xs"
+      v-if="isTokenUsage"
+    >
       {{ calcToken(data) }}
     </span>
 

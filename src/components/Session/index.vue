@@ -79,7 +79,11 @@ watch([currentSession, sessionDataList], () => {
             {{ getLocalTime(item.time!) }}
           </span>
 
-          <div class="blink-block" v-if="!item.message.content" />
+          <div
+            class="blink-block"
+            :class="[showTime ? 'p0' : 'py-4']"
+            v-if="!item.message.content"
+          />
 
           <SessionContent :data="item" v-else />
         </div>
