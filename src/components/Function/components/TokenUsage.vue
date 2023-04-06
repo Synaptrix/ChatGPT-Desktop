@@ -14,8 +14,8 @@ const tokenExceed = computed(
 
 watchEffect(async () => {
   if (currentSession.value?.type === 'image') {
-    const size = imageParams.value.size as keyof typeof ImageCost
-    const cost = ImageCost[size] * imageParams.value.number
+    const size = imageParams.value.size as keyof typeof IMAGE_COST
+    const cost = IMAGE_COST[size] * imageParams.value.number
 
     tokenUsage.value =
       tokenUnit.value === 'TK' ? cost : Number((cost * 0.0002).toFixed(3))

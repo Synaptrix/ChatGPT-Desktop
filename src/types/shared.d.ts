@@ -6,4 +6,4 @@ export type SaveType = 'system' | 'image' | 'markdown'
 
 export type TokenUnit = 'TK' | '￠'
 
-export type Locales = 'zh' | 'en'
+export type Locales = (typeof SUPPORT_LANGUAGE)[number]

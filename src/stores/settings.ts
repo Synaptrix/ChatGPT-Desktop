@@ -1,9 +1,9 @@
 import { register, unregisterAll } from '@tauri-apps/api/globalShortcut'
 import { appWindow } from '@tauri-apps/api/window'
 import { enable, disable } from 'tauri-plugin-autostart-api'
+import { invoke } from '@tauri-apps/api/tauri'
 import { nanoid } from 'nanoid'
 import type { ThemeMode, TokenUnit, Locales } from '@/types'
-import { invoke } from '@tauri-apps/api/tauri'
 
 export const useSettingsStore = defineStore(
   'settingsStore',
@@ -53,7 +53,7 @@ export const useSettingsStore = defineStore(
     const showTime = ref(false)
 
     // 当前显示语言
-    const currentLang = ref<string | undefined>()
+    const currentLang = ref<Locales>()
     const { locale } = useI18n({ useScope: 'global' })
 
     // 绑定快捷键
@@ -86,9 +86,13 @@ export const useSettingsStore = defineStore(
 
     // 语言切换
     const setLanguage = async (lang?: Locales) => {
-      const systemLang = ((await invoke('get_user_language')) as string).split(
+      let systemLang = ((await invoke('get_user_language')) as string).split(
         '-'
-      )[0] as string
+      )[0] as Locales
+
+      if (!SUPPORT_LANGUAGE.includes(systemLang)) {
+        systemLang = 'en'
+      }
 
       locale.value = lang || currentLang.value || systemLang
     }
@@ -137,7 +141,7 @@ export const useSettingsStore = defineStore(
 
     // 监听语言更改
     watch(locale, (val) => {
-      currentLang.value = val as string
+      currentLang.value = val as Locales
     })
 
     return {
