@@ -1,13 +1,14 @@
 {
   "history": {
     "title": "会话记录",
-    "historyWith": "与{0}的会话",
+    "chatWith": "与{name}的会话",
     "confirmDelete": "确定删除该会话吗？",
     "empty": "暂无历史会话",
     "searchPlaceholder": "搜索对话"
   },
   "session": {
-    "sessionWith": "正在与{0}对话"
+    "chatWith": "正在与{0}对话",
+    "chatTip": "点我回到底部"
   },
   "setting": {
     "tab": {
@@ -32,12 +33,13 @@
       "memory": "记忆模式",
       "memoryTip": "开启记忆模式会加倍消耗 token",
       "tokenUsage": "Token 用量",
-      "cents": "美分(￠)",
+      "cents": "美分￠",
       "divergenceOfThinking": "思维发散程度",
       "maxLengthOfReturn": "返回最大长度",
       "balance": "账户余额",
       "balanceTip": "余额查询暂不可用",
-      "aiModelTip": "温馨提示：软件使用 {0} 模型"
+      "aiModelTip": "温馨提示：软件使用 {0} 模型",
+      "apikey": "OpenAI API KEY"
     },
     "about": {
       "copy": "复制信息",
@@ -48,8 +50,11 @@
       "community": "官方社区",
       "contributor": "贡献者",
       "copySuccess": "复制成功",
-      "softwareAndSystemInfo": "软件以及系统信息如下: {info}",
+      "softwareAndSystemInfo": "软件以及系统信息如下:\n {info}",
       "checkUpdate": "检查更新"
+    },
+    "tip": {
+      "reset": "双击重置为默认值"
     }
   },
   "message": {

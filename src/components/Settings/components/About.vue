@@ -97,7 +97,7 @@ onMounted(async () => {
         class="flex items-center gap-2"
       >
         <img src="@/assets/image/github.svg" />
-        github
+        Github
       </a>
 
       <span>{{ $t('setting.about.community') }}</span>

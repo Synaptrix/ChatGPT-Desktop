@@ -67,7 +67,7 @@ const relaunch = () => {
       <i>{{ $t('setting.general.proxy') }}:</i>
       <a-switch v-model="proxy.bypass" type="round"></a-switch>
 
-      <span class="text-sm text-[var(--color-text-3)]">
+      <span class="text-sm text-[var(--color-text-3)]" v-if="proxy.bypass">
         <i18n-t keypath="setting.general.proxyTip" tag="label" for="restart">
           <span class="mark cursor-pointer" @click="relaunch">{{
             $t('setting.general.restart')
@@ -78,7 +78,10 @@ const relaunch = () => {
 
     <li v-show="proxy.bypass">
       <i>{{ $t('setting.general.proxyAddress') }}:</i>
-      <a-input v-model="proxy.url" placeholder="代理地址"></a-input>
+      <a-input
+        v-model="proxy.url"
+        :placeholder="$t('setting.general.proxyAddress')"
+      ></a-input>
     </li>
 
     <div
