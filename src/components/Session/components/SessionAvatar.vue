@@ -69,7 +69,7 @@ const calcToken = (data: SessionData) => {
     // // TODO 通过base64获得图片的大小
     // const size = calcImageSize(message.content[0].b64_json)
     // if (!size) return '0TK'
-    // return `${num * ImageCost[size]}TK`
+    // return `${num * IMAGE_COST[size]}TK`
   }
 }
 </script>

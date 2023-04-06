@@ -12,8 +12,10 @@ export enum HOST_URL {
   GITHUB = 'https://api.github.com'
 }
 
-export enum ImageCost {
+export enum IMAGE_COST {
   '256x256' = 8000,
   '512x512' = 9000,
   '1024x1024' = 10000
 }
+
+export const SUPPORT_LANGUAGE = ['zh', 'en'] as const
