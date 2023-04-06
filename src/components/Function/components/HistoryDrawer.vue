@@ -113,9 +113,7 @@ const handleUpdate = (item: SessionPayload) => {
             </div>
 
             <div class="truncate">
-              <i18n-t keypath="history.historyWith" tag="label">
-                <span>{{ ` ${item.name} ` }}</span>
-              </i18n-t>
+              <label>{{ $t('history.chatWith', { name: item.name }) }}</label>
             </div>
           </div>
 

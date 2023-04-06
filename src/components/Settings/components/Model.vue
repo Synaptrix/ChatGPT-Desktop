@@ -30,8 +30,11 @@ watch(
 <template>
   <ul class="modal flex flex-col gap-4">
     <li>
-      <i>OpenAI API KEY:</i>
-      <a-input-password v-model="apiKey" placeholder="OpenAI API KEY" />
+      <i>API KEY:</i>
+      <a-input-password
+        v-model="apiKey"
+        :placeholder="$t('setting.model.apikey')"
+      />
     </li>
 
     <li>
@@ -57,7 +60,7 @@ watch(
     </li>
 
     <li>
-      <a-tooltip content="双击重置为默认值" mini position="right">
+      <a-tooltip :content="$t('setting.tip.reset')" mini position="right">
         <i @dblclick="modalParams.temperature = 0.6">
           {{ $t('setting.model.divergenceOfThinking') }}<span>:</span>
         </i>
@@ -71,7 +74,7 @@ watch(
     </li>
 
     <li>
-      <a-tooltip content="双击重置为默认值" mini position="right">
+      <a-tooltip :content="$t('setting.tip.reset')" mini position="right">
         <i @dblclick="modalParams.max_tokens = 2000">
           {{ $t('setting.model.maxLengthOfReturn') }}<span>:</span>
         </i>

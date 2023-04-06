@@ -1,13 +1,14 @@
 {
   "history": {
-    "confirmDelete": "Are you sure you want to delete this conversation?",
-    "empty": "No history session yet",
-    "historyWith": "Session with {0}",
+    "confirmDelete": "Delete conversation?",
+    "empty": "No session found",
+    "chatWith": "Talking to {name}",
     "searchPlaceholder": "search session",
-    "title": "session history"
+    "title": "Session history"
   },
   "session": {
-    "sessionWith": "Talking to {0}"
+    "chatWith": "Talking to {0}",
+    "chatTip": "click to bottom"
   },
   "setting": {
     "tab": {
@@ -18,43 +19,47 @@
     "general": {
       "language": "Language",
       "theme": "Theme",
-      "wake": "Wake",
-      "autoStart": "Auto start",
-      "keepPosition": "Keep position",
+      "wake": "Shortcut",
+      "autoStart": "Auto Start",
+      "keepPosition": "Keep Position",
       "proxy": "Proxy",
-      "proxyTip": "After proxy information is changed, please click {0} to ensure normal operation",
-      "restart": "reboot",
-      "proxyAddress": "Proxy address",
+      "proxyTip": "{0} to apply new proxy.",
+      "restart": "Relaunch",
+      "proxyAddress": "Proxy URL",
       "example": "e.g."
     },
     "model": {
-      "aiModelTip": "Reminder: The software uses the {0} model",
+      "aiModelTip": "Tips: {0} intergrated.",
       "balance": "Account Balance",
-      "balanceTip": "Balance inquiry is temporarily unavailable",
-      "cents": "cents (￠)",
-      "divergenceOfThinking": "Divergence of thinking",
-      "maxLengthOfReturn": "max length of return",
-      "memory": "memory mode",
-      "memoryTip": "Turning on the memory mode will double the token consumption",
-      "showTime": "Show time",
-      "tokenUsage": "Token usage"
+      "balanceTip": " ",
+      "cents": "Cents￠",
+      "divergenceOfThinking": "Temperature",
+      "maxLengthOfReturn": "Max Tokens",
+      "memory": "Memory Mode",
+      "memoryTip": "Memory mode consumes more tokens.",
+      "showTime": "Display Time",
+      "tokenUsage": "Display Counter",
+      "apikey": "OpenAI API KEY"
     },
     "about": {
-      "community": "community",
-      "contributor": "contributor",
-      "copy": "copy",
-      "copySuccess": "copy successfully",
-      "copyTip": "Copy software and system information",
-      "feedback": "feedback",
-      "feedbackTip": "Be sure to provide the copied information",
-      "repository": "repository",
-      "softwareAndSystemInfo": "The software and system information are as follows: {info}",
-      "checkUpdate": "Check for updates"
+      "community": "Community",
+      "contributor": "Contributors",
+      "copy": "System Info",
+      "copySuccess": "Copied to clipboard",
+      "copyTip": "Click to copy",
+      "feedback": "Feedback",
+      "feedbackTip": "Please provide system information in feedback",
+      "repository": "Repository",
+      "softwareAndSystemInfo": "Software & system information:\n {info}",
+      "checkUpdate": "Update"
+    },
+    "tip": {
+      "reset": "Double click to reset"
     }
   },
   "message": {
-    "pleaseFinishEdit": "Please complete the current edit first",
-    "titleRequire": "The title can not be blank"
+    "pleaseFinishEdit": "Please complete editing first",
+    "titleRequire": "Empty title is not allowed"
   },
   "errors": {},
   "tips": {
