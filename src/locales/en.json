@@ -30,7 +30,7 @@
       "namePlaceholder": "Please enter a profile name",
       "pleaseSelect": "Please select a profile for the session",
       "pleaseType": "Please fill in the profile information",
-      "select": "Please a profle for the session",
+      "select": "Please select a profile for the session",
       "default": {
         "description": "Please return the answer in markdown form!",
         "name": "Q&A Bot"
@@ -39,7 +39,7 @@
     "empty": {
       "send": "Submit your question",
       "wakeUp": "Hide/Show app",
-      "wrap": "Add new line",
+      "wrap": "Add a line break",
       "role": "Type {0} before typing to switch profiles"
     },
     "imgConfig": {
@@ -71,7 +71,7 @@
       "example": "e.g."
     },
     "model": {
-      "aiModelTip": "Tips: {0} intergrated.",
+      "aiModelTip": "Model: {0} intergrated.",
       "balance": "Account Balance: ",
       "cents": "Cents￠",
       "divergenceOfThinking": "Temperature",
@@ -98,11 +98,11 @@
         "updateTime": "Updated: {0}",
         "updateVersion": "Updated to version: v{0} 👉",
         "version": "v{0}",
-        "newVersion": "Discover new version available 🥳",
+        "newVersion": "A newer version is available 🥳",
         "cancelUpdate": "Cancel update",
         "updateLater": "Update later",
         "updateNow": "Update immediately",
-        "updating": "Updating"
+        "updating": "Updating..."
       }
     },
     "tip": {
@@ -111,8 +111,8 @@
     "title": "Setting"
   },
   "message": {
-    "pleaseFinishEdit": "Please complete editing first",
-    "titleRequire": "Empty title is not allowed",
+    "pleaseFinishEdit": "Please finish the editing task before proceeding",
+    "titleRequire": "Title cannot be empty",
     "role": {
       "changeFail": "A profile is being edited and cannot be switched",
       "closeFail": "There is a profile in {action}, which cannot be closed",
@@ -122,7 +122,7 @@
       "emptyError": "Profile information cannot be empty",
       "deleteFail": "Sorry, the current profile has {sessionLength} historical sessions, which cannot be deleted directly!"
     },
-    "networkError": "There seems to be a problem with the network, please check your network settings",
+    "networkError": "It appears that there may be an issue with the network. Kindly verify your network configuration",
     "pleaseInsertOpenAiApiKey": "Please fill in the OpenAi API KEY first",
     "generationFailed": "Build failed",
     "loadImageFail": "Image loading failed, please try again!",
