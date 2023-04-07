@@ -25,6 +25,9 @@ const relaunch = () => {
         <a-radio value="en">
           <icon-english-fill />
         </a-radio>
+        <a-radio value="es">
+          <icon-english-fill />
+        </a-radio>
       </a-radio-group>
     </li>
 
