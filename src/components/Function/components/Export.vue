@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { sep } from '@tauri-apps/api/path'
 import type { SessionData } from '@/types'
+const { t } = useI18n()
 
 const { isThinking, sessionDataList, currentSession } = storeToRefs(
   useSessionStore()
@@ -12,9 +13,9 @@ const disabled = computed(
 )
 
 const getRoleName = (item: SessionData) => {
-  const name = item.is_ask ? '你' : currentRole.value?.name
+  const name = item.is_ask ? t('session.export.me') : currentRole.value?.name
 
-  return name + '：'
+  return name + ': '
 }
 
 const getMDContent = async (item: SessionData) => {
@@ -66,8 +67,10 @@ const handleSelect = async (value: string) => {
       </template>
     </a-button>
     <template #content>
-      <a-doption value="image">导出图片</a-doption>
-      <a-doption value="markdown"> 导出 Markdown </a-doption>
+      <a-doption value="image">{{ $t('session.export.image') }}</a-doption>
+      <a-doption value="markdown">
+        {{ $t('session.export.markdown') }}
+      </a-doption>
     </template>
   </a-dropdown>
 </template>

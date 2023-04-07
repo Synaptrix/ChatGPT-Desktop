@@ -49,7 +49,7 @@ const relaunch = () => {
     </li>
 
     <li>
-      <i>{{ $t('setting.general.wake') }}:</i>
+      <i>{{ $t('setting.general.wakeUp') }}:</i>
       <ShortcutKey />
     </li>
 

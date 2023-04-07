@@ -10,6 +10,8 @@ import { appConfigDir, downloadDir, sep } from '@tauri-apps/api/path'
 import html2canvas from 'html2canvas'
 import type { SaveType } from '@/types'
 
+const { t } = i18n.global
+
 /**
  * 下载图片
  * @param nodeRef
@@ -82,7 +84,7 @@ export const saveImageFromFile = async (file: string, renderMd = false) => {
 
   openFilePath(targetFile)
 
-  Message.success('下载成功')
+  Message.success(t('message.downloadSuccess'))
 }
 
 const writeImage = async (
@@ -109,7 +111,7 @@ const writeImage = async (
       },
       { dir: BaseDirectory.AppConfig }
     ).catch(() => {
-      Message.error('图片加载失败，请重试！')
+      Message.error(t('message.loadImageFail'))
     })
   }
 
@@ -123,10 +125,10 @@ const writeImage = async (
     },
     { dir: BaseDirectory.Download }
   ).catch(() => {
-    Message.error('图片导出失败，请重试！')
+    Message.error(t('message.exportImageFail'))
   })
 
   openFilePath(path)
 
-  Message.success('图片导出成功')
+  Message.success(t('message.exportImageSuccess'))
 }

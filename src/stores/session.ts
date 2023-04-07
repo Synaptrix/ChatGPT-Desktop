@@ -6,6 +6,8 @@ import type {
   MessageType
 } from '@/types'
 
+const { t } = i18n.global
+
 export const useSessionStore = defineStore(
   'sessionStore',
   () => {
@@ -132,7 +134,7 @@ export const useSessionStore = defineStore(
         await executeSQL(sql)
       }
 
-      Message.success('删除成功')
+      Message.success(t('message.deleteSuccess'))
 
       getSessionData()
     }
@@ -196,7 +198,7 @@ export const useSessionStore = defineStore(
     }
 
     // 修改最后一个对话内容
-    const changeLastSessionContent = (content = '未知错误') => {
+    const changeLastSessionContent = (content = t('session.unknowError')) => {
       const lastDate = getLastItem(sessionDataList.value)
       if (!lastDate.message.content) {
         lastDate.message.content = content

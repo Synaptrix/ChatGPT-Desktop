@@ -127,6 +127,8 @@ const handleUpdate = (item: SessionPayload) => {
                 type="error"
                 :content="t('history.confirmDelete')"
                 @ok="deleteSession(item)"
+                :ok-text="$t('common.confirm')"
+                :cancel-text="$t('common.cancel')"
               >
                 <icon-delete />
               </a-popconfirm>

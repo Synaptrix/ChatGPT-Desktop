@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { RolePayload } from '@/types'
-
+const { t } = useI18n()
 const roleStore = useRoleStore()
 const { getRoleList, updateRole, deleteRole, addRole } = roleStore
 const { currentRole, roleList, filterRoleList, popoverVisible, isEdit } =
@@ -32,15 +32,15 @@ const handleAdd = () => {
 
 const handleClick = () => {
   if (sessionDataList.value.length) {
-    Message.info({ content: '每个会话只能选择一个对话角色' })
+    Message.info({ content: t('message.role.roleUnique') })
 
     return
   }
 
   if (isAdd.value || isEdit.value) {
-    const action = isAdd.value ? '添加' : '编辑'
+    const action = isAdd.value ? t('common.add') : t('common.edit')
 
-    Message.info(`有角色正在${action}，无法关闭`)
+    Message.info(t('message.role.closeFail', { action }))
 
     return
   }
@@ -52,7 +52,7 @@ const handleSelect = (item: RolePayload) => {
   if (item.isEdit) return
 
   if (isEdit.value) {
-    Message.info(`有角色正在编辑，无法进行切换`)
+    Message.info(t('message.role.changeFail'))
 
     return
   }
@@ -67,7 +67,7 @@ const handleSelect = (item: RolePayload) => {
 
 const handleEdit = (item: RolePayload) => {
   if (isEdit.value) {
-    Message.info(`一次只能编辑一个角色`)
+    Message.info(t('message.role.editUnique'))
 
     return
   }
@@ -79,7 +79,7 @@ const handleUpdate = (item: RolePayload) => {
   const { name, description } = item
 
   if (!name.trim() || !description.trim()) {
-    Message.error('角色信息不能为空')
+    Message.error(t('message.role.emptyError'))
 
     return
   }
@@ -105,7 +105,7 @@ const handleClose = () => {
 <!-- TODO: 优化代码 -->
 <template>
   <a-popover
-    title="请选择对话的角色"
+    :title="$t('session.role.select')"
     class="role-popover w-full"
     trigger="click"
     :popup-visible="popoverVisible"
@@ -113,14 +113,18 @@ const handleClose = () => {
   >
     <template #title>
       <div class="flex items-center justify-between">
-        <span>{{ isAdd ? '请填写角色信息' : '请选择对话的角色' }}</span>
+        <span>{{
+          isAdd
+            ? $t('session.role.pleaseType')
+            : $t('session.role.pleaseSelect')
+        }}</span>
         <a-button type="outline" @click="handleAdd" v-if="!isAdd">
-          添加角色
+          {{ $t('session.role.add') }}
         </a-button>
       </div>
     </template>
 
-    <a-tooltip content="对话角色" position="tl">
+    <a-tooltip :content="$t('tips.role')" position="tl">
       <Avatar
         class="w-12! cursor-pointer"
         :value="currentRole?.name"
@@ -157,14 +161,14 @@ const handleClose = () => {
               <template v-else>
                 <a-input
                   v-model="item.name"
-                  placeholder="请输入角色名称"
+                  :placeholder="$t('session.role.namePlaceholder')"
                   allow-clear
                   auto-focus
                 />
 
                 <a-textarea
                   v-model="item.description"
-                  placeholder="请输入角色描述"
+                  :placeholder="$t('session.role.descriptionPlaceholder')"
                   auto-size
                   allow-clear
                 />
@@ -178,8 +182,10 @@ const handleClose = () => {
               <a-popconfirm
                 type="error"
                 position="tr"
-                content="确定删除该角色吗？"
+                :content="$t('session.role.confirmDelete')"
                 @ok="deleteRole(item.id!)"
+                :ok-text="$t('common.confirm')"
+                :cancel-text="$t('common.cancel')"
               >
                 <icon-delete />
               </a-popconfirm>

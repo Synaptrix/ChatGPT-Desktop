@@ -3,6 +3,8 @@ const { currentRole, textAreaValue } = storeToRefs(useRoleStore())
 const { isMemory, tokenUnit } = storeToRefs(useSettingsStore())
 const { currentSession, imageParams } = storeToRefs(useSessionStore())
 
+const { t } = useI18n()
+
 const tokenUsage = ref(0)
 
 const tokenExceed = computed(
@@ -43,11 +45,11 @@ watchEffect(async () => {
 const showTipsToUsage = () => {
   const tipStr =
     currentSession.value?.type === 'image'
-      ? '图像模式：'
+      ? t('session.imgMode') + '：'
       : isMemory.value
-      ? '记忆模式：'
+      ? t('session.memoryMode') + '：'
       : ''
-  return tipStr + '预计消耗'
+  return tipStr + t('session.forecastConsumption')
 }
 </script>
 

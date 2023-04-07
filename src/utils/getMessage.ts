@@ -1,6 +1,7 @@
 import GPT3Tokenizer from 'gpt3-tokenizer'
 import type { MessageData, SessionData } from '@/types'
 
+const { t } = i18n.global
 const tokenizer = new GPT3Tokenizer({ type: 'gpt3' })
 
 /**
@@ -41,7 +42,7 @@ export const getOpenAIKey = () => {
   const { apiKey } = useSettingsStore()
 
   if (!apiKey) {
-    Message.warning('请先填写 OpenAi API KEY')
+    Message.warning(t('message.pleaseInsertOpenAiApiKey'))
     return false
   }
 
@@ -204,7 +205,7 @@ export const getAiIamge = async (value?: string) => {
     changeLastSessionContent(res.data)
     updateSessionData(getLastItem(sessionDataList.value))
   } catch (error: any) {
-    changeLastSessionContent('生成失败')
+    changeLastSessionContent(t('message.generationFailed'))
     updateSessionData({
       ...getLastItem(sessionDataList.value),
       message_type: 'text'

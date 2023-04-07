@@ -89,7 +89,7 @@ watch(
 
     <div class="flex justify-between text-sm text-[var(--color-text-3)]">
       <!-- <div>
-        {{ $t('setting.model.balance') }}<span>: </span>&dollar;
+        {{ $t('setting.model.balance') }} &dollar;
         {{ usedCredit }} / {{ totalCredit }}
       </div> -->
       <div>{{ $t('setting.model.balanceTip') }}</div>

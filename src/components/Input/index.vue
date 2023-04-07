@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { appWindow } from '@tauri-apps/api/window'
 
+const { t } = useI18n()
+
 const recordStore = useSessionStore()
 const { isThinking, currentSession } = storeToRefs(recordStore)
 
@@ -13,7 +15,7 @@ const textAreaElement = ref<HTMLTextAreaElement | null>(null)
 const onKeydown = (event: KeyboardEvent) => {
   if (event.key === 'Enter') {
     if (isEdit.value) {
-      Message.info('请先完成角色的编辑')
+      Message.info(t('message.role.pleaseFinishRoleEdit'))
 
       return
     }

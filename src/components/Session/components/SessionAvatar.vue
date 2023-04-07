@@ -78,7 +78,7 @@ const calcToken = (data: SessionData) => {
   <div class="flex flex-col items-center gap-1">
     <Avatar class="w-13!" :value="uuid" v-if="data.is_ask" />
 
-    <a-tooltip content="点我编辑角色信息" position="tl" v-else>
+    <a-tooltip :content="$t('session.tip.editRole')" position="tl" v-else>
       <Avatar
         class="w-13! cursor-pointer"
         :value="currentRole?.name"
@@ -106,13 +106,18 @@ const calcToken = (data: SessionData) => {
       @cancel="handleCancel"
       v-if="currentRole"
     >
+      <!-- TODO 布局调整，英语的 label 对齐 -->
       <div class="flex flex-col gap-3">
         <div class="flex gap-2">
-          <span class="min-w-fit leading-[32px]">角色名称：</span>
+          <span class="min-w-fit leading-[32px]">{{
+            $t('session.editRole.name')
+          }}</span>
           <a-input v-model="currentRole.name" />
         </div>
         <div class="flex gap-2">
-          <span class="min-w-fit leading-[32px]">角色描述：</span>
+          <span class="min-w-fit leading-[32px]">{{
+            $t('session.editRole.description')
+          }}</span>
           <a-textarea
             v-model="currentRole.description"
             :auto-size="{

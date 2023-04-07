@@ -5,6 +5,8 @@ import {
 } from '@microsoft/fetch-event-source'
 import type { MessageData, ImageData } from '@/types'
 
+const { t } = i18n.global
+
 /**
  * 获取 openai 对话消息
  * @param messages 消息列表
@@ -75,11 +77,11 @@ export const getOpenAIResultStreamApi = async (messages: MessageData[]) => {
       if (response.ok) return
 
       if (response.status === 429) {
-        throw new Error('请求的 key 超出限制')
+        throw new Error(t('errors.keyOverLimit'))
       } else if (response.status === 401) {
-        throw new Error('请求的 API KEY 无效')
+        throw new Error(t('errors.disableApiKey'))
       } else {
-        throw new Error('请求出错')
+        throw new Error(t('errors.requestError'))
       }
     },
     onmessage(msg: EventSourceMessage) {
@@ -122,7 +124,7 @@ export const getOpenAICreditApi = async () => {
     const { isThinking } = useSessionStore()
 
     if (isThinking) {
-      return '请求的 API KEY 无效'
+      return t('errors.disableApiKey')
     }
   }
 }

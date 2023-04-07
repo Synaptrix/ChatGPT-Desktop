@@ -21,7 +21,7 @@ const handleSelect = async (value: MessageType | any) => {
     <template #content>
       <div class="flex flex-col gap-2">
         <div class="flex items-center">
-          <span>图片尺寸：</span>
+          <span> {{ $t('session.imgConfig.size') }}</span>
           <a-radio-group v-model="imageParams.size" type="button">
             <a-radio value="256x256">256</a-radio>
             <a-radio value="512x512">512</a-radio>
@@ -29,7 +29,7 @@ const handleSelect = async (value: MessageType | any) => {
           </a-radio-group>
         </div>
         <div class="flex items-center">
-          <span>图片数量：</span>
+          <span>{{ $t('session.imgConfig.num') }}</span>
           <a-radio-group
             v-model="imageParams.number"
             type="button"
@@ -52,8 +52,8 @@ const handleSelect = async (value: MessageType | any) => {
       </template>
     </a-button>
     <template #content>
-      <a-doption value="text">文本模式</a-doption>
-      <a-doption value="image">图像模式</a-doption>
+      <a-doption value="text">{{ $t('session.textMode') }}</a-doption>
+      <a-doption value="image">{{ $t('session.imgMode') }}</a-doption>
     </template>
   </a-dropdown>
 </template>

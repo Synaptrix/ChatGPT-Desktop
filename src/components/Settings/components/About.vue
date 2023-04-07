@@ -26,7 +26,7 @@ const copyInfo = async () => {
     t('setting.about.softwareAndSystemInfo', { info: JSON.stringify(info) })
   )
 
-  Message.success(t('setting.about.copySuccess'))
+  Message.success(t('tips.copySuccess'))
 }
 
 const copyQQGroup = () => {

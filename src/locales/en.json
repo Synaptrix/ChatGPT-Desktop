@@ -1,6 +1,6 @@
 {
   "history": {
-    "confirmDelete": "Delete conversation?",
+    "confirmDelete": "Delete session?",
     "empty": "No session found",
     "chatWith": "Talking to {name}",
     "searchPlaceholder": "search session",
@@ -8,7 +8,49 @@
   },
   "session": {
     "chatWith": "Talking to {0}",
-    "chatTip": "click to bottom"
+    "chatTip": "Click to bottom",
+    "regenerate": "Re answer",
+    "stopGenerate": "Stop thinking",
+    "export": {
+      "image": "Export image",
+      "markdown": "Export Markdown",
+      "me": "Me"
+    },
+    "tip": {
+      "editRole": "Click me to edit role"
+    },
+    "editRole": {
+      "description": "Description:",
+      "name": "Name:"
+    },
+    "role": {
+      "add": "add role",
+      "confirmDelete": "Are you sure you want to delete this role?",
+      "descriptionPlaceholder": "Please enter a role description",
+      "namePlaceholder": "Please enter a role name",
+      "pleaseSelect": "Please select a character for the session",
+      "pleaseType": "Please fill in the role information",
+      "select": "Please select a character for the session",
+      "default": {
+        "description": "Please return the answer in markdown form!",
+        "name": "Q&A Bot"
+      }
+    },
+    "empty": {
+      "send": "Send a message",
+      "wakeUp": "Wake up app",
+      "wrap": "Wrap",
+      "role": "Type {0} to search the list of roles"
+    },
+    "imgConfig": {
+      "num": "Number: ",
+      "size": "Size: "
+    },
+    "imgMode": "Image mode",
+    "memoryMode": "Memory mode",
+    "textMode": "Text mode",
+    "forecastConsumption": "Estimated consumption",
+    "unknowError": "unknown mistake"
   },
   "setting": {
     "tab": {
@@ -19,7 +61,7 @@
     "general": {
       "language": "Language",
       "theme": "Theme",
-      "wake": "Shortcut",
+      "wakeUp": "Wake up",
       "autoStart": "Auto Start",
       "keepPosition": "Keep Position",
       "proxy": "Proxy",
@@ -30,8 +72,7 @@
     },
     "model": {
       "aiModelTip": "Tips: {0} intergrated.",
-      "balance": "Account Balance",
-      "balanceTip": " ",
+      "balance": "Account Balance: ",
       "cents": "Cents￠",
       "divergenceOfThinking": "Temperature",
       "maxLengthOfReturn": "Max Tokens",
@@ -39,34 +80,80 @@
       "memoryTip": "Memory mode consumes more tokens.",
       "showTime": "Display Time",
       "tokenUsage": "Display Counter",
-      "apikey": "OpenAI API KEY"
+      "apikey": "OpenAI API KEY",
+      "balanceTip": "Balance inquiry is temporarily unavailable"
     },
     "about": {
       "community": "Community",
       "contributor": "Contributors",
       "copy": "System Info",
-      "copySuccess": "Copied to clipboard",
       "copyTip": "Click to copy",
       "feedback": "Feedback",
       "feedbackTip": "Please provide system information in feedback",
       "repository": "Repository",
       "softwareAndSystemInfo": "Software & system information:\n {info}",
-      "checkUpdate": "Update"
+      "checkUpdate": "Update",
+      "version": {
+        "detail": "Update details:",
+        "updateTime": "Updated: {0}",
+        "updateVersion": "Updated version: v{0} 👉",
+        "version": "v{0}"
+      }
     },
     "tip": {
       "reset": "Double click to reset"
-    }
+    },
+    "title": "Setting"
   },
   "message": {
     "pleaseFinishEdit": "Please complete editing first",
-    "titleRequire": "Empty title is not allowed"
+    "titleRequire": "Empty title is not allowed",
+    "role": {
+      "changeFail": "A character is being edited and cannot be switched",
+      "closeFail": "There is a role in {action}, which cannot be closed",
+      "editUnique": "Only one role can be edited at a time",
+      "pleaseFinishRoleEdit": "Please finish editing the role first",
+      "roleUnique": "Only one role can be selected per session",
+      "emptyError": "Role information cannot be empty",
+      "deleteFail": "Sorry, the current role has {sessionLength} historical sessions, which cannot be deleted directly!"
+    },
+    "networkError": "There seems to be a problem with the network, please check your network settings",
+    "pleaseInsertOpenAiApiKey": "Please fill in the OpenAi API KEY first",
+    "generationFailed": "Build failed",
+    "loadImageFail": "Image loading failed, please try again!",
+    "downloadSuccess": "Download successful",
+    "exportImageFail": "Image export failed, please try again!",
+    "exportImageSuccess": "Image exported successfully",
+    "exportMarkdownFail": "Markdown file export failed, please try again!",
+    "exportMarkdownSuccess": "Markdown file exported successfully",
+    "deleteSuccess": "successfully deleted",
+    "alreadyTheLatestVersion": "Currently the latest version",
+    "getTheLatestVersionFail": "Failed to get new version, please try again later",
+    "updateSuccess": "The update was successful and will restart soon"
   },
-  "errors": {},
+  "errors": {
+    "disableApiKey": "The requested API KEY is invalid",
+    "keyOverLimit": "The requested key exceeds the limit",
+    "requestError": "request error"
+  },
   "tips": {
     "input": {
       "placeholder": "Type to ask",
       "isThinking": "AI is thinking"
-    }
+    },
+    "copy": "Copy",
+    "copySuccess": "Copied to clipboard",
+    "copyFail": "Copy failed",
+    "doubleClickToCancelFixed": "Double click to unpin",
+    "doubleClickToFixed": "Double click to dock the window",
+    "role": "Session role",
+    "newVersion": "Discover new releases available 🥳"
   },
-  "common": {}
+  "common": {
+    "add": "Add to",
+    "edit": "Edit",
+    "delete": "Delete",
+    "cancel": "Cancel",
+    "confirm": "Confirm"
+  }
 }

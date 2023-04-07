@@ -1,6 +1,8 @@
 import { getName } from '@tauri-apps/api/app'
 import { writeTextFile, BaseDirectory } from '@tauri-apps/api/fs'
 
+const { t } = i18n.global
+
 export const saveMarkdown = throttle(async (content: any) => {
   try {
     const file = `${await getName()}-${Date.now()}.md`
@@ -11,8 +13,8 @@ export const saveMarkdown = throttle(async (content: any) => {
 
     openFilePath(file)
 
-    Message.success('Markdown 文件导出成功')
+    Message.success(t('message.exportMarkdownSuccess'))
   } catch (error) {
-    Message.error('Markdown 文件导出失败，请重试！')
+    Message.error(t('message.exportMarkdownFail'))
   }
 })
