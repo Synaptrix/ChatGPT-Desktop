@@ -97,7 +97,12 @@
         "detail": "Update details:",
         "updateTime": "Updated: {0}",
         "updateVersion": "Updated version: v{0} 👉",
-        "version": "v{0}"
+        "version": "v{0}",
+        "newVersion": "Discover new version available 🥳",
+        "cancelUpdate": "Cancel update",
+        "updateLater": "Update later",
+        "updateNow": "Update immediately",
+        "updating": "Updating"
       }
     },
     "tip": {
@@ -146,8 +151,7 @@
     "copyFail": "Copy failed",
     "doubleClickToCancelFixed": "Double click to unpin",
     "doubleClickToFixed": "Double click to dock the window",
-    "role": "Session role",
-    "newVersion": "Discover new releases available 🥳"
+    "role": "Session role"
   },
   "common": {
     "add": "Add to",
