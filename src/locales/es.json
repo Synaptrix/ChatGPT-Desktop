@@ -1,0 +1,163 @@
+{
+  "history": {
+    "confirmDelete": "Desea eliminar esta sesión?",
+    "empty": "No hay historial de conversación",
+    "chatWith": "Hablando con {name}",
+    "searchPlaceholder": "Buscar sesión",
+    "title": "Historial de conversaciones"
+  },
+  "session": {
+    "chatWith": "Hablando con {0}",
+    "chatTip": "Ir al final",
+    "regenerate": "Regenerar respuesta",
+    "stopGenerate": "Detener generación",
+    "export": {
+      "image": "Exportar como imagen",
+      "markdown": "Exportar como markdown",
+      "me": "Yo"
+    },
+    "tip": {
+      "editRole": "Pulsa sobre mí para editar este perfil"
+    },
+    "editRole": {
+      "description": "Descripción:",
+      "name": "Nombre:"
+    },
+    "role": {
+      "add": "Añadir perfil",
+      "confirmDelete": "¿Estás seguro de que quieres eliminar este perfil?",
+      "descriptionPlaceholder": "Por favor, introduce una descripción",
+      "namePlaceholder": "Por favor, introduce un nombre",
+      "pleaseSelect": "Por favor, selecciona un perfil para esta sesión",
+      "pleaseType": "Por favor, rellene la información del perfil",
+      "select": "Por favor, selecciona un perfil para esta sesión",
+      "default": {
+        "description": "Por favor, devueleve la respuesta en formato markdown",
+        "name": "Q&A Bot"
+      }
+    },
+    "empty": {
+      "send": "Envie su consulta",
+      "wakeUp": "Mostrar/Ocutar App",
+      "wrap": "Agegar salto de linea",
+      "role": "Teclee {0} antes de escribir para cambiar de perfil"
+    },
+    "imgConfig": {
+      "num": "Número:",
+      "size": "Tamaño:"
+    },
+    "imgMode": "Modo de imagen",
+    "memoryMode": "Modo de memoria",
+    "textMode": "Modo de texto",
+    "forecastConsumption": "Consumo estimado",
+    "unknowError": "Error desconocido"
+  },
+  "setting": {
+    "tab": {
+      "common": "General",
+      "model": "Modelo",
+      "about": "Acerca de"
+    },
+    "general": {
+      "language": "Idioma",
+      "theme": "Tema",
+      "wakeUp": "Mostrar/Ocultar App",
+      "autoStart": "Ej. en inicio sesión",
+      "keepPosition": "Mantener posición",
+      "proxy": "Proxy",
+      "proxyTip": "{0} para usar proxy",
+      "restart": "Volver a lanzar",
+      "proxyAddress": "URL Proxy",
+      "example": "p.ej."
+    },
+    "model": {
+      "aiModelTip": "Modelo: {0}  integrado.",
+      "balance": "Saldo de la cuenta: ",
+      "cents": "Centavos￠",
+      "divergenceOfThinking": "Temperatura",
+      "maxLengthOfReturn": "Max Tokens",
+      "memory": "Modo de memoria",
+      "memoryTip": "El modo memoria consume más tokens.",
+      "showTime": "Mostrar hora",
+      "tokenUsage": "Mostrar consumo en :",
+      "apikey": "Clave Secreta OpenAI",
+      "balanceTip": "Consulta de saldo temporalmente no disponible"
+    },
+    "about": {
+      "community": "Comunidad",
+      "contributor": "Contribuidores",
+      "copy": "Información del sistema",
+      "copyTip": "Click para copiar",
+      "feedback": "Retroalimentación",
+      "feedbackTip": "Proporcione información sobre el sistema en los comentarios",
+      "repository": "Repositorio",
+      "softwareAndSystemInfo": "Software e Información del sistema:\n {info}",
+      "checkUpdate": "Comprobar actualizaciones",
+      "version": {
+        "detail": "Detalles de la versión",
+        "updateTime": "Actualizado: {0}",
+        "updateVersion": "Actualizado a la versión: v{0} 👉",
+        "version": "v{0}",
+        "newVersion": "Nueva versión disponible 🥳",
+        "cancelUpdate": "Cancelar actualización",
+        "updateLater": "Actualizar más tarde",
+        "updateNow": "Actualizar inmediatamente",
+        "updating": "Actualizando..."
+      }
+    },
+    "tip": {
+      "reset": "Doble click para restablecer"
+    },
+    "title": "Configuración"
+  },
+  "message": {
+    "pleaseFinishEdit": "Por favor, primero termine de editar",
+    "titleRequire": "El título es obligatorio",
+    "role": {
+      "changeFail": "Se está editando un perfil y no se puede cambiar",
+      "closeFail": "Hay perfil en {action}, el cual no se puede cerrar",
+      "editUnique": "Solamente un perfil puede editarse a la vez",
+      "pleaseFinishRoleEdit": "Por favor, primero termine de editar el perfil",
+      "roleUnique": "Sólo se puede seleccionar un perfil por sesión",
+      "emptyError": "La información del perfil no puede estar vacía",
+      "deleteFail": "Lo sentimos, el perfil actual tiene {sessionLength} historial de sessiones, ¡no se pueden eliminar directamente!"
+    },
+    "networkError": "Parece que hay un problema con su internet, por favor compruebe su configuración de red",
+    "pleaseInsertOpenAiApiKey": "Debe ingresar su clave secreta de OpenAI antes de comenzar",
+    "generationFailed": "Generación defectuosa",
+    "loadImageFail": "Error al cargar la imagen, inténtelo de nuevo.",
+    "downloadSuccess": "La descarga se ha realizado con éxito",
+    "exportImageFail": "Error al exportar la imagen, inténtelo de nuevo.",
+    "exportImageSuccess": "La imagen se ha exportado con éxito",
+    "exportMarkdownFail": "Error al exportar el archivo markdown, inténtelo de nuevo.",
+    "exportMarkdownSuccess": "El archivo markdown se ha exportado con éxito",
+    "deleteSuccess": "Eliminado con éxito",
+    "alreadyTheLatestVersion": "Está ejecutando la última versión",
+    "getTheLatestVersionFail": "No se ha podido obtener la nueva versión, inténtelo de nuevo más tarde",
+    "updateSuccess": "La actualización se ha realizado correctamente y se reiniciará en breve"
+  },
+  "errors": {
+    "disableApiKey": "LA API KEY solicitada no es válida.",
+    "keyOverLimit": "Se ha superado el límite para la API KEY solicitada.",
+    "requestError": "Error en la solicitud"
+  },
+  "tips": {
+    "input": {
+      "placeholder": "Escriba su consulta aquí",
+      "isThinking": "IA está procesando..."
+    },
+    "copy": "Copiar",
+    "copySuccess": "Copiado con éxito",
+    "copyFail": "Error al copiar",
+    "doubleClickToCancelFixed": "Haga click para desanclar la ventana",
+    "doubleClickToFixed": "Para acoplar la ventana, haga doble clic en ella",
+    "role": "Perfil de la sesión"
+  },
+  "common": {
+    "add": "Añadir a",
+    "edit": "Editar",
+    "delete": "Eliminar",
+    "cancel": "Cancelar",
+    "confirm": "Confirmar"    
+  }
+}
