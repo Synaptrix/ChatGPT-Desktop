@@ -57,7 +57,7 @@ const position = computed(() => (props.data.is_ask ? 'left' : 'right'))
       "
     >
       <template v-if="data.message_type === 'text'">
-        <a-tooltip content="复制" :position="position">
+        <a-tooltip :content="$t('tips.copy')" :position="position">
           <div
             class="copy"
             :id="`copy-${data.id}`"
@@ -73,21 +73,21 @@ const position = computed(() => (props.data.is_ask ? 'left' : 'right'))
           <icon-download />
 
           <template #content>
-            <a-tooltip content="导出 Markdown">
+            <a-tooltip :content="$t('session.export.markdown')">
               <div
                 class="markdown"
                 @click="saveMarkdown(data.message.content)"
               ></div>
             </a-tooltip>
 
-            <a-tooltip content="导出图片">
+            <a-tooltip :content="$t('session.export.image')">
               <icon-image @click="saveImage(`session-data-${data.id}`)" />
             </a-tooltip>
           </template>
         </a-popover>
       </template>
 
-      <a-tooltip content="删除" :position="position">
+      <a-tooltip :content="$t('common.delete')" :position="position">
         <icon-delete @click="deleteSessionData(data)" />
       </a-tooltip>
     </div>

@@ -10,18 +10,24 @@ const { shortcutKeys } = storeToRefs(useSettingsStore())
         <a-typography-text code>{{ item }}</a-typography-text>
         <template v-if="index < shortcutKeys.length - 1"> + </template>
       </template>
-      唤醒窗口
+      {{ $t('session.empty.wakeUp') }}
     </span>
     <!-- 换行 -->
     <span>
       <a-typography-text code>Shift</a-typography-text> +
-      <a-typography-text code>Enter</a-typography-text> 换行
+      <a-typography-text code>Enter</a-typography-text>
+      {{ $t('session.empty.wrap') }}
     </span>
     <!-- 发送消息 -->
-    <span><a-typography-text code>Enter</a-typography-text> 发送消息</span>
+    <span
+      ><a-typography-text code>Enter</a-typography-text>
+      {{ $t('session.empty.send') }}</span
+    >
 
     <span>
-      开头输入 <a-typography-text code>/</a-typography-text> 搜索角色列表
+      <i18n-t keypath="session.empty.role" tag="label">
+        <a-typography-text code>/</a-typography-text>
+      </i18n-t>
     </span>
   </div>
 </template>

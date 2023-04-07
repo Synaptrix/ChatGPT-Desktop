@@ -80,9 +80,8 @@ export const useRoleStore = defineStore(
 
       if (sessionLength) {
         Message.error(
-          `抱歉，当前角色有 ${sessionLength} 条历史会话，无法直接删除！`
+          i18n.global.t('message.role.deleteFail', { sessionLength })
         )
-
         return
       }
 

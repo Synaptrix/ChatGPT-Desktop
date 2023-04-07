@@ -3,6 +3,8 @@ const { isFix } = storeToRefs(useSettingsStore())
 
 const { windowClass } = useInit()
 
+const { t } = i18n.global
+
 const handleDoubleClick = () => {
   isFix.value = !isFix.value
 }
@@ -13,7 +15,11 @@ const handleDoubleClick = () => {
     class="frosted flex h-screen flex-col overflow-hidden p-2"
     :class="[windowClass]"
   >
-    <a-tooltip :content="isFix ? '双击取消固定' : '双击固定窗口'">
+    <a-tooltip
+      :content="
+        isFix ? t('tips.doubleClickToFixed') : t('tips.doubleClickToFixed')
+      "
+    >
       <div
         class="z-999 transition-300 fixed top-2 left-1/2 h-3 w-80 -translate-x-1/2 cursor-move rounded-md opacity-0 hover:opacity-100"
         :class="isFix ? 'bg-gray' : 'bg-gray/50'"

@@ -51,7 +51,7 @@ const triggerScroll = () => {
         </a-button>
       </a-tooltip>
       <!-- 设置 -->
-      <a-tooltip content="设置" position="tr">
+      <a-tooltip :content="`${t('setting.title')}`" position="tr">
         <a-button type="text" @click="emit('open-settings')">
           <template #icon>
             <icon-settings />

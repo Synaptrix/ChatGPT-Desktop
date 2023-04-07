@@ -8,9 +8,52 @@
   },
   "session": {
     "chatWith": "正在与{0}对话",
-    "chatTip": "点我回到底部"
+    "chatTip": "点我回到底部",
+    "stopGenerate": "停止思考",
+    "regenerate": "重新回答",
+    "export": {
+      "image": "导出图片",
+      "markdown": "导出 Markdown",
+      "me": "你"
+    },
+    "textMode": "文本模式",
+    "imgMode": "图像模式",
+    "memoryMode": "记忆模式",
+    "forecastConsumption": "预计消耗",
+    "imgConfig": {
+      "size": "图片尺寸：",
+      "num": "图片数量："
+    },
+    "tip": {
+      "editRole": "点我编辑角色信息"
+    },
+    "editRole": {
+      "name": "角色名称：",
+      "description": "角色描述："
+    },
+    "role": {
+      "add": "添加角色",
+      "namePlaceholder": "请输入角色名称",
+      "descriptionPlaceholder": "请输入角色描述",
+      "confirmDelete": "确定删除该角色吗？",
+      "select": "请选择对话的角色",
+      "pleaseType": "请填写角色信息",
+      "pleaseSelect": "请选择对话的角色",
+      "default": {
+        "name": "问答机器人",
+        "description": "请以 markdown 的形式返回答案！"
+      }
+    },
+    "empty": {
+      "wakeUp": "唤醒窗口",
+      "wrap": "换行",
+      "send": "发送消息",
+      "role": "开头输入 {0} 搜索角色列表"
+    },
+    "unknowError": "未知错误"
   },
   "setting": {
+    "title": "设置",
     "tab": {
       "common": "通用",
       "model": "模型",
@@ -19,7 +62,7 @@
     "general": {
       "language": "语言",
       "theme": "主题",
-      "wake": "唤醒窗口",
+      "wakeUp": "唤醒窗口",
       "autoStart": "开机自启动",
       "keepPosition": "记住窗口上次位置",
       "proxy": "开启代理",
@@ -36,7 +79,7 @@
       "cents": "美分￠",
       "divergenceOfThinking": "思维发散程度",
       "maxLengthOfReturn": "返回最大长度",
-      "balance": "账户余额",
+      "balance": "账户余额：",
       "balanceTip": "余额查询暂不可用",
       "aiModelTip": "温馨提示：软件使用 {0} 模型",
       "apikey": "OpenAI API KEY"
@@ -49,9 +92,14 @@
       "repository": "仓库地址",
       "community": "官方社区",
       "contributor": "贡献者",
-      "copySuccess": "复制成功",
       "softwareAndSystemInfo": "软件以及系统信息如下:\n {info}",
-      "checkUpdate": "检查更新"
+      "checkUpdate": "检查更新",
+      "version": {
+        "updateVersion": "更新版本：v{0} 👉",
+        "version": "v{0}",
+        "updateTime": "更新时间：{0}",
+        "detail": "更新详情："
+      }
     },
     "tip": {
       "reset": "双击重置为默认值"
@@ -59,14 +107,53 @@
   },
   "message": {
     "pleaseFinishEdit": "请先完成当前编辑",
-    "titleRequire": "标题不能为空"
+    "titleRequire": "标题不能为空",
+    "role": {
+      "pleaseFinishRoleEdit": "请先完成角色的编辑",
+      "roleUnique": "每个会话只能选择一个对话角色",
+      "closeFail": "有角色正在{action}，无法关闭",
+      "editUnique": "一次只能编辑一个角色",
+      "changeFail": "有角色正在编辑，无法进行切换",
+      "emptyError": "角色信息不能为空",
+      "deleteFail": "抱歉，当前角色有 {sessionLength} 条历史会话，无法直接删除！"
+    },
+    "networkError": "网络似乎出了问题，请检查你的网络设置",
+    "pleaseInsertOpenAiApiKey": "请先填写 OpenAi API KEY",
+    "generationFailed": "生成失败",
+    "downloadSuccess": "下载成功",
+    "loadImageFail": "图片加载失败，请重试！",
+    "exportImageFail": "图片导出失败，请重试！",
+    "exportImageSuccess": "图片导出成功",
+    "exportMarkdownSuccess": "Markdown 文件导出成功",
+    "exportMarkdownFail": "Markdown 文件导出失败，请重试！",
+    "deleteSuccess": "删除成功",
+    "updateSuccess": "更新成功，即将重启",
+    "getTheLatestVersionFail": "获取新版本失败，请稍后重试",
+    "alreadyTheLatestVersion": "当前已是最新版本"
   },
-  "errors": {},
+  "errors": {
+    "keyOverLimit": "请求的 key 超出限制",
+    "disableApiKey": "请求的 API KEY 无效",
+    "requestError": "请求出错"
+  },
   "tips": {
     "input": {
       "placeholder": "有什么问题尽管问我",
       "isThinking": "AI 正在思考..."
-    }
+    },
+    "copy": "复制",
+    "copySuccess": "复制成功",
+    "copyFail": "复制失败",
+    "doubleClickToCancelFixed": "双击取消固定",
+    "doubleClickToFixed": "双击固定窗口",
+    "role": "对话角色",
+    "newVersion": "发现新版本可用 🥳"
   },
-  "common": {}
+  "common": {
+    "edit": "编辑",
+    "add": "添加",
+    "delete": "删除",
+    "confirm": "确定",
+    "cancel": "取消"
+  }
 }

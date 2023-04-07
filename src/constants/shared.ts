@@ -1,6 +1,7 @@
-export enum DEFAULT_ROLE {
-  name = '问答机器人',
-  description = '请以 markdown 的形式返回答案！'
+const { t } = i18n.global
+export const DEFAULT_ROLE = {
+  name: t('session.role.default.name'),
+  description: t('session.role.default.description')
 }
 
 export const DEFAULT_SHORTCUT_KEY = ['Alt', 'X']

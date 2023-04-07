@@ -1,4 +1,5 @@
 <script setup lang="ts">
+const { t } = useI18n()
 const sessionStore = useSessionStore()
 const { updateSessionData, changeLastSessionContent } = sessionStore
 const { isThinking, sessionDataList, chatController, currentSession } =
@@ -8,7 +9,7 @@ const handleClick = () => {
   if (isThinking.value) {
     chatController.value?.abort()
 
-    changeLastSessionContent('停止思考')
+    changeLastSessionContent(t('session.stopGenerate'))
 
     updateSessionData(getLastItem(sessionDataList.value))
   } else {
@@ -18,7 +19,11 @@ const handleClick = () => {
 </script>
 
 <template>
-  <a-tooltip :content="isThinking ? '停止思考' : '重新回答'">
+  <a-tooltip
+    :content="
+      isThinking ? $t('session.stopGenerate') : $t('session.regenerate')
+    "
+  >
     <a-button
       type="text"
       :disabled="

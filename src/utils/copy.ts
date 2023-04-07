@@ -2,6 +2,8 @@ import Clipboard from 'clipboard'
 import { writeText } from '@tauri-apps/api/clipboard'
 import { nanoid } from 'nanoid'
 
+const { t } = i18n.global
+
 type RulesArgs = [Array<{ content: string }>, number]
 
 const PLUGIN_CLASS = 'code-copy'
@@ -43,7 +45,9 @@ const renderCode = (originRule: (...args: RulesArgs) => string) => {
     return `
     <div class='relative'>
       ${originRendered}
-      <div class="${PLUGIN_CLASS}" data-clipboard-text="${copyContent}" data-uuid="${nanoid()}" title="复制代码"></div>
+      <div class="${PLUGIN_CLASS}" data-clipboard-text="${copyContent}" data-uuid="${nanoid()}" title="${t(
+      'tips.copySuccess'
+    )}"></div>
     </div>
     `
   }
@@ -86,8 +90,8 @@ export const copyText = async (
 
     await writeText(content)
 
-    Message.success('复制成功')
+    Message.success(t('tips.copySuccess'))
   } catch (error) {
-    Message.error('复制失败')
+    Message.error(t('tips.copyFail'))
   }
 }
