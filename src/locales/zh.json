@@ -98,7 +98,12 @@
         "updateVersion": "更新版本：v{0} 👉",
         "version": "v{0}",
         "updateTime": "更新时间：{0}",
-        "detail": "更新详情："
+        "detail": "更新详情：",
+        "newVersion": "发现新版本可用 🥳",
+        "updating": "正在更新",
+        "updateNow": "立即更新",
+        "cancelUpdate": "取消更新",
+        "updateLater": "稍后更新"
       }
     },
     "tip": {
@@ -146,8 +151,7 @@
     "copyFail": "复制失败",
     "doubleClickToCancelFixed": "双击取消固定",
     "doubleClickToFixed": "双击固定窗口",
-    "role": "对话角色",
-    "newVersion": "发现新版本可用 🥳"
+    "role": "对话角色"
   },
   "common": {
     "edit": "编辑",

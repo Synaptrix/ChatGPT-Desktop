@@ -89,10 +89,18 @@ onMounted(() => {
   <a-modal
     :visible="visible"
     simple
-    :title="$t('tips.newVersion')"
+    :title="$t('setting.about.version.newVersion')"
     :mask-style="modalMaskStyle"
-    :ok-text="isDownload ? '正在更新' : '立即更新'"
-    :cancel-text="isDownload ? '取消更新' : '稍后更新'"
+    :ok-text="
+      isDownload
+        ? $t('setting.about.version.updating')
+        : $t('setting.about.version.updateNow')
+    "
+    :cancel-text="
+      isDownload
+        ? $t('setting.about.version.cancelUpdate')
+        : $t('setting.about.version.updateLater')
+    "
     :mask-closable="false"
     :esc-to-close="false"
     @before-ok="handleBeforeOk"

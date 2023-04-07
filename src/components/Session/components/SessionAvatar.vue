@@ -104,6 +104,8 @@ const calcToken = (data: SessionData) => {
       @before-open="prevRoleInfo = { ...currentRole }"
       @ok="handleOK"
       @cancel="handleCancel"
+      :ok-text="$t('common.confirm')"
+      :cancel-text="$t('common.cancel')"
       v-if="currentRole"
     >
       <!-- TODO 布局调整，英语的 label 对齐 -->
