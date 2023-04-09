@@ -19,4 +19,4 @@ export enum IMAGE_COST {
   '1024x1024' = 10000
 }
 
-export const SUPPORT_LANGUAGE = ['zh', 'en'] as const
+export const SUPPORT_LANGUAGE = ['zh', 'en', 'es'] as const

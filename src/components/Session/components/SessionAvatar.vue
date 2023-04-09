@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import type { SessionData, RolePayload } from '@/types'
+import type { SessionData } from '@/types'
 
 defineProps<{ data: SessionData }>()
 const roleStore = useRoleStore()
