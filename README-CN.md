@@ -5,7 +5,7 @@
 <div align=center>
   <br/>
   <div>
-     中文 | <a href="https://github.com/Synaptrix/ChatGPT-Desktop">English</a>
+     中文 | <a href="https://github.com/Synaptrix/ChatGPT-Desktop">English</a> | <a href="./README-ES.md">Español</a>
   </div>
   <br/>
 

@@ -1,11 +1,11 @@
 <a href="https://github.com/Synaptrix/ChatGPT-Desktop">
-  <img src="https://socialify.git.ci/Synaptrix/ChatGPT-Desktop/image?description=1&descriptionEditable=Blazingly%20fast%20launcher%20for%20ChatGPT%20API%2C%20supercharged%20and%20productivity%20Chat%20Assistant&font=Inter&forks=1&logo=https%3A%2F%2Fraw.githubusercontent.com%2FSynaptrix%2FChatGPT-Desktop%2Fmaster%2Fsrc-tauri%2Fassets%2Ficon.png&name=1&owner=1&pattern=Circuit%20Board&stargazers=1&theme=Auto" alt="ChatGPT-Desktop"/>
+  <img src="https://socialify.git.ci/Synaptrix/ChatGPT-Desktop/image?description=1&descriptionEditable=Inicio%20r%C3%A1pido%20ChatGPT%20API%2C%20el%20asistente%20para%20el%20chat%20de%20refuerzo%20y%20productividad&font=Inter&forks=1&logo=https%3A%2F%2Fraw.githubusercontent.com%2FSynaptrix%2FChatGPT-Desktop%2Fmaster%2Fsrc-tauri%2Fassets%2Ficon.png&owner=1&pattern=Circuit%20Board&stargazers=1&theme=Auto" alt="ChatGPT-Desktop"/>
 </a>
 
 <div align=center>
   <br/>
   <div>
-      English | <a href="./README-CN.md">中文</a> | <a href="./README-ES.md">Español</a>
+      <a href="https://github.com/Synaptrix/ChatGPT-Desktop">English</a> | <a href="./README-CN.md">中文</a> | Español
   </div>
   <br/>
 
@@ -28,27 +28,27 @@
   </div>
 </div>
 
-## Features
+## Características
 
-- Support for multiple platforms, minimal resource usage, ideal for 24/7 use
+- Soporte para múltiples plataformas, uso mínimo de recursos, ideal para uso 24/7
 
-- Easily configurable proxy settings, bypass network restrictions with ease
+- Configuración de proxy fácilmente configurable, eludir las restricciones de red con facilidad
 
-- Wake up at any time with a customizable shortcut key, boost your productivity
+- Despierte en cualquier momento con una tecla de acceso directo personalizable, aumente su productividad
 
-- Support for multiple conversations, integrated with `GPT-3.5-turbo` memory mode, never forget what you've said
+- Soporte para múltiples conversaciones, integrado con el modo de memoria `GPT-3.5-turbo`, nunca olvide lo que ha dicho
 
-- Robust prompt management, build your own role preset library
+- Robusta gestión de indicaciones, construya su propia biblioteca de roles preestablecidos
 
-- Share your moments with just one click
+- Comparta sus momentos con solo un clic
 
-- Automatic updates, local conversation history storage, your privacy is our priority
+- Actualizaciones automáticas, almacenamiento de historial de conversación local, su privacidad es nuestra prioridad
 
-- And much more to explore...
+- Y mucho más para explorar...
 
-## Download
+## Descargar
 
-Supported Platforms:
+Plataformas compatibles:
 
 - **MacOS**: [Apple Silicon](https://github.com/ChatGPT-Desktop/ChatGPT-Desktop/releases/download/v1.0.1/ChatGPT-Desktop_1.0.1_aarch64.dmg) | [Intel](https://github.com/ChatGPT-Desktop/ChatGPT-Desktop/releases/download/v1.0.1/ChatGPT-Desktop_1.0.1_x64.dmg)
 - **Windows**: [Windows](https://github.com/ChatGPT-Desktop/ChatGPT-Desktop/releases/download/v1.0.1/ChatGPT-Desktop_1.0.1_x64_zh-CN.msi)
@@ -56,10 +56,10 @@ Supported Platforms:
 
 <img src='./images/theme.gif' width="100%" />
 
-## Screenshots
+## Capturas de pantalla
 
 <details>
-<summary>Detail</summary>
+<summary>Detalle</summary>
 <img src='./images/home.png' />
 <img src='./images/settings.png' />
 <img src='./images/role-1.png' />
@@ -70,70 +70,70 @@ Supported Platforms:
 <img src='./images/update.png' />
 </details>
 
-## Q & A
+## Preguntas y respuestas
 
 <details>
-<summary>1. There are network restrictions in my area, how can I use it properly?</summary>
+<summary>1. Hay restricciones de red en mi área, ¿cómo puedo usarlo correctamente</summary>
 
-You can try our provided [soulution](https://github.com/ChatGPT-Desktop/ChatGPT-Desktop-Porxy).
+Puede probar nuestra [solución](https://github.com/ChatGPT-Desktop/ChatGPT-Desktop-Porxy) proporcionada.
 
-Detailed deployment tutorial on [Discord](https://discord.com/channels/1074429768063262791/1090723974650015857).
+Tutorial de implementación detallado en [Discord](https://discord.com/channels/1074429768063262791/1090723974650015857).
 
 </details>
 
 <details>
-<summary>2. "App Is Damaged and Can't Be Opened" on MacOS</summary>
+<summary>2. "La aplicación está dañada y no se puede abrir" en MacOS</summary>
 <img width='300' src='./images/problem-1.png' />
 
-Reference [solution](https://zhuanlan.zhihu.com/p/135948430).
+Referencia [solución](https://zhuanlan.zhihu.com/p/135948430).
 
 </details>
 
-## How to Contribute
+## Cómo contribuir
 
-#### Development environment requirements
+#### Requisitos del entorno de desarrollo
 
-Please install `Rust` & `NodeJS` according to the steps on the official websites
+Por favor, instale `Rust` y `NodeJS` de acuerdo con los pasos en los sitios web oficiales.
 
 - [Rust](https://tauri.app/v1/guides/getting-started/prerequisites/)
 - [Node.js](https://nodejs.org/en/)
 
-#### Download project dependencies
+#### Descargar las dependencias del proyecto
 
 ```shell
 npm install
 ```
 
-#### Run the project on the development mode
+#### Ejecutar el proyecto en modo de desarrollo
 
 ```shell
 npm run tauri dev
 ```
 
-#### Build the project
+#### Construir el proyecto
 
-Debug after build, please add flag `--debug`
+Para depurar después de la compilación, agregue la bandera `--debug`
 
 ```shell
 npm run tauri build
 ```
 
-#### To generate your own application icon, please replace `src-tauri/assets/icon.png`, only `.png` format is supported
+#### Para generar su propia icono de aplicación, reemplace `src-tauri/assets/icon.png`, solo se admite el formato `.png`
 
 ```shell
 npm run build:icon
 ```
 
-`yarn` OR `pnpm` is also supported.
+También se admite `yarn` O `pnpm`.
 
-### Contributions of any kind are welcome,
+### Se agradecen las contribuciones de cualquier tipo,
 
-- Issue
-- Pull request
-- Feature request
-- Bug report
-- Documentation
-- Translation
+- Problemas
+- Solicitud de extracción
+- Solicitud de función
+- Informe de errores
+- Documentación
+- Traducción
 - etc.
 
 ## Contact Us
