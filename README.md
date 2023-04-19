@@ -60,13 +60,13 @@ Supported Platforms:
 
 <details>
 <summary>Detail</summary>
-<img src='./images/home.png' />
-<img src='./images/settings.png' />
-<img src='./images/role-1.png' />
-<img src='./images/session-1.png' />
-<img src='./images/session-2.png' />
-<img src='./images/session-3.png' />
-<img src='./images/history.png' />
+<img src='./images/en/home.png' />
+<img src='./images/en/settings.png' />
+<img src='./images/en/role-1.png' />
+<img src='./images/en/session-1.png' />
+<img src='./images/en/session-2.png' />
+<img src='./images/en/session-3.png' />
+<img src='./images/en/history.png' />
 <img src='./images/update.png' />
 </details>
 
@@ -83,7 +83,7 @@ Detailed deployment tutorial on [Discord](https://discord.com/channels/107442976
 
 <details>
 <summary>2. "App Is Damaged and Can't Be Opened" on MacOS</summary>
-<img width='300' src='./images/problem-1.png' />
+<img width='300' src='./images/en/problem-1.png' />
 
 Reference [solution](https://zhuanlan.zhihu.com/p/135948430).
 
