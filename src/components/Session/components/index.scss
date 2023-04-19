@@ -28,6 +28,8 @@
   .session-content {
     p {
       --uno: leading-6;
+      overflow-wrap: break-word;
+        word-break: break-word;
     }
 
     pre {
