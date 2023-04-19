@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 import MarkdownIt from 'markdown-it'
 import MarkdownItHighlight from 'markdown-it-highlightjs'
+import mk from '@traptitech/markdown-it-katex'
 import { emit } from '@tauri-apps/api/event'
 import type { SessionData } from '@/types'
 
@@ -42,6 +43,11 @@ const marked = new MarkdownIt({
     }
   })
   .use(copyCode)
+  .use(mk, {
+    blockClass: 'block-math',
+    output: 'mathml',
+    errorColor: '#cc0000'
+  })
 
 const position = computed(() => (props.data.is_ask ? 'left' : 'right'))
 </script>
@@ -49,7 +55,7 @@ const position = computed(() => (props.data.is_ask ? 'left' : 'right'))
 <template>
   <div class="session-data group relative max-w-fit" id="session-item">
     <div
-      class="operation transition-300 absolute flex flex-col gap-1 opacity-0 group-hover:opacity-100"
+      class="transition-300 operation absolute flex flex-col gap-1 opacity-0 group-hover:opacity-100"
       :class="
         data.is_ask
           ? 'left-0 -translate-x-full pr-2'
@@ -127,7 +133,7 @@ const position = computed(() => (props.data.is_ask ? 'left' : 'right'))
         v-for="(img, index) in data.message.content"
         :key="index"
       >
-        <div class="group/image text-0 relative w-full">
+        <div class="text-0 group/image relative w-full">
           <img
             :src="`data:image/png;base64,${img.b64_json}`"
             class="w-full"
