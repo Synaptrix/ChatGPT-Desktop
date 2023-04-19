@@ -1,5 +1,5 @@
 <a href="https://github.com/Synaptrix/ChatGPT-Desktop">
-  <img src="https://socialify.git.ci/Synaptrix/ChatGPT-Desktop/image?description=1&descriptionEditable=Inicio%20r%C3%A1pido%20ChatGPT%20API%2C%20el%20asistente%20para%20el%20chat%20de%20refuerzo%20y%20productividad&font=Inter&forks=1&logo=https%3A%2F%2Fraw.githubusercontent.com%2FSynaptrix%2FChatGPT-Desktop%2Fmaster%2Fsrc-tauri%2Fassets%2Ficon.png&owner=1&pattern=Circuit%20Board&stargazers=1&theme=Auto" alt="ChatGPT-Desktop"/>
+  <img src="https://socialify.git.ci/Synaptrix/ChatGPT-Desktop/image?description=1&descriptionEditable=Lanzador%20extremadamente%20r%C3%A1pido%20para%20la%20API%20de%20ChatGPT%2C%20Asistente%20de%20Chat%20potenciado%20para%20la%20productividad&font=Inter&forks=1&logo=https%3A%2F%2Fraw.githubusercontent.com%2FSynaptrix%2FChatGPT-Desktop%2Fmaster%2Fsrc-tauri%2Fassets%2Ficon.png&owner=1&pattern=Circuit%20Board&stargazers=1&theme=Auto" alt="ChatGPT-Desktop"/>
 </a>
 
 <div align=center>
@@ -30,19 +30,19 @@
 
 ## Características
 
-- Soporte para múltiples plataformas, uso mínimo de recursos, ideal para uso 24/7
+- Soporte para múltiples plataformas, uso mínimo de recursos, ideal para uso 24/7.
 
-- Configuración de proxy fácilmente configurable, eludir las restricciones de red con facilidad
+- Proxy fácilmente configurable, elude las restricciones de red con facilidad.
 
-- Despierte en cualquier momento con una tecla de acceso directo personalizable, aumente su productividad
+- Activar en cualquier momento con una tecla de acceso directo personalizable, Acelera tu productividad!
 
-- Soporte para múltiples conversaciones, integrado con el modo de memoria `GPT-3.5-turbo`, nunca olvide lo que ha dicho
+- Soporte para múltiples conversaciones, integrado con el modo de memoria `GPT-3.5-turbo`, nunca olvide lo que ha dicho.
 
-- Robusta gestión de indicaciones, construya su propia biblioteca de roles preestablecidos
+- Robusta gestión de instrucciones, construye tu propia biblioteca de roles preestablecidos.
 
-- Comparta sus momentos con solo un clic
+- Comparta sus momentos con solo un clic.
 
-- Actualizaciones automáticas, almacenamiento de historial de conversación local, su privacidad es nuestra prioridad
+- Actualizaciones automáticas, almacenamiento de historial de conversación localmente, su privacidad es nuestra prioridad.
 
 - Y mucho más para explorar...
 
@@ -59,14 +59,14 @@ Plataformas compatibles:
 ## Capturas de pantalla
 
 <details>
-<summary>Detalle</summary>
-<img src='./images/home.png' />
-<img src='./images/settings.png' />
-<img src='./images/role-1.png' />
-<img src='./images/session-1.png' />
-<img src='./images/session-2.png' />
-<img src='./images/session-3.png' />
-<img src='./images/history.png' />
+<summary>Expandir para ver listado</summary>
+<img src='./images/es/home.png' />
+<img src='./images/es/settings.png' />
+<img src='./images/es/role-1.png' />
+<img src='./images/es/session-1.png' />
+<img src='./images/es/session-2.png' />
+<img src='./images/es/session-3.png' />
+<img src='./images/es/history.png' />
 <img src='./images/update.png' />
 </details>
 
@@ -83,7 +83,7 @@ Tutorial de implementación detallado en [Discord](https://discord.com/channels/
 
 <details>
 <summary>2. "La aplicación está dañada y no se puede abrir" en MacOS</summary>
-<img width='300' src='./images/problem-1.png' />
+<img width='300' src='./images/en/problem-1.png' />
 
 Referencia [solución](https://zhuanlan.zhihu.com/p/135948430).
 
@@ -110,15 +110,15 @@ npm install
 npm run tauri dev
 ```
 
-#### Construir el proyecto
+#### Compilar el proyecto
 
-Para depurar después de la compilación, agregue la bandera `--debug`
+Para depurar después de la compilación, agregue el flag/parámetro `--debug`
 
 ```shell
 npm run tauri build
 ```
 
-#### Para generar su propia icono de aplicación, reemplace `src-tauri/assets/icon.png`, solo se admite el formato `.png`
+#### Para generar su propio icono de aplicación, reemplace `src-tauri/assets/icon.png`, solo se admite el formato `.png`
 
 ```shell
 npm run build:icon
@@ -126,30 +126,30 @@ npm run build:icon
 
 También se admite `yarn` O `pnpm`.
 
-### Se agradecen las contribuciones de cualquier tipo,
+### Se agradecen las contribuciones de cualquier tipo :
 
 - Problemas
-- Solicitud de extracción
-- Solicitud de función
+- Pull requests / Solicitudes de extracción
+- Solicitud de mejoras
 - Informe de errores
 - Documentación
 - Traducción
 - etc.
 
-## Contact Us
+## Contáctenos
 
 - [Discord](https://discord.gg/jg4waryfA6)
 
-## Star History
+## Estadísticas
 
 [![Star History Chart](https://api.star-history.com/svg?repos=Synaptrix/ChatGPT-Desktop&type=Date)](https://star-history.com/#Synaptrix/ChatGPT-Desktop&Date)
 
-## Contributors
+## Contribuidores
 
 <a href="https://github.com/Synaptrix/ChatGPT-Desktop/graphs/contributors">
   <img src="https://contrib.rocks/image?repo=Synaptrix/ChatGPT-Desktop" />
 </a>
 
-## License
+## Licencia
 
 [MIT License](./LICENSE)
