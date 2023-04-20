@@ -13,7 +13,7 @@ const handleClick = () => {
 
     updateSessionData(getLastItem(sessionDataList.value))
   } else {
-    currentSession.value?.type === 'text' ? getAiMessage() : getAiIamge()
+    currentSession.value?.type === 'text' ? getAiMessage() : getAiImage()
   }
 }
 </script>

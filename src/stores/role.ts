@@ -113,6 +113,25 @@ export const useRoleStore = defineStore(
       )[0]
     }
 
+    // 改变默认角色的信息（适配语言变更）
+    const changeDefaultRole = async () => {
+      const findDefaultRole = await selectSQL('role', [
+        { key: 'is_default', value: true }
+      ])
+
+      if (!findDefaultRole.length) return
+
+      const { t } = i18n.global
+
+      await updateSQL('role', {
+        ...findDefaultRole[0],
+        name: t('session.role.default.name'),
+        description: t('session.role.default.description')
+      })
+
+      if (currentRole.value?.is_default) changeCurrentRole()
+    }
+
     return {
       currentRole,
       roleList,
@@ -125,7 +144,8 @@ export const useRoleStore = defineStore(
       addRole,
       updateRole,
       deleteRole,
-      changeCurrentRole
+      changeCurrentRole,
+      changeDefaultRole
     }
   },
   {

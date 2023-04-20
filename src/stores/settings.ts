@@ -86,6 +86,8 @@ export const useSettingsStore = defineStore(
 
     // 语言切换
     const setLanguage = async (lang?: Locales) => {
+      const { changeDefaultRole } = useRoleStore()
+
       let systemLang = ((await invoke('get_user_language')) as string).split(
         '-'
       )[0] as Locales
@@ -95,6 +97,8 @@ export const useSettingsStore = defineStore(
       }
 
       locale.value = lang || currentLang.value || systemLang
+
+      changeDefaultRole()
     }
 
     onMounted(() => {
