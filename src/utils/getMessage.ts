@@ -134,7 +134,7 @@ export const getAiMessage = async (value?: string) => {
  * 获取 ai 作图
  * @param value 消息内容
  */
-export const getAiIamge = async (value?: string) => {
+export const getAiImage = async (value?: string) => {
   const key = getOpenAIKey()
   if (!key) return
 

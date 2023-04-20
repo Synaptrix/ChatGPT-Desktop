@@ -32,7 +32,7 @@
     "executeSQL": true,
     "generalKeys": true,
     "getActivePinia": true,
-    "getAiIamge": true,
+    "getAiImage": true,
     "getAiMessage": true,
     "getContributorsApi": true,
     "getCurrentInstance": true,

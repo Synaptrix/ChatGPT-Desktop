@@ -1,6 +1,11 @@
 import { appConfigDir } from '@tauri-apps/api/path'
 import Database from 'tauri-plugin-sql-api'
-import type { TableName, TablePayload, WherePayload } from '@/types'
+import type {
+  TableName,
+  TablePayload,
+  WherePayload,
+  RolePayload
+} from '@/types'
 
 const dbFile = import.meta.env.DEV ? 'sql.dev.db' : 'sql.db'
 const db = await Database.load(`sqlite:${await appConfigDir()}${dbFile}`)
@@ -134,16 +139,14 @@ export const insertSQL = async (
   tableName: TableName,
   payload: TablePayload
 ) => {
-  if (tableName === 'role') {
-    const findPayload = Object.keys(payload).reduce((result, key) => {
-      const newKey = key as keyof TablePayload
+  const { changeDefaultRole } = useRoleStore()
 
-      return result.concat({ key: newKey, value: payload[newKey] })
-    }, [] as WherePayload[])
+  if (tableName === 'role' && (payload as RolePayload).is_default) {
+    const findDefaultRole = await selectSQL('role', [
+      { key: 'is_default', value: true }
+    ])
 
-    const findRole = await selectSQL('role', findPayload)
-
-    if (findRole.length) return
+    if (findDefaultRole.length) return changeDefaultRole()
   }
 
   const insertKeys = [],

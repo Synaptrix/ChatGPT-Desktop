@@ -30,7 +30,7 @@ const onKeydown = (event: KeyboardEvent) => {
       popoverVisible.value = false
 
       if (currentSession.value?.type === 'text') getAiMessage(value)
-      else getAiIamge(value)
+      else getAiImage(value)
 
       textAreaElement.value?.blur()
       textAreaValue.value = ''
