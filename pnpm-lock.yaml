@@ -47,7 +47,7 @@ dependencies:
     specifier: ^3.1.0
     version: 3.1.0(pinia@2.0.33)
   tauri-plugin-autostart-api:
-    specifier: https://github.com/tauri-apps/tauri-plugin-autostart
+    specifier: github:tauri-apps/tauri-plugin-autostart
     version: github.com/tauri-apps/tauri-plugin-autostart/50054d953afbe78315142a98b810a429eaa9836a
   tauri-plugin-sql-api:
     specifier: https://github.com/tauri-apps/tauri-plugin-sql
