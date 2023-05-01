@@ -38,6 +38,7 @@ fn main() {
             window.unminimize().unwrap();
             window.set_focus().unwrap();
         }))
+        .plugin(tauri_plugin_window_state::Builder::default().build())
         .invoke_handler(tauri::generate_handler![
             commands::show_in_folder,
             commands::close_splashscreen,

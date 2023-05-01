@@ -22,17 +22,11 @@
       },
       "http": {
         "request": true,
-        "scope": [
-          "https://**",
-          "http://**"
-        ]
+        "scope": ["https://**", "http://**"]
       },
       "fs": {
         "all": true,
-        "scope": [
-          "$APPCONFIG/**",
-          "$DOWNLOAD/**"
-        ]
+        "scope": ["$APPCONFIG/**", "$DOWNLOAD/**"]
       }
     },
     "bundle": {
@@ -79,7 +73,7 @@
       {
         "label": "main",
         "fullscreen": false,
-        "resizable": false,
+        "resizable": true,
         "maximized": false,
         "title": "ChatGPT-Desktop",
         "decorations": false,

@@ -20,6 +20,7 @@ serde_json = "1.0"
 window-shadows = "0.2.1"
 tauri-plugin-single-instance = { git = "https://github.com/tauri-apps/plugins-workspace", branch = "dev" }
 current_locale = "0.1.1"
+tauri-plugin-window-state = { git = "https://github.com/tauri-apps/plugins-workspace", branch = "dev" }
 
 
 [dependencies.tauri-plugin-sql]
