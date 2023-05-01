@@ -29,7 +29,6 @@ export const useSessionStore = defineStore(
 
     // 获取会话列表
     const getSessionList = async () => {
-      // TODO: 优化 sql
       const sql =
         'SELECT session.*, role.name FROM session LEFT JOIN role ON role.id=session.role_id ORDER BY session.update_time DESC;'
 
@@ -155,7 +154,6 @@ export const useSessionStore = defineStore(
     const deleteSession = async (session = currentSession.value) => {
       if (!session || !session.id) return
 
-      // TODO: 优化 sql
       const sql1 = `DELETE FROM session_data WHERE session_id = '${session.id}';`
       const sql2 = `DELETE FROM session WHERE id = '${session.id}';`
 

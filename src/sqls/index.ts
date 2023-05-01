@@ -73,10 +73,7 @@ export const initSQL = async () => {
     CREATE TABLE IF NOT EXISTS credit (id INTEGER PRIMARY KEY AUTOINCREMENT, history_id INTEGER, token_cost INTEGER, api_key TEXT);
     `
   )
-  /*
-    TODO 设置成英语并重启后，可能会新建一个无法删除的默认角色？
-    解决方案：若切换语言时，修改原默认角色在数据库中的默认配置
-  */
+
   await insertSQL('role', {
     name: DEFAULT_ROLE.name,
     description: DEFAULT_ROLE.description,
