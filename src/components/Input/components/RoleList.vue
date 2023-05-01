@@ -102,7 +102,6 @@ const handleClose = () => {
 }
 </script>
 
-<!-- TODO: 优化代码 -->
 <template>
   <a-popover
     :title="$t('session.role.select')"

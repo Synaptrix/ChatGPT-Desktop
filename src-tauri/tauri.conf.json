@@ -80,7 +80,9 @@
         "transparent": true,
         "center": true,
         "alwaysOnTop": true,
-        "visible": false
+        "visible": false,
+        "minWidth": 800,
+        "minHeight": 600
       },
       {
         "width": 300,

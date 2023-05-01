@@ -53,7 +53,6 @@ watch([currentSession, sessionDataList], () => {
 </script>
 
 <template>
-  <!-- TODO: 拆分优化组件 -->
   <div
     ref="sessionElement"
     id="session-list"

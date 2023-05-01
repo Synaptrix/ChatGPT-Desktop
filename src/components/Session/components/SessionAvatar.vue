@@ -108,27 +108,32 @@ const calcToken = (data: SessionData) => {
       :cancel-text="$t('common.cancel')"
       v-if="currentRole"
     >
-      <!-- TODO 布局调整，英语的 label 对齐 -->
-      <div class="flex flex-col gap-3">
-        <div class="flex gap-2">
-          <span class="min-w-fit leading-[32px]">{{
-            $t('session.editRole.name')
-          }}</span>
-          <a-input v-model="currentRole.name" />
-        </div>
-        <div class="flex gap-2">
-          <span class="min-w-fit leading-[32px]">{{
-            $t('session.editRole.description')
-          }}</span>
-          <a-textarea
-            v-model="currentRole.description"
-            :auto-size="{
-              minRows: 1,
-              maxRows: 5
-            }"
-          />
-        </div>
-      </div>
+      <a-space direction="vertical" fill size="large">
+        <a-row>
+          <a-col :span="6">
+            <span class="leading-[32px]">
+              {{ $t('session.editRole.name') }}
+            </span>
+          </a-col>
+          <a-col :span="18"><a-input v-model="currentRole.name" /></a-col>
+        </a-row>
+        <a-row>
+          <a-col :span="6">
+            <span class="leading-[32px]">
+              {{ $t('session.editRole.description') }}
+            </span>
+          </a-col>
+          <a-col :span="18">
+            <a-textarea
+              v-model="currentRole.description"
+              :auto-size="{
+                minRows: 1,
+                maxRows: 5
+              }"
+            />
+          </a-col>
+        </a-row>
+      </a-space>
     </a-modal>
   </div>
 </template>
