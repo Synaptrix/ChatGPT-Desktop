@@ -1,12 +1,21 @@
 <script setup lang="ts">
+import { appWindow } from '@tauri-apps/api/window'
 const { isFix } = storeToRefs(useSettingsStore())
 
 const { windowClass } = useInit()
 
 const { t } = i18n.global
 
-const handleDoubleClick = () => {
+const handleDoubleClick = (event: MouseEvent) => {
+  event.preventDefault()
+
   isFix.value = !isFix.value
+}
+
+const handleMouseDown = () => {
+  requestAnimationFrame(() => {
+    appWindow.startDragging()
+  })
 }
 </script>
 
@@ -23,8 +32,8 @@ const handleDoubleClick = () => {
       <div
         class="z-999 transition-300 fixed left-1/2 top-2 h-3 w-80 -translate-x-1/2 cursor-move rounded-md opacity-0 hover:opacity-100"
         :class="isFix ? 'bg-gray' : 'bg-gray/50'"
-        data-tauri-drag-region
         @dblclick="handleDoubleClick"
+        @mousedown="handleMouseDown"
       ></div>
     </a-tooltip>
 

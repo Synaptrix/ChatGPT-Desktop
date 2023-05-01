@@ -1,6 +1,7 @@
 import { appWindow } from '@tauri-apps/api/window'
 import { type } from '@tauri-apps/api/os'
 import { invoke } from '@tauri-apps/api/tauri'
+import { saveWindowState, StateFlags } from 'tauri-plugin-window-state-api'
 
 export const useInit = () => {
   const windowClass = ref('')
@@ -12,7 +13,8 @@ export const useInit = () => {
 
     invoke('close_splashscreen')
 
-    resizeWindow()
+    // resizeWindow()
+    saveWindowState(StateFlags.ALL)
 
     useObserverLink()
 
@@ -28,7 +30,7 @@ export const useInit = () => {
 
     // 监听显示设备变化时，重置窗口位置到中间，以防止窗口位置偏移到屏幕外
     appWindow.onScaleChanged(() => {
-      resizeWindow()
+      // resizeWindow()
       appWindow.center()
     })
 

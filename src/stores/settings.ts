@@ -3,6 +3,11 @@ import { appWindow } from '@tauri-apps/api/window'
 import { enable, disable } from 'tauri-plugin-autostart-api'
 import { invoke } from '@tauri-apps/api/tauri'
 import { nanoid } from 'nanoid'
+import {
+  saveWindowState,
+  restoreStateCurrent,
+  StateFlags
+} from 'tauri-plugin-window-state-api'
 import type { ThemeMode, TokenUnit, Locales } from '@/types'
 
 export const useSettingsStore = defineStore(

@@ -45,13 +45,13 @@ export const hideWindow = async () => {
   }
 }
 
-export const resizeWindow = async () => {
-  const monitor = await currentMonitor()
+// export const resizeWindow = async () => {
+//   const monitor = await currentMonitor()
 
-  if (!monitor) return
+//   if (!monitor) return
 
-  const resizeHeight = Math.ceil(monitor.size.height * (600 / 1080))
-  const resizeWidth = Math.ceil(resizeHeight * 1.3)
+//   const resizeHeight = Math.ceil(monitor.size.height * (600 / 1080))
+//   const resizeWidth = Math.ceil(resizeHeight * 1.3)
 
-  appWindow.setSize(new PhysicalSize(resizeWidth, resizeHeight))
-}
+//   appWindow.setSize(new PhysicalSize(resizeWidth, resizeHeight))
+// }

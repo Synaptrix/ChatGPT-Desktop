@@ -38,6 +38,7 @@
     "tauri-plugin-autostart-api": "github:tauri-apps/tauri-plugin-autostart",
     "tauri-plugin-sql-api": "https://github.com/tauri-apps/tauri-plugin-sql",
     "tauri-plugin-store-api": "https://github.com/tauri-apps/tauri-plugin-store",
+    "tauri-plugin-window-state-api": "github:tauri-apps/tauri-plugin-window-state",
     "vue": "^3.2.45",
     "vue-i18n": "^9.2.2"
   },
