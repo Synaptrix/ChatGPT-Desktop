@@ -1,5 +1,35 @@
 
 
+## [1.0.2](https://github.com/Synaptrix/ChatGPT-Desktop/compare/v1.0.1...v1.0.2) (2023-05-01)
+
+
+### Bug Fixes
+
+* fixing typos and labels ([6f0e060](https://github.com/Synaptrix/ChatGPT-Desktop/commit/6f0e06014b73ddd2113f7d91d2b521f9967a2dbc))
+* only one default role exists ([#216](https://github.com/Synaptrix/ChatGPT-Desktop/issues/216)) ([028f1f9](https://github.com/Synaptrix/ChatGPT-Desktop/commit/028f1f99271a31bee5e8877ef5c8e65597735634))
+* word-break on the Latin script ([4e0f904](https://github.com/Synaptrix/ChatGPT-Desktop/commit/4e0f904efd37938a27190a3cba7553afb4ce69a0))
+
+
+### Features
+
+* add i18n locale support ([bb7adcf](https://github.com/Synaptrix/ChatGPT-Desktop/commit/bb7adcf02f68f58f26b41b99b2a3fbfc9d753937))
+* add latex support for markdown ([#215](https://github.com/Synaptrix/ChatGPT-Desktop/issues/215)) ([f7264b0](https://github.com/Synaptrix/ChatGPT-Desktop/commit/f7264b00082ac48754ac26feb84636c0a2dd15f8))
+* add spanish language icon ([#203](https://github.com/Synaptrix/ChatGPT-Desktop/issues/203)) ([298cb4f](https://github.com/Synaptrix/ChatGPT-Desktop/commit/298cb4f9b95fb0df8f1cbed7ea6268f8306db036))
+* extract all variables ([a1d921e](https://github.com/Synaptrix/ChatGPT-Desktop/commit/a1d921e4a168275ad063b8bf3c1599d453a6ec5c))
+* extract variables for history ([30c5c8c](https://github.com/Synaptrix/ChatGPT-Desktop/commit/30c5c8c14beb65f6fa6519f868c612df148e8e7f))
+* extract variables for setting ([125f705](https://github.com/Synaptrix/ChatGPT-Desktop/commit/125f705cfabf7f1cafe1911a9a3165e369f87baa))
+* get system language ([0fff8d6](https://github.com/Synaptrix/ChatGPT-Desktop/commit/0fff8d6587a930db76d9c4f12c003b75c55dc2b4))
+* include support for Spanish language ([8706b23](https://github.com/Synaptrix/ChatGPT-Desktop/commit/8706b2333807e39041f2eadfba53fb534aa88694))
+* language use radio selection ([540d9da](https://github.com/Synaptrix/ChatGPT-Desktop/commit/540d9da873e92ba8eb6ab78cd91f981af4833a49))
+* support for resizing windows ([9cc2228](https://github.com/Synaptrix/ChatGPT-Desktop/commit/9cc2228003a013abc1c3984e3fa097afa08e5991))
+* tweak the English translation a bit ([360e498](https://github.com/Synaptrix/ChatGPT-Desktop/commit/360e49897f186a29dca84953944998759e6938e2))
+* uniform change of unsupported languages to English ([65c6716](https://github.com/Synaptrix/ChatGPT-Desktop/commit/65c67169ec4d472918fe37aca57ac72e50f18c43))
+
+
+### Performance Improvements
+
+* **i18n:** update english translations ([2b97d1f](https://github.com/Synaptrix/ChatGPT-Desktop/commit/2b97d1fd6627b1c1bf4ef389a602b3df2ccbe188))
+
 ## [1.0.1](https://github.com/Synaptrix/ChatGPT-Desktop/compare/v1.0.0...v1.0.1) (2023-04-04)
 
 
