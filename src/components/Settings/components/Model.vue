@@ -93,7 +93,7 @@ watch(
         {{ usedCredit }} / {{ totalCredit }}
       </div> -->
       <div>{{ $t('setting.model.balanceTip') }}</div>
-      <i18n-t keypath="setting.model.aiModelTip" tag="label">
+      <i18n-t keypath="setting.model.aiModelTip" tag="label" scope="global">
         <span class="mark">gpt-3.5-turbo-0301</span>
       </i18n-t>
     </div>

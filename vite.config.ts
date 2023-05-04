@@ -14,7 +14,9 @@ import VueI18nPlugin from '@intlify/unplugin-vue-i18n/vite'
 export default defineConfig(async () => ({
   plugins: [
     vue(),
-    VueI18nPlugin({}),
+    VueI18nPlugin({
+      include: ['./src/locales/**']
+    }),
     Unocss({
       presets: [presetUno(), presetIcons(), presetAutoprefixer()],
       transformers: [

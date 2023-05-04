@@ -25,7 +25,7 @@ const { shortcutKeys } = storeToRefs(useSettingsStore())
     >
 
     <span>
-      <i18n-t keypath="session.empty.role" tag="label">
+      <i18n-t keypath="session.empty.role" tag="label" scope="global">
         <a-typography-text code>/</a-typography-text>
       </i18n-t>
     </span>

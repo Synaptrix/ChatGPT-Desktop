@@ -22,7 +22,7 @@ const triggerScroll = () => {
     <TokenUsage />
 
     <!-- 当前聊天角色对象 -->
-    <i18n-t keypath="session.chatWith" tag="div">
+    <i18n-t keypath="session.chatWith" tag="div" scope="global">
       <a-tooltip :content="t('session.chatTip')">
         <span class="mark cursor-pointer" @click="triggerScroll">
           {{ currentRole?.name }}

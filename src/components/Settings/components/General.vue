@@ -71,7 +71,12 @@ const relaunch = () => {
       <a-switch v-model="proxy.bypass" type="round"></a-switch>
 
       <span class="text-sm text-[var(--color-text-3)]" v-if="proxy.bypass">
-        <i18n-t keypath="setting.general.proxyTip" tag="label" for="restart">
+        <i18n-t
+          keypath="setting.general.proxyTip"
+          tag="label"
+          for="restart"
+          scope="global"
+        >
           <span class="mark cursor-pointer" @click="relaunch">{{
             $t('setting.general.restart')
           }}</span>
