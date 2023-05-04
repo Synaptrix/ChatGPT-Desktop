@@ -1,5 +1,12 @@
 
 
+## [1.0.3](https://github.com/Synaptrix/ChatGPT-Desktop/compare/v1.0.2...v1.0.3) (2023-05-04)
+
+
+### Bug Fixes
+
+* i18n files lost after building ([ccd9f04](https://github.com/Synaptrix/ChatGPT-Desktop/commit/ccd9f040f2b776e2d219ce8a1a257847cbfe62d4))
+
 ## [1.0.2](https://github.com/Synaptrix/ChatGPT-Desktop/compare/v1.0.1...v1.0.2) (2023-05-01)
 
 
