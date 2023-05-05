@@ -182,6 +182,7 @@ export const useSettingsStore = defineStore(
         'autoStart',
         'isMemory',
         'isRememberPosition',
+        'autoOpacity',
         'proxy',
         'modalParams',
         'isTokenUsage',
