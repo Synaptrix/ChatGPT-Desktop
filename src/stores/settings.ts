@@ -1,14 +1,9 @@
 import { register, unregisterAll } from '@tauri-apps/api/globalShortcut'
 import { appWindow } from '@tauri-apps/api/window'
-import { enable, disable } from 'tauri-plugin-autostart-api'
+import { disable, enable } from 'tauri-plugin-autostart-api'
 import { invoke } from '@tauri-apps/api/tauri'
 import { nanoid } from 'nanoid'
-import {
-  saveWindowState,
-  restoreStateCurrent,
-  StateFlags
-} from 'tauri-plugin-window-state-api'
-import type { ThemeMode, TokenUnit, Locales } from '@/types'
+import type { Locales, ThemeMode, TokenUnit } from '@/types'
 
 export const useSettingsStore = defineStore(
   'settingsStore',
@@ -44,6 +39,8 @@ export const useSettingsStore = defineStore(
 
     // 是否开启代理
     const proxy = reactive({ bypass: false, url: '' })
+
+    const autoOpacity = reactive({ state: false, value: 40, valueHover: 90 })
 
     // modal设置参数
     const modalParams = reactive({ temperature: 0.6, max_tokens: 2000 })
@@ -165,6 +162,7 @@ export const useSettingsStore = defineStore(
       isMemory,
       isRememberPosition,
       proxy,
+      autoOpacity,
       modalParams,
       isTokenUsage,
       tokenUnit,

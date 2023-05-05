@@ -4,6 +4,8 @@
   "version": "1.0.3",
   "type": "module",
   "scripts": {
+    "start": "npm run tauri dev",
+    "package": "npm run tauri build",
     "dev": "npm run build:icon && vite",
     "build": "npm run build:icon && vite build",
     "build:icon": "tauri icon ./src-tauri/assets/icon.png",

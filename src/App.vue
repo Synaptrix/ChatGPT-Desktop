@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { appWindow } from '@tauri-apps/api/window'
-const { isFix } = storeToRefs(useSettingsStore())
+
+const { isFix, autoOpacity } = storeToRefs(useSettingsStore())
 
 const { windowClass } = useInit()
 
@@ -17,12 +18,15 @@ const handleMouseDown = () => {
     appWindow.startDragging()
   })
 }
+
+const opacityHoverValue = computed(() => autoOpacity.value.valueHover / 100)
 </script>
 
 <template>
   <div
     class="frosted flex h-screen flex-col overflow-hidden p-2"
-    :class="[windowClass]"
+    :class="autoOpacity.state ? 'auto-opacity ' + [windowClass] : [windowClass]"
+    :style="autoOpacity.state ? { opacity: autoOpacity.value / 100 } : null"
   >
     <a-tooltip
       :content="
@@ -54,3 +58,14 @@ const handleMouseDown = () => {
     <Update />
   </div>
 </template>
+
+<style>
+.auto-opacity {
+  transition: opacity 0.3s ease-in-out;
+}
+
+.auto-opacity:hover {
+  opacity: v-bind(opacityHoverValue) !important;
+  transition: opacity 0.3s ease-in-out;
+}
+</style>
