@@ -35,6 +35,7 @@ export interface SessionData {
   message_type: MessageType
   message: MessageData
   time?: string
+  model?: string
 }
 
 export interface SessionPayload {
@@ -45,6 +46,7 @@ export interface SessionPayload {
   name?: string
   type: MessageType
   isEdit?: boolean
+  model?: string
 }
 
 export interface RolePayload {

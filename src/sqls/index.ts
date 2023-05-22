@@ -91,6 +91,11 @@ export const initSQL = async () => {
     `ALTER TABLE session ADD COLUMN type TEXT DEFAULT 'text';`,
     true
   )
+  // 3. 2023-05-21 在 session_data 表中添加 model 列，记录对话的模型
+  await executeSQL(
+    `ALTER TABLE session_data ADD COLUMN model TEXT DEFAULT 'gpt-3.5-turbo';`,
+    true
+  )
 }
 
 /**

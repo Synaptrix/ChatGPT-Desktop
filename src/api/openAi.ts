@@ -40,7 +40,9 @@ export const getOpenAIResultStreamApi = async (messages: MessageData[]) => {
   if (!apiKey) return
 
   const { updateSessionData } = useSessionStore()
-  const { sessionDataList, chatController } = storeToRefs(useSessionStore())
+  const { currentSession, sessionDataList, chatController } = storeToRefs(
+    useSessionStore()
+  )
   const {
     proxy: { bypass, url: proxyURL },
     modalParams: { temperature, max_tokens }
@@ -61,7 +63,7 @@ export const getOpenAIResultStreamApi = async (messages: MessageData[]) => {
   await fetchEventSource(url, {
     method: 'POST',
     body: JSON.stringify({
-      model: OPEN_AI_MODEL,
+      model: currentSession.value?.model || 'gpt-3.5-turbo',
       messages,
       temperature,
       max_tokens,
