@@ -74,9 +74,21 @@ watch([currentSession, sessionDataList], () => {
           class="relative flex w-[calc(100%-8rem)] flex-col gap-2"
           :class="item.is_ask && 'items-end'"
         >
-          <span class="text-xs text-[var(--color-text-2)]" v-if="showTime">
-            {{ getLocalTime(item.time!) }}
-          </span>
+          <div
+            class="flex flex-row gap-4"
+            :class="item.is_ask && 'flex-row-reverse'"
+          >
+            <span class="text-xs text-[var(--color-text-2)]" v-if="showTime">
+              {{ getLocalTime(item.time!) }}
+            </span>
+
+            <span
+              class="text-xs text-[var(--color-text-2)]"
+              v-if="currentSession?.type === 'text'"
+            >
+              {{ item.model! }}
+            </span>
+          </div>
 
           <div
             class="blink-block"

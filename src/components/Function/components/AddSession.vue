@@ -4,6 +4,18 @@ import type { MessageType } from '@/types'
 const sessionStore = useSessionStore()
 const { switchSession } = sessionStore
 const { isThinking, currentSession, imageParams } = storeToRefs(sessionStore)
+const models: string[] = [
+  'gpt-3.5-turbo',
+  'gpt-3.5-turbo-0301',
+  'gpt-4',
+  'gpt-4-0314',
+  'gpt-4-32k',
+  'gpt-4-32k-0314'
+]
+
+const changeModel = async (value: string | any) => {
+  currentSession.value!.model = value
+}
 
 const handleSelect = async (value: MessageType | any) => {
   await switchSession()
@@ -44,6 +56,27 @@ const handleSelect = async (value: MessageType | any) => {
       </div>
     </template>
   </a-popover>
+
+  <a-dropdown
+    v-if="currentSession?.type === 'text'"
+    trigger="hover"
+    @select="changeModel"
+  >
+    <a-button type="text" :disabled="isThinking">
+      <template #icon>
+        <icon-bulb />
+      </template>
+    </a-button>
+    <template #content>
+      <a-doption
+        v-for="(model, index) in models"
+        :key="index"
+        :value="model"
+        :class="currentSession.model === model ? 'text-red' : 'text-default'"
+        >{{ model }}</a-doption
+      >
+    </template>
+  </a-dropdown>
 
   <a-dropdown trigger="hover" @select="handleSelect">
     <a-button type="text" :disabled="isThinking">

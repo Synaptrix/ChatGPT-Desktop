@@ -60,7 +60,8 @@ export const useSessionStore = defineStore(
         id: nanoid(),
         title: '',
         role_id: defaultRole.id,
-        type: currentSession.value?.type || 'text'
+        type: currentSession.value?.type || 'text',
+        model: currentSession.value?.model || 'gpt-3.5-turbo'
       }
     }
 
@@ -102,7 +103,8 @@ export const useSessionStore = defineStore(
           is_ask: isAsk,
           is_memory: isMemory,
           message: data,
-          message_type: 'text'
+          message_type: 'text',
+          model: currentSession.value.model
         })
       } else if (messageType === 'image') {
         await insertSQL('session_data', {
@@ -143,6 +145,7 @@ export const useSessionStore = defineStore(
       const newPayload = { ...payload }
       delete newPayload.name
       delete newPayload.isEdit
+      delete newPayload.model
 
       await updateSQL('session', {
         ...newPayload,
@@ -182,6 +185,7 @@ export const useSessionStore = defineStore(
       else {
         // !!!添加了新的字段后，旧的session可能不存在type字段，需要处理一下
         if (!session?.type) session.type = 'text'
+        if (!session?.model) session.model = 'gpt-3.5-turbo'
         currentSession.value = session
       }
 
