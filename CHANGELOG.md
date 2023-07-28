@@ -1,5 +1,7 @@
 
 
+## [1.0.4](https://github.com/Synaptrix/ChatGPT-Desktop/compare/v1.0.3...v1.0.4) (2023-07-28)
+
 ## [1.0.3](https://github.com/Synaptrix/ChatGPT-Desktop/compare/v1.0.2...v1.0.3) (2023-05-04)
 
 
