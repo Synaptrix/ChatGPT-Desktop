@@ -69,7 +69,10 @@
       "proxyTip": "代理信息变化后，请点击{0}确保正常工作",
       "restart": "重启",
       "proxyAddress": "代理地址",
-      "example": "示例"
+      "example": "示例",
+      "autoOpacity": "自动透明",
+      "opacity": "透明度",
+      "opacityHover": "鼠标聚焦时透明度"
     },
     "model": {
       "showTime": "显示对话时间",

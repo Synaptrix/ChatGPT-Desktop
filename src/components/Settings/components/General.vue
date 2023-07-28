@@ -1,8 +1,14 @@
 <script setup lang="ts">
 const settingsStore = useSettingsStore()
 const { toggleTheme, setLanguage } = settingsStore
-const { themeMode, autoStart, isRememberPosition, proxy, currentLang } =
-  storeToRefs(settingsStore)
+const {
+  themeMode,
+  autoStart,
+  isRememberPosition,
+  proxy,
+  currentLang,
+  autoOpacity
+} = storeToRefs(settingsStore)
 
 const relaunch = () => {
   window.location.reload()
@@ -67,9 +73,22 @@ const relaunch = () => {
     </li>
 
     <li>
+      <i>{{ $t('setting.general.autoOpacity') }}:</i>
+      <a-switch v-model="autoOpacity.state" type="round"></a-switch>
+    </li>
+
+    <li v-if="autoOpacity.state">
+      <i>{{ $t('setting.general.opacity') }}:</i>
+      <a-slider v-model="autoOpacity.value" class="pr-2"></a-slider>
+    </li>
+    <li v-if="autoOpacity.state">
+      <i>{{ $t('setting.general.opacityHover') }}:</i>
+      <a-slider v-model="autoOpacity.valueHover" class="pr-2"></a-slider>
+    </li>
+
+    <li>
       <i>{{ $t('setting.general.proxy') }}:</i>
       <a-switch v-model="proxy.bypass" type="round"></a-switch>
-
       <span class="text-sm text-[var(--color-text-3)]" v-if="proxy.bypass">
         <i18n-t
           keypath="setting.general.proxyTip"
